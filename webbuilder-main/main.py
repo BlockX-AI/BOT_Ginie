@@ -1375,6 +1375,9 @@ async def ws_status_listener(websocket: WebSocket, id: str):
     await websocket.accept()
     print(f"Status WebSocket connected for chat {id}")
     
+    # Register in active_sockets so agent can send messages
+    active_sockets[id] = websocket
+    
     # Heartbeat task
     async def heartbeat_task():
         try:
@@ -1457,6 +1460,8 @@ async def ws_status_listener(websocket: WebSocket, id: str):
     except WebSocketDisconnect:
         print(f"Status WebSocket disconnected for {id}")
     finally:
+        # Clean up
+        active_sockets.pop(id, None)
         heartbeat.cancel()
         try:
             await heartbeat
