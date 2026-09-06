@@ -1429,17 +1429,30 @@ async def ws_status_listener(websocket: WebSocket, id: str):
     try:
         while True:
             try:
-                data = await asyncio.wait_for(websocket.receive_json(), timeout=3600.0)
+                message = await asyncio.wait_for(websocket.receive(), timeout=3600.0)
+                
+                # Handle different message types
+                if message["type"] == "websocket.disconnect":
+                    print(f"Status WebSocket disconnect message for {id}")
+                    break
+                elif message["type"] == "websocket.receive":
+                    # Check if it's a text message with JSON
+                    if "text" in message:
+                        try:
+                            data = json.loads(message["text"])
+                            # Handle incoming messages if needed
+                            if data.get("type") == "ping":
+                                await websocket.send_json({"type": "pong"})
+                        except json.JSONDecodeError:
+                            print(f"Received non-JSON text message: {message.get('text', '')[:100]}")
+                    # Ignore bytes messages (ping/pong frames handled by uvicorn)
+                    
             except asyncio.TimeoutError:
                 print(f"Status WebSocket timeout for {id}")
                 break
             except RuntimeError as e:
                 print(f"Status WebSocket receive error for {id}: {e}")
                 break
-            
-            # Handle incoming messages if needed
-            if data.get("type") == "ping":
-                await websocket.send_json({"type": "pong"})
                 
     except WebSocketDisconnect:
         print(f"Status WebSocket disconnected for {id}")
