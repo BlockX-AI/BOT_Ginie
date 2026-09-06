@@ -1365,3 +1365,87 @@ async def ws_listener(websocket: WebSocket, id: str, token: str = None):
             if task and not task.done():
                 print(f"Agent task for {id} continues running after WebSocket disconnect")
                 # Task will clean itself up from active_runs when complete
+
+
+@app.websocket("/ws/status/{id}")
+async def ws_status_listener(websocket: WebSocket, id: str):
+    """WebSocket endpoint for demo chat status updates (no authentication required)"""
+    
+    # Accept connection immediately for demo chats
+    await websocket.accept()
+    print(f"Status WebSocket connected for chat {id}")
+    
+    # Heartbeat task
+    async def heartbeat_task():
+        try:
+            while True:
+                await asyncio.sleep(30)
+                await websocket.send_json({
+                    "e": "heartbeat",
+                    "timestamp": datetime.now(timezone.utc).isoformat()
+                })
+        except Exception as e:
+            print(f"Status heartbeat stopped for {id}: {e}")
+    
+    heartbeat = asyncio.create_task(heartbeat_task())
+    
+    # Send message history on connect
+    try:
+        async for db in get_db():
+            chat_result = await db.execute(select(Chat).where(Chat.id == id))
+            chat = chat_result.scalar_one_or_none()
+            
+            if not chat:
+                await websocket.send_json({"e": "error", "message": "Chat not found"})
+                await websocket.close()
+                return
+            
+            result = await db.execute(
+                select(Message)
+                .where(Message.chat_id == id)
+                .order_by(Message.created_at)
+            )
+            messages = result.scalars().all()
+            
+            await websocket.send_json({
+                "type": "history",
+                "messages": [
+                    {
+                        "id": msg.id,
+                        "role": msg.role,
+                        "content": msg.content,
+                        "event_type": msg.event_type,
+                        "created_at": msg.created_at.isoformat(),
+                        "tool_calls": msg.tool_calls if hasattr(msg, 'tool_calls') else None
+                    }
+                    for msg in messages
+                ],
+                "app_url": chat.app_url if chat else None
+            })
+            break
+    except Exception as e:
+        print(f"Error sending status history: {e}")
+    
+    try:
+        while True:
+            try:
+                data = await asyncio.wait_for(websocket.receive_json(), timeout=3600.0)
+            except asyncio.TimeoutError:
+                print(f"Status WebSocket timeout for {id}")
+                break
+            except RuntimeError as e:
+                print(f"Status WebSocket receive error for {id}: {e}")
+                break
+            
+            # Handle incoming messages if needed
+            if data.get("type") == "ping":
+                await websocket.send_json({"type": "pong"})
+                
+    except WebSocketDisconnect:
+        print(f"Status WebSocket disconnected for {id}")
+    finally:
+        heartbeat.cancel()
+        try:
+            await heartbeat
+        except asyncio.CancelledError:
+            pass
