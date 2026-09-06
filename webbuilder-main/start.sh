@@ -12,9 +12,11 @@ else
 fi
 
 # Run database migrations if alembic exists (non-fatal)
-if [ -d "/app/webbuilder-main/alembic" ] || [ -d "/app/alembic" ]; then
+if [ -d "/app/alembic" ]; then
     echo "📊 Running database migrations..."
-    cd /app/webbuilder-main 2>/dev/null || cd /app
+    cd /app
+    echo "Current directory: $(pwd)"
+    echo "Alembic directory exists: $(ls -la alembic 2>&1 | head -5)"
     if python -m alembic upgrade head; then
         echo "✅ Migrations complete!"
     else
@@ -22,9 +24,13 @@ if [ -d "/app/webbuilder-main/alembic" ] || [ -d "/app/alembic" ]; then
         echo "   The app will try to connect to the database directly"
     fi
 else
-    echo "⚠️  No alembic directory found, skipping migrations"
+    echo "⚠️  No alembic directory found at /app/alembic"
+    echo "Directory contents: $(ls -la /app | head -10)"
 fi
 
 # Start the application
 echo "🌐 Starting FastAPI server on port ${PORT:-8000}..."
+cd /app
+echo "Working directory for uvicorn: $(pwd)"
+echo "main.py exists: $(test -f main.py && echo 'yes' || echo 'no')"
 exec python -m uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
