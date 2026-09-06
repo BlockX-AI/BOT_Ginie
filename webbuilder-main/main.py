@@ -251,14 +251,18 @@ async def create_demo_project(
             {"error": "Project is being created. Kindly wait"}, status_code=400
         )
 
-    new_chat = Chat(
-        id=chat_id,
-        user_id=None,  # No user for demo
-        title=prompt[:100] if len(prompt) > 100 else prompt,
-    )
-
-    db.add(new_chat)
-    await db.commit()
+    # Try to create chat record, but don't fail if DB migration hasn't run yet
+    try:
+        new_chat = Chat(
+            id=chat_id,
+            user_id=None,  # No user for demo
+            title=prompt[:100] if len(prompt) > 100 else prompt,
+        )
+        db.add(new_chat)
+        await db.commit()
+    except Exception as e:
+        print(f"Warning: Could not save chat to database (migration may be pending): {e}")
+        # Continue anyway - the agent can still run without DB record
 
     async def agent_task():
         try:
