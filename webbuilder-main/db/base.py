@@ -7,6 +7,10 @@ DATABASE_URL = os.getenv(
     "DATABASE_URL", "sqlite+aiosqlite:///./webbuilder.db"
 )
 
+# Railway provides postgresql:// but SQLAlchemy async needs postgresql+asyncpg://
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
+
 # Check if using SQLite
 _is_sqlite = DATABASE_URL.startswith("sqlite")
 
