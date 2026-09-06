@@ -12,9 +12,10 @@ else
 fi
 
 # Run database migrations if alembic exists (non-fatal)
-if [ -d "/app/alembic" ]; then
+if [ -d "/app/webbuilder-main/alembic" ] || [ -d "/app/alembic" ]; then
     echo "📊 Running database migrations..."
-    if alembic upgrade head; then
+    cd /app/webbuilder-main 2>/dev/null || cd /app
+    if python -m alembic upgrade head; then
         echo "✅ Migrations complete!"
     else
         echo "⚠️  Migrations failed, but continuing anyway..."
