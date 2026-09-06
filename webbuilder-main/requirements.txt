@@ -1,3 +1,4 @@
+aiosqlite>=0.20.0
 alembic>=1.14.0
 asyncpg>=0.30.0
 black>=25.9.0

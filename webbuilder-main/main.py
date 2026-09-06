@@ -18,7 +18,7 @@ from routes.download import router as download_router
 from db.models import User, Chat, Message
 from auth.dependencies import get_current_user
 from sqlalchemy.ext.asyncio import AsyncSession
-from db.base import get_db
+from db.base import get_db, engine, Base
 import uuid
 import re
 
@@ -53,6 +53,22 @@ app.add_middleware(
 
 app.include_router(router=router)
 app.include_router(router=download_router)
+
+
+@app.on_event("startup")
+async def create_tables_on_startup():
+    """Create all database tables on startup if they don't exist.
+
+    This runs regardless of the deployment start command, so tables are
+    always initialized even if migrations/scripts are skipped by the platform.
+    """
+    try:
+        print("🔧 Ensuring database tables exist...")
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        print("✅ Database tables are ready!")
+    except Exception as e:
+        print(f"⚠️  Could not create tables on startup: {e}")
 
 active_sockets: dict[str, WebSocket] = {}
 active_runs: dict[str, asyncio.Task] = {}
