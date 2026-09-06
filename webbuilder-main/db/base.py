@@ -2,14 +2,24 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.orm import DeclarativeBase
 from typing import AsyncGenerator
 import os
+import logging
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL", "sqlite+aiosqlite:///./webbuilder.db"
-)
+logger = logging.getLogger(__name__)
 
-# Railway provides postgresql:// but SQLAlchemy async needs postgresql+asyncpg://
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+
+# Fallback to SQLite if DATABASE_URL is empty or unresolved (e.g. literal "${{...}}")
+if not DATABASE_URL or DATABASE_URL.startswith("${{"):
+    logger.warning("DATABASE_URL not set or unresolved, falling back to SQLite")
+    DATABASE_URL = "sqlite+aiosqlite:///./webbuilder.db"
+
+# Railway provides postgresql:// or postgres:// but SQLAlchemy async needs postgresql+asyncpg://
 if DATABASE_URL.startswith("postgresql://"):
     DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
+elif DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+asyncpg://", 1)
+
+logger.info(f"Using database URL (masked): {DATABASE_URL.split('@')[0].split(':')[0]}:***@{DATABASE_URL.split('@')[-1] if '@' in DATABASE_URL else 'local'}")
 
 # Check if using SQLite
 _is_sqlite = DATABASE_URL.startswith("sqlite")
