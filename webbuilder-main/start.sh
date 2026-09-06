@@ -20,12 +20,21 @@ if [ -d "/app/alembic" ]; then
     if python -m alembic upgrade head; then
         echo "✅ Migrations complete!"
     else
-        echo "⚠️  Migrations failed, but continuing anyway..."
-        echo "   The app will try to connect to the database directly"
+        echo "⚠️  Alembic migrations failed, trying direct table creation..."
+        if python create_tables.py; then
+            echo "✅ Tables created successfully via direct method!"
+        else
+            echo "❌ Failed to create tables, but continuing anyway..."
+            echo "   The app will try to connect to the database directly"
+        fi
     fi
 else
-    echo "⚠️  No alembic directory found at /app/alembic"
-    echo "Directory contents: $(ls -la /app | head -10)"
+    echo "⚠️  No alembic directory found, using direct table creation..."
+    if python create_tables.py; then
+        echo "✅ Tables created successfully!"
+    else
+        echo "❌ Failed to create tables"
+    fi
 fi
 
 # Start the application
