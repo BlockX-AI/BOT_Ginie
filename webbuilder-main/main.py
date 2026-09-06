@@ -229,6 +229,60 @@ async def create_project(
     }
 
 
+@app.post("/demo/chat")
+async def create_demo_project(
+    payload: ChatPayload,
+    db: AsyncSession = Depends(get_db),
+):
+    """Public demo endpoint that doesn't require authentication"""
+    import uuid
+    
+    # Generate UUID on backend
+    chat_id = str(uuid.uuid4())
+
+    prompt = payload.prompt
+    model = payload.model  # Get selected model from payload
+
+    if not prompt:
+        return JSONResponse({"error": "Too short or no description"}, status_code=400)
+
+    if chat_id in active_runs:
+        return JSONResponse(
+            {"error": "Project is being created. Kindly wait"}, status_code=400
+        )
+
+    new_chat = Chat(
+        id=chat_id,
+        user_id=None,  # No user for demo
+        title=prompt[:100] if len(prompt) > 100 else prompt,
+    )
+
+    db.add(new_chat)
+    await db.commit()
+
+    async def agent_task():
+        try:
+            while chat_id not in active_sockets:
+                await asyncio.sleep(0.2)
+            socket = active_sockets[chat_id]
+            await agent_service.run_agent_stream(prompt=prompt, id=chat_id, socket=socket, model=model)
+        except Exception as e:
+            print(f"Error in agent task for project {chat_id}: {e}")
+            print(f"Error type: {type(e)}")
+            import traceback
+
+            traceback.print_exc()
+        finally:
+            active_runs.pop(chat_id, None)
+
+    active_runs[chat_id] = asyncio.create_task(agent_task())
+    return {
+        "status": "success",
+        "message": f"Agent started for project {chat_id}. Connect via WebSocket to see progress.",
+        "chat_id": chat_id,
+    }
+
+
 @app.get("/projects/{id}/files")
 async def get_project_files(id: str, db: AsyncSession = Depends(get_db)):
     sandbox = agent_service.sandboxes.get(id)
