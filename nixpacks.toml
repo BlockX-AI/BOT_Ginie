@@ -1,0 +1,12 @@
+# Nixpacks configuration for WebBuilder (Python service)
+[phases.setup]
+nixPkgs = ["python3", "postgresql_16.dev", "gcc"]
+
+[phases.install]
+cmds = ["python -m venv --copies /opt/venv && . /opt/venv/bin/activate && pip install -r requirements.txt"]
+
+[phases.build]
+cmds = []
+
+[start]
+cmd = "cd webbuilder-main && uvicorn main:app --host 0.0.0.0 --port $PORT"

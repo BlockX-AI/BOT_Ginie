@@ -12,6 +12,7 @@
     "deploy:basecamp": "hardhat run scripts/deploy.js --network basecamp",
     "deploy:camp-testnet:erc20": "hardhat run scripts/deploy-erc20.js --network camp-testnet",
     "start": "node api/server.js",
+    "start:railway": "node api/server.js",
     "start:3001": "PORT=3001 node api/server.js",
     "test:api": "node scripts/test-api.js",
     "retrieve:contract": "node scripts/retrieve-blockscout.js",
