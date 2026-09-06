@@ -1,0 +1,256 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1759511924372,
+    "updatedAt": 1759512130927,
+    "payload": {
+      "prompt": "I need two Solidity smart contracts that work together for an INR-backed token and a Uniswap v4 hook for UPI withdrawals.\nIndian Rupee Token (INRT)\nIt’s an ERC-20 token named “Indian Rupee Token” with symbol “INRT”.\nIt represents rupees backed 1:1 by real bank deposits.\nOnly the owner can mint tokens after confirming a bank deposit, and each mint is tied to a unique bankTxIdso the same deposit can’t be counted twice.\nWhen users withdraw to a UPI bank account, tokens must be burned.\nThe burn can be triggered either by the owner or by a separate Hook contract that we’ll build.\nKeep a running total of the real INR reserves in totalBankReserves.\nIncrease reserves on mint, decrease on burn.\nTrack every withdrawal request in a struct containing the user’s address, amount, UPI ID, timestamp, and a processed flag.\nEmit events whenever tokens are minted, burned, or a withdrawal is requested, so the backend can listen to them.\nInclude pausable transfers for emergencies.\nOwner should be able to pause/unpause, authorize or revoke the hook contract, and mark a withdrawal as processed after the INR is actually paid out.\nAdd view functions to check a withdrawal’s details, whether a bankTxId has been processed, and a backing-ratio view that reports totalBankReserves ÷ totalSupply.\nCryptoUPIHook\nThis is a Uniswap v4 BaseHook contract.\nIt is attached to the USDT/INRT liquidity pool.\nWhenever someone swaps USDT → INRT and passes extra hook-data with a requestId and their upiId, the hook should:\nDecode those two fields.\nCheck the request hasn’t already been handled.\nWork out how many INRT tokens were received in the swap.\nEmit a WithdrawalRequested event including requestId, user address, amount of INRT, and their UPI ID.\nThe hook itself doesn’t transfer or burn tokens during the swap — it just logs the intent.\nLater, an owner-only function processWithdrawal() lets the operator call into the INRT contract’s burnForWithdrawal() to actually burn the INRT tokens for that user.\nTrack which requestIds have already been processed to avoid duplicates.\nInclude a helper to ABI-encode the (requestId, upiId) pair for clients.\nExpose a small view to return whether the pool is initialised, which token is USDT, and the poolId.\nCommon details for both contracts\nSPDX license should be MIT.\nUse Solidity ^0.8.26.\nUse OpenZeppelin v5 for ERC20, Ownable, and Pausable.\nKeep the code clear, well-commented, and follow good require-message and event-naming practice.\nDon’t add any features that aren’t described above.",
+      "network": "base-sepolia",
+      "maxIters": 3,
+      "providedName": "INRT",
+      "filename": "INRTAndCryptoUPIHook.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1759511924372
+      },
+      {
+        "step": "generate",
+        "t": 1759511924373
+      },
+      {
+        "step": "write",
+        "t": 1759512070045
+      },
+      {
+        "step": "compile",
+        "t": 1759512070045
+      },
+      {
+        "step": "fix",
+        "t": 1759512070844
+      },
+      {
+        "step": "deploy_script",
+        "t": 1759512125244
+      },
+      {
+        "step": "deploy",
+        "t": 1759512125245
+      }
+    ],
+    "timings": {
+      "startedAt": 1759511924372,
+      "endedAt": 1759512130927,
+      "phases": {
+        "init": {
+          "startedAt": 1759511924372,
+          "endedAt": 1759511924373
+        },
+        "generate": {
+          "startedAt": 1759511924373,
+          "endedAt": 1759512070045
+        },
+        "write": {
+          "startedAt": 1759512070045,
+          "endedAt": 1759512070045
+        },
+        "compile": {
+          "startedAt": 1759512070045,
+          "endedAt": 1759512070844
+        },
+        "fix": {
+          "startedAt": 1759512070844,
+          "endedAt": 1759512125244
+        },
+        "deploy_script": {
+          "startedAt": 1759512125244,
+          "endedAt": 1759512125245
+        },
+        "deploy": {
+          "startedAt": 1759512125245,
+          "endedAt": 1759512130927
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp-testnet",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "INRT",
+      "fqName": "contracts/AI_ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c_INRTAndCryptoUPIHook.sol:INRT",
+      "address": "0xe523fc1cc80A6EF2f643895b556cf43A1f1bCF60",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1759511924373,
+        "level": "info",
+        "msg": "Pipeline started. Network=base-sepolia, maxIters=3, file=INRTAndCryptoUPIHook.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1759511924373,
+        "level": "debug",
+        "msg": "config: maxIters=3 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1759511924373,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1759511924374,
+        "level": "debug",
+        "msg": "Enhanced prompt length=3688"
+      },
+      {
+        "i": 5,
+        "t": 1759512070044,
+        "level": "debug",
+        "msg": "generate_ai_response_len=12275 ai_ms=145670"
+      },
+      {
+        "i": 6,
+        "t": 1759512070045,
+        "level": "info",
+        "msg": "Generation done in 145672ms. Code size=12379"
+      },
+      {
+        "i": 7,
+        "t": 1759512070045,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1759512070045,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1759512070812,
+        "level": "error",
+        "msg": "Error HH411: The library @openzeppelin/contracts@4.9.3, imported from contracts/AI_ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c_INRTAndCryptoUPIHook.sol, is not installed. Try installing it using npm.\n"
+      },
+      {
+        "i": 10,
+        "t": 1759512070813,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 11,
+        "t": 1759512070814,
+        "level": "error",
+        "msg": "HardhatError: HH411: The library @openzeppelin/contracts@4.9.3, imported from contracts/AI_ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c_INRTAndCryptoUPIHook.sol, is not installed. Try installing it using npm.\n    at Resolver.resolveImport (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:254:15)\n    at /app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:188:28\n    at async Promise.all (index 0)\n    at DependencyGraph._addDependenciesFrom (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:186:5)\n    at async Promise.all (index 0)\n    at Function.createFromResolvedFiles (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:15:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1398:58)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n\n    Caused by: HardhatError: HH401: Library @openzeppelin/contracts@4.9.3 is not installed.\n        at Resolver._resolveLibrarySourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:322:15)\n        at Resolver.resolveSourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:103:33)\n        at Resolver.resolveImport (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:194:24)\n        at /app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:188:28\n        at async Promise.all (index 0)\n        at DependencyGraph._addDependenciesFrom (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:186:5)\n        at async Promise.all (index 0)\n        at Function.createFromResolvedFiles (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:15:5)\n        at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n        at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    \n        Caused by: Error: Cannot find module '@openzeppelin/contracts@4.9.3/package.json' from '/app/tmp/jobs/ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c'\n            at Function.resolveSync [as sync] (/app/node_modules/resolve/lib/sync.js:89:15)\n            at Resolver._resolveNodeModulesFileFromProjectRoot (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:457:20)\n            at Resolver._resolveLibrarySourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:311:30)\n            at Resolver.resolveSourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:103:33)\n            at Resolver.resolveImport (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:194:24)\n            at /app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:188:28\n            at async Promise.all (index 0)\n            at DependencyGraph._addDependenciesFrom (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:186:5)\n            at async Promise.all (index 0)\n            at Function.createFromResolvedFiles (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:15:5)\n"
+      },
+      {
+        "i": 12,
+        "t": 1759512070844,
+        "level": "debug",
+        "msg": "iter 1/3: compile failed in 799ms"
+      },
+      {
+        "i": 13,
+        "t": 1759512070844,
+        "level": "warn",
+        "msg": "Compile failed (iter 0). Running AI fix. Error length=3523"
+      },
+      {
+        "i": 14,
+        "t": 1759512070845,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=16644"
+      },
+      {
+        "i": 15,
+        "t": 1759512121014,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12370 ai_ms=50169"
+      },
+      {
+        "i": 16,
+        "t": 1759512125166,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c_INRTAndCryptoUPIHook.sol\n\n\n"
+      },
+      {
+        "i": 17,
+        "t": 1759512125194,
+        "level": "info",
+        "msg": "Compiled 7 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 18,
+        "t": 1759512125243,
+        "level": "debug",
+        "msg": "iter 2/3: compile ok in 4229ms"
+      },
+      {
+        "i": 19,
+        "t": 1759512125243,
+        "level": "info",
+        "msg": "Compile success after 1 fix iterations."
+      },
+      {
+        "i": 20,
+        "t": 1759512125244,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: INRT"
+      },
+      {
+        "i": 21,
+        "t": 1759512125244,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract INRT"
+      },
+      {
+        "i": 22,
+        "t": 1759512125244,
+        "level": "info",
+        "msg": "Contract chosen for deploy: INRT"
+      },
+      {
+        "i": 23,
+        "t": 1759512125245,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp-testnet"
+      },
+      {
+        "i": 24,
+        "t": 1759512130875,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp-testnet\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"INRT\",\"fqName\":\"contracts/AI_ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c_INRTAndCryptoUPIHook.sol:INRT\",\"address\":\"0xe523fc1cc80A6EF2f643895b556cf43A1f1bCF60\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 25,
+        "t": 1759512130927,
+        "level": "info",
+        "msg": "Deploy success. Address=0xe523fc1cc80A6EF2f643895b556cf43A1f1bCF60"
+      }
+    ],
+    "_logIndex": 25,
+    "logsCount": 25,
+    "lastLogTs": 1759512130927,
+    "lastErrors": "Error HH411: The library @openzeppelin/contracts@4.9.3, imported from contracts/AI_ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c_INRTAndCryptoUPIHook.sol, is not installed. Try installing it using npm.\nHardhatError: HH411: The library @openzeppelin/contracts@4.9.3, imported from contracts/AI_ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c_INRTAndCryptoUPIHook.sol, is not installed. Try installing it using npm.\n    at Resolver.resolveImport (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:254:15)\n    at /app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:188:28\n    at async Promise.all (index 0)\n    at DependencyGraph._addDependenciesFrom (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:186:5)\n    at async Promise.all (index 0)\n    at Function.createFromResolvedFiles (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:15:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1398:58)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n\n    Caused by: HardhatError: HH401: Library @openzeppelin/contracts@4.9.3 is not installed.\n        at Resolver._resolveLibrarySourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:322:15)\n        at Resolver.resolveSourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:103:33)\n        at Resolver.resolveImport (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:194:24)\n        at /app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:188:28\n        at async Promise.all (index 0)\n        at DependencyGraph._addDependenciesFrom (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:186:5)\n        at async Promise.all (index 0)\n        at Function.createFromResolvedFiles (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:15:5)\n        at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n        at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    \n        Caused by: Error: Cannot find module '@openzeppelin/contracts@4.9.3/package.json' from '/app/tmp/jobs/ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c'\n            at Function.resolveSync [as sync] (/app/node_modules/resolve/lib/sync.js:89:15)\n            at Resolver._resolveNodeModulesFileFromProjectRoot (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:457:20)\n            at Resolver._resolveLibrarySourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:311:30)\n            at Resolver.resolveSourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:103:33)\n            at Resolver.resolveImport (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:194:24)\n            at /app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:188:28\n            at async Promise.all (index 0)\n            at DependencyGraph._addDependenciesFrom (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:186:5)\n            at async Promise.all (index 0)\n            at Function.createFromResolvedFiles (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:15:5)\n\n\n",
+    "contractName": "INRT",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp-testnet\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"INRT\",\"fqName\":\"contracts/AI_ai_pipeline_28d92101-4d2b-4daa-aa61-719aaf06425c_INRTAndCryptoUPIHook.sol:INRT\",\"address\":\"0xe523fc1cc80A6EF2f643895b556cf43A1f1bCF60\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:06:59.243Z",
+  "contracts": {
+    "BusinessToken": "0x97Abe177fC1dBd897D1F9e6506ef99C3a11e9966"
+  },
+  "params": {
+    "name": "Plasma My Token 17",
+    "symbol": "PLSM17",
+    "initialSupplyTokens": "333000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_79335ff0-07b0-498f-b20b-85ed7406183f",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "INRT",
+      "fqName": "contracts/AI_ai_pipeline_79335ff0-07b0-498f-b20b-85ed7406183f_INRTAndCryptoUPIHook.sol:INRT",
+      "address": "0xF31F571B697Da110C385C29bece01AEC071a4d20",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1759162008737,
+    "createdAt": 1759161737096
+  }
+}

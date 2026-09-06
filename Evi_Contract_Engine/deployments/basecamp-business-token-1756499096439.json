@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:24:56.438Z",
+  "contracts": {
+    "BusinessToken": "0xe8e212E16D49810f9e2B39AF162B3FC9479CD969"
+  },
+  "params": {
+    "name": "Chain Camp Token 27",
+    "symbol": "CHN27",
+    "initialSupplyTokens": "1000000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

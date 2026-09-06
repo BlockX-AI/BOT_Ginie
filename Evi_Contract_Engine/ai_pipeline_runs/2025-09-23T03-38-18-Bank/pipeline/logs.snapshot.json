@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_d6f7051d-3e44-4a1a-a9f7-fa99f90c4beb",
+    "total": 17,
+    "count": 17,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758598698909,
+        "level": "info",
+        "msg": "Pipeline started. Network=camp-testnet, maxIters=11, file=PaniPuri.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758598698909,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758598698910,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1758598698910,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1180"
+      },
+      {
+        "i": 5,
+        "t": 1758598751982,
+        "level": "debug",
+        "msg": "generate_ai_response_len=5673 ai_ms=53072"
+      },
+      {
+        "i": 6,
+        "t": 1758598751982,
+        "level": "info",
+        "msg": "Generation done in 53072ms. Code size=5626"
+      },
+      {
+        "i": 7,
+        "t": 1758598751982,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1758598751985,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1758598753490,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_d6f7051d-3e44-4a1a-a9f7-fa99f90c4beb_PaniPuri.sol\n\n\n"
+      },
+      {
+        "i": 10,
+        "t": 1758598753527,
+        "level": "info",
+        "msg": "Compiled 5 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 11,
+        "t": 1758598753541,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 1556ms"
+      },
+      {
+        "i": 12,
+        "t": 1758598753542,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 13,
+        "t": 1758598753542,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: PaniPuri"
+      },
+      {
+        "i": 14,
+        "t": 1758598753542,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract PaniPuri"
+      },
+      {
+        "i": 15,
+        "t": 1758598753542,
+        "level": "info",
+        "msg": "Contract chosen for deploy: PaniPuri"
+      },
+      {
+        "i": 16,
+        "t": 1758598753542,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp-testnet"
+      },
+      {
+        "i": 17,
+        "t": 1758598757541,
+        "level": "error",
+        "msg": "ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 741712223577, overshot 741712223577\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_d6f7051d-3e44-4a1a-a9f7-fa99f90c4beb/scripts/deploy-ai_pipeline_d6f7051d-3e44-4a1a-a9f7-fa99f90c4beb.js:8:13)\n"
+      }
+    ]
+  }
+}

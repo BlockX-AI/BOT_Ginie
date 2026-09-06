@@ -1,0 +1,882 @@
+[
+  {
+    "index": 1,
+    "name": "Atlas Camp Token 01",
+    "symbol": "ATLS01",
+    "supply": 1000000,
+    "ok": true,
+    "address": "0x0F75ED48B172BE662ECbBc7281eD9534597222CE",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x0F75ED48B172BE662ECbBc7281eD9534597222CE",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x0F75ED48B172BE662ECbBc7281eD9534597222CE",
+        "name": "Atlas Camp Token 01",
+        "symbol": "ATLS01",
+        "initialSupplyTokens": "1000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x0F75ED48B172BE662ECbBc7281eD9534597222CE"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Atlas Camp Token 01 (ATLS01), initialSupply: 1000000\nBusinessToken deployed at: 0x0F75ED48B172BE662ECbBc7281eD9534597222CE\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496546384.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x0F75ED48B172BE662ECbBc7281eD9534597222CE\",\"name\":\"Atlas Camp Token 01\",\"symbol\":\"ATLS01\",\"initialSupplyTokens\":\"1000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 2,
+    "name": "Nova Camp Token 02",
+    "symbol": "NVX02",
+    "supply": 21000000,
+    "ok": true,
+    "address": "0x7e9Dd254c28F40a1E55557ecb920F0A03c141024",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x7e9Dd254c28F40a1E55557ecb920F0A03c141024",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x7e9Dd254c28F40a1E55557ecb920F0A03c141024",
+        "name": "Nova Camp Token 02",
+        "symbol": "NVX02",
+        "initialSupplyTokens": "21000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x7e9Dd254c28F40a1E55557ecb920F0A03c141024"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Nova Camp Token 02 (NVX02), initialSupply: 21000000\nBusinessToken deployed at: 0x7e9Dd254c28F40a1E55557ecb920F0A03c141024\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496558145.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x7e9Dd254c28F40a1E55557ecb920F0A03c141024\",\"name\":\"Nova Camp Token 02\",\"symbol\":\"NVX02\",\"initialSupplyTokens\":\"21000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 3,
+    "name": "Orion Camp Token 03",
+    "symbol": "ORN03",
+    "supply": 50000000,
+    "ok": true,
+    "address": "0x42B7c7a8D14c64D65Dce63436ab6d8F50033A755",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x42B7c7a8D14c64D65Dce63436ab6d8F50033A755",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x42B7c7a8D14c64D65Dce63436ab6d8F50033A755",
+        "name": "Orion Camp Token 03",
+        "symbol": "ORN03",
+        "initialSupplyTokens": "50000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x42B7c7a8D14c64D65Dce63436ab6d8F50033A755"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Orion Camp Token 03 (ORN03), initialSupply: 50000000\nBusinessToken deployed at: 0x42B7c7a8D14c64D65Dce63436ab6d8F50033A755\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496568445.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x42B7c7a8D14c64D65Dce63436ab6d8F50033A755\",\"name\":\"Orion Camp Token 03\",\"symbol\":\"ORN03\",\"initialSupplyTokens\":\"50000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 4,
+    "name": "Zenith Camp Token 04",
+    "symbol": "ZNTH04",
+    "supply": 100000000,
+    "ok": true,
+    "address": "0xCD72b58479E374624E80A87bB922F32Dde7E1eb6",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xCD72b58479E374624E80A87bB922F32Dde7E1eb6",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xCD72b58479E374624E80A87bB922F32Dde7E1eb6",
+        "name": "Zenith Camp Token 04",
+        "symbol": "ZNTH04",
+        "initialSupplyTokens": "100000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xCD72b58479E374624E80A87bB922F32Dde7E1eb6"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Zenith Camp Token 04 (ZNTH04), initialSupply: 100000000\nBusinessToken deployed at: 0xCD72b58479E374624E80A87bB922F32Dde7E1eb6\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496579469.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xCD72b58479E374624E80A87bB922F32Dde7E1eb6\",\"name\":\"Zenith Camp Token 04\",\"symbol\":\"ZNTH04\",\"initialSupplyTokens\":\"100000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 5,
+    "name": "Apex Camp Token 05",
+    "symbol": "APX05",
+    "supply": 250000000,
+    "ok": true,
+    "address": "0x86cd2b01BcDAe543E48EfBd4f2576c64D26233d1",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x86cd2b01BcDAe543E48EfBd4f2576c64D26233d1",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x86cd2b01BcDAe543E48EfBd4f2576c64D26233d1",
+        "name": "Apex Camp Token 05",
+        "symbol": "APX05",
+        "initialSupplyTokens": "250000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x86cd2b01BcDAe543E48EfBd4f2576c64D26233d1"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Apex Camp Token 05 (APX05), initialSupply: 250000000\nBusinessToken deployed at: 0x86cd2b01BcDAe543E48EfBd4f2576c64D26233d1\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496591093.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x86cd2b01BcDAe543E48EfBd4f2576c64D26233d1\",\"name\":\"Apex Camp Token 05\",\"symbol\":\"APX05\",\"initialSupplyTokens\":\"250000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 6,
+    "name": "Quantum Camp Token 06",
+    "symbol": "QNTM06",
+    "supply": 420000000,
+    "ok": true,
+    "address": "0xbBC9aF0DbBCbCDf7F5427031ef12fB294c53338B",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xbBC9aF0DbBCbCDf7F5427031ef12fB294c53338B",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xbBC9aF0DbBCbCDf7F5427031ef12fB294c53338B",
+        "name": "Quantum Camp Token 06",
+        "symbol": "QNTM06",
+        "initialSupplyTokens": "420000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xbBC9aF0DbBCbCDf7F5427031ef12fB294c53338B"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Quantum Camp Token 06 (QNTM06), initialSupply: 420000000\nBusinessToken deployed at: 0xbBC9aF0DbBCbCDf7F5427031ef12fB294c53338B\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496602454.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xbBC9aF0DbBCbCDf7F5427031ef12fB294c53338B\",\"name\":\"Quantum Camp Token 06\",\"symbol\":\"QNTM06\",\"initialSupplyTokens\":\"420000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 7,
+    "name": "Lunar Camp Token 07",
+    "symbol": "LNR07",
+    "supply": 500000000,
+    "ok": true,
+    "address": "0x93b15410e7e928C05D5586C44B850C5982488d0B",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x93b15410e7e928C05D5586C44B850C5982488d0B",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x93b15410e7e928C05D5586C44B850C5982488d0B",
+        "name": "Lunar Camp Token 07",
+        "symbol": "LNR07",
+        "initialSupplyTokens": "500000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x93b15410e7e928C05D5586C44B850C5982488d0B"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Lunar Camp Token 07 (LNR07), initialSupply: 500000000\nBusinessToken deployed at: 0x93b15410e7e928C05D5586C44B850C5982488d0B\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496614762.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x93b15410e7e928C05D5586C44B850C5982488d0B\",\"name\":\"Lunar Camp Token 07\",\"symbol\":\"LNR07\",\"initialSupplyTokens\":\"500000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 8,
+    "name": "Stellar Camp Token 08",
+    "symbol": "STLL08",
+    "supply": 750000000,
+    "ok": true,
+    "address": "0x6BaED0543fcfB9d7adE6abf1B8b256c2F88804A2",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x6BaED0543fcfB9d7adE6abf1B8b256c2F88804A2",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x6BaED0543fcfB9d7adE6abf1B8b256c2F88804A2",
+        "name": "Stellar Camp Token 08",
+        "symbol": "STLL08",
+        "initialSupplyTokens": "750000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x6BaED0543fcfB9d7adE6abf1B8b256c2F88804A2"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Stellar Camp Token 08 (STLL08), initialSupply: 750000000\nBusinessToken deployed at: 0x6BaED0543fcfB9d7adE6abf1B8b256c2F88804A2\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496626594.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x6BaED0543fcfB9d7adE6abf1B8b256c2F88804A2\",\"name\":\"Stellar Camp Token 08\",\"symbol\":\"STLL08\",\"initialSupplyTokens\":\"750000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 9,
+    "name": "Vertex Camp Token 09",
+    "symbol": "VRTX09",
+    "supply": 1000000000,
+    "ok": true,
+    "address": "0xDd12C759B57e2C4892c2Cf6b8021123d1B25C844",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xDd12C759B57e2C4892c2Cf6b8021123d1B25C844",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xDd12C759B57e2C4892c2Cf6b8021123d1B25C844",
+        "name": "Vertex Camp Token 09",
+        "symbol": "VRTX09",
+        "initialSupplyTokens": "1000000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xDd12C759B57e2C4892c2Cf6b8021123d1B25C844"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Vertex Camp Token 09 (VRTX09), initialSupply: 1000000000\nBusinessToken deployed at: 0xDd12C759B57e2C4892c2Cf6b8021123d1B25C844\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496637186.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xDd12C759B57e2C4892c2Cf6b8021123d1B25C844\",\"name\":\"Vertex Camp Token 09\",\"symbol\":\"VRTX09\",\"initialSupplyTokens\":\"1000000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 10,
+    "name": "Nimbus Camp Token 10",
+    "symbol": "NMBS10",
+    "supply": 888000000,
+    "ok": true,
+    "address": "0x56bd8D6615718BB43cc699652d4F346FBF1631CC",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x56bd8D6615718BB43cc699652d4F346FBF1631CC",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x56bd8D6615718BB43cc699652d4F346FBF1631CC",
+        "name": "Nimbus Camp Token 10",
+        "symbol": "NMBS10",
+        "initialSupplyTokens": "888000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x56bd8D6615718BB43cc699652d4F346FBF1631CC"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Nimbus Camp Token 10 (NMBS10), initialSupply: 888000000\nBusinessToken deployed at: 0x56bd8D6615718BB43cc699652d4F346FBF1631CC\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496649496.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x56bd8D6615718BB43cc699652d4F346FBF1631CC\",\"name\":\"Nimbus Camp Token 10\",\"symbol\":\"NMBS10\",\"initialSupplyTokens\":\"888000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 11,
+    "name": "Aurora Camp Token 11",
+    "symbol": "ARR11",
+    "supply": 123456789,
+    "ok": true,
+    "address": "0xb7cC004b75BaBDfc5771Baf4D8483bA93a653A2c",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xb7cC004b75BaBDfc5771Baf4D8483bA93a653A2c",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xb7cC004b75BaBDfc5771Baf4D8483bA93a653A2c",
+        "name": "Aurora Camp Token 11",
+        "symbol": "ARR11",
+        "initialSupplyTokens": "123456789",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xb7cC004b75BaBDfc5771Baf4D8483bA93a653A2c"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Aurora Camp Token 11 (ARR11), initialSupply: 123456789\nBusinessToken deployed at: 0xb7cC004b75BaBDfc5771Baf4D8483bA93a653A2c\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496659441.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xb7cC004b75BaBDfc5771Baf4D8483bA93a653A2c\",\"name\":\"Aurora Camp Token 11\",\"symbol\":\"ARR11\",\"initialSupplyTokens\":\"123456789\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 12,
+    "name": "Titan Camp Token 12",
+    "symbol": "TTN12",
+    "supply": 314159265,
+    "ok": true,
+    "address": "0x890c95C4b3a8E723a629386649768b0367020f9F",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x890c95C4b3a8E723a629386649768b0367020f9F",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x890c95C4b3a8E723a629386649768b0367020f9F",
+        "name": "Titan Camp Token 12",
+        "symbol": "TTN12",
+        "initialSupplyTokens": "314159265",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x890c95C4b3a8E723a629386649768b0367020f9F"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Titan Camp Token 12 (TTN12), initialSupply: 314159265\nBusinessToken deployed at: 0x890c95C4b3a8E723a629386649768b0367020f9F\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496669165.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x890c95C4b3a8E723a629386649768b0367020f9F\",\"name\":\"Titan Camp Token 12\",\"symbol\":\"TTN12\",\"initialSupplyTokens\":\"314159265\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 13,
+    "name": "Neon Camp Token 13",
+    "symbol": "NNX13",
+    "supply": 271828182,
+    "ok": true,
+    "address": "0xC7731eDCcBDF3c7197a6C8160af05ccaBF626AA2",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xC7731eDCcBDF3c7197a6C8160af05ccaBF626AA2",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xC7731eDCcBDF3c7197a6C8160af05ccaBF626AA2",
+        "name": "Neon Camp Token 13",
+        "symbol": "NNX13",
+        "initialSupplyTokens": "271828182",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xC7731eDCcBDF3c7197a6C8160af05ccaBF626AA2"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Neon Camp Token 13 (NNX13), initialSupply: 271828182\nBusinessToken deployed at: 0xC7731eDCcBDF3c7197a6C8160af05ccaBF626AA2\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496681642.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xC7731eDCcBDF3c7197a6C8160af05ccaBF626AA2\",\"name\":\"Neon Camp Token 13\",\"symbol\":\"NNX13\",\"initialSupplyTokens\":\"271828182\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 14,
+    "name": "Vega Camp Token 14",
+    "symbol": "VGX14",
+    "supply": 690000000,
+    "ok": true,
+    "address": "0xe5a8F7A389B2B5AcBEd436056AaD673B4AAd2c77",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xe5a8F7A389B2B5AcBEd436056AaD673B4AAd2c77",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xe5a8F7A389B2B5AcBEd436056AaD673B4AAd2c77",
+        "name": "Vega Camp Token 14",
+        "symbol": "VGX14",
+        "initialSupplyTokens": "690000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xe5a8F7A389B2B5AcBEd436056AaD673B4AAd2c77"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Vega Camp Token 14 (VGX14), initialSupply: 690000000\nBusinessToken deployed at: 0xe5a8F7A389B2B5AcBEd436056AaD673B4AAd2c77\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496693246.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xe5a8F7A389B2B5AcBEd436056AaD673B4AAd2c77\",\"name\":\"Vega Camp Token 14\",\"symbol\":\"VGX14\",\"initialSupplyTokens\":\"690000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 15,
+    "name": "Helix Camp Token 15",
+    "symbol": "HLX15",
+    "supply": 777000000,
+    "ok": true,
+    "address": "0x9A63E4D6462C30a522BFA85C3119AE234F621506",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x9A63E4D6462C30a522BFA85C3119AE234F621506",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x9A63E4D6462C30a522BFA85C3119AE234F621506",
+        "name": "Helix Camp Token 15",
+        "symbol": "HLX15",
+        "initialSupplyTokens": "777000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x9A63E4D6462C30a522BFA85C3119AE234F621506"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Helix Camp Token 15 (HLX15), initialSupply: 777000000\nBusinessToken deployed at: 0x9A63E4D6462C30a522BFA85C3119AE234F621506\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496703301.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x9A63E4D6462C30a522BFA85C3119AE234F621506\",\"name\":\"Helix Camp Token 15\",\"symbol\":\"HLX15\",\"initialSupplyTokens\":\"777000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 16,
+    "name": "Flux Camp Token 16",
+    "symbol": "FLX16",
+    "supply": 900000000,
+    "ok": true,
+    "address": "0x8D30579f7B9978dBa0F6DCA0aA398500Ff24e018",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x8D30579f7B9978dBa0F6DCA0aA398500Ff24e018",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x8D30579f7B9978dBa0F6DCA0aA398500Ff24e018",
+        "name": "Flux Camp Token 16",
+        "symbol": "FLX16",
+        "initialSupplyTokens": "900000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x8D30579f7B9978dBa0F6DCA0aA398500Ff24e018"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Flux Camp Token 16 (FLX16), initialSupply: 900000000\nBusinessToken deployed at: 0x8D30579f7B9978dBa0F6DCA0aA398500Ff24e018\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496712530.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x8D30579f7B9978dBa0F6DCA0aA398500Ff24e018\",\"name\":\"Flux Camp Token 16\",\"symbol\":\"FLX16\",\"initialSupplyTokens\":\"900000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 17,
+    "name": "Plasma Camp Token 17",
+    "symbol": "PLSM17",
+    "supply": 333000000,
+    "ok": true,
+    "address": "0xcE41713055e3E243d3540758d83C4A1722fd91FB",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xcE41713055e3E243d3540758d83C4A1722fd91FB",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xcE41713055e3E243d3540758d83C4A1722fd91FB",
+        "name": "Plasma Camp Token 17",
+        "symbol": "PLSM17",
+        "initialSupplyTokens": "333000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xcE41713055e3E243d3540758d83C4A1722fd91FB"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Plasma Camp Token 17 (PLSM17), initialSupply: 333000000\nBusinessToken deployed at: 0xcE41713055e3E243d3540758d83C4A1722fd91FB\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496724170.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xcE41713055e3E243d3540758d83C4A1722fd91FB\",\"name\":\"Plasma Camp Token 17\",\"symbol\":\"PLSM17\",\"initialSupplyTokens\":\"333000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 18,
+    "name": "Vortex Camp Token 18",
+    "symbol": "VRTX18",
+    "supply": 222000000,
+    "ok": true,
+    "address": "0x69bC0242fbFD0408f4AC10D06456D8A8d2b99691",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x69bC0242fbFD0408f4AC10D06456D8A8d2b99691",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x69bC0242fbFD0408f4AC10D06456D8A8d2b99691",
+        "name": "Vortex Camp Token 18",
+        "symbol": "VRTX18",
+        "initialSupplyTokens": "222000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x69bC0242fbFD0408f4AC10D06456D8A8d2b99691"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Vortex Camp Token 18 (VRTX18), initialSupply: 222000000\nBusinessToken deployed at: 0x69bC0242fbFD0408f4AC10D06456D8A8d2b99691\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496738632.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x69bC0242fbFD0408f4AC10D06456D8A8d2b99691\",\"name\":\"Vortex Camp Token 18\",\"symbol\":\"VRTX18\",\"initialSupplyTokens\":\"222000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 19,
+    "name": "Pulse Camp Token 19",
+    "symbol": "PLS19",
+    "supply": 1000000,
+    "ok": true,
+    "address": "0xc181Ef9913F9EA50dc344800d20fe0CFcbc3c757",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xc181Ef9913F9EA50dc344800d20fe0CFcbc3c757",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xc181Ef9913F9EA50dc344800d20fe0CFcbc3c757",
+        "name": "Pulse Camp Token 19",
+        "symbol": "PLS19",
+        "initialSupplyTokens": "1000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xc181Ef9913F9EA50dc344800d20fe0CFcbc3c757"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Pulse Camp Token 19 (PLS19), initialSupply: 1000000\nBusinessToken deployed at: 0xc181Ef9913F9EA50dc344800d20fe0CFcbc3c757\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496748515.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xc181Ef9913F9EA50dc344800d20fe0CFcbc3c757\",\"name\":\"Pulse Camp Token 19\",\"symbol\":\"PLS19\",\"initialSupplyTokens\":\"1000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 20,
+    "name": "Cipher Camp Token 20",
+    "symbol": "CPHR20",
+    "supply": 21000000,
+    "ok": true,
+    "address": "0xF85b17bd9472b36d9e86D5849eE7Cf6c97De06A3",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xF85b17bd9472b36d9e86D5849eE7Cf6c97De06A3",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xF85b17bd9472b36d9e86D5849eE7Cf6c97De06A3",
+        "name": "Cipher Camp Token 20",
+        "symbol": "CPHR20",
+        "initialSupplyTokens": "21000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xF85b17bd9472b36d9e86D5849eE7Cf6c97De06A3"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Cipher Camp Token 20 (CPHR20), initialSupply: 21000000\nBusinessToken deployed at: 0xF85b17bd9472b36d9e86D5849eE7Cf6c97De06A3\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496760439.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xF85b17bd9472b36d9e86D5849eE7Cf6c97De06A3\",\"name\":\"Cipher Camp Token 20\",\"symbol\":\"CPHR20\",\"initialSupplyTokens\":\"21000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 21,
+    "name": "Drift Camp Token 21",
+    "symbol": "DRFT21",
+    "supply": 50000000,
+    "ok": true,
+    "address": "0x27B81F28fB97875B8D7Ab74712b6938FB9f197Fc",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x27B81F28fB97875B8D7Ab74712b6938FB9f197Fc",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x27B81F28fB97875B8D7Ab74712b6938FB9f197Fc",
+        "name": "Drift Camp Token 21",
+        "symbol": "DRFT21",
+        "initialSupplyTokens": "50000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x27B81F28fB97875B8D7Ab74712b6938FB9f197Fc"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Drift Camp Token 21 (DRFT21), initialSupply: 50000000\nBusinessToken deployed at: 0x27B81F28fB97875B8D7Ab74712b6938FB9f197Fc\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496772560.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x27B81F28fB97875B8D7Ab74712b6938FB9f197Fc\",\"name\":\"Drift Camp Token 21\",\"symbol\":\"DRFT21\",\"initialSupplyTokens\":\"50000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 22,
+    "name": "Terra Camp Token 22",
+    "symbol": "TRR22",
+    "supply": 100000000,
+    "ok": true,
+    "address": "0xdc4bD2B98bc44f634c173fF91d63220D595239a8",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xdc4bD2B98bc44f634c173fF91d63220D595239a8",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xdc4bD2B98bc44f634c173fF91d63220D595239a8",
+        "name": "Terra Camp Token 22",
+        "symbol": "TRR22",
+        "initialSupplyTokens": "100000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xdc4bD2B98bc44f634c173fF91d63220D595239a8"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Terra Camp Token 22 (TRR22), initialSupply: 100000000\nBusinessToken deployed at: 0xdc4bD2B98bc44f634c173fF91d63220D595239a8\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496782688.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xdc4bD2B98bc44f634c173fF91d63220D595239a8\",\"name\":\"Terra Camp Token 22\",\"symbol\":\"TRR22\",\"initialSupplyTokens\":\"100000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 23,
+    "name": "Omega Camp Token 23",
+    "symbol": "OMG23",
+    "supply": 250000000,
+    "ok": true,
+    "address": "0x11A3AE0040A8e665FE011651Fd38B42fd9E478c9",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x11A3AE0040A8e665FE011651Fd38B42fd9E478c9",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x11A3AE0040A8e665FE011651Fd38B42fd9E478c9",
+        "name": "Omega Camp Token 23",
+        "symbol": "OMG23",
+        "initialSupplyTokens": "250000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x11A3AE0040A8e665FE011651Fd38B42fd9E478c9"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Omega Camp Token 23 (OMG23), initialSupply: 250000000\nBusinessToken deployed at: 0x11A3AE0040A8e665FE011651Fd38B42fd9E478c9\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496793486.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x11A3AE0040A8e665FE011651Fd38B42fd9E478c9\",\"name\":\"Omega Camp Token 23\",\"symbol\":\"OMG23\",\"initialSupplyTokens\":\"250000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 24,
+    "name": "Solar Camp Token 24",
+    "symbol": "SLR24",
+    "supply": 420000000,
+    "ok": true,
+    "address": "0xDe9b0315DD8Dd5c367FeecbAaDBa2248CC85d710",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xDe9b0315DD8Dd5c367FeecbAaDBa2248CC85d710",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xDe9b0315DD8Dd5c367FeecbAaDBa2248CC85d710",
+        "name": "Solar Camp Token 24",
+        "symbol": "SLR24",
+        "initialSupplyTokens": "420000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xDe9b0315DD8Dd5c367FeecbAaDBa2248CC85d710"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Solar Camp Token 24 (SLR24), initialSupply: 420000000\nBusinessToken deployed at: 0xDe9b0315DD8Dd5c367FeecbAaDBa2248CC85d710\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496805978.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xDe9b0315DD8Dd5c367FeecbAaDBa2248CC85d710\",\"name\":\"Solar Camp Token 24\",\"symbol\":\"SLR24\",\"initialSupplyTokens\":\"420000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 25,
+    "name": "Pixel Camp Token 25",
+    "symbol": "PXL25",
+    "supply": 500000000,
+    "ok": true,
+    "address": "0x92DB752B090382cEf660E3C67E8a11265B2B0b0D",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x92DB752B090382cEf660E3C67E8a11265B2B0b0D",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x92DB752B090382cEf660E3C67E8a11265B2B0b0D",
+        "name": "Pixel Camp Token 25",
+        "symbol": "PXL25",
+        "initialSupplyTokens": "500000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x92DB752B090382cEf660E3C67E8a11265B2B0b0D"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Pixel Camp Token 25 (PXL25), initialSupply: 500000000\nBusinessToken deployed at: 0x92DB752B090382cEf660E3C67E8a11265B2B0b0D\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496816423.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x92DB752B090382cEf660E3C67E8a11265B2B0b0D\",\"name\":\"Pixel Camp Token 25\",\"symbol\":\"PXL25\",\"initialSupplyTokens\":\"500000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 26,
+    "name": "Byte Camp Token 26",
+    "symbol": "BYT26",
+    "supply": 750000000,
+    "ok": true,
+    "address": "0xb2A685936616B65a96FB8fF3C3407Cf12D9F976b",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xb2A685936616B65a96FB8fF3C3407Cf12D9F976b",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xb2A685936616B65a96FB8fF3C3407Cf12D9F976b",
+        "name": "Byte Camp Token 26",
+        "symbol": "BYT26",
+        "initialSupplyTokens": "750000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xb2A685936616B65a96FB8fF3C3407Cf12D9F976b"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Byte Camp Token 26 (BYT26), initialSupply: 750000000\nBusinessToken deployed at: 0xb2A685936616B65a96FB8fF3C3407Cf12D9F976b\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496828215.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xb2A685936616B65a96FB8fF3C3407Cf12D9F976b\",\"name\":\"Byte Camp Token 26\",\"symbol\":\"BYT26\",\"initialSupplyTokens\":\"750000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 27,
+    "name": "Chain Camp Token 27",
+    "symbol": "CHN27",
+    "supply": 1000000000,
+    "ok": true,
+    "address": "0xd09bEA9146269e537e211485b3d25A366BcfE310",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xd09bEA9146269e537e211485b3d25A366BcfE310",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xd09bEA9146269e537e211485b3d25A366BcfE310",
+        "name": "Chain Camp Token 27",
+        "symbol": "CHN27",
+        "initialSupplyTokens": "1000000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xd09bEA9146269e537e211485b3d25A366BcfE310"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Chain Camp Token 27 (CHN27), initialSupply: 1000000000\nBusinessToken deployed at: 0xd09bEA9146269e537e211485b3d25A366BcfE310\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496839101.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xd09bEA9146269e537e211485b3d25A366BcfE310\",\"name\":\"Chain Camp Token 27\",\"symbol\":\"CHN27\",\"initialSupplyTokens\":\"1000000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 28,
+    "name": "Vault Camp Token 28",
+    "symbol": "VLT28",
+    "supply": 888000000,
+    "ok": true,
+    "address": "0xa0154162Ec9e1CCE6a3f54306613Dcf44A36b69E",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xa0154162Ec9e1CCE6a3f54306613Dcf44A36b69E",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xa0154162Ec9e1CCE6a3f54306613Dcf44A36b69E",
+        "name": "Vault Camp Token 28",
+        "symbol": "VLT28",
+        "initialSupplyTokens": "888000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xa0154162Ec9e1CCE6a3f54306613Dcf44A36b69E"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Vault Camp Token 28 (VLT28), initialSupply: 888000000\nBusinessToken deployed at: 0xa0154162Ec9e1CCE6a3f54306613Dcf44A36b69E\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496849680.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xa0154162Ec9e1CCE6a3f54306613Dcf44A36b69E\",\"name\":\"Vault Camp Token 28\",\"symbol\":\"VLT28\",\"initialSupplyTokens\":\"888000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 29,
+    "name": "Prism Camp Token 29",
+    "symbol": "PRSM29",
+    "supply": 123456789,
+    "ok": true,
+    "address": "0x25c8DBf805D02ee1e9A191431023F1Eb1029bbc5",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x25c8DBf805D02ee1e9A191431023F1Eb1029bbc5",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x25c8DBf805D02ee1e9A191431023F1Eb1029bbc5",
+        "name": "Prism Camp Token 29",
+        "symbol": "PRSM29",
+        "initialSupplyTokens": "123456789",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x25c8DBf805D02ee1e9A191431023F1Eb1029bbc5"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Prism Camp Token 29 (PRSM29), initialSupply: 123456789\nBusinessToken deployed at: 0x25c8DBf805D02ee1e9A191431023F1Eb1029bbc5\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496862086.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x25c8DBf805D02ee1e9A191431023F1Eb1029bbc5\",\"name\":\"Prism Camp Token 29\",\"symbol\":\"PRSM29\",\"initialSupplyTokens\":\"123456789\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 30,
+    "name": "Falcon Camp Token 30",
+    "symbol": "FLCN30",
+    "supply": 314159265,
+    "ok": true,
+    "address": "0xc1B7624d2FFA7E2Ec9d53b8f3ecb1f5Ec8aB3b37",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xc1B7624d2FFA7E2Ec9d53b8f3ecb1f5Ec8aB3b37",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xc1B7624d2FFA7E2Ec9d53b8f3ecb1f5Ec8aB3b37",
+        "name": "Falcon Camp Token 30",
+        "symbol": "FLCN30",
+        "initialSupplyTokens": "314159265",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xc1B7624d2FFA7E2Ec9d53b8f3ecb1f5Ec8aB3b37"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Falcon Camp Token 30 (FLCN30), initialSupply: 314159265\nBusinessToken deployed at: 0xc1B7624d2FFA7E2Ec9d53b8f3ecb1f5Ec8aB3b37\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496874271.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xc1B7624d2FFA7E2Ec9d53b8f3ecb1f5Ec8aB3b37\",\"name\":\"Falcon Camp Token 30\",\"symbol\":\"FLCN30\",\"initialSupplyTokens\":\"314159265\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 31,
+    "name": "Rapid Camp Token 31",
+    "symbol": "RPD31",
+    "supply": 271828182,
+    "ok": true,
+    "address": "0xf58d06A3a56c21CABde03d6B1713B5eC9b1cC8fb",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xf58d06A3a56c21CABde03d6B1713B5eC9b1cC8fb",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xf58d06A3a56c21CABde03d6B1713B5eC9b1cC8fb",
+        "name": "Rapid Camp Token 31",
+        "symbol": "RPD31",
+        "initialSupplyTokens": "271828182",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xf58d06A3a56c21CABde03d6B1713B5eC9b1cC8fb"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Rapid Camp Token 31 (RPD31), initialSupply: 271828182\nBusinessToken deployed at: 0xf58d06A3a56c21CABde03d6B1713B5eC9b1cC8fb\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496886680.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xf58d06A3a56c21CABde03d6B1713B5eC9b1cC8fb\",\"name\":\"Rapid Camp Token 31\",\"symbol\":\"RPD31\",\"initialSupplyTokens\":\"271828182\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 32,
+    "name": "Sigma Camp Token 32",
+    "symbol": "SGM32",
+    "supply": 690000000,
+    "ok": true,
+    "address": "0x01FeD7C55ae183223bcC827D06C7A8A8A36a5722",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x01FeD7C55ae183223bcC827D06C7A8A8A36a5722",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x01FeD7C55ae183223bcC827D06C7A8A8A36a5722",
+        "name": "Sigma Camp Token 32",
+        "symbol": "SGM32",
+        "initialSupplyTokens": "690000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x01FeD7C55ae183223bcC827D06C7A8A8A36a5722"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Sigma Camp Token 32 (SGM32), initialSupply: 690000000\nBusinessToken deployed at: 0x01FeD7C55ae183223bcC827D06C7A8A8A36a5722\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496898615.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x01FeD7C55ae183223bcC827D06C7A8A8A36a5722\",\"name\":\"Sigma Camp Token 32\",\"symbol\":\"SGM32\",\"initialSupplyTokens\":\"690000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 33,
+    "name": "Delta Camp Token 33",
+    "symbol": "DLT33",
+    "supply": 777000000,
+    "ok": true,
+    "address": "0xf3A35D576C237A748D17011302c04AC6FC4f507c",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xf3A35D576C237A748D17011302c04AC6FC4f507c",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xf3A35D576C237A748D17011302c04AC6FC4f507c",
+        "name": "Delta Camp Token 33",
+        "symbol": "DLT33",
+        "initialSupplyTokens": "777000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xf3A35D576C237A748D17011302c04AC6FC4f507c"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Delta Camp Token 33 (DLT33), initialSupply: 777000000\nBusinessToken deployed at: 0xf3A35D576C237A748D17011302c04AC6FC4f507c\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496909960.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xf3A35D576C237A748D17011302c04AC6FC4f507c\",\"name\":\"Delta Camp Token 33\",\"symbol\":\"DLT33\",\"initialSupplyTokens\":\"777000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 34,
+    "name": "Gamma Camp Token 34",
+    "symbol": "GMM34",
+    "supply": 900000000,
+    "ok": true,
+    "address": "0xE1152db3B9964EaF9fCDe4dAd1FB15D513d28Fd0",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xE1152db3B9964EaF9fCDe4dAd1FB15D513d28Fd0",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xE1152db3B9964EaF9fCDe4dAd1FB15D513d28Fd0",
+        "name": "Gamma Camp Token 34",
+        "symbol": "GMM34",
+        "initialSupplyTokens": "900000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xE1152db3B9964EaF9fCDe4dAd1FB15D513d28Fd0"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Gamma Camp Token 34 (GMM34), initialSupply: 900000000\nBusinessToken deployed at: 0xE1152db3B9964EaF9fCDe4dAd1FB15D513d28Fd0\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496922300.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xE1152db3B9964EaF9fCDe4dAd1FB15D513d28Fd0\",\"name\":\"Gamma Camp Token 34\",\"symbol\":\"GMM34\",\"initialSupplyTokens\":\"900000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 35,
+    "name": "Theta Camp Token 35",
+    "symbol": "THT35",
+    "supply": 333000000,
+    "ok": true,
+    "address": "0xc59082103ef24955E263253262a44405c8e3e48F",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xc59082103ef24955E263253262a44405c8e3e48F",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xc59082103ef24955E263253262a44405c8e3e48F",
+        "name": "Theta Camp Token 35",
+        "symbol": "THT35",
+        "initialSupplyTokens": "333000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xc59082103ef24955E263253262a44405c8e3e48F"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Theta Camp Token 35 (THT35), initialSupply: 333000000\nBusinessToken deployed at: 0xc59082103ef24955E263253262a44405c8e3e48F\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496933691.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xc59082103ef24955E263253262a44405c8e3e48F\",\"name\":\"Theta Camp Token 35\",\"symbol\":\"THT35\",\"initialSupplyTokens\":\"333000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 36,
+    "name": "Kappa Camp Token 36",
+    "symbol": "KPP36",
+    "supply": 222000000,
+    "ok": true,
+    "address": "0x68E6B0d200124fe8Af68998534b9718a992f59A7",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x68E6B0d200124fe8Af68998534b9718a992f59A7",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x68E6B0d200124fe8Af68998534b9718a992f59A7",
+        "name": "Kappa Camp Token 36",
+        "symbol": "KPP36",
+        "initialSupplyTokens": "222000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x68E6B0d200124fe8Af68998534b9718a992f59A7"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Kappa Camp Token 36 (KPP36), initialSupply: 222000000\nBusinessToken deployed at: 0x68E6B0d200124fe8Af68998534b9718a992f59A7\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496945276.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x68E6B0d200124fe8Af68998534b9718a992f59A7\",\"name\":\"Kappa Camp Token 36\",\"symbol\":\"KPP36\",\"initialSupplyTokens\":\"222000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 37,
+    "name": "Lambda Camp Token 37",
+    "symbol": "LMBD37",
+    "supply": 1000000,
+    "ok": true,
+    "address": "0xBDdB958a31Ce385D52E5bd81c533Df6770f0875a",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xBDdB958a31Ce385D52E5bd81c533Df6770f0875a",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xBDdB958a31Ce385D52E5bd81c533Df6770f0875a",
+        "name": "Lambda Camp Token 37",
+        "symbol": "LMBD37",
+        "initialSupplyTokens": "1000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xBDdB958a31Ce385D52E5bd81c533Df6770f0875a"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Lambda Camp Token 37 (LMBD37), initialSupply: 1000000\nBusinessToken deployed at: 0xBDdB958a31Ce385D52E5bd81c533Df6770f0875a\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496954305.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xBDdB958a31Ce385D52E5bd81c533Df6770f0875a\",\"name\":\"Lambda Camp Token 37\",\"symbol\":\"LMBD37\",\"initialSupplyTokens\":\"1000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 38,
+    "name": "Zeta Camp Token 38",
+    "symbol": "ZTX38",
+    "supply": 21000000,
+    "ok": true,
+    "address": "0x52348Fc51a0AEb54dDb91989c8f9C8237c9a8745",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x52348Fc51a0AEb54dDb91989c8f9C8237c9a8745",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x52348Fc51a0AEb54dDb91989c8f9C8237c9a8745",
+        "name": "Zeta Camp Token 38",
+        "symbol": "ZTX38",
+        "initialSupplyTokens": "21000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x52348Fc51a0AEb54dDb91989c8f9C8237c9a8745"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Zeta Camp Token 38 (ZTX38), initialSupply: 21000000\nBusinessToken deployed at: 0x52348Fc51a0AEb54dDb91989c8f9C8237c9a8745\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496963665.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x52348Fc51a0AEb54dDb91989c8f9C8237c9a8745\",\"name\":\"Zeta Camp Token 38\",\"symbol\":\"ZTX38\",\"initialSupplyTokens\":\"21000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 39,
+    "name": "Phoenix Camp Token 39",
+    "symbol": "PHNX39",
+    "supply": 50000000,
+    "ok": true,
+    "address": "0x618991038289b1bC693d2e171443A4ef3168d075",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0x618991038289b1bC693d2e171443A4ef3168d075",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0x618991038289b1bC693d2e171443A4ef3168d075",
+        "name": "Phoenix Camp Token 39",
+        "symbol": "PHNX39",
+        "initialSupplyTokens": "50000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x618991038289b1bC693d2e171443A4ef3168d075"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Phoenix Camp Token 39 (PHNX39), initialSupply: 50000000\nBusinessToken deployed at: 0x618991038289b1bC693d2e171443A4ef3168d075\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496974021.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0x618991038289b1bC693d2e171443A4ef3168d075\",\"name\":\"Phoenix Camp Token 39\",\"symbol\":\"PHNX39\",\"initialSupplyTokens\":\"50000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  },
+  {
+    "index": 40,
+    "name": "Draco Camp Token 40",
+    "symbol": "DRC40",
+    "supply": 100000000,
+    "ok": true,
+    "address": "0xd4A466366B54423461810AB136e1fbfba47FE1be",
+    "explorer": "https://basecamp.cloud.blockscout.com/address/0xd4A466366B54423461810AB136e1fbfba47FE1be",
+    "raw": {
+      "ok": true,
+      "result": {
+        "network": "basecamp",
+        "address": "0xd4A466366B54423461810AB136e1fbfba47FE1be",
+        "name": "Draco Camp Token 40",
+        "symbol": "DRC40",
+        "initialSupplyTokens": "100000000",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xd4A466366B54423461810AB136e1fbfba47FE1be"
+      },
+      "stdout": "Deploying BusinessToken to basecamp\nDeployer: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nOwner: 0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\nToken: Draco Camp Token 40 (DRC40), initialSupply: 100000000\nBusinessToken deployed at: 0xd4A466366B54423461810AB136e1fbfba47FE1be\nSaved deployment to /Users/satyamsinghal/Desktop/Anadi_Submission/deployments/basecamp-business-token-1756496983180.json\nDEPLOY_RESULT {\"network\":\"basecamp\",\"address\":\"0xd4A466366B54423461810AB136e1fbfba47FE1be\",\"name\":\"Draco Camp Token 40\",\"symbol\":\"DRC40\",\"initialSupplyTokens\":\"100000000\",\"owner\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\"}\n"
+    }
+  }
+]

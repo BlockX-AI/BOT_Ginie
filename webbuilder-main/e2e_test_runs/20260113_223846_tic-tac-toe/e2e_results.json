@@ -1,0 +1,15 @@
+{
+  "game": "tic-tac-toe",
+  "contract_name": "TicTacToe",
+  "network": "basecamp",
+  "job_id": "ai_pipeline_9e8ca052-c73f-4ae5-98a6-6183f9c5d317",
+  "contract_address": "0x244361a737Cb46142b5F703642C4c92A42355FAD",
+  "explorer_url": "https://basecamp.cloud.blockscout.com/address/0x244361a737Cb46142b5F703642C4c92A42355FAD",
+  "verified": true,
+  "verify_url": "https://basecamp.cloud.blockscout.com/address/0x244361a737Cb46142b5F703642C4c92A42355FAD#code",
+  "audit_score": null,
+  "compliance_score": null,
+  "errors": [],
+  "success": true,
+  "timestamp": "2026-01-13T22:44:15.913862"
+}

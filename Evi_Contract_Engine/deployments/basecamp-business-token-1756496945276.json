@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:49:05.276Z",
+  "contracts": {
+    "BusinessToken": "0x68E6B0d200124fe8Af68998534b9718a992f59A7"
+  },
+  "params": {
+    "name": "Kappa Camp Token 36",
+    "symbol": "KPP36",
+    "initialSupplyTokens": "222000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

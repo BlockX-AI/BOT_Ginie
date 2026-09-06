@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758574082554,
+    "updatedAt": 1758574082554,
+    "payload": {
+      "prompt": "Design a multi-signature treasury management system for a $100M+ fund\nwith support for 50+ assets, automated rebalancing based on Markowitz\nportfolio optimization, risk management with VaR calculations, compliance\nreporting for multiple jurisdictions, support for derivatives trading\n(options, futures, swaps), integration with traditional banking rails,\nautomated tax loss harvesting, ESG scoring for investments, regulatory\ncompliance checks, and support for private equity investments with\nmilestone-based releases. Include emergency shutdown mechanisms, insurance\nclaims processing, and integration with external audit systems.",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "Treasury",
+      "filename": "Treasury.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758574082554
+      }
+    ],
+    "timings": {
+      "startedAt": 1758574082554,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758574082554
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758574082554,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=Treasury.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758574082554,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758574082554
+  }
+}

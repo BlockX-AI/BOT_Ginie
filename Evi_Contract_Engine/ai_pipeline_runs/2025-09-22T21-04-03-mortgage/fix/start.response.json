@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_f5e2acdd-b86c-4778-9f07-e8680d9222b8",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758575328969,
+    "updatedAt": 1758575328969,
+    "payload": {
+      "network": "basecamp-testnet",
+      "filename": "MMORPG.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758575328969
+      }
+    ],
+    "timings": {
+      "startedAt": 1758575328969,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758575328969
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758575328969,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp-testnet, file=MMORPG.sol"
+      },
+      {
+        "i": 2,
+        "t": 1758575328969,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758575328969
+  }
+}

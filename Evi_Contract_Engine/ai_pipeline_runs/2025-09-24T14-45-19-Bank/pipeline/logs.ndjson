@@ -1,0 +1,16 @@
+{"i":1,"t":1758725130016,"level":"info","msg":"Pipeline started. Network=basecamp, maxIters=11, file=Bus.sol, strictArgs=true"}
+{"i":2,"t":1758725130016,"level":"debug","msg":"config: maxIters=11 (hardCap=51)"}
+{"i":3,"t":1758725130017,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1758725130017,"level":"debug","msg":"Enhanced prompt length=1177"}
+{"i":5,"t":1758725197779,"level":"debug","msg":"generate_ai_response_len=8289 ai_ms=67762"}
+{"i":6,"t":1758725197779,"level":"info","msg":"Generation done in 67762ms. Code size=8242"}
+{"i":7,"t":1758725197780,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1758725197780,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1758725200147,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6_Bus.sol\n\n\n"}
+{"i":10,"t":1758725200160,"level":"info","msg":"Compiled 4 Solidity files successfully (evm target: paris).\n"}
+{"i":11,"t":1758725200190,"level":"debug","msg":"iter 1/11: compile ok in 2410ms"}
+{"i":12,"t":1758725200190,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":13,"t":1758725200190,"level":"debug","msg":"Artifact chosen for deploy: Bus"}
+{"i":14,"t":1758725200190,"level":"info","msg":"Stage: deploy_script -> contract Bus"}
+{"i":15,"t":1758725200190,"level":"info","msg":"Contract chosen for deploy: Bus"}
+{"i":16,"t":1758725200191,"level":"info","msg":"Stage: deploy -> network basecamp"}

@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_a1caa15e-b472-4cf2-a1cf-867adf275fe4",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758575044129,
+    "updatedAt": 1758575044129,
+    "payload": {
+      "prompt": "Create a blockchain-based MMORPG infrastructure with NFT items that have\ndynamic stats based on usage history, a marketplace with English and Dutch\nauctions, crafting system with probabilistic outcomes using Chainlink VRF,\nguild management with hierarchical permissions, cross-server asset\ntransfers, play-to-earn tokenomics with linear vesting, anti-bot detection\nusing zero-knowledge proofs, and a reputation system that affects item\ndrop rates. Include support for land ownership with rental mechanisms, PvP\ntournaments with automated prize distribution, and seasonal events with\ntime-locked rewards.\"",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "MMORPG",
+      "filename": "MMORPG.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758575044129
+      }
+    ],
+    "timings": {
+      "startedAt": 1758575044129,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758575044129
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758575044129,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=MMORPG.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758575044129,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758575044129
+  }
+}

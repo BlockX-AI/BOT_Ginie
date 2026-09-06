@@ -1,0 +1,4 @@
+{"i":1,"t":1759511907717,"level":"info","msg":"Pipeline started. Network=base-sepolia, maxIters=3, file=INRTAndCryptoUPIHook.sol, strictArgs=true"}
+{"i":2,"t":1759511907717,"level":"debug","msg":"config: maxIters=3 (hardCap=12)"}
+{"i":3,"t":1759511907737,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1759511907739,"level":"debug","msg":"Enhanced prompt length=3688"}

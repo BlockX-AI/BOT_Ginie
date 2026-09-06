@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_cbd0e698-dbbb-4d88-b329-386f95140552",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "PaniPuri",
+      "fqName": "contracts/AI_ai_pipeline_cbd0e698-dbbb-4d88-b329-386f95140552_PaniPuri.sol:PaniPuri",
+      "address": "0x11d2152bfb7A0B0029702268308c4b19393ef210",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1758599019455,
+    "createdAt": 1758598817234
+  }
+}

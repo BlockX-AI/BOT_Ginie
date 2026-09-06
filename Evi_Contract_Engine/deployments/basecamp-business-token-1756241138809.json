@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-26T20:45:38.809Z",
+  "contracts": {
+    "BusinessToken": "0xE653f8E28a19553F3b15Cd0D9a881934378F2A89"
+  },
+  "params": {
+    "name": "Anadi",
+    "symbol": "AND",
+    "initialSupplyTokens": "2234",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6",
+  "scope": "job:ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6_Bus.sol",
+      "content": "pragma solidity ^0.8.20;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\n\n/**\n * @title Bus\n * @author Expert Solidity Engineer\n * @notice A smart contract to manage a simple bus service.\n * @dev This contract allows an owner to manage bus trips, set ticket prices,\n * and collect revenue. Passengers can buy tickets for the active trip.\n * It is compliant with OpenZeppelin v4.9.x and Solidity ^0.8.19.\n */\ncontract Bus is Ownable, ReentrancyGuard {\n    //-////////////////////////////////////////////////////////\n    //-                      STATE                           -//\n    //-////////////////////////////////////////////////////////\n\n    // Trip configuration\n    uint256 public ticketPrice;\n    uint256 public capacity;\n    string public route;\n\n    // Trip state\n    uint256 public currentTripId;\n    bool public tripIsActive;\n\n    // Passenger tracking per trip\n    mapping(uint256 => mapping(address => bool)) public passengersOnTrip;\n    mapping(uint256 => uint256) public passengerCountForTrip;\n\n    //-////////////////////////////////////////////////////////\n    //-                      EVENTS                          -//\n    //-////////////////////////////////////////////////////////\n\n    /**\n     * @notice Emitted when the owner updates the settings for future trips.\n     * @param newTicketPrice The new price for a single ticket.\n     * @param newCapacity The new maximum passenger capacity.\n     * @param newRoute The new description of the bus route.\n     */\n    event SettingsUpdated(uint256 newTicketPrice, uint256 newCapacity, string newRoute);\n\n    /**\n     * @notice Emitted when a new trip is started.\n     * @param tripId The unique identifier for the new trip.\n     * @param route The route for this trip.\n     * @param ticketPrice The ticket price for this trip.\n     * @param capacity The passenger capacity for this trip.\n     */\n    event TripStarted(uint256 indexed tripId, string route, uint256 ticketPrice, uint256 capacity);\n\n    /**\n     * @notice Emitted when the current trip ends.\n     * @param tripId The unique identifier of the concluded trip.\n     * @param totalPassengers The number of passengers who bought tickets for this trip.\n     * @param revenue The total revenue collected for this trip.\n     */\n    event TripEnded(uint256 indexed tripId, uint256 totalPassengers, uint256 revenue);\n\n    /**\n     * @notice Emitted when a passenger successfully purchases a ticket.\n     * @param tripId The ID of the trip the ticket was purchased for.\n     * @param passenger The address of the passenger.\n     */\n    event TicketPurchased(uint256 indexed tripId, address indexed passenger);\n\n\n    //-////////////////////////////////////////////////////////\n    //-                      ERRORS                          -//\n    //-////////////////////////////////////////////////////////\n\n    /// @notice The action cannot be performed because a trip is already in progress.\n    error Bus__TripAlreadyActive();\n    /// @notice The action cannot be performed because no trip is currently active.\n    error Bus__TripNotActive();\n    /// @notice The bus has reached its maximum passenger capacity for this trip.\n    error Bus__BusIsFull();\n    /// @notice The sender has already purchased a ticket for the current trip.\n    error Bus__AlreadyAPassenger();\n    /// @notice The payment sent does not match the required ticket price.\n    error Bus__IncorrectPayment();\n    /// @notice The settings provided (e.g., price or capacity) are invalid.\n    error Bus__InvalidSettings();\n    /// @notice There are no funds in the contract to withdraw.\n    error Bus__NoRevenueToWithdraw();\n\n\n    //-////////////////////////////////////////////////////////\n    //-                    CONSTRUCTOR                       -//\n    //-////////////////////////////////////////////////////////\n\n    /**\n     * @notice Initializes the contract.\n     * @dev The constructor is empty as per requirements. Use `setTripSettings`\n     * to configure the bus service after deployment.\n     */\n    constructor() {}\n\n\n    //-////////////////////////////////////////////////////////\n    //-                 OWNER FUNCTIONS                      -//\n    //-////////////////////////////////////////////////////////\n\n    /**\n     * @notice Sets the configuration for future trips.\n     * @dev Can only be called by the owner when no trip is active.\n     * @param _ticketPrice The price of a single ticket. Must be greater than 0.\n     * @param _capacity The maximum number of passengers. Must be greater than 0.\n     * @param _route A description of the bus route.\n     */\n    function setTripSettings(uint256 _ticketPrice, uint256 _capacity, string memory _route) external onlyOwner {\n        if (tripIsActive) {\n            revert Bus__TripAlreadyActive();\n        }\n        if (_ticketPrice == 0 || _capacity == 0) {\n            revert Bus__InvalidSettings();\n        }\n\n        ticketPrice = _ticketPrice;\n        capacity = _capacity;\n        route = _route;\n\n        emit SettingsUpdated(_ticketPrice, _capacity, _route);\n    }\n\n    /**\n     * @notice Starts a new trip, allowing passengers to buy tickets.\n     * @dev Can only be called by the owner when no trip is active and settings are valid.\n     */\n    function startTrip() external onlyOwner {\n        if (tripIsActive) {\n            revert Bus__TripAlreadyActive();\n        }\n        if (ticketPrice == 0 || capacity == 0) {\n            revert Bus__InvalidSettings();\n        }\n\n        currentTripId++;\n        tripIsActive = true;\n\n        emit TripStarted(currentTripId, route, ticketPrice, capacity);\n    }\n\n    /**\n     * @notice Ends the current trip, preventing further ticket sales.\n     * @dev Can only be called by the owner when a trip is active.\n     */\n    function endTrip() external onlyOwner {\n        if (!tripIsActive) {\n            revert Bus__TripNotActive();\n        }\n\n        tripIsActive = false;\n        uint256 finalPassengerCount = passengerCountForTrip[currentTripId];\n        uint256 totalRevenue = finalPassengerCount * ticketPrice;\n\n        emit TripEnded(currentTripId, finalPassengerCount, totalRevenue);\n    }\n\n    /**\n     * @notice Withdraws the entire contract balance to the owner's address.\n     * @dev Can only be called by the owner. Uses ReentrancyGuard.\n     */\n    function withdraw() external onlyOwner nonReentrant {\n        uint256 balance = address(this).balance;\n        if (balance == 0) {\n            revert Bus__NoRevenueToWithdraw();\n        }\n\n        (bool success, ) = owner().call{value: balance}(\"\");\n        require(success, \"Bus: Failed to withdraw funds\");\n    }\n\n\n    //-////////////////////////////////////////////////////////\n    //-                 PUBLIC FUNCTIONS                     -//\n    //-////////////////////////////////////////////////////////\n\n    /**\n     * @notice Allows a user to purchase a ticket for the current active trip.\n     * @dev The user must send the exact `ticketPrice` in ETH.\n     */\n    function buyTicket() external payable {\n        if (!tripIsActive) {\n            revert Bus__TripNotActive();\n        }\n        if (msg.value != ticketPrice) {\n            revert Bus__IncorrectPayment();\n        }\n        if (passengerCountForTrip[currentTripId] >= capacity) {\n            revert Bus__BusIsFull();\n        }\n        if (passengersOnTrip[currentTripId][msg.sender]) {\n            revert Bus__AlreadyAPassenger();\n        }\n\n        passengersOnTrip[currentTripId][msg.sender] = true;\n        passengerCountForTrip[currentTripId]++;\n\n        emit TicketPurchased(currentTripId, msg.sender);\n    }\n\n\n    //-////////////////////////////////////////////////////////\n    //-                  VIEW FUNCTIONS                      -//\n    //-////////////////////////////////////////////////////////\n\n    /**\n     * @notice Checks if a specific address is a passenger on a given trip.\n     * @param _tripId The ID of the trip to check.\n     * @param _passenger The address to check.\n     * @return A boolean indicating if the address is a passenger.\n     */\n    function isPassenger(uint256 _tripId, address _passenger) external view returns (bool) {\n        return passengersOnTrip[_tripId][_passenger];\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6_Bus.sol/Bus.json",
+      "name": "Bus",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [],
+          "name": "Bus__AlreadyAPassenger",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "Bus__BusIsFull",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "Bus__IncorrectPayment",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "Bus__InvalidSettings",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "Bus__NoRevenueToWithdraw",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "Bus__TripAlreadyActive",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "Bus__TripNotActive",
+          "type": "error"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newTicketPrice",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newCapacity",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "newRoute",
+              "type": "string"
+            }
+          ],
+          "name": "SettingsUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tripId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "passenger",
+              "type": "address"
+            }
+          ],
+          "name": "TicketPurchased",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tripId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "totalPassengers",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "revenue",
+              "type": "uint256"
+            }
+          ],
+          "name": "TripEnded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tripId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "route",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "ticketPrice",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "capacity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TripStarted",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "buyTicket",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "capacity",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "currentTripId",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "endTrip",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_tripId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "_passenger",
+              "type": "address"
+            }
+          ],
+          "name": "isPassenger",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "passengerCountForTrip",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "passengersOnTrip",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "route",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_ticketPrice",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_capacity",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "_route",
+              "type": "string"
+            }
+          ],
+          "name": "setTripSettings",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "startTrip",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "ticketPrice",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "tripIsActive",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "withdraw",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x608060405234801561001057600080fd5b5061001a33610023565b60018055610073565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b610d89806100826000396000f3fe6080604052600436106100f35760003560e01c80638da5cb5b1161008a578063c2f3c71111610059578063c2f3c71114610262578063d96661ef1461029d578063edca914c146102bf578063f2fde38b146102c757600080fd5b80638da5cb5b146101f057806390c1021b146102185780639cf0d4661461022d578063bbee57b21461024257600080fd5b8063655962eb116100c6578063655962eb1461016457806370bb2c3014610191578063715018a6146101c15780638144559e146101d657600080fd5b80631209b1f6146100f857806328fc17cf146101215780633ccfd60b146101375780635cfc1a511461014e575b600080fd5b34801561010457600080fd5b5061010e60025481565b6040519081526020015b60405180910390f35b34801561012d57600080fd5b5061010e60055481565b34801561014357600080fd5b5061014c6102e7565b005b34801561015a57600080fd5b5061010e60035481565b34801561017057600080fd5b5061010e61017f366004610950565b60086020526000908152604090205481565b34801561019d57600080fd5b506101b16101ac366004610985565b6103cf565b6040519015158152602001610118565b3480156101cd57600080fd5b5061014c6103fc565b3480156101e257600080fd5b506006546101b19060ff1681565b3480156101fc57600080fd5b506000546040516001600160a01b039091168152602001610118565b34801561022457600080fd5b5061014c61040e565b34801561023957600080fd5b5061014c6104b0565b34801561024e57600080fd5b5061014c61025d3660046109c7565b61056f565b34801561026e57600080fd5b506101b161027d366004610985565b600760209081526000928352604080842090915290825290205460ff1681565b3480156102a957600080fd5b506102b261061b565b6040516101189190610ad1565b61014c6106a9565b3480156102d357600080fd5b5061014c6102e2366004610aeb565b6107d4565b6102ef61084d565b6102f76108a7565b47600081900361031a57604051632eee8e1f60e11b815260040160405180910390fd5b600080546040516001600160a01b039091169083908381818185875af1925050503d8060008114610367576040519150601f19603f3d011682016040523d82523d6000602084013e61036c565b606091505b50509050806103c25760405162461bcd60e51b815260206004820152601d60248201527f4275733a204661696c656420746f2077697468647261772066756e647300000060448201526064015b60405180910390fd5b50506103cd60018055565b565b60008281526007602090815260408083206001600160a01b038516845290915290205460ff165b92915050565b61040461084d565b6103cd6000610900565b61041661084d565b60065460ff166104395760405163f4ea1bc760e01b815260040160405180910390fd5b6006805460ff191690556005546000908152600860205260408120546002549091906104659083610b1c565b90506005547fbf5108b688d7d2a1615f142bedfd9ae24c5273604913cc092a791604df2b095483836040516104a4929190918252602082015260400190565b60405180910390a25050565b6104b861084d565b60065460ff16156104dc576040516329750ddd60e01b815260040160405180910390fd5b60025415806104eb5750600354155b15610509576040516320f43b0160e01b815260040160405180910390fd5b6005805490600061051983610b33565b90915550506006805460ff191660011790556005546002546003546040517feb3035efe4fb1566c6395d4b134a5fd3ae0da14e6d2156b66da20050f418f5ab9261056592600492610b86565b60405180910390a2565b61057761084d565b60065460ff161561059b576040516329750ddd60e01b815260040160405180910390fd5b8215806105a6575081155b156105c4576040516320f43b0160e01b815260040160405180910390fd5b6002839055600382905560046105da8282610c6b565b507f45b8b8035e9b4c3d76c7845cfc70d24914342cb25818a92f8fa5a34346b10b6c83838360405161060e93929190610d2b565b60405180910390a1505050565b6004805461062890610b4c565b80601f016020809104026020016040519081016040528092919081815260200182805461065490610b4c565b80156106a15780601f10610676576101008083540402835291602001916106a1565b820191906000526020600020905b81548152906001019060200180831161068457829003601f168201915b505050505081565b60065460ff166106cc5760405163f4ea1bc760e01b815260040160405180910390fd5b60025434146106ee57604051630ca4011960e41b815260040160405180910390fd5b6003546005546000908152600860205260409020541061072157604051635af63e8160e01b815260040160405180910390fd5b600554600090815260076020908152604080832033845290915290205460ff161561075f5760405163667006d960e01b815260040160405180910390fd5b6005805460009081526007602090815260408083203384528252808320805460ff19166001179055925482526008905290812080549161079e83610b33565b90915550506005546040513391907f785f2865353ae960010300f584fc6c577b757a853af69a99c769df3c8232d3de90600090a3565b6107dc61084d565b6001600160a01b0381166108415760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084016103b9565b61084a81610900565b50565b6000546001600160a01b031633146103cd5760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103b9565b6002600154036108f95760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c0060448201526064016103b9565b6002600155565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60006020828403121561096257600080fd5b5035919050565b80356001600160a01b038116811461098057600080fd5b919050565b6000806040838503121561099857600080fd5b823591506109a860208401610969565b90509250929050565b634e487b7160e01b600052604160045260246000fd5b6000806000606084860312156109dc57600080fd5b8335925060208401359150604084013567ffffffffffffffff80821115610a0257600080fd5b818601915086601f830112610a1657600080fd5b813581811115610a2857610a286109b1565b604051601f8201601f19908116603f01168101908382118183101715610a5057610a506109b1565b81604052828152896020848701011115610a6957600080fd5b8260208601602083013760006020848301015280955050505050509250925092565b6000815180845260005b81811015610ab157602081850181015186830182015201610a95565b506000602082860101526020601f19601f83011685010191505092915050565b602081526000610ae46020830184610a8b565b9392505050565b600060208284031215610afd57600080fd5b610ae482610969565b634e487b7160e01b600052601160045260246000fd5b80820281158282048414176103f6576103f6610b06565b600060018201610b4557610b45610b06565b5060010190565b600181811c90821680610b6057607f821691505b602082108103610b8057634e487b7160e01b600052602260045260246000fd5b50919050565b606081526000808554610b9881610b4c565b8060608601526080600180841660008114610bba5760018114610bd457610c05565b60ff1985168884015283151560051b880183019550610c05565b8a60005260208060002060005b86811015610bfc5781548b8201870152908401908201610be1565b8a018501975050505b505050505060208301949094525060400152919050565b601f821115610c6657600081815260208120601f850160051c81016020861015610c435750805b601f850160051c820191505b81811015610c6257828155600101610c4f565b5050505b505050565b815167ffffffffffffffff811115610c8557610c856109b1565b610c9981610c938454610b4c565b84610c1c565b602080601f831160018114610cce5760008415610cb65750858301515b600019600386901b1c1916600185901b178555610c62565b600085815260208120601f198616915b82811015610cfd57888601518255948401946001909101908401610cde565b5085821015610d1b5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b838152826020820152606060408201526000610d4a6060830184610a8b565b9594505050505056fea26469706673582212204b04f2d394dd47bbb88bb03e0762a9d91dbe141de1b7db4508c5086cd1fe705d64736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6.js",
+      "content": "// Auto-generated by AI pipeline for job ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6_Bus.sol:Bus\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"Bus\", fqName: \"contracts/AI_ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6_Bus.sol:Bus\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/app/tmp/jobs/ai_pipeline_7a74c1b9-fe16-4bfa-bc29-1b762fd2d9f6"
+  }
+}

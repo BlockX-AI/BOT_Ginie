@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T18:54:22.637Z",
+  "contracts": {
+    "BusinessToken": "0x7c044718833c2dC2bf575c4cD3a8C75d77b4017c"
+  },
+  "params": {
+    "name": "Camp Token",
+    "symbol": "CAMP",
+    "initialSupplyTokens": "1000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

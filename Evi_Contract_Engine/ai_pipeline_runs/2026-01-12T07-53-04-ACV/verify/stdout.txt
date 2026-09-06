@@ -1,0 +1,16 @@
+[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:
+
+sourcify: {
+  enabled: true
+}
+
+Or set 'enabled' to false to hide this message.
+
+For more information, visit https://hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify
+Successfully submitted source code for contract
+contracts/AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol:TempleRunner at 0xA6EF9c88be97aD6327728c3C9ceF48464de02C96
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract TempleRunner on the block explorer.
+https://basecamp.cloud.blockscout.com/address/0xA6EF9c88be97aD6327728c3C9ceF48464de02C96#code
+

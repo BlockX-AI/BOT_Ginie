@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:27:19.953Z",
+  "contracts": {
+    "BusinessToken": "0x66AAcbe132b01F77A181951D9baEFfA1CA6C91f0"
+  },
+  "params": {
+    "name": "Zeta Camp Token 38",
+    "symbol": "ZTX38",
+    "initialSupplyTokens": "21000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

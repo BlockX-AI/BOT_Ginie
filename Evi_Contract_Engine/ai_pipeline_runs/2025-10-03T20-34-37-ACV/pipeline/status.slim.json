@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "NGODonation",
+      "fqName": "contracts/AI_ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21_NGODonation.sol:NGODonation",
+      "address": "0x0e0fef97cd26C5d14B9608AF06613f188BBdb0dA",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1759523776304,
+    "createdAt": 1759523678044
+  }
+}

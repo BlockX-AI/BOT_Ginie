@@ -1,0 +1,18 @@
+{"i":1,"t":1758615977206,"level":"info","msg":"Pipeline started. Network=basecamp, maxIters=11, file=TicTacToe.sol, strictArgs=true"}
+{"i":2,"t":1758615977206,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758615977207,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1758615977207,"level":"debug","msg":"Enhanced prompt length=1193"}
+{"i":5,"t":1758616030300,"level":"debug","msg":"generate_ai_response_len=5575 ai_ms=53093"}
+{"i":6,"t":1758616030301,"level":"info","msg":"Generation done in 53094ms. Code size=5528"}
+{"i":7,"t":1758616030301,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1758616030303,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1758616031497,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8_TicTacToe.sol\n\n\n"}
+{"i":10,"t":1758616031502,"level":"info","msg":"Compiled 1 Solidity file successfully (evm target: paris).\n"}
+{"i":11,"t":1758616031512,"level":"debug","msg":"iter 1/11: compile ok in 1209ms"}
+{"i":12,"t":1758616031512,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":13,"t":1758616031512,"level":"debug","msg":"Artifact chosen for deploy: TicTacToe"}
+{"i":14,"t":1758616031513,"level":"info","msg":"Stage: deploy_script -> contract TicTacToe"}
+{"i":15,"t":1758616031513,"level":"info","msg":"Contract chosen for deploy: TicTacToe"}
+{"i":16,"t":1758616031513,"level":"info","msg":"Stage: deploy -> network basecamp"}
+{"i":17,"t":1758616041419,"level":"info","msg":"DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"TicTacToe\",\"fqName\":\"contracts/AI_ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8_TicTacToe.sol:TicTacToe\",\"address\":\"0xc887F4d284e93e80eBce987cd7aFd0e450825dE1\",\"params\":{\"args\":[]}}\n"}
+{"i":18,"t":1758616041442,"level":"info","msg":"Deploy success. Address=0xc887F4d284e93e80eBce987cd7aFd0e450825dE1"}

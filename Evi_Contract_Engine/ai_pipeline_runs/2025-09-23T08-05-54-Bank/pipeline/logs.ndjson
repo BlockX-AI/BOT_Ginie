@@ -1,0 +1,26 @@
+{"i":1,"t":1758614754964,"level":"info","msg":"Pipeline started. Network=basecamp-testnet, maxIters=11, file=AINFT.sol, strictArgs=true"}
+{"i":2,"t":1758614754964,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758614754965,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1758614754965,"level":"debug","msg":"Enhanced prompt length=1190"}
+{"i":5,"t":1758614853983,"level":"debug","msg":"generate_ai_response_len=8983 ai_ms=99018"}
+{"i":6,"t":1758614853983,"level":"info","msg":"Generation done in 99018ms. Code size=8936"}
+{"i":7,"t":1758614853983,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1758614853985,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1758614854900,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_e171ff2c-4e8c-434f-a653-215b2ec0e944_AINFT.sol\n\n\n"}
+{"i":10,"t":1758614854900,"level":"error","msg":"Warning: This declaration shadows an existing declaration.\n   --> contracts/AI_ai_pipeline_e171ff2c-4e8c-434f-a653-215b2ec0e944_AINFT.sol:132:14:\n    |\n132 |             (bool success, ) = feeRecipient.call{value: fee}(\"\");\n    |              ^^^^^^^^^^^^\nNote: The shadowed declaration is here:\n   --> contracts/AI_ai_pipeline_e171ff2c-4e8c-434f-a653-215b2ec0e944_AINFT.sol:136:10:\n    |\n136 |         (bool success, ) = payable(seller).call{value: sellerProceeds}(\"\");\n    |          ^^^^^^^^^^^^\n\n\nTypeError: Invalid contract specified in override list: \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_e171ff2c-4e8c-434f-a653-215b2ec0e944_AINFT.sol:217:9:\n    |\n217 |         override(ERC721, ERC721URIStorage)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"}
+{"i":11,"t":1758614854908,"level":"error","msg":"Error HH600: Compilation failed\n"}
+{"i":12,"t":1758614854908,"level":"error","msg":"For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"}
+{"i":13,"t":1758614854908,"level":"info","msg":"\n"}
+{"i":14,"t":1758614854922,"level":"debug","msg":"iter 1/11: compile failed in 937ms"}
+{"i":15,"t":1758614854922,"level":"warn","msg":"Compile failed (iter 0). Running AI fix. Error length=1511"}
+{"i":16,"t":1758614854922,"level":"debug","msg":"pipeline_fix_prompt_len=11156"}
+{"i":17,"t":1758614952606,"level":"debug","msg":"pipeline_ai_fix_response_len=9100 ai_ms=97684"}
+{"i":18,"t":1758614955276,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_e171ff2c-4e8c-434f-a653-215b2ec0e944_AINFT.sol\n\n\n"}
+{"i":19,"t":1758614955302,"level":"info","msg":"Compiled 20 Solidity files successfully (evm target: paris).\n"}
+{"i":20,"t":1758614955317,"level":"debug","msg":"iter 2/11: compile ok in 2709ms"}
+{"i":21,"t":1758614955317,"level":"info","msg":"Compile success after 1 fix iterations."}
+{"i":22,"t":1758614955318,"level":"debug","msg":"Artifact chosen for deploy: AINFT"}
+{"i":23,"t":1758614955318,"level":"info","msg":"Stage: deploy_script -> contract AINFT"}
+{"i":24,"t":1758614955318,"level":"info","msg":"Contract chosen for deploy: AINFT"}
+{"i":25,"t":1758614955319,"level":"info","msg":"Stage: deploy -> network basecamp-testnet"}
+{"i":26,"t":1758614959039,"level":"error","msg":"ProviderError: insufficient funds for gas * price + value: have 0 want 2400448419720\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_e171ff2c-4e8c-434f-a653-215b2ec0e944/scripts/deploy-ai_pipeline_e171ff2c-4e8c-434f-a653-215b2ec0e944.js:8:13)\n"}

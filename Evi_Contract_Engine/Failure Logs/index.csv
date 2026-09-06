@@ -1,0 +1,50 @@
+jobId,state,step,category,reason,logLines
+ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287,failed,deploy_prep,error,"Constructor args mismatch. Expected 5, provided 1.",650
+ai_pipeline_ce68981d-d2b1-441d-81c7-83be8f9c3e17,failed,deploy,error,"NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)",1600
+ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09,failed,deploy_prep,error,"Constructor args mismatch. Expected 3, provided 2.",700
+ai_pipeline_967c8f73-8694-4acb-b045-bef4780dbc43,failed,fix,error,"HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)",1850
+ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e,failed,deploy,error,"NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)",850
+ai_pipeline_f841e96b-bfe2-4697-be94-49b58a7ab90b,failed,deploy_prep,error,"Constructor args mismatch. Expected 4, provided 2.",650
+ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811,failed,deploy_prep,error,"Constructor args mismatch. Expected 2, provided 0.",1100
+ai_pipeline_d049efea-2bd8-4f8c-a8c6-f72360e3de5f,failed,deploy,error,"NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)",1700
+ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f,failed,deploy_prep,error,"Constructor args mismatch. Expected 5, provided 2.",1000

@@ -1,0 +1,191 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf",
+  "scope": "job:ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf_AIGenerated.sol",
+      "content": "pragma solidity ^0.8.19;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\n\n/**\n * @title Reputation\n * @author AIGenerated\n * @dev A contract to manage reputation scores for addresses.\n * The owner of the contract has the exclusive authority to increase or decrease scores.\n * This contract uses an empty constructor and relies on OpenZeppelin's Ownable for access control.\n */\ncontract Reputation is Ownable {\n    /**\n     * @dev Mapping from an address to its reputation score.\n     */\n    mapping(address => uint256) private _scores;\n\n    /**\n     * @dev Emitted when an account's reputation score is increased.\n     * @param account The address whose score was increased.\n     * @param amount The amount added to the score.\n     * @param newScore The new total score of the account.\n     */\n    event Increased(address indexed account, uint256 amount, uint256 newScore);\n\n    /**\n     * @dev Emitted when an account's reputation score is decreased.\n     * @param account The address whose score was decreased.\n     * @param amount The amount subtracted from the score.\n     * @param newScore The new total score of the account.\n     */\n    event Decreased(address indexed account, uint256 amount, uint256 newScore);\n\n    /**\n     * @dev The constructor is intentionally left empty.\n     * The `Ownable` constructor is implicitly called, setting the contract deployer as the initial owner.\n     */\n    constructor() {\n        // This space is intentionally left blank.\n    }\n\n    /**\n     * @dev Returns the reputation score of a given account.\n     * @param account The address to query the score for.\n     * @return The reputation score of the account.\n     */\n    function score(address account) public view returns (uint256) {\n        return _scores[account];\n    }\n\n    /**\n     * @dev Increases the reputation score of an account.\n     * This operation can only be performed by the contract owner.\n     * Emits an {Increased} event.\n     *\n     * Requirements:\n     * - `account` cannot be the zero address.\n     * - The caller must be the owner.\n     * - The operation will revert on arithmetic overflow due to Solidity ^0.8.0 checks.\n     * @param account The address whose score will be increased.\n     * @param amount The amount to increase the score by.\n     */\n    function increase(address account, uint256 amount) public onlyOwner {\n        require(account != address(0), \"Reputation: cannot update score for the zero address\");\n        \n        uint256 currentScore = _scores[account];\n        // Solidity ^0.8.0 provides built-in overflow protection\n        uint256 newScore = currentScore + amount;\n        \n        _scores[account] = newScore;\n        \n        emit Increased(account, amount, newScore);\n    }\n\n    /**\n     * @dev Decreases the reputation score of an account.\n     * This operation can only be performed by the contract owner.\n     * Emits a {Decreased} event.\n     *\n     * Requirements:\n     * - `account` cannot be the zero address.\n     * - `amount` must not be greater than the account's current score.\n     * - The caller must be the owner.\n     * @param account The address whose score will be decreased.\n     * @param amount The amount to decrease the score by.\n     */\n    function decrease(address account, uint256 amount) public onlyOwner {\n        require(account != address(0), \"Reputation: cannot update score for the zero address\");\n        \n        uint256 currentScore = _scores[account];\n        require(currentScore >= amount, \"Reputation: decrease amount exceeds current score\");\n        \n        // Solidity ^0.8.0 provides built-in underflow protection\n        uint256 newScore = currentScore - amount;\n        \n        _scores[account] = newScore;\n        \n        emit Decreased(account, amount, newScore);\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf_AIGenerated.sol/Reputation.json",
+      "name": "Reputation",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newScore",
+              "type": "uint256"
+            }
+          ],
+          "name": "Decreased",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newScore",
+              "type": "uint256"
+            }
+          ],
+          "name": "Increased",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "decrease",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "increase",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "score",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x608060405234801561001057600080fd5b5061001a3361001f565b61006f565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b61053c8061007e6000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c8063522afaec14610067578063715018a61461007c578063776f3843146100845780638da5cb5b146100c0578063f27ac4d9146100db578063f2fde38b146100ee575b600080fd5b61007a610075366004610424565b610101565b005b61007a6101bd565b6100ad61009236600461044e565b6001600160a01b031660009081526001602052604090205490565b6040519081526020015b60405180910390f35b6000546040516001600160a01b0390911681526020016100b7565b61007a6100e9366004610424565b6101d1565b61007a6100fc36600461044e565b6102e5565b61010961035e565b6001600160a01b0382166101385760405162461bcd60e51b815260040161012f90610470565b60405180910390fd5b6001600160a01b0382166000908152600160205260408120549061015c83836104da565b6001600160a01b038516600081815260016020908152604091829020849055815187815290810184905292935090917f8b05844824acf2db2f068e4006ef99b307ca4fe1a896d06e884700f1a9da3a6d91015b60405180910390a250505050565b6101c561035e565b6101cf60006103b8565b565b6101d961035e565b6001600160a01b0382166101ff5760405162461bcd60e51b815260040161012f90610470565b6001600160a01b038216600090815260016020526040902054818110156102825760405162461bcd60e51b815260206004820152603160248201527f52657075746174696f6e3a20646563726561736520616d6f756e7420657863656044820152706564732063757272656e742073636f726560781b606482015260840161012f565b600061028e83836104f3565b6001600160a01b038516600081815260016020908152604091829020849055815187815290810184905292935090917f5ee9537083cb767f9e599a17876a9c597197deba435082e0b88c4da925d4599e91016101af565b6102ed61035e565b6001600160a01b0381166103525760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b606482015260840161012f565b61035b816103b8565b50565b6000546001600160a01b031633146101cf5760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604482015260640161012f565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b80356001600160a01b038116811461041f57600080fd5b919050565b6000806040838503121561043757600080fd5b61044083610408565b946020939093013593505050565b60006020828403121561046057600080fd5b61046982610408565b9392505050565b60208082526034908201527f52657075746174696f6e3a2063616e6e6f74207570646174652073636f726520604082015273666f7220746865207a65726f206164647265737360601b606082015260800190565b634e487b7160e01b600052601160045260246000fd5b808201808211156104ed576104ed6104c4565b92915050565b818103818111156104ed576104ed6104c456fea26469706673582212207ca350dafa904ca5da1ece41eb65a3678559926952713745ed6d2bee0741cf2564736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf.js",
+      "content": "// Auto-generated by AI pipeline for job ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf_AIGenerated.sol:Reputation\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"Reputation\", fqName: \"contracts/AI_ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf_AIGenerated.sol:Reputation\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/app/tmp/jobs/ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf"
+  }
+}

@@ -1,0 +1,18 @@
+{"i":1,"t":1759331452000,"level":"info","msg":"Pipeline started. Network=basecamp, maxIters=11, file=Noodle.sol, strictArgs=true"}
+{"i":2,"t":1759331452000,"level":"debug","msg":"config: maxIters=11 (hardCap=51)"}
+{"i":3,"t":1759331452001,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1759331452001,"level":"debug","msg":"Enhanced prompt length=1149"}
+{"i":5,"t":1759331494184,"level":"debug","msg":"generate_ai_response_len=5863 ai_ms=42183"}
+{"i":6,"t":1759331494184,"level":"info","msg":"Generation done in 42183ms. Code size=5816"}
+{"i":7,"t":1759331494184,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1759331494184,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1759331496545,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525_Noodle.sol\n\n\n"}
+{"i":10,"t":1759331496557,"level":"info","msg":"Compiled 5 Solidity files successfully (evm target: paris).\n"}
+{"i":11,"t":1759331496596,"level":"debug","msg":"iter 1/11: compile ok in 2412ms"}
+{"i":12,"t":1759331496596,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":13,"t":1759331496597,"level":"debug","msg":"Artifact chosen for deploy: NoodleVendor"}
+{"i":14,"t":1759331496597,"level":"info","msg":"Stage: deploy_script -> contract NoodleVendor"}
+{"i":15,"t":1759331496597,"level":"info","msg":"Contract chosen for deploy: NoodleVendor"}
+{"i":16,"t":1759331496598,"level":"info","msg":"Stage: deploy -> network basecamp"}
+{"i":17,"t":1759331503496,"level":"info","msg":"DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"NoodleVendor\",\"fqName\":\"contracts/AI_ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525_Noodle.sol:NoodleVendor\",\"address\":\"0xc0667862ea1f8929Ea6804961A7E86f8497bcB33\",\"params\":{\"args\":[]}}\n"}
+{"i":18,"t":1759331503542,"level":"info","msg":"Deploy success. Address=0xc0667862ea1f8929Ea6804961A7E86f8497bcB33"}

@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:08:00.428Z",
+  "contracts": {
+    "BusinessToken": "0x631C4cf50a564ea0bDD01152a3171479D5fda00a"
+  },
+  "params": {
+    "name": "Terra My Token 22",
+    "symbol": "TRR22",
+    "initialSupplyTokens": "100000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_1cf39f04-628c-4f74-8c9a-de50ff330967",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1768327233479,
+    "updatedAt": 1768327364343,
+    "payload": {
+      "prompt": "Create a Coin Flip betting game smart contract. Features:\n- Players bet ETH on heads or tails\n- Use commit-reveal for fairness (or VRF placeholder)\n- House edge 2%\n- Track betting history per player\n- Emit events for bets placed and results\n- Anti-cheat with commit-reveal pattern\n- Keep constructor empty",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "CoinFlipBet",
+      "filename": "CoinFlipBet.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1768327233479
+      },
+      {
+        "step": "generate",
+        "t": 1768327233480
+      },
+      {
+        "step": "write",
+        "t": 1768327352404
+      },
+      {
+        "step": "compile",
+        "t": 1768327352405
+      },
+      {
+        "step": "deploy_script",
+        "t": 1768327354952
+      },
+      {
+        "step": "deploy",
+        "t": 1768327354952
+      }
+    ],
+    "timings": {
+      "startedAt": 1768327233479,
+      "endedAt": 1768327364343,
+      "phases": {
+        "init": {
+          "startedAt": 1768327233479,
+          "endedAt": 1768327233480
+        },
+        "generate": {
+          "startedAt": 1768327233480,
+          "endedAt": 1768327352404
+        },
+        "write": {
+          "startedAt": 1768327352404,
+          "endedAt": 1768327352405
+        },
+        "compile": {
+          "startedAt": 1768327352405,
+          "endedAt": 1768327354952
+        },
+        "deploy_script": {
+          "startedAt": 1768327354952,
+          "endedAt": 1768327354952
+        },
+        "deploy": {
+          "startedAt": 1768327354952,
+          "endedAt": 1768327364343
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "CoinFlipBet",
+      "fqName": "contracts/AI_ai_pipeline_1cf39f04-628c-4f74-8c9a-de50ff330967_CoinFlipBet.sol:CoinFlipBet",
+      "address": "0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768327233480,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=CoinFlipBet.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1768327233480,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      },
+      {
+        "i": 3,
+        "t": 1768327233480,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1768327233483,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1486"
+      },
+      {
+        "i": 5,
+        "t": 1768327233483,
+        "level": "info",
+        "msg": "game_classified: BETTING (63.6% confidence)"
+      },
+      {
+        "i": 6,
+        "t": 1768327233483,
+        "level": "debug",
+        "msg": "prompt_suite: betting_complete with 9 prompts"
+      },
+      {
+        "i": 7,
+        "t": 1768327233483,
+        "level": "debug",
+        "msg": "mechanics: [economy_tokens, randomness_vrf, leaderboard_seasonal]"
+      },
+      {
+        "i": 8,
+        "t": 1768327233483,
+        "level": "debug",
+        "msg": "complexity: simple, gas: medium, security: advanced"
+      },
+      {
+        "i": 9,
+        "t": 1768327352404,
+        "level": "debug",
+        "msg": "generate_ai_response_len=7128 ai_ms=118919"
+      },
+      {
+        "i": 10,
+        "t": 1768327352404,
+        "level": "info",
+        "msg": "Generation done in 118924ms. Code size=7232"
+      },
+      {
+        "i": 11,
+        "t": 1768327352404,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 12,
+        "t": 1768327352405,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 13,
+        "t": 1768327354910,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1cf39f04-628c-4f74-8c9a-de50ff330967_CoinFlipBet.sol\n\n\n"
+      },
+      {
+        "i": 14,
+        "t": 1768327354920,
+        "level": "info",
+        "msg": "Compiled 4 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 15,
+        "t": 1768327354951,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 2546ms"
+      },
+      {
+        "i": 16,
+        "t": 1768327354951,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 17,
+        "t": 1768327354952,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: CoinFlipBet"
+      },
+      {
+        "i": 18,
+        "t": 1768327354952,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract CoinFlipBet"
+      },
+      {
+        "i": 19,
+        "t": 1768327354952,
+        "level": "info",
+        "msg": "Contract chosen for deploy: CoinFlipBet"
+      },
+      {
+        "i": 20,
+        "t": 1768327354952,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "i": 21,
+        "t": 1768327364296,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"CoinFlipBet\",\"fqName\":\"contracts/AI_ai_pipeline_1cf39f04-628c-4f74-8c9a-de50ff330967_CoinFlipBet.sol:CoinFlipBet\",\"address\":\"0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 22,
+        "t": 1768327364343,
+        "level": "info",
+        "msg": "Deploy success. Address=0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43"
+      }
+    ],
+    "_logIndex": 22,
+    "logsCount": 22,
+    "lastLogTs": 1768327364343,
+    "contractName": "CoinFlipBet",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"CoinFlipBet\",\"fqName\":\"contracts/AI_ai_pipeline_1cf39f04-628c-4f74-8c9a-de50ff330967_CoinFlipBet.sol:CoinFlipBet\",\"address\":\"0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

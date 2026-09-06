@@ -1,0 +1,15 @@
+{
+  "gameKey": "rpg-dungeon",
+  "success": true,
+  "jobId": "ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19",
+  "verify": {
+    "verified": false,
+    "error": "fetch failed"
+  },
+  "audit": {
+    "error": "fetch failed"
+  },
+  "compliance": {
+    "error": "fetch failed"
+  }
+}

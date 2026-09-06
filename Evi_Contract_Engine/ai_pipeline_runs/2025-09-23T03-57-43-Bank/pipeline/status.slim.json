@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "varaStreams",
+      "fqName": "contracts/AI_ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925_varaStreams.sol:varaStreams",
+      "address": "0xa2b8ce5D1DCc72dB71aE52729B17885e16B1C8Af",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1758600021525,
+    "createdAt": 1758599863186
+  }
+}

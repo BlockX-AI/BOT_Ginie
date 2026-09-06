@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1759523678044,
+    "updatedAt": 1759523678044,
+    "payload": {
+      "prompt": "Create a single Solidity smart contract named NGODonation for campaign-based ETH donations.\n\nConstraints:\n- Single .sol file, no external imports. Include SPDX-License-Identifier: MIT and pragma ^0.8.20.\n- Implement minimal Ownable, Pausable, and ReentrancyGuard patterns inline to avoid external dependencies.\n\nFeatures:\n- Owner can create campaigns: createCampaign(string name, string metadataURI, address payable beneficiary, uint256 goal) returns (uint256 campaignId).\n- Donors can donate ETH: donate(uint256 campaignId, string message) payable whenNotPaused nonReentrant. Track donor totals and campaign totals.\n- Beneficiary can withdraw funds from their campaign: withdraw(uint256 campaignId, uint256 amount) nonReentrant; transfer via call; update balances.\n- Owner or beneficiary can closeCampaign(uint256 campaignId). Closed campaigns cannot accept donations.\n- Events: CampaignCreated, DonationReceived, FundsWithdrawn, CampaignClosed.\n- Views: getCampaign(uint256), campaignCount(), donorTotal(uint256,address), campaignRaised(uint256).\n\nSecurity & UX:\n- Clear require messages, check active campaigns, and prevent reentrancy.\n- Make constructor require no arguments.\n",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "NGODonation",
+      "filename": "NGODonation.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1759523678044
+      }
+    ],
+    "timings": {
+      "startedAt": 1759523678044,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1759523678044
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1759523678044,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=NGODonation.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1759523678044,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1759523678044
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:08:49.243Z",
+  "contracts": {
+    "BusinessToken": "0xCaCff4895acCeB00215C2f658A034E1846858E58"
+  },
+  "params": {
+    "name": "Byte My Token 26",
+    "symbol": "BYT26",
+    "initialSupplyTokens": "750000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

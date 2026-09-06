@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-26T20:08:03.179Z",
+  "contracts": {
+    "BusinessToken": "0x0D6778283A4DE13d67af4F7962fEf1ECE54487e8"
+  },
+  "params": {
+    "name": "BlockXCamp",
+    "symbol": "BXC",
+    "initialSupplyTokens": "2100000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

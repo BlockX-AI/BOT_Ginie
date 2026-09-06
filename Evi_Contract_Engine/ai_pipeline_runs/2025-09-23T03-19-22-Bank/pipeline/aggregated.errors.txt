@@ -1,0 +1,11 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> contracts/AI_ai_pipeline_37a00b1f-baeb-4699-99ac-17bd81550153_DecentralizedIdentity.sol
+
+
+
+ProviderError: insufficient funds for gas * price + value: have 0 want 2963753456202
+    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)
+    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)
+    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_37a00b1f-baeb-4699-99ac-17bd81550153/scripts/deploy-ai_pipeline_37a00b1f-baeb-4699-99ac-17bd81550153.js:8:13)

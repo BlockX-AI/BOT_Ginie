@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:46:56.423Z",
+  "contracts": {
+    "BusinessToken": "0x92DB752B090382cEf660E3C67E8a11265B2B0b0D"
+  },
+  "params": {
+    "name": "Pixel Camp Token 25",
+    "symbol": "PXL25",
+    "initialSupplyTokens": "500000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

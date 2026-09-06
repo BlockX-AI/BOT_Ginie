@@ -1,0 +1,6 @@
+{"i":1,"t":1769367984339,"level":"info","msg":"Orchestrate job started. fix=false deploy=false network=basecamp"}
+{"i":2,"t":1769368061572,"level":"warn","msg":"Coverage gating failed: FINDINGS_LESS_THAN_MINIMUM_17"}
+{"i":3,"t":1769368138378,"level":"info","msg":"Coverage gating passed after second pass."}
+{"i":4,"t":1769368138379,"level":"info","msg":"Audit analysis complete. score=90"}
+{"i":5,"t":1769368138379,"level":"info","msg":"Saved audit report: tmp/jobs/audit_orchestrate_732a8650-cdb3-4669-ab7b-6d126f20be3e/audit/report.json"}
+{"i":6,"t":1769368138379,"level":"info","msg":"Mirrored audit report under source job: ai_pipeline_1f77b401-7107-483d-a3f5-fd3142706266"}

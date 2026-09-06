@@ -1,0 +1,8 @@
+{
+  "jobId": "ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811",
+  "state": "failed",
+  "step": "deploy_prep",
+  "category": "error",
+  "reason": "Constructor args mismatch. Expected 2, provided 0.",
+  "logLines": 1100
+}

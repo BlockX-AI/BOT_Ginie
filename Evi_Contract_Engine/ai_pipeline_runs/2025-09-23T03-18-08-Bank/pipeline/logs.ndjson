@@ -1,0 +1,5 @@
+{"i":1,"t":1758597488329,"level":"info","msg":"Pipeline started. Network=basecamp-testnet, maxIters=11, file=DecentralizedIdentity.sol, strictArgs=true"}
+{"i":2,"t":1758597488329,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758597488332,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1758597488332,"level":"debug","msg":"Enhanced prompt length=3757"}
+{"i":5,"t":1758597490692,"level":"error","msg":"Pipeline failed: Gemini API error 400: {\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"API key expired. Please renew the API key.\",\n    \"status\": \"INVALID_ARGUMENT\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"API_KEY_INVALID\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"service\": \"generativelanguage.googleapis.com\"\n        }\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.LocalizedMessage\",\n        \"locale\": \"en-US\",\n        \"message\": \"API key expired. Please renew the API key.\"\n      }\n    ]\n  }\n}\n"}

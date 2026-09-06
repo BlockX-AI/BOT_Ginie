@@ -1,0 +1,15 @@
+{
+  "game": "coin-flip",
+  "contract_name": "CoinFlipBet",
+  "network": "basecamp",
+  "job_id": "ai_pipeline_1cf39f04-628c-4f74-8c9a-de50ff330967",
+  "contract_address": "0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43",
+  "explorer_url": "https://basecamp.cloud.blockscout.com/address/0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43",
+  "verified": true,
+  "verify_url": "https://basecamp.cloud.blockscout.com/address/0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43#code",
+  "audit_score": null,
+  "compliance_score": null,
+  "errors": [],
+  "success": true,
+  "timestamp": "2026-01-13T23:39:57.085300"
+}

@@ -1,0 +1,208 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e",
+    "total": 33,
+    "count": 33,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758614990854,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=AINFT.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758614990854,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758614990854,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1758614990854,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1190"
+      },
+      {
+        "i": 5,
+        "t": 1758615110630,
+        "level": "debug",
+        "msg": "generate_ai_response_len=9709 ai_ms=119776"
+      },
+      {
+        "i": 6,
+        "t": 1758615110630,
+        "level": "info",
+        "msg": "Generation done in 119776ms. Code size=9662"
+      },
+      {
+        "i": 7,
+        "t": 1758615110630,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1758615110632,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1758615111107,
+        "level": "error",
+        "msg": "Error HH404: File @openzeppelin/contracts/royalty/ERC2981.sol, imported from contracts/AI_ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e_AINFT.sol, not found.\n"
+      },
+      {
+        "i": 10,
+        "t": 1758615111107,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 11,
+        "t": 1758615111107,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 12,
+        "t": 1758615111117,
+        "level": "debug",
+        "msg": "iter 1/11: compile failed in 485ms"
+      },
+      {
+        "i": 13,
+        "t": 1758615111117,
+        "level": "warn",
+        "msg": "Compile failed (iter 0). Running AI fix. Error length=249"
+      },
+      {
+        "i": 14,
+        "t": 1758615111117,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=10620"
+      },
+      {
+        "i": 15,
+        "t": 1758615189762,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=9652 ai_ms=78645"
+      },
+      {
+        "i": 16,
+        "t": 1758615190751,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e_AINFT.sol\n\n\n"
+      },
+      {
+        "i": 17,
+        "t": 1758615190751,
+        "level": "error",
+        "msg": "TypeError: Function has override specified but does not override anything.\n  --> contracts/AI_ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e_AINFT.sol:91:9:\n   |\n91 |         override(ERC721, ERC721Enumerable)\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Invalid contracts specified in override list: \"ERC721\" and \"ERC721Enumerable\".\n  --> contracts/AI_ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e_AINFT.sol:91:9:\n   |\n91 |         override(ERC721, ERC721Enumerable)\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/ERC721.sol:19:1:\n   |\n19 | contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:14:1:\n   |\n14 | abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Function needs to specify overridden contract \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e_AINFT.sol:132:9:\n    |\n132 |         override(ERC721Enumerable, ERC2981)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Derived contract must override function \"_beforeTokenTransfer\". Two or more base classes define function with same name and parameter types.\n  --> contracts/AI_ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e_AINFT.sol:18:1:\n   |\n18 | contract AINFT is ERC721Enumerable, ERC721URIStorage, ERC2981, Ownable, ReentrancyGuard {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC721\": \n   --> @openzeppelin/contracts/token/ERC721/ERC721.sol:437:5:\n    |\n437 |     function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal virtual {}\n    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: Definition in \"ERC721Enumerable\": \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:60:5:\n   |\n60 |     function _beforeTokenTransfer(\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Wrong argument count for function call: 3 arguments given but expected 4.\n  --> contracts/AI_ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e_AINFT.sol:93:9:\n   |\n93 |         super._beforeTokenTransfer(from, to, tokenId);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Invalid type for argument in function call. Invalid implicit conversion from address to address payable requested.\n   --> contracts/AI_ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e_AINFT.sol:272:22:\n    |\n272 |             _safePay(owner(), balance);\n    |                      ^^^^^^^\n\n\n"
+      },
+      {
+        "i": 18,
+        "t": 1758615190761,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 19,
+        "t": 1758615190762,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 20,
+        "t": 1758615190762,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 21,
+        "t": 1758615190775,
+        "level": "debug",
+        "msg": "iter 2/11: compile failed in 1010ms"
+      },
+      {
+        "i": 22,
+        "t": 1758615190775,
+        "level": "warn",
+        "msg": "Compile failed (iter 1). Running AI fix. Error length=3645"
+      },
+      {
+        "i": 23,
+        "t": 1758615190775,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=13991"
+      },
+      {
+        "i": 24,
+        "t": 1758615315442,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=9601 ai_ms=124667"
+      },
+      {
+        "i": 25,
+        "t": 1758615319666,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e_AINFT.sol\n\n\n"
+      },
+      {
+        "i": 26,
+        "t": 1758615319688,
+        "level": "info",
+        "msg": "Compiled 23 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 27,
+        "t": 1758615319712,
+        "level": "debug",
+        "msg": "iter 3/11: compile ok in 4269ms"
+      },
+      {
+        "i": 28,
+        "t": 1758615319712,
+        "level": "info",
+        "msg": "Compile success after 2 fix iterations."
+      },
+      {
+        "i": 29,
+        "t": 1758615319714,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: AINFT"
+      },
+      {
+        "i": 30,
+        "t": 1758615319714,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract AINFT"
+      },
+      {
+        "i": 31,
+        "t": 1758615319714,
+        "level": "info",
+        "msg": "Contract chosen for deploy: AINFT"
+      },
+      {
+        "i": 32,
+        "t": 1758615319715,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp-testnet"
+      },
+      {
+        "i": 33,
+        "t": 1758615325215,
+        "level": "error",
+        "msg": "ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 2549600389080, overshot 2549600389080\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e/scripts/deploy-ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e.js:8:13)\n"
+      }
+    ]
+  }
+}

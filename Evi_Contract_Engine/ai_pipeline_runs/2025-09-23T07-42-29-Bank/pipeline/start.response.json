@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758613349986,
+    "updatedAt": 1758613349986,
+    "payload": {
+      "prompt": "*\"Design a highly advanced blockchain game smart contract in Solidity (≥0.8.19), combining multiple systems into one extensible architecture. The game should include:\nNFT Items (ERC721) with soulbound mechanics, dynamic stats that evolve with usage, rarity levels, and metadata storage.\nIn-game currency (ERC20-like token) with minting, burning, allowances, and vesting schedules for play-to-earn rewards.\nCrafting system with Chainlink VRF randomness for probabilistic item generation, supporting multiple recipes with variable outcomes.\nPlayer reputation system that affects loot drop chances, marketplace discounts, or guild eligibility.\nMarketplace (Auctions) supporting both English and Dutch auctions for items, with safe ETH transfers and anti-reentrancy protections.\nGuild system with roles (Leader, Officer, Member), guild reputation, and on-chain governance actions.\nLand ownership and rentals for passive income mechanics.\nPvP tournaments and seasonal events with entry fees, prize pools, time locks, and automated winner distribution.\nCross-chain bridging support for NFTs and tokens, including emitting events for off-chain relayers.\nAnti-bot protections with ZK-proof placeholders or signature verification.\nUpgradeable design (using UUPS or proxy pattern) so new features can be added later.\nEvents for all major actions (crafting, battles, auctions, guild joins, rentals, etc.) for analytics dashboards.\nCode must:\nBe self-contained and compilable without external imports beyond OpenZeppelin.\nFollow best practices for security (reentrancy guards, input validation, safe transfers).\nUse modular struct/enums for clarity.\nInclude clear comments explaining the purpose of each subsystem.\n",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "Game",
+      "filename": "Game.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758613349986
+      }
+    ],
+    "timings": {
+      "startedAt": 1758613349986,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758613349986
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758613349986,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=Game.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758613349986,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758613349986
+  }
+}

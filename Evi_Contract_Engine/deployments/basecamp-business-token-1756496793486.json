@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:46:33.486Z",
+  "contracts": {
+    "BusinessToken": "0x11A3AE0040A8e665FE011651Fd38B42fd9E478c9"
+  },
+  "params": {
+    "name": "Omega Camp Token 23",
+    "symbol": "OMG23",
+    "initialSupplyTokens": "250000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

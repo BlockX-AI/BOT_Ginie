@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:05:07.696Z",
+  "contracts": {
+    "BusinessToken": "0x7AD61763f0Bf5Ea2aC487d4D25B1a3fC0EC38a7F"
+  },
+  "params": {
+    "name": "Stellar My Token 08",
+    "symbol": "STLL08",
+    "initialSupplyTokens": "750000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

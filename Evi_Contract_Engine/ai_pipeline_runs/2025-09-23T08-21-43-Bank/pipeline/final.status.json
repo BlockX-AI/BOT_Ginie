@@ -1,0 +1,190 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_12448d0f-fd2a-4ffa-9b0b-6575cc186c4c",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1758615703863,
+    "updatedAt": 1758615754947,
+    "payload": {
+      "prompt": "Tic Tac Toe Game Very Simpler one\n",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "TicTacToe",
+      "filename": "TicTacToe.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758615703863
+      },
+      {
+        "step": "generate",
+        "t": 1758615703873
+      },
+      {
+        "step": "write",
+        "t": 1758615749873
+      },
+      {
+        "step": "compile",
+        "t": 1758615749876
+      },
+      {
+        "step": "deploy_script",
+        "t": 1758615751210
+      },
+      {
+        "step": "deploy",
+        "t": 1758615751210
+      }
+    ],
+    "timings": {
+      "startedAt": 1758615703863,
+      "endedAt": 1758615754947,
+      "phases": {
+        "init": {
+          "startedAt": 1758615703863,
+          "endedAt": 1758615703873
+        },
+        "generate": {
+          "startedAt": 1758615703873,
+          "endedAt": 1758615749873
+        },
+        "write": {
+          "startedAt": 1758615749873,
+          "endedAt": 1758615749876
+        },
+        "compile": {
+          "startedAt": 1758615749876,
+          "endedAt": 1758615751210
+        },
+        "deploy_script": {
+          "startedAt": 1758615751210,
+          "endedAt": 1758615751210
+        },
+        "deploy": {
+          "startedAt": 1758615751210,
+          "endedAt": 1758615754947
+        }
+      }
+    },
+    "result": null,
+    "error": "exit 1",
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758615703864,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=TicTacToe.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758615703864,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758615703873,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1758615703874,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1201"
+      },
+      {
+        "i": 5,
+        "t": 1758615749873,
+        "level": "debug",
+        "msg": "generate_ai_response_len=6451 ai_ms=45998"
+      },
+      {
+        "i": 6,
+        "t": 1758615749873,
+        "level": "info",
+        "msg": "Generation done in 46000ms. Code size=6404"
+      },
+      {
+        "i": 7,
+        "t": 1758615749873,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1758615749876,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1758615751183,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_12448d0f-fd2a-4ffa-9b0b-6575cc186c4c_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 10,
+        "t": 1758615751197,
+        "level": "info",
+        "msg": "Compiled 2 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 11,
+        "t": 1758615751209,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 1333ms"
+      },
+      {
+        "i": 12,
+        "t": 1758615751209,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 13,
+        "t": 1758615751210,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: TicTacToe"
+      },
+      {
+        "i": 14,
+        "t": 1758615751210,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract TicTacToe"
+      },
+      {
+        "i": 15,
+        "t": 1758615751210,
+        "level": "info",
+        "msg": "Contract chosen for deploy: TicTacToe"
+      },
+      {
+        "i": 16,
+        "t": 1758615751210,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp-testnet"
+      },
+      {
+        "i": 17,
+        "t": 1758615754930,
+        "level": "error",
+        "msg": "ProviderError: insufficient funds for gas * price + value: have 0 want 899115104646\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_12448d0f-fd2a-4ffa-9b0b-6575cc186c4c/scripts/deploy-ai_pipeline_12448d0f-fd2a-4ffa-9b0b-6575cc186c4c.js:8:13)\n"
+      }
+    ],
+    "_logIndex": 17,
+    "logsCount": 17,
+    "lastLogTs": 1758615754930,
+    "contractName": "TicTacToe",
+    "stdout": "",
+    "stderr": "ProviderError: insufficient funds for gas * price + value: have 0 want 899115104646\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_12448d0f-fd2a-4ffa-9b0b-6575cc186c4c/scripts/deploy-ai_pipeline_12448d0f-fd2a-4ffa-9b0b-6575cc186c4c.js:8:13)\n"
+  }
+}

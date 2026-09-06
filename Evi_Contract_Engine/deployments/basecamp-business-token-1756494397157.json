@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:06:37.157Z",
+  "contracts": {
+    "BusinessToken": "0xcd483d65199762930C7954C0fFd27D8176433AeD"
+  },
+  "params": {
+    "name": "Helix My Token 15",
+    "symbol": "HLX15",
+    "initialSupplyTokens": "777000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_7d07290e-8125-4943-8e0a-1d63c653844a",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758614960359,
+    "updatedAt": 1758614960359,
+    "payload": {
+      "network": "basecamp-testnet",
+      "filename": "AINFT.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758614960359
+      }
+    ],
+    "timings": {
+      "startedAt": 1758614960359,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758614960359
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758614960359,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp-testnet, file=AINFT.sol"
+      },
+      {
+        "i": 2,
+        "t": 1758614960359,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758614960359
+  }
+}

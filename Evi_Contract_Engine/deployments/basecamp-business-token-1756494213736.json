@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:03:33.735Z",
+  "contracts": {
+    "BusinessToken": "0xacDD7cb5c4E7bAd71a5C5cbaE1316eE10Dc3472D"
+  },
+  "params": {
+    "name": "Atlas My Token 01",
+    "symbol": "ATLS01",
+    "initialSupplyTokens": "1000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

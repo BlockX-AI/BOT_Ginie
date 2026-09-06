@@ -1,0 +1,137 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_eeb2691c-88b1-4e9c-9d57-030e949669d3",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1758615327194,
+    "updatedAt": 1758615334059,
+    "payload": {
+      "network": "basecamp-testnet",
+      "filename": "AINFT.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758615327194
+      },
+      {
+        "step": "write",
+        "t": 1758615327195
+      },
+      {
+        "step": "compile",
+        "t": 1758615327197
+      },
+      {
+        "step": "deploy_script",
+        "t": 1758615329768
+      },
+      {
+        "step": "deploy",
+        "t": 1758615329768
+      }
+    ],
+    "timings": {
+      "startedAt": 1758615327194,
+      "endedAt": 1758615334059,
+      "phases": {
+        "init": {
+          "startedAt": 1758615327194,
+          "endedAt": 1758615327195
+        },
+        "write": {
+          "startedAt": 1758615327195,
+          "endedAt": 1758615327197
+        },
+        "compile": {
+          "startedAt": 1758615327197,
+          "endedAt": 1758615329768
+        },
+        "deploy_script": {
+          "startedAt": 1758615329768,
+          "endedAt": 1758615329768
+        },
+        "deploy": {
+          "startedAt": 1758615329768,
+          "endedAt": 1758615334059
+        }
+      }
+    },
+    "result": null,
+    "error": "exit 1",
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758615327194,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp-testnet, file=AINFT.sol"
+      },
+      {
+        "i": 2,
+        "t": 1758615327194,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758615327197,
+        "level": "info",
+        "msg": "Starting compile/fix loop"
+      },
+      {
+        "i": 4,
+        "t": 1758615329724,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_eeb2691c-88b1-4e9c-9d57-030e949669d3_AINFT.sol\n\n\n"
+      },
+      {
+        "i": 5,
+        "t": 1758615329748,
+        "level": "info",
+        "msg": "Compiled 23 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 6,
+        "t": 1758615329767,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 2570ms"
+      },
+      {
+        "i": 7,
+        "t": 1758615329767,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 8,
+        "t": 1758615329768,
+        "level": "info",
+        "msg": "Contract chosen for deploy: AINFT"
+      },
+      {
+        "i": 9,
+        "t": 1758615329768,
+        "level": "info",
+        "msg": "Deploying to network basecamp-testnet"
+      },
+      {
+        "i": 10,
+        "t": 1758615334018,
+        "level": "error",
+        "msg": "ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 2549591178955, overshot 2549591178955\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_eeb2691c-88b1-4e9c-9d57-030e949669d3/scripts/deploy-ai_pipeline_eeb2691c-88b1-4e9c-9d57-030e949669d3.js:8:13)\n"
+      }
+    ],
+    "_logIndex": 10,
+    "logsCount": 10,
+    "lastLogTs": 1758615334018,
+    "contractName": "AINFT",
+    "stdout": "",
+    "stderr": "ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 2549591178955, overshot 2549591178955\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_eeb2691c-88b1-4e9c-9d57-030e949669d3/scripts/deploy-ai_pipeline_eeb2691c-88b1-4e9c-9d57-030e949669d3.js:8:13)\n"
+  }
+}

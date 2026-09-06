@@ -1,0 +1,378 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 45,
+    "createdAt": 1758614305306,
+    "updatedAt": 1758614681072,
+    "payload": {
+      "network": "basecamp-testnet",
+      "filename": "Game.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "fix",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758614305306
+      },
+      {
+        "step": "write",
+        "t": 1758614305308
+      },
+      {
+        "step": "compile",
+        "t": 1758614305309
+      },
+      {
+        "step": "fix",
+        "t": 1758614306752
+      }
+    ],
+    "timings": {
+      "startedAt": 1758614305306,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758614305306,
+          "endedAt": 1758614305308
+        },
+        "write": {
+          "startedAt": 1758614305308,
+          "endedAt": 1758614305309
+        },
+        "compile": {
+          "startedAt": 1758614305309,
+          "endedAt": 1758614306752
+        },
+        "fix": {
+          "startedAt": 1758614306752
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758614305306,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp-testnet, file=Game.sol"
+      },
+      {
+        "i": 2,
+        "t": 1758614305306,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758614305309,
+        "level": "info",
+        "msg": "Starting compile/fix loop"
+      },
+      {
+        "i": 4,
+        "t": 1758614306720,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol\n\n\n"
+      },
+      {
+        "i": 5,
+        "t": 1758614306720,
+        "level": "error",
+        "msg": "DeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:289:9:\n    |\n289 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 6,
+        "t": 1758614306729,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 7,
+        "t": 1758614306729,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 8,
+        "t": 1758614306729,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 9,
+        "t": 1758614306752,
+        "level": "debug",
+        "msg": "iter 1/11: compile failed in 1443ms"
+      },
+      {
+        "i": 10,
+        "t": 1758614306752,
+        "level": "warn",
+        "msg": "Compile failed (iter 0). Running AI fix. Error length=7092"
+      },
+      {
+        "i": 11,
+        "t": 1758614306752,
+        "level": "debug",
+        "msg": "fix_prompt_len=28823"
+      },
+      {
+        "i": 12,
+        "t": 1758614398872,
+        "level": "debug",
+        "msg": "ai_fix_response_len=20992 ai_ms=92120"
+      },
+      {
+        "i": 13,
+        "t": 1758614399701,
+        "level": "error",
+        "msg": "Error HH404: File @openzeppelin/contracts/utils/Nonces.sol, imported from contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol, not found.\n"
+      },
+      {
+        "i": 14,
+        "t": 1758614399701,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 15,
+        "t": 1758614399701,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 16,
+        "t": 1758614399716,
+        "level": "debug",
+        "msg": "iter 2/11: compile failed in 843ms"
+      },
+      {
+        "i": 17,
+        "t": 1758614399716,
+        "level": "warn",
+        "msg": "Compile failed (iter 1). Running AI fix. Error length=7351"
+      },
+      {
+        "i": 18,
+        "t": 1758614399716,
+        "level": "debug",
+        "msg": "fix_prompt_len=29007"
+      },
+      {
+        "i": 19,
+        "t": 1758614460153,
+        "level": "debug",
+        "msg": "ai_fix_response_len=20893 ai_ms=60437"
+      },
+      {
+        "i": 20,
+        "t": 1758614461375,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol\n\n\n"
+      },
+      {
+        "i": 21,
+        "t": 1758614461375,
+        "level": "error",
+        "msg": "DeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:282:13:\n    |\n282 |             nonces(submission.artifactHash) // Use a unique nonce per artifact\n    |             ^^^^^^\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:289:9:\n    |\n289 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 22,
+        "t": 1758614461383,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 23,
+        "t": 1758614461383,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 24,
+        "t": 1758614461383,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 25,
+        "t": 1758614461405,
+        "level": "debug",
+        "msg": "iter 3/11: compile failed in 1250ms"
+      },
+      {
+        "i": 26,
+        "t": 1758614461405,
+        "level": "warn",
+        "msg": "Compile failed (iter 2). Running AI fix. Error length=8297"
+      },
+      {
+        "i": 27,
+        "t": 1758614461405,
+        "level": "debug",
+        "msg": "fix_prompt_len=29854"
+      },
+      {
+        "i": 28,
+        "t": 1758614546136,
+        "level": "debug",
+        "msg": "ai_fix_response_len=20948 ai_ms=84731"
+      },
+      {
+        "i": 29,
+        "t": 1758614547871,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol\n\n\n"
+      },
+      {
+        "i": 30,
+        "t": 1758614547871,
+        "level": "error",
+        "msg": "DeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:289:17:\n    |\n289 |         require(nonces(signer) == submission.nonce, \"ComplianceRegistry: invalid nonce\");\n    |                 ^^^^^^\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:290:9:\n    |\n290 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 31,
+        "t": 1758614547880,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 32,
+        "t": 1758614547880,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 33,
+        "t": 1758614547880,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 34,
+        "t": 1758614547894,
+        "level": "debug",
+        "msg": "iter 4/11: compile failed in 1757ms"
+      },
+      {
+        "i": 35,
+        "t": 1758614547894,
+        "level": "warn",
+        "msg": "Compile failed (iter 3). Running AI fix. Error length=9258"
+      },
+      {
+        "i": 36,
+        "t": 1758614547894,
+        "level": "debug",
+        "msg": "fix_prompt_len=30870"
+      },
+      {
+        "i": 37,
+        "t": 1758614612861,
+        "level": "debug",
+        "msg": "ai_fix_response_len=21007 ai_ms=64966"
+      },
+      {
+        "i": 38,
+        "t": 1758614613763,
+        "level": "error",
+        "msg": "Error HH404: File @openzeppelin/contracts/utils/Nonces.sol, imported from contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol, not found.\n"
+      },
+      {
+        "i": 39,
+        "t": 1758614613763,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 40,
+        "t": 1758614613763,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 41,
+        "t": 1758614613772,
+        "level": "debug",
+        "msg": "iter 5/11: compile failed in 910ms"
+      },
+      {
+        "i": 42,
+        "t": 1758614613772,
+        "level": "warn",
+        "msg": "Compile failed (iter 4). Running AI fix. Error length=9517"
+      },
+      {
+        "i": 43,
+        "t": 1758614613772,
+        "level": "debug",
+        "msg": "fix_prompt_len=31188"
+      },
+      {
+        "i": 44,
+        "t": 1758614679803,
+        "level": "debug",
+        "msg": "ai_fix_response_len=20948 ai_ms=66031"
+      },
+      {
+        "i": 45,
+        "t": 1758614681042,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol\n\n\n"
+      },
+      {
+        "i": 46,
+        "t": 1758614681042,
+        "level": "error",
+        "msg": "DeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:289:17:\n    |\n289 |         require(nonces(signer) == submission.nonce, \"ComplianceRegistry: invalid nonce\");\n    |                 ^^^^^^\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:290:9:\n    |\n290 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 47,
+        "t": 1758614681051,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 48,
+        "t": 1758614681051,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 49,
+        "t": 1758614681051,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 50,
+        "t": 1758614681071,
+        "level": "debug",
+        "msg": "iter 6/11: compile failed in 1267ms"
+      },
+      {
+        "i": 51,
+        "t": 1758614681071,
+        "level": "warn",
+        "msg": "Compile failed (iter 5). Running AI fix. Error length=10478"
+      },
+      {
+        "i": 52,
+        "t": 1758614681072,
+        "level": "debug",
+        "msg": "fix_prompt_len=32090"
+      }
+    ],
+    "_logIndex": 52,
+    "logsCount": 52,
+    "lastLogTs": 1758614681072,
+    "lastErrors": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:289:17:\n    |\n289 |         require(nonces(signer) == submission.nonce, \"ComplianceRegistry: invalid nonce\");\n    |                 ^^^^^^\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:290:9:\n    |\n290 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\nError HH600: Compilation failed\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\n\n\nSeed errors:\nError HH404: File @openzeppelin/contracts/utils/Nonces.sol, imported from contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol, not found.\nFor more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n\n\n\nSeed errors:\nWarning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:289:17:\n    |\n289 |         require(nonces(signer) == submission.nonce, \"ComplianceRegistry: invalid nonce\");\n    |                 ^^^^^^\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:290:9:\n    |\n290 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\nError HH600: Compilation failed\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\n\n\nSeed errors:\nWarning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:282:13:\n    |\n282 |             nonces(submission.artifactHash) // Use a unique nonce per artifact\n    |             ^^^^^^\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:289:9:\n    |\n289 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\nError HH600: Compilation failed\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\n\n\nSeed errors:\nError HH404: File @openzeppelin/contracts/utils/Nonces.sol, imported from contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol, not found.\nFor more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n\n\n\nSeed errors:\nWarning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_fb3a260f-f3a4-4149-ae27-746522c8d8e5_Game.sol:289:9:\n    |\n289 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\nError HH600: Compilation failed\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\n\n\nSeed errors:\nWarning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol\n\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol:289:9:\n    |\n289 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\n\nError HH600: Compilation failed\n\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 0). Running AI fix. Error length=687\nError HH404: File @openzeppelin/contracts/utils/Nonces.sol, imported from contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol, not found.\n\nFor more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 1). Running AI fix. Error length=245\nWarning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol\n\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol:289:9:\n    |\n289 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\n\nError HH600: Compilation failed\n\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 2). Running AI fix. Error length=687\nError HH404: File @openzeppelin/contracts/utils/Nonces.sol, imported from contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol, not found.\n\nFor more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 3). Running AI fix. Error length=245\nError HH404: File @openzeppelin/contracts/utils/cryptography/Nonces.sol, imported from contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol, not found.\n\nFor more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 4). Running AI fix. Error length=258\nError HH404: File @openzeppelin/contracts/utils/Nonces.sol, imported from contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol, not found.\nFor more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 5). Running AI fix. Error length=245\nWarning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol\n\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol:282:13:\n    |\n282 |             nonces(submission.artifactHash, submission.resultsHash, submission.oscalCid, submission.profileId, submission.complianceScore)\n    |             ^^^^^^\n\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol:289:9:\n    |\n289 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\n\nError HH600: Compilation failed\n\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 6). Running AI fix. Error length=992\nWarning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol\n\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol:289:17:\n    |\n289 |         require(nonces(signer) == submission.nonce, \"ComplianceRegistry: invalid nonce\");\n    |                 ^^^^^^\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol:290:9:\n    |\n290 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\n\nError HH600: Compilation failed\n\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 7). Running AI fix. Error length=947\nError HH404: File @openzeppelin/contracts/utils/Nonces.sol, imported from contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol, not found.\n\nFor more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 8). Running AI fix. Error length=245\nWarning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol\n\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol:289:17:\n    |\n289 |         require(nonces(signer) == submission.nonce, \"ComplianceRegistry: invalid nonce\");\n    |                 ^^^^^^\n\n\nDeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol:290:9:\n    |\n290 |         _useNonce(signer);\n    |         ^^^^^^^^^\n\n\n\nError HH600: Compilation failed\n\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 9). Running AI fix. Error length=947\nError HH404: File @openzeppelin/contracts/utils/Nonces.sol, imported from contracts/AI_ai_pipeline_f64270c9-ea68-4eb5-95e3-171fa46d2b07_Game.sol, not found.\n\nFor more info go to https://hardhat.org/HH404 or run Hardhat with --show-stack-traces\n\nCompile failed (iter 10). Running AI fix. Error length=245"
+  }
+}

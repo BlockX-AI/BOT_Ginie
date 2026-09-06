@@ -1,0 +1,150 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1756924846970,
+    "updatedAt": 1756924994439,
+    "payload": {
+      "prompt": "AttestationRegistry ^0.8.20 on Camp (BaseCAMP). Decentralized attestations with EIP-712 signatures and revocation.\nRequirements:\n- Subjects (addresses) can receive typed attestations (schemaId => key/value bytes + metadataURI).\n- Issuers sign off-chain via EIP-712; on-chain submitAttestation verifies signature and expiry; optional fee to registry.\n- Revocation by issuer or subject (if allowed by schema); emit Attested/Revoked; track nonce per issuer.\n- Schema management by ADMIN: create schemas (fields, rules); pause schemas.\n- Views: fetch attestations by subject/issuer/schema, verify current validity, list revocations.\n- Security: AccessControl, Pausable, Replay protection, ECDSA recover with domain separator.",
+      "network": "basecamp",
+      "maxIters": 4,
+      "providedName": "",
+      "filename": "AttestationRegistry.sol",
+      "constructorArgs": []
+    },
+    "result": null,
+    "error": "CONSTRUCTOR_ARGS_MISMATCH",
+    "logs": [
+      {
+        "t": 1756924846971,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=4, file=AttestationRegistry.sol"
+      },
+      {
+        "t": 1756924846971,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "t": 1756924846971,
+        "level": "debug",
+        "msg": "Enhanced prompt length=3525"
+      },
+      {
+        "t": 1756924939460,
+        "level": "info",
+        "msg": "Generation done in 92489ms. Code size=12015"
+      },
+      {
+        "t": 1756924939501,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "t": 1756924939502,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "t": 1756924941109,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756924941110,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924941110,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924945409,
+        "level": "error",
+        "msg": "DeclarationError: Identifier already declared.\n   --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:114:5:\n    |\n114 |     event SchemaPaused(bytes32 indexed schemaId, bool isPaused);\n    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: The previous declaration is here:\n  --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:31:5:\n   |\n31 |     error SchemaPaused();\n   |     ^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: More than 3 indexed arguments for event.\n   --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:115:5:\n    |\n115 |     event Attested(bytes32 indexed attestationId, address indexed issuer, address indexed subject, bytes32 indexed schemaId);\n    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Wrong argument count for function call: 2 arguments given but expected 0.\n   --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:169:14:\n    |\n169 |         emit SchemaPaused(schemaId, isPaused);\n    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Expression has to be an event invocation.\n   --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:169:14:\n    |\n169 |         emit SchemaPaused(schemaId, isPaused);\n    |              ^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "t": 1756924945421,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "t": 1756924945422,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924945422,
+        "level": "error",
+        "msg": "HardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n"
+      },
+      {
+        "t": 1756924945447,
+        "level": "warn",
+        "msg": "Compile failed (iter 0). Running AI fix. Error length=2722"
+      },
+      {
+        "t": 1756924985442,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756924985443,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924985443,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924994315,
+        "level": "info",
+        "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "t": 1756924994423,
+        "level": "info",
+        "msg": "Compile success after 1 fix iterations."
+      },
+      {
+        "t": 1756924994425,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: AttestationRegistry"
+      },
+      {
+        "t": 1756924994425,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract AttestationRegistry"
+      },
+      {
+        "t": 1756924994439,
+        "level": "error",
+        "msg": "Constructor args mismatch. Expected 2, provided 0."
+      }
+    ],
+    "step": "deploy_prep",
+    "lastErrors": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\nDeclarationError: Identifier already declared.\n   --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:114:5:\n    |\n114 |     event SchemaPaused(bytes32 indexed schemaId, bool isPaused);\n    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: The previous declaration is here:\n  --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:31:5:\n   |\n31 |     error SchemaPaused();\n   |     ^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: More than 3 indexed arguments for event.\n   --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:115:5:\n    |\n115 |     event Attested(bytes32 indexed attestationId, address indexed issuer, address indexed subject, bytes32 indexed schemaId);\n    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Wrong argument count for function call: 2 arguments given but expected 0.\n   --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:169:14:\n    |\n169 |         emit SchemaPaused(schemaId, isPaused);\n    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Expression has to be an event invocation.\n   --> contracts/AI_ai_pipeline_ee0ca038-9818-4b7b-a8cd-da1f75ff4811_AttestationRegistry.sol:169:14:\n    |\n169 |         emit SchemaPaused(schemaId, isPaused);\n    |              ^^^^^^^^^^^^\n\n\nError HH600: Compilation failed\nHardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n\n\n\n\n",
+    "contractName": "AttestationRegistry",
+    "details": {
+      "contractName": "AttestationRegistry",
+      "expectedConstructor": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "type": "string"
+        }
+      ],
+      "providedConstructorArgs": []
+    }
+  }
+}

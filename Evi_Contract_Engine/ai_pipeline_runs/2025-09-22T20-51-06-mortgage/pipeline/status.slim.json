@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "basecamp-testnet",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "DeFiAggregator",
+      "fqName": "contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:DeFiAggregator",
+      "address": "0x9Eedf5C0a7942d77DffE9B31e0706e7ceE2395F0",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1758574349940,
+    "createdAt": 1758574266874
+  }
+}

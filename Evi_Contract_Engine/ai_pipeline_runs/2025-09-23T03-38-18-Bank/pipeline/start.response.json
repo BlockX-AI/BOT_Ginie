@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_d6f7051d-3e44-4a1a-a9f7-fa99f90c4beb",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758598698909,
+    "updatedAt": 1758598698909,
+    "payload": {
+      "prompt": "Pani Puri ka thela",
+      "network": "camp-testnet",
+      "maxIters": 11,
+      "providedName": "PaniPuri",
+      "filename": "PaniPuri.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758598698909
+      }
+    ],
+    "timings": {
+      "startedAt": 1758598698909,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758598698909
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758598698909,
+        "level": "info",
+        "msg": "Pipeline started. Network=camp-testnet, maxIters=11, file=PaniPuri.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758598698909,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758598698909
+  }
+}

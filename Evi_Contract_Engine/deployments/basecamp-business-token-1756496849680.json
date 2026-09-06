@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:47:29.680Z",
+  "contracts": {
+    "BusinessToken": "0xa0154162Ec9e1CCE6a3f54306613Dcf44A36b69E"
+  },
+  "params": {
+    "name": "Vault Camp Token 28",
+    "symbol": "VLT28",
+    "initialSupplyTokens": "888000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

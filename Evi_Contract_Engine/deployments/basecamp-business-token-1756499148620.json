@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:25:48.620Z",
+  "contracts": {
+    "BusinessToken": "0x0BdB2e7c29Cb2B2A04CE76F9d7C0F6Cd228c38F5"
+  },
+  "params": {
+    "name": "Rapid Camp Token 31",
+    "symbol": "RPD31",
+    "initialSupplyTokens": "271828182",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Transaction - Camp-CodeGen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .logo {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      color: #1a202c;
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      color: #718096;
+      font-size: 14px;
+    }
+    
+    .info-box {
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .info-row:last-child {
+      border-bottom: none;
+    }
+    
+    .info-label {
+      color: #4a5568;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .info-value {
+      color: #1a202c;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .gas-estimate {
+      color: #805ad5;
+    }
+    
+    .button {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 12px;
+    }
+    
+    .button-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .button-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .button-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .status {
+      text-align: center;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    
+    .status-loading {
+      background: #ebf8ff;
+      color: #2c5282;
+    }
+    
+    .status-success {
+      background: #f0fff4;
+      color: #22543d;
+    }
+    
+    .status-error {
+      background: #fff5f5;
+      color: #742a2a;
+    }
+    
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .footer {
+      text-align: center;
+      color: #a0aec0;
+      font-size: 12px;
+      margin-top: 24px;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .metamask-icon {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    
+    .wallet-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+    
+    .wallet-badge.detected {
+      border-color: #48bb78;
+      background: #f0fff4;
+      color: #22543d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🦊</div>
+      <h1>Sign Transaction</h1>
+      <p class="subtitle">Deploy your smart contract</p>
+    </div>
+    
+    <div id="loading-screen" class="status status-loading">
+      <div class="spinner"></div>
+      Loading session...
+    </div>
+    
+    <div id="error-screen" class="status status-error hidden">
+      <strong>❌ Error:</strong> <span id="error-message"></span>
+    </div>
+    
+    <div id="main-content" class="hidden">
+      <!-- What You're Doing -->
+      <div class="info-box" style="background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-left: 4px solid #667eea;">
+        <h3 style="margin-bottom: 8px; color: #667eea; font-size: 18px; font-weight: 700;">🚀 What You're Doing</h3>
+        <p style="color: #4a5568; font-size: 14px; line-height: 1.6; margin: 0;">
+          You're about to <strong>deploy a new smart contract</strong> to the blockchain. 
+          This action will create a permanent, immutable contract that can be interacted with by anyone.
+          You will own this contract and pay the gas fees.
+        </p>
+      </div>
+      
+      <!-- Contract Details -->
+      <div class="info-box">
+        <h3 style="margin-bottom: 12px; color: #2d3748; font-size: 16px;">📄 Contract Details</h3>
+        <div class="info-row">
+          <span class="info-label">Contract Name</span>
+          <span class="info-value" id="contract-name">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Type</span>
+          <span class="info-value" id="contract-type">Smart Contract</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Compiler Version</span>
+          <span class="info-value" id="compiler-version">Solidity 0.8.20</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Bytecode Size</span>
+          <span class="info-value" id="bytecode-size">-</span>
+        </div>
+        <div class="info-row" id="constructor-args-row" style="display: none;">
+          <span class="info-label">Constructor Args</span>
+          <span class="info-value" id="constructor-args" style="word-break: break-all; text-align: right; max-width: 60%;">-</span>
+        </div>
+      </div>
+      
+      <!-- Network & Gas Details -->
+      <div class="info-box">
+        <h3 style="margin-bottom: 12px; color: #2d3748; font-size: 16px;">⛓️ Network & Gas Fees</h3>
+        <div class="info-row">
+          <span class="info-label">Network</span>
+          <span class="info-value" id="network-name">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Chain ID</span>
+          <span class="info-value" id="chain-id">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">RPC Endpoint</span>
+          <span class="info-value" id="rpc-url" style="font-size: 11px; word-break: break-all;">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Block Explorer</span>
+          <span class="info-value"><a id="explorer-link" href="#" target="_blank" style="color: #667eea; text-decoration: none;">View Explorer →</a></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Gas Limit</span>
+          <span class="info-value" id="gas-limit">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">💰 Estimated Cost</span>
+          <span class="info-value gas-estimate" id="estimated-gas" style="font-weight: 700; font-size: 16px;">-</span>
+        </div>
+        <div style="background: #fef3c7; padding: 8px; border-radius: 6px; margin-top: 8px;">
+          <p style="color: #92400e; font-size: 12px; margin: 0;">
+            ⚠️ Gas fees are paid in network native tokens. Make sure you have enough balance.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Transaction Details -->
+      <div class="info-box" style="background: #f0fdf4; border: 1px solid #86efac;">
+        <h3 style="margin-bottom: 12px; color: #166534; font-size: 16px;">✅ What Happens Next</h3>
+        <ol style="color: #166534; font-size: 13px; line-height: 1.8; margin: 0; padding-left: 20px;">
+          <li>Click "Connect Wallet & Sign" below</li>
+          <li>MetaMask will open - review transaction</li>
+          <li>Confirm in MetaMask to deploy</li>
+          <li>Wait ~3-10 seconds for confirmation</li>
+          <li>Get your contract address!</li>
+        </ol>
+      </div>
+      
+      <!-- Security Info -->
+      <div class="info-box" style="background: #fef2f2; border-left: 4px solid #ef4444;">
+        <h3 style="margin-bottom: 8px; color: #dc2626; font-size: 16px;">🔒 Security Notice</h3>
+        <ul style="color: #991b1b; font-size: 13px; line-height: 1.6; margin: 0; padding-left: 20px;">
+          <li><strong>This page is safe:</strong> localhost:3000</li>
+          <li><strong>Only you control:</strong> Your wallet private keys</li>
+          <li><strong>We never ask for:</strong> Seed phrases or passwords</li>
+          <li><strong>This contract is:</strong> Deployed to your address</li>
+        </ul>
+      </div>
+      
+      <!-- Wallet Support -->
+      <div class="info-box" style="background: #edf2f7;">
+        <h3 style="margin-bottom: 12px; color: #2d3748; font-size: 16px;">💳 Supported Wallets</h3>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="wallet-badge" id="metamask-badge">🦊 MetaMask</span>
+          <span class="wallet-badge" id="coinbase-badge">🔵 Coinbase</span>
+          <span class="wallet-badge" id="walletconnect-badge">📱 WalletConnect</span>
+          <span class="wallet-badge" id="trust-badge">🛡️ Trust Wallet</span>
+        </div>
+      </div>
+      
+      <!-- Code Preview (collapsible) -->
+      <div class="info-box" id="code-preview-box" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 style="color: #2d3748; font-size: 16px;">📝 Contract Code</h3>
+          <button id="toggle-code" style="background: none; border: none; cursor: pointer; font-size: 20px;">▼</button>
+        </div>
+        <pre id="code-preview" style="background: #1a202c; color: #e2e8f0; padding: 12px; border-radius: 6px; font-size: 12px; max-height: 200px; overflow-y: auto; display: none;"></pre>
+      </div>
+      
+      <div id="status-message" class="hidden"></div>
+      
+      <button id="sign-button" class="button button-primary">
+        <svg class="metamask-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 318.6 318.6">
+          <polygon fill="#e2761b" points="274.1,35.5 174.6,109.4 193,65.8"/>
+          <polygon fill="#e4761b" points="44.4,35.5 143.1,110.1 125.6,65.8"/>
+          <polygon fill="#e4761b" points="238.3,206.8 211.8,247.4 268.5,263 284.8,207.7"/>
+          <polygon fill="#e4761b" points="33.9,207.7 50.1,263 106.8,247.4 80.3,206.8"/>
+          <polygon fill="#e4761b" points="103.6,138.2 87.8,162.1 144.1,164.6 142.1,104.1"/>
+          <polygon fill="#e4761b" points="214.9,138.2 175.9,103.4 174.6,164.6 230.8,162.1"/>
+          <polygon fill="#e4761b" points="106.8,247.4 140.6,230.9 111.4,208.1"/>
+          <polygon fill="#e4761b" points="177.9,230.9 211.8,247.4 207.1,208.1"/>
+        </svg>
+        Connect Wallet & Sign
+      </button>
+      
+      <div class="footer">
+        This window will redirect after signing
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Configuration
+    const API_URL = window.location.origin;
+    const sessionId = window.location.pathname.split('/').pop();
+    
+    let sessionData = null;
+    
+    // Debug logging
+    const DEBUG = true;
+    function log(...args) {
+      if (DEBUG) {
+        console.log('[Wallet Sign]', ...args);
+      }
+    }
+    
+    function logError(...args) {
+      console.error('[Wallet Sign ERROR]', ...args);
+    }
+    
+    // Elements
+    const loadingScreen = document.getElementById('loading-screen');
+    const errorScreen = document.getElementById('error-screen');
+    const errorMessage = document.getElementById('error-message');
+    const mainContent = document.getElementById('main-content');
+    const contractNameEl = document.getElementById('contract-name');
+    const networkNameEl = document.getElementById('network-name');
+    const estimatedGasEl = document.getElementById('estimated-gas');
+    const signButton = document.getElementById('sign-button');
+    const statusMessage = document.getElementById('status-message');
+    
+    // Detect available wallet providers
+    function detectWalletProviders() {
+      const providers = {
+        metamask: !!window.ethereum?.isMetaMask,
+        coinbase: !!window.ethereum?.isCoinbaseWallet,
+        walletConnect: !!window.ethereum?.isWalletConnect,
+        privy: !!window.privy,
+        ethereum: !!window.ethereum
+      };
+      log('Detected wallet providers:', providers);
+      return providers;
+    }
+    
+    // Get network information based on chain ID
+    function getNetworkInfo(chainId) {
+      const networks = {
+        123420001114: { // BaseCamp
+          rpc: 'https://rpc.basecamp.t.raas.gelato.cloud',
+          explorer: 'https://basecamp.blockscout.com',
+          explorerName: 'BaseCamp Explorer'
+        },
+        325000: { // Camp Testnet V2
+          rpc: 'https://rpc.testnet.campprotocol.xyz',
+          explorer: 'https://camp-network-testnet.blockscout.com',
+          explorerName: 'Camp Testnet Explorer'
+        },
+        90354: { // Camp 90354
+          rpc: 'https://rpc-campnetwork-6kp1qyzw3a.t.conduit.xyz',
+          explorer: 'https://explorer-campnetwork-6kp1qyzw3a.t.conduit.xyz',
+          explorerName: 'Camp Explorer'
+        },
+        325001: { // Camp Mainnet
+          rpc: 'https://mainnet.campprotocol.xyz',
+          explorer: 'https://camp-network-mainnet.blockscout.com',
+          explorerName: 'Camp Mainnet Explorer'
+        },
+        84532: { // Base Sepolia
+          rpc: 'https://sepolia.base.org',
+          explorer: 'https://sepolia.basescan.org',
+          explorerName: 'BaseScan Sepolia'
+        },
+        8453: { // Base Mainnet
+          rpc: 'https://mainnet.base.org',
+          explorer: 'https://basescan.org',
+          explorerName: 'BaseScan'
+        },
+        28882: { // Boba Sepolia
+          rpc: 'https://sepolia.boba.network',
+          explorer: 'https://testnet.bobascan.com',
+          explorerName: 'BobaScan Testnet'
+        },
+        43113: { // Avalanche Fuji
+          rpc: 'https://api.avax-test.network/ext/bc/C/rpc',
+          explorer: 'https://testnet.snowtrace.io',
+          explorerName: 'SnowTrace Testnet'
+        },
+        97: { // BSC Testnet
+          rpc: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+          explorer: 'https://testnet.bscscan.com',
+          explorerName: 'BscScan Testnet'
+        }
+      };
+      
+      return networks[chainId] || {
+        rpc: 'Custom Network',
+        explorer: '#',
+        explorerName: 'Block Explorer'
+      };
+    }
+    
+    // Initialize
+    async function init() {
+      try {
+        log('Initializing signing page...');
+        log('Session ID:', sessionId);
+        
+        // Detect wallets
+        const providers = detectWalletProviders();
+        
+        // Load session from backend
+        log('Fetching session data...');
+        const response = await fetch(`${API_URL}/api/wallet/sign/${sessionId}`);
+        
+        if (!response.ok) {
+          throw new Error('Session not found or expired');
+        }
+        
+        sessionData = await response.json();
+        log('Session data loaded:', sessionData);
+        
+        // Populate UI with all details
+        contractNameEl.textContent = sessionData.contractName;
+        networkNameEl.textContent = sessionData.networkName;
+        estimatedGasEl.textContent = `${sessionData.estimatedGas} ETH`;
+        
+        // Populate new fields
+        document.getElementById('chain-id').textContent = sessionData.chainId;
+        document.getElementById('gas-limit').textContent = sessionData.unsignedTx.gasLimit.toLocaleString();
+        
+        // Calculate and show bytecode size
+        if (sessionData.unsignedTx.data) {
+          const bytecodeSize = (sessionData.unsignedTx.data.length - 2) / 2; // Remove '0x' and convert hex to bytes
+          document.getElementById('bytecode-size').textContent = `${bytecodeSize.toLocaleString()} bytes`;
+        }
+        
+        // Network details based on chainId
+        const networkInfo = getNetworkInfo(sessionData.chainId);
+        document.getElementById('rpc-url').textContent = networkInfo.rpc;
+        const explorerLink = document.getElementById('explorer-link');
+        explorerLink.href = networkInfo.explorer;
+        explorerLink.textContent = networkInfo.explorerName;
+        
+        // Constructor args (if any)
+        if (sessionData.constructorArgs && sessionData.constructorArgs.length > 0) {
+          document.getElementById('constructor-args-row').style.display = 'flex';
+          document.getElementById('constructor-args').textContent = sessionData.constructorArgs.join(', ');
+        }
+        
+        // Detect and highlight available wallets
+        const metamaskBadge = document.getElementById('metamask-badge');
+        const coinbaseBadge = document.getElementById('coinbase-badge');
+        const walletconnectBadge = document.getElementById('walletconnect-badge');
+        const trustBadge = document.getElementById('trust-badge');
+        
+        if (providers.metamask) metamaskBadge.classList.add('detected');
+        if (providers.coinbase) coinbaseBadge.classList.add('detected');
+        if (providers.walletConnect) walletconnectBadge.classList.add('detected');
+        if (window.ethereum?.isTrust) trustBadge.classList.add('detected');
+        
+        // Show contract code if available
+        if (sessionData.code) {
+          document.getElementById('code-preview-box').style.display = 'block';
+          document.getElementById('code-preview').textContent = sessionData.code;
+          
+          // Toggle code visibility
+          document.getElementById('toggle-code').addEventListener('click', function() {
+            const codePreview = document.getElementById('code-preview');
+            if (codePreview.style.display === 'none') {
+              codePreview.style.display = 'block';
+              this.textContent = '▲';
+            } else {
+              codePreview.style.display = 'none';
+              this.textContent = '▼';
+            }
+          });
+        }
+        
+        // Show main content
+        loadingScreen.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        
+        log('UI initialized successfully');
+        
+      } catch (e) {
+        logError('Initialization failed:', e);
+        showError(e.message);
+      }
+    }
+    
+    // Show error
+    function showError(msg) {
+      loadingScreen.classList.add('hidden');
+      mainContent.classList.add('hidden');
+      errorMessage.textContent = msg;
+      errorScreen.classList.remove('hidden');
+    }
+    
+    // Show status
+    function showStatus(msg, type = 'loading') {
+      statusMessage.className = `status status-${type}`;
+      statusMessage.innerHTML = type === 'loading' 
+        ? `<div class="spinner"></div>${msg}`
+        : msg;
+      statusMessage.classList.remove('hidden');
+    }
+    
+    // Network configurations for MetaMask - MATCHES hardhat.config.js
+    const NETWORK_PARAMS = {
+      // BaseCamp - THE DEFAULT (Gelato RaaS)
+      123420001114: {
+        chainId: '0x1cbdd5ec0a', // 123420001114 in hex
+        chainName: 'BaseCamp',
+        nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+        rpcUrls: ['https://rpc.basecamp.t.raas.gelato.cloud'],
+        blockExplorerUrls: ['https://basecamp.cloud.blockscout.com']
+      },
+      // Camp Network Testnet (325000)
+      325000: {
+        chainId: '0x4f588',
+        chainName: 'Camp Network Testnet',
+        nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+        rpcUrls: ['https://325000.rpc.thirdweb.com'],
+        blockExplorerUrls: ['https://camp-network-testnet.blockscout.com']
+      },
+      // Camp Original Testnet (90354)
+      90354: {
+        chainId: '0x16092',
+        chainName: 'Camp Testnet 90354',
+        nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+        rpcUrls: ['https://90354.rpc.thirdweb.com'],
+        blockExplorerUrls: ['https://camp-network-testnet.blockscout.com']
+      },
+      // Camp Network Mainnet
+      325001: {
+        chainId: '0x4f589',
+        chainName: 'Camp Network Mainnet',
+        nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+        rpcUrls: ['https://mainnet.campprotocol.xyz'],
+        blockExplorerUrls: ['https://camp-network-mainnet.blockscout.com']
+      },
+      // Base Sepolia
+      84532: {
+        chainId: '0x14a34',
+        chainName: 'Base Sepolia',
+        nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+        rpcUrls: ['https://sepolia.base.org'],
+        blockExplorerUrls: ['https://sepolia.basescan.org']
+      },
+      // Base Mainnet
+      8453: {
+        chainId: '0x2105',
+        chainName: 'Base',
+        nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+        rpcUrls: ['https://mainnet.base.org'],
+        blockExplorerUrls: ['https://basescan.org']
+      },
+      // Boba Sepolia
+      28882: {
+        chainId: '0x70d2',
+        chainName: 'Boba Sepolia',
+        nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+        rpcUrls: ['https://sepolia.boba.network'],
+        blockExplorerUrls: ['https://testnet.bobascan.com']
+      },
+      // Avalanche Fuji
+      43113: {
+        chainId: '0xa869',
+        chainName: 'Avalanche Fuji',
+        nativeCurrency: { name: 'AVAX', symbol: 'AVAX', decimals: 18 },
+        rpcUrls: ['https://api.avax-test.network/ext/bc/C/rpc'],
+        blockExplorerUrls: ['https://testnet.snowtrace.io']
+      },
+      // BSC Testnet
+      97: {
+        chainId: '0x61',
+        chainName: 'BSC Testnet',
+        nativeCurrency: { name: 'BNB', symbol: 'tBNB', decimals: 18 },
+        rpcUrls: ['https://bsc-testnet-rpc.publicnode.com'],
+        blockExplorerUrls: ['https://testnet.bscscan.com']
+      }
+    };
+    
+    // Add network to wallet
+    async function addNetwork(sessionData, provider) {
+      const params = NETWORK_PARAMS[sessionData.chainId];
+      if (!params) {
+        throw new Error(`Network ${sessionData.chainId} not supported`);
+      }
+      
+      log('Adding network with params:', params);
+      await provider.request({
+        method: 'wallet_addEthereumChain',
+        params: [params],
+      });
+    }
+    
+    // Get wallet provider (supports MetaMask, WalletConnect, Coinbase, Privy)
+    async function getWalletProvider() {
+      log('Detecting wallet provider...');
+      
+      // Check Privy first (if integrated)
+      if (window.privy) {
+        log('Privy detected');
+        return { type: 'privy', provider: window.privy };
+      }
+      
+      // Check for standard Ethereum provider (MetaMask, WalletConnect, Coinbase)
+      if (window.ethereum) {
+        if (window.ethereum.isMetaMask) {
+          log('MetaMask detected');
+          return { type: 'metamask', provider: window.ethereum };
+        }
+        if (window.ethereum.isWalletConnect) {
+          log('WalletConnect detected');
+          return { type: 'walletconnect', provider: window.ethereum };
+        }
+        if (window.ethereum.isCoinbaseWallet) {
+          log('Coinbase Wallet detected');
+          return { type: 'coinbase', provider: window.ethereum };
+        }
+        log('Generic Ethereum provider detected');
+        return { type: 'ethereum', provider: window.ethereum };
+      }
+      
+      throw new Error('No wallet detected. Please install MetaMask, WalletConnect, or another Web3 wallet.');
+    }
+    
+    // Sign transaction
+    async function signTransaction() {
+      try {
+        log('=== Starting transaction signing flow ===');
+        
+        // Get wallet provider
+        const wallet = await getWalletProvider();
+        log('Using wallet:', wallet.type);
+        
+        signButton.disabled = true;
+        showStatus(`Connecting to ${wallet.type}...`, 'loading');
+        
+        // Request account access
+        log('Requesting account access...');
+        const accounts = await wallet.provider.request({ 
+          method: 'eth_requestAccounts' 
+        });
+        log('Connected accounts:', accounts);
+        
+        const walletAddress = accounts[0];
+        log('Using wallet address:', walletAddress);
+        
+        // Check network and auto-switch if needed
+        log('Checking network...');
+        const chainId = await wallet.provider.request({ method: 'eth_chainId' });
+        const expectedChainId = '0x' + sessionData.chainId.toString(16);
+        log('Current chain ID:', chainId, 'Expected:', expectedChainId);
+        
+        if (chainId !== expectedChainId) {
+          log('Wrong network detected, switching...');
+          showStatus(`Switching to ${sessionData.networkName}...`, 'loading');
+          
+          try {
+            log('Attempting to switch network...');
+            await wallet.provider.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: expectedChainId }],
+            });
+            log('Network switched successfully');
+          } catch (switchError) {
+            logError('Network switch error:', switchError);
+            // Network doesn't exist, try to add it
+            if (switchError.code === 4902) {
+              log('Network not found, adding it...');
+              await addNetwork(sessionData, wallet.provider);
+              log('Network added successfully');
+            } else {
+              throw switchError;
+            }
+          }
+        } else {
+          log('Already on correct network');
+        }
+        
+        showStatus('Please sign the transaction in your wallet...', 'loading');
+        
+        // Prepare transaction params
+        const txParams = {
+          from: walletAddress,
+          to: sessionData.unsignedTx.to,
+          data: sessionData.unsignedTx.data,
+          value: sessionData.unsignedTx.value || '0x0',
+          gas: '0x' + parseInt(sessionData.unsignedTx.gasLimit).toString(16)
+        };
+        log('Transaction parameters:', txParams);
+        
+        // Send transaction
+        log('Sending transaction...');
+        const txHash = await wallet.provider.request({
+          method: 'eth_sendTransaction',
+          params: [txParams]
+        });
+        log('Transaction hash:', txHash);
+        
+        showStatus('Transaction submitted! Confirming...', 'loading');
+        
+        // Submit to backend
+        log('Submitting to backend...');
+        const submitResponse = await fetch(`${API_URL}/api/wallet/sign/${sessionId}/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ txHash, walletAddress })
+        });
+        
+        if (!submitResponse.ok) {
+          const errorText = await submitResponse.text();
+          logError('Backend submit failed:', errorText);
+          throw new Error('Failed to submit transaction to backend');
+        }
+        
+        const result = await submitResponse.json();
+        log('Backend response:', result);
+        
+        showStatus('✅ Transaction submitted successfully!', 'success');
+        log('=== Transaction signing completed successfully ===');
+        
+        // Redirect after 2 seconds
+        setTimeout(() => {
+          if (result.callbackUrl) {
+            log('Redirecting to:', result.callbackUrl);
+            window.location.href = result.callbackUrl;
+          } else {
+            showStatus('✅ Done! You can close this window.', 'success');
+            log('No callback URL, staying on page');
+          }
+        }, 2000);
+        
+      } catch (e) {
+        logError('Transaction signing failed:', e);
+        logError('Error code:', e.code);
+        logError('Error stack:', e.stack);
+        
+        let errorMsg = e.message;
+        if (e.code === 4001) {
+          errorMsg = 'Transaction rejected by user';
+          log('User rejected transaction');
+        } else if (e.code === -32002) {
+          errorMsg = 'Please check your wallet - a request is already pending';
+          log('Pending request in wallet');
+        }
+        
+        showStatus(`❌ ${errorMsg}`, 'error');
+        signButton.disabled = false;
+      }
+    }
+    
+    // Event listeners
+    signButton.addEventListener('click', signTransaction);
+    
+    // Initialize on load
+    init();
+  </script>
+</body>
+</html>

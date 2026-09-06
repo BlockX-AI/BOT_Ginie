@@ -1,0 +1,10 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-12T12:17:11.144Z",
+  "contracts": {
+    "MockOriginProtocol": "0x83A3AFEb5D6AEbcc01eaF42AA6bb9f08b58031A1",
+    "ResearchPaper": "0x0D3afa3339Cad61d7a4f4390D651d933B5Dc913d",
+    "CitationRegistry": "0xF09B40Dfc07A584970312D1f62Ed84A4EDd575c9",
+    "RoyaltyDistributor": "0x41D13507f38b4acd2ED99BFbBc785D96Ce420386"
+  }
+}

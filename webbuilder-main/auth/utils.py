@@ -1,0 +1,75 @@
+from datetime import datetime, timedelta
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+from typing import Optional
+from datetime import timezone
+import os
+import secrets
+
+# Force SECRET_KEY from environment - no defaults allowed
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError(
+        "❌ CRITICAL: SECRET_KEY environment variable is not set!\n"
+        "Generate a secure key with: python -c 'import secrets; print(secrets.token_urlsafe(32))'\n"
+        "Then set it in your .env file: SECRET_KEY=<generated_key>"
+    )
+
+# Validate key strength
+if len(SECRET_KEY) < 32:
+    raise ValueError(
+        "❌ CRITICAL: SECRET_KEY must be at least 32 characters long for security.\n"
+        "Generate a new one with: python -c 'import secrets; print(secrets.token_urlsafe(32))'"
+    )
+
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 1440  # 24 hours for long-running builds
+REFRESH_TOKEN_EXPIRE_DAYS = 7
+
+# Use pbkdf2_sha256 to avoid bcrypt backend issues and 72-byte password limits
+pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify a password"""
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_password_hash(password: str) -> str:
+    """Hash a password"""
+    return pwd_context.hash(password)
+
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
+    """Create a JWT access token"""
+    to_encode = data.copy()
+
+    if expires_delta:
+        expire = datetime.now(timezone.utc) + expires_delta
+    else:
+        expire = datetime.now(timezone.utc) + timedelta(
+            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+        )
+
+    to_encode.update({"exp": expire})
+    encode_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+    return encode_jwt
+
+
+def create_refresh_token(data: dict) -> str:
+    """Create a Jwt"""
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+    to_encode.update({"exp": expire})
+    encode_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encode_jwt
+
+
+def decode_token(token: str) -> Optional[dict]:
+    """decode a jwt token"""
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except JWTError:
+        return None

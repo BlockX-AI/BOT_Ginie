@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:21:01.842Z",
+  "contracts": {
+    "BusinessToken": "0x508EAA48FfD28f906aDDCa1bc0e52014e48c4553"
+  },
+  "params": {
+    "name": "Lunar Camp Token 07",
+    "symbol": "LNR07",
+    "initialSupplyTokens": "500000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

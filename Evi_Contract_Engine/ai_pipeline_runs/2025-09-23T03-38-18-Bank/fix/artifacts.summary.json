@@ -1,0 +1,319 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a",
+  "scope": "job:ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a_PaniPuri.sol",
+      "content": "pragma solidity ^0.8.20;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/security/Pausable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\n\n/**\n * @title PaniPuri\n * @author Expert Solidity Engineer\n * @notice A smart contract simulating a \"Pani Puri ka Thela\" (Pani Puri Stall).\n * @dev This contract allows users to buy \"Pani Puri\" with ETH. The owner of the\n * contract can manage the stall's price, inventory, and withdraw the earnings.\n * It uses OpenZeppelin contracts for ownership, pausable functionality, and\n * reentrancy protection. All initial values are hard-coded and the constructor\n * is parameter-less as per the requirements.\n */\ncontract PaniPuri is Ownable, Pausable, ReentrancyGuard {\n    // --- State Variables ---\n\n    /**\n     * @notice The price in wei for a single plate of Pani Puri.\n     */\n    uint256 public pricePerPlate = 0.005 ether;\n\n    /**\n     * @notice The number of Pani Puri plates currently available in stock.\n     */\n    uint256 public inventory = 100;\n\n    /**\n     * @notice A mapping to track the total number of plates purchased by each customer.\n     */\n    mapping(address => uint256) public platesBoughtByCustomer;\n\n    // --- Events ---\n\n    /**\n     * @notice Emitted when a customer successfully buys Pani Puri.\n     * @param buyer The address of the customer.\n     * @param quantity The number of plates purchased.\n     * @param totalCost The total amount paid in wei.\n     */\n    event PaniPuriSold(address indexed buyer, uint256 quantity, uint256 totalCost);\n\n    /**\n     * @notice Emitted when the owner updates the price per plate.\n     * @param newPrice The new price in wei.\n     */\n    event PriceUpdated(uint256 newPrice);\n\n    /**\n     * @notice Emitted when the owner restocks the inventory.\n     * @param addedQuantity The number of plates added to the stock.\n     * @param totalInventory The new total inventory count.\n     */\n    event Restocked(uint256 addedQuantity, uint256 totalInventory);\n\n    /**\n     * @notice Emitted when the owner withdraws funds from the contract.\n     * @param to The address receiving the funds (the owner).\n     * @param amount The amount withdrawn in wei.\n     */\n    event Withdrawn(address indexed to, uint256 amount);\n\n\n    // --- Constructor ---\n\n    /**\n     * @dev Initializes the contract. The deployer is automatically set as the owner.\n     * The constructor is intentionally empty of parameters to meet requirements.\n     */\n    constructor() {\n        // Ownable constructor sets the deployer as the initial owner.\n        // Initial state variables are set at declaration.\n    }\n\n    // --- Customer Functions ---\n\n    /**\n     * @notice Allows a user to buy one or more plates of Pani Puri.\n     * @dev The function requires the exact ETH amount to be sent. It is pausable\n     * and protected against reentrancy attacks.\n     * @param _quantity The number of plates to buy.\n     */\n    function buyPaniPuri(uint256 _quantity) public payable whenNotPaused nonReentrant {\n        require(_quantity > 0, \"PaniPuri: Must buy at least one plate.\");\n        require(inventory >= _quantity, \"PaniPuri: Not enough stock.\");\n\n        uint256 totalCost = pricePerPlate * _quantity;\n        require(msg.value == totalCost, \"PaniPuri: Incorrect ETH amount sent.\");\n\n        inventory -= _quantity;\n        platesBoughtByCustomer[msg.sender] += _quantity;\n\n        emit PaniPuriSold(msg.sender, _quantity, totalCost);\n    }\n\n    // --- Owner Functions ---\n\n    /**\n     * @notice Updates the price for one plate of Pani Puri.\n     * @dev Only the owner can call this function.\n     * @param _newPrice The new price in wei.\n     */\n    function setPrice(uint256 _newPrice) public onlyOwner {\n        require(_newPrice > 0, \"PaniPuri: Price must be greater than zero.\");\n        pricePerPlate = _newPrice;\n        emit PriceUpdated(_newPrice);\n    }\n\n    /**\n     * @notice Adds more Pani Puri plates to the inventory.\n     * @dev Only the owner can call this function.\n     * @param _quantity The number of plates to add to the stock.\n     */\n    function restock(uint256 _quantity) public onlyOwner {\n        require(_quantity > 0, \"PaniPuri: Restock quantity must be positive.\");\n        inventory += _quantity;\n        emit Restocked(_quantity, inventory);\n    }\n\n    /**\n     * @notice Pauses the stall, preventing new purchases.\n     * @dev Only the owner can call this function.\n     */\n    function pause() public onlyOwner {\n        _pause();\n    }\n\n    /**\n     * @notice Unpauses the stall, allowing new purchases.\n     * @dev Only the owner can call this function.\n     */\n    function unpause() public onlyOwner {\n        _unpause();\n    }\n\n    /**\n     * @notice Withdraws the entire ETH balance of the contract to the owner's address.\n     * @dev This function uses the checks-effects-interactions pattern and a reentrancy\n     * guard for security. Only the owner can call it.\n     */\n    function withdraw() public onlyOwner nonReentrant {\n        uint256 balance = address(this).balance;\n        require(balance > 0, \"PaniPuri: No funds to withdraw.\");\n\n        // Using .call to transfer funds, which is the recommended practice.\n        (bool success, ) = owner().call{value: balance}(\"\");\n        require(success, \"PaniPuri: Withdrawal failed.\");\n\n        emit Withdrawn(owner(), balance);\n    }\n\n    // --- View Functions ---\n\n    /**\n     * @notice Returns the current ETH balance of the contract.\n     * @return The balance in wei.\n     */\n    function getBalance() public view returns (uint256) {\n        return address(this).balance;\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a_PaniPuri.sol/PaniPuri.json",
+      "name": "PaniPuri",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "buyer",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "quantity",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "totalCost",
+              "type": "uint256"
+            }
+          ],
+          "name": "PaniPuriSold",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newPrice",
+              "type": "uint256"
+            }
+          ],
+          "name": "PriceUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "addedQuantity",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "totalInventory",
+              "type": "uint256"
+            }
+          ],
+          "name": "Restocked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "Withdrawn",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "buyPaniPuri",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getBalance",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "inventory",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "platesBoughtByCustomer",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pricePerPlate",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "restock",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_newPrice",
+              "type": "uint256"
+            }
+          ],
+          "name": "setPrice",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "withdraw",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x60806040526611c37937e08000600255606460035534801561002057600080fd5b5061002a33610040565b6000805460ff60a01b1916905560018055610090565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b610aa78061009f6000396000f3fe6080604052600436106100dd5760003560e01c8063715018a61161007f5780638da5cb5b116100595780638da5cb5b146101f057806391b7f5ed14610218578063c21a702a14610238578063f2fde38b1461025857600080fd5b8063715018a6146101b357806376636050146101c85780638456cb59146101db57600080fd5b80633f4ba83a116100bb5780633f4ba83a146101315780634f61bc01146101465780635c975abb1461015c578063682e99bc1461018657600080fd5b806312065fe0146100e257806315d52a5c146101045780633ccfd60b1461011a575b600080fd5b3480156100ee57600080fd5b50475b6040519081526020015b60405180910390f35b34801561011057600080fd5b506100f160035481565b34801561012657600080fd5b5061012f610278565b005b34801561013d57600080fd5b5061012f6103d9565b34801561015257600080fd5b506100f160025481565b34801561016857600080fd5b50600054600160a01b900460ff1660405190151581526020016100fb565b34801561019257600080fd5b506100f16101a13660046109cf565b60046020526000908152604090205481565b3480156101bf57600080fd5b5061012f6103e9565b61012f6101d63660046109ff565b6103fb565b3480156101e757600080fd5b5061012f6105ac565b3480156101fc57600080fd5b506000546040516001600160a01b0390911681526020016100fb565b34801561022457600080fd5b5061012f6102333660046109ff565b6105bc565b34801561024457600080fd5b5061012f6102533660046109ff565b610663565b34801561026457600080fd5b5061012f6102733660046109cf565b610721565b610280610797565b6102886107f1565b47806102db5760405162461bcd60e51b815260206004820152601f60248201527f50616e69507572693a204e6f2066756e647320746f2077697468647261772e0060448201526064015b60405180910390fd5b600080546040516001600160a01b039091169083908381818185875af1925050503d8060008114610328576040519150601f19603f3d011682016040523d82523d6000602084013e61032d565b606091505b505090508061037e5760405162461bcd60e51b815260206004820152601c60248201527f50616e69507572693a205769746864726177616c206661696c65642e0000000060448201526064016102d2565b6000546001600160a01b03166001600160a01b03167f7084f5476618d8e60b11ef0d7d3f06914655adb8793e28ff7f018d4c76d505d5836040516103c491815260200190565b60405180910390a250506103d760018055565b565b6103e1610797565b6103d761084a565b6103f1610797565b6103d7600061089f565b6104036108ef565b61040b6107f1565b6000811161046a5760405162461bcd60e51b815260206004820152602660248201527f50616e69507572693a204d75737420627579206174206c65617374206f6e6520604482015265383630ba329760d11b60648201526084016102d2565b8060035410156104bc5760405162461bcd60e51b815260206004820152601b60248201527f50616e69507572693a204e6f7420656e6f7567682073746f636b2e000000000060448201526064016102d2565b6000816002546104cc9190610a2e565b90508034146105295760405162461bcd60e51b8152602060048201526024808201527f50616e69507572693a20496e636f72726563742045544820616d6f756e74207360448201526332b73a1760e11b60648201526084016102d2565b816003600082825461053b9190610a4b565b9091555050336000908152600460205260408120805484929061055f908490610a5e565b9091555050604080518381526020810183905233917ff920cc84b711d1dd9c4102a159e359e5c1f11f7841ef5b03f84bb1dd18b0bcc1910160405180910390a2506105a960018055565b50565b6105b4610797565b6103d761093c565b6105c4610797565b600081116106275760405162461bcd60e51b815260206004820152602a60248201527f50616e69507572693a205072696365206d7573742062652067726561746572206044820152693a3430b7103d32b9379760b11b60648201526084016102d2565b60028190556040518181527f66cbca4f3c64fecf1dcb9ce094abcf7f68c3450a1d4e3a8e917dd621edb4ebe0906020015b60405180910390a150565b61066b610797565b600081116106d05760405162461bcd60e51b815260206004820152602c60248201527f50616e69507572693a20526573746f636b207175616e74697479206d7573742060448201526b3132903837b9b4ba34bb329760a11b60648201526084016102d2565b80600360008282546106e29190610a5e565b90915550506003546040805183815260208101929092527f0b16ded12f6dec68f82c60ff228fc66faa5854757b4c52eb4348718a1b7dc5689101610658565b610729610797565b6001600160a01b03811661078e5760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084016102d2565b6105a98161089f565b6000546001600160a01b031633146103d75760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016102d2565b6002600154036108435760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c0060448201526064016102d2565b6002600155565b61085261097f565b6000805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b600054600160a01b900460ff16156103d75760405162461bcd60e51b815260206004820152601060248201526f14185d5cd8589b194e881c185d5cd95960821b60448201526064016102d2565b6109446108ef565b6000805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a2586108823390565b600054600160a01b900460ff166103d75760405162461bcd60e51b815260206004820152601460248201527314185d5cd8589b194e881b9bdd081c185d5cd95960621b60448201526064016102d2565b6000602082840312156109e157600080fd5b81356001600160a01b03811681146109f857600080fd5b9392505050565b600060208284031215610a1157600080fd5b5035919050565b634e487b7160e01b600052601160045260246000fd5b8082028115828204841417610a4557610a45610a18565b92915050565b81810381811115610a4557610a45610a18565b80820180821115610a4557610a45610a1856fea2646970667358221220f91d22436f64ed8241c5026d8ebb1bad824d29d869e4b3b156b8a69673efacba64736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a.js",
+      "content": "// Auto-generated by AI fix job ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a_PaniPuri.sol:PaniPuri\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"PaniPuri\", fqName: \"contracts/AI_ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a_PaniPuri.sol:PaniPuri\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T18:58:51.311Z",
+  "contracts": {
+    "BusinessToken": "0xf18b3BB3ea9E13d346c2c0aD70004E6B945B7166"
+  },
+  "params": {
+    "name": "My Token 02",
+    "symbol": "C02MP",
+    "initialSupplyTokens": "1000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:07:10.951Z",
+  "contracts": {
+    "BusinessToken": "0x09d3035918767a2bb44099932efB2cA1cdD07DBA"
+  },
+  "params": {
+    "name": "Vortex My Token 18",
+    "symbol": "VRTX18",
+    "initialSupplyTokens": "222000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

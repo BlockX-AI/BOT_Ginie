@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign with Privy - Camp-CodeGen</title>
+  
+  <!-- Privy SDK -->
+  <script src="https://auth.privy.io/v1.0.0/privy-browser.js"></script>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .logo {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      color: #1a202c;
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      color: #718096;
+      font-size: 14px;
+    }
+    
+    .info-box {
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .info-row:last-child {
+      border-bottom: none;
+    }
+    
+    .info-label {
+      color: #4a5568;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .info-value {
+      color: #1a202c;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .button {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 12px;
+    }
+    
+    .button-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .button-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+    
+    .button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .status-loading {
+      background: #edf2f7;
+      color: #2d3748;
+    }
+    
+    .status-success {
+      background: #c6f6d5;
+      color: #22543d;
+    }
+    
+    .status-error {
+      background: #fed7d7;
+      color: #742a2a;
+    }
+    
+    .spinner {
+      border: 2px solid #e2e8f0;
+      border-top: 2px solid #667eea;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .wallet-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .wallet-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .wallet-btn:hover {
+      border-color: #667eea;
+      background: #f7fafc;
+    }
+    
+    .wallet-icon {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="loading-screen">
+      <div class="header">
+        <div class="logo">⏳</div>
+        <h1>Loading...</h1>
+      </div>
+    </div>
+    
+    <div id="main-content" class="hidden">
+      <div class="header">
+        <div class="logo">✍️</div>
+        <h1>Sign Transaction</h1>
+        <p class="subtitle">Choose your wallet to sign</p>
+      </div>
+      
+      <div class="info-box">
+        <div class="info-row">
+          <span class="info-label">Contract</span>
+          <span class="info-value" id="contract-name">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Network</span>
+          <span class="info-value" id="network-name">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Estimated Gas</span>
+          <span class="info-value" id="estimated-gas">-</span>
+        </div>
+      </div>
+      
+      <div id="status-message" class="hidden"></div>
+      
+      <div class="wallet-options">
+        <button id="privy-button" class="wallet-btn">
+          <span class="wallet-icon">🔐</span>
+          <span>Sign with Privy (Email/Social)</span>
+        </button>
+        
+        <button id="metamask-button" class="wallet-btn">
+          <span class="wallet-icon">🦊</span>
+          <span>Sign with MetaMask</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Configuration
+    const API_URL = window.location.origin;
+    const sessionId = window.location.pathname.split('/').pop();
+    const PRIVY_APP_ID = 'cmgs2ywea000ojr0cyn9bbugz'; // Your Privy App ID
+    
+    let sessionData = null;
+    let privyClient = null;
+    
+    // Debug logging
+    const DEBUG = true;
+    function log(...args) {
+      if (DEBUG) console.log('[Privy Sign]', ...args);
+    }
+    
+    function logError(...args) {
+      console.error('[Privy Sign ERROR]', ...args);
+    }
+    
+    // Elements
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainContent = document.getElementById('main-content');
+    const contractNameEl = document.getElementById('contract-name');
+    const networkNameEl = document.getElementById('network-name');
+    const estimatedGasEl = document.getElementById('estimated-gas');
+    const privyButton = document.getElementById('privy-button');
+    const metamaskButton = document.getElementById('metamask-button');
+    const statusMessage = document.getElementById('status-message');
+    
+    // Initialize Privy
+    async function initPrivy() {
+      try {
+        log('Initializing Privy...');
+        privyClient = new Privy.PrivyClient({
+          appId: PRIVY_APP_ID,
+        });
+        log('Privy initialized');
+      } catch (e) {
+        logError('Privy init failed:', e);
+      }
+    }
+    
+    // Show status
+    function showStatus(msg, type = 'loading') {
+      statusMessage.className = `status status-${type}`;
+      statusMessage.innerHTML = type === 'loading' 
+        ? `<div class="spinner"></div>${msg}`
+        : msg;
+      statusMessage.classList.remove('hidden');
+    }
+    
+    // Initialize session
+    async function init() {
+      try {
+        log('Loading session...');
+        const response = await fetch(`${API_URL}/api/wallet/sign/${sessionId}`);
+        
+        if (!response.ok) {
+          throw new Error('Session not found or expired');
+        }
+        
+        sessionData = await response.json();
+        log('Session loaded:', sessionData);
+        
+        // Populate UI
+        contractNameEl.textContent = sessionData.contractName;
+        networkNameEl.textContent = sessionData.networkName;
+        estimatedGasEl.textContent = `${sessionData.estimatedGas} ETH`;
+        
+        // Show main content
+        loadingScreen.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        
+        // Initialize Privy
+        await initPrivy();
+        
+      } catch (e) {
+        logError('Init failed:', e);
+        showStatus(`Error: ${e.message}`, 'error');
+      }
+    }
+    
+    // Sign with Privy
+    async function signWithPrivy() {
+      try {
+        log('=== Signing with Privy ===');
+        privyButton.disabled = true;
+        showStatus('Connecting to Privy...', 'loading');
+        
+        // Login with Privy
+        await privyClient.login();
+        const user = await privyClient.getUser();
+        log('Privy user:', user);
+        
+        // Get embedded wallet
+        const wallet = user.wallet;
+        if (!wallet) {
+          throw new Error('No wallet found. Please create a wallet in Privy.');
+        }
+        
+        const walletAddress = wallet.address;
+        log('Wallet address:', walletAddress);
+        
+        showStatus('Preparing transaction...', 'loading');
+        
+        // Send transaction via Privy
+        const txParams = {
+          to: sessionData.unsignedTx.to,
+          data: sessionData.unsignedTx.data,
+          value: sessionData.unsignedTx.value || '0x0',
+          chainId: sessionData.chainId
+        };
+        
+        log('Transaction params:', txParams);
+        showStatus('Please confirm in Privy...', 'loading');
+        
+        const txHash = await wallet.sendTransaction(txParams);
+        log('Transaction hash:', txHash);
+        
+        showStatus('Submitting to backend...', 'loading');
+        
+        // Submit to backend
+        const submitResponse = await fetch(`${API_URL}/api/wallet/sign/${sessionId}/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ txHash, walletAddress })
+        });
+        
+        if (!submitResponse.ok) {
+          throw new Error('Failed to submit transaction');
+        }
+        
+        const result = await submitResponse.json();
+        log('Success:', result);
+        
+        showStatus('✅ Transaction submitted successfully!', 'success');
+        
+        // Redirect
+        setTimeout(() => {
+          if (result.callbackUrl) {
+            window.location.href = result.callbackUrl;
+          }
+        }, 2000);
+        
+      } catch (e) {
+        logError('Privy sign failed:', e);
+        showStatus(`❌ ${e.message}`, 'error');
+        privyButton.disabled = false;
+      }
+    }
+    
+    // Sign with MetaMask (fallback)
+    async function signWithMetaMask() {
+      try {
+        log('=== Signing with MetaMask ===');
+        
+        if (!window.ethereum) {
+          throw new Error('MetaMask not installed');
+        }
+        
+        metamaskButton.disabled = true;
+        showStatus('Connecting to MetaMask...', 'loading');
+        
+        const accounts = await window.ethereum.request({ 
+          method: 'eth_requestAccounts' 
+        });
+        
+        const walletAddress = accounts[0];
+        log('Connected:', walletAddress);
+        
+        // Check/switch network
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        const expectedChainId = '0x' + sessionData.chainId.toString(16);
+        
+        if (chainId !== expectedChainId) {
+          showStatus(`Switching to ${sessionData.networkName}...`, 'loading');
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: expectedChainId }],
+          });
+        }
+        
+        showStatus('Please sign in MetaMask...', 'loading');
+        
+        const txHash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [{
+            from: walletAddress,
+            to: sessionData.unsignedTx.to,
+            data: sessionData.unsignedTx.data,
+            value: sessionData.unsignedTx.value || '0x0',
+            gas: '0x' + parseInt(sessionData.unsignedTx.gasLimit).toString(16)
+          }]
+        });
+        
+        log('TX hash:', txHash);
+        
+        // Submit to backend
+        const submitResponse = await fetch(`${API_URL}/api/wallet/sign/${sessionId}/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ txHash, walletAddress })
+        });
+        
+        if (!submitResponse.ok) {
+          throw new Error('Failed to submit');
+        }
+        
+        showStatus('✅ Success!', 'success');
+        
+        const result = await submitResponse.json();
+        setTimeout(() => {
+          if (result.callbackUrl) {
+            window.location.href = result.callbackUrl;
+          }
+        }, 2000);
+        
+      } catch (e) {
+        logError('MetaMask sign failed:', e);
+        showStatus(`❌ ${e.message}`, 'error');
+        metamaskButton.disabled = false;
+      }
+    }
+    
+    // Event listeners
+    privyButton.addEventListener('click', signWithPrivy);
+    metamaskButton.addEventListener('click', signWithMetaMask);
+    
+    // Initialize
+    init();
+  </script>
+</body>
+</html>

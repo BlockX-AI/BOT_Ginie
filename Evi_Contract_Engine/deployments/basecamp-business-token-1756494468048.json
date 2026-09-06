@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:07:48.048Z",
+  "contracts": {
+    "BusinessToken": "0x05e289EEd39a06Cba8971Cf17Bf7F758d54ae9fC"
+  },
+  "params": {
+    "name": "Drift My Token 21",
+    "symbol": "DRFT21",
+    "initialSupplyTokens": "50000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

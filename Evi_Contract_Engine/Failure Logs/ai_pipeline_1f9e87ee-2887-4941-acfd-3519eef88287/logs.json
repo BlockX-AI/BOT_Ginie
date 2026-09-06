@@ -1,0 +1,3254 @@
+{
+  "logs": [
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    },
+    {
+      "t": 1756924846841,
+      "level": "info",
+      "msg": "Pipeline started. Network=basecamp, maxIters=3, file=SafeTreasuryTimelock.sol"
+    },
+    {
+      "t": 1756924846844,
+      "level": "info",
+      "msg": "Stage: generate -> prompt preparation"
+    },
+    {
+      "t": 1756924846844,
+      "level": "debug",
+      "msg": "Enhanced prompt length=1541"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Generation done in 77633ms. Code size=9859"
+    },
+    {
+      "t": 1756924924477,
+      "level": "info",
+      "msg": "Stage: write -> preparing sandbox and files"
+    },
+    {
+      "t": 1756924924478,
+      "level": "info",
+      "msg": "Stage: compile -> starting compile/fix loop"
+    },
+    {
+      "t": 1756924925068,
+      "level": "error",
+      "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+    },
+    {
+      "t": 1756924925069,
+      "level": "info",
+      "msg": "\n\n"
+    },
+    {
+      "t": 1756924929894,
+      "level": "info",
+      "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+    },
+    {
+      "t": 1756924929940,
+      "level": "info",
+      "msg": "Compile success after 0 fix iterations."
+    },
+    {
+      "t": 1756924929941,
+      "level": "debug",
+      "msg": "Artifact chosen for deploy: SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929941,
+      "level": "info",
+      "msg": "Stage: deploy_script -> contract SafeTreasuryTimelock"
+    },
+    {
+      "t": 1756924929942,
+      "level": "error",
+      "msg": "Constructor args mismatch. Expected 5, provided 1."
+    }
+  ]
+}

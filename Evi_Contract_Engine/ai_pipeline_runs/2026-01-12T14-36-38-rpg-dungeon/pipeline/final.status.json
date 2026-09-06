@@ -1,0 +1,322 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1768228600193,
+    "updatedAt": 1768229029066,
+    "payload": {
+      "prompt": "Create an RPG Dungeon Crawler game smart contract. Features:\n- Character creation with stats (STR, DEX, INT)\n- Dungeon exploration with random encounters\n- Loot drops as NFT items\n- Experience and leveling system\n- Equipment slots and inventory\n- Boss battles with rewards\n- Keep constructor empty",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "DungeonCrawler",
+      "filename": "DungeonCrawler.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1768228600193
+      },
+      {
+        "step": "generate",
+        "t": 1768228600194
+      },
+      {
+        "step": "write",
+        "t": 1768228727728
+      },
+      {
+        "step": "compile",
+        "t": 1768228727729
+      },
+      {
+        "step": "fix",
+        "t": 1768228730308
+      },
+      {
+        "step": "deploy_script",
+        "t": 1768229017558
+      },
+      {
+        "step": "deploy",
+        "t": 1768229017559
+      }
+    ],
+    "timings": {
+      "startedAt": 1768228600193,
+      "endedAt": 1768229029066,
+      "phases": {
+        "init": {
+          "startedAt": 1768228600193,
+          "endedAt": 1768228600194
+        },
+        "generate": {
+          "startedAt": 1768228600194,
+          "endedAt": 1768228727728
+        },
+        "write": {
+          "startedAt": 1768228727728,
+          "endedAt": 1768228727729
+        },
+        "compile": {
+          "startedAt": 1768228727729,
+          "endedAt": 1768228730308
+        },
+        "fix": {
+          "startedAt": 1768228730308,
+          "endedAt": 1768229017558
+        },
+        "deploy_script": {
+          "startedAt": 1768229017558,
+          "endedAt": 1768229017559
+        },
+        "deploy": {
+          "startedAt": 1768229017559,
+          "endedAt": 1768229029066
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "DungeonCrawler",
+      "fqName": "contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol:DungeonCrawler",
+      "address": "0x1165F51c858ca9872B8030e37b263E74F74745a7",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768228600193,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=DungeonCrawler.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1768228600193,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      },
+      {
+        "i": 3,
+        "t": 1768228600194,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1768228600196,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1484"
+      },
+      {
+        "i": 5,
+        "t": 1768228600196,
+        "level": "warn",
+        "msg": "game_classification_low_confidence: 20.8% - using legacy prompts"
+      },
+      {
+        "i": 6,
+        "t": 1768228727727,
+        "level": "debug",
+        "msg": "generate_ai_response_len=10934 ai_ms=127530"
+      },
+      {
+        "i": 7,
+        "t": 1768228727728,
+        "level": "info",
+        "msg": "Generation done in 127534ms. Code size=11038"
+      },
+      {
+        "i": 8,
+        "t": 1768228727728,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 9,
+        "t": 1768228727729,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 10,
+        "t": 1768228730245,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol\n\n\nDeclarationError: Event with same name and parameter types defined twice.\n  --> @openzeppelin/contracts/token/ERC1155/IERC1155.sol:36:5:\n   |\n36 |     event ApprovalForAll(address indexed account, address indexed operator, bool approved);\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: Other declaration is here:\n  --> @openzeppelin/contracts/token/ERC721/IERC721.sol:25:5:\n   |\n25 |     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Derived contract must override function \"_setApprovalForAll\". Two or more base classes define function with same name and parameter types.\n  --> contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol:21:1:\n   |\n21 | contract DungeonCrawler is ERC721, ERC1155, Ownable, ReentrancyGuard {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC1155\": \n   --> @openzeppelin/contracts/token/ERC1155/ERC1155.sol:383:5:\n    |\n383 |     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC721\": \n   --> @openzeppelin/contracts/token/ERC721/ERC721.sol:376:5:\n    |\n376 |     function _setApprovalForAll(address owner, address operator, bool approved) internal virtual {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Derived contract must override function \"isApprovedForAll\". Two or more base classes define function with same name and parameter types.\n  --> contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol:21:1:\n   |\n21 | contract DungeonCrawler is ERC721, ERC1155, Ownable, ReentrancyGuard {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC1155\": \n   --> @openzeppelin/contracts/token/ERC1155/ERC1155.sol:107:5:\n    |\n107 |     function isApprovedForAll(address account, address operator) public view virtual override returns (bool) {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC721\": \n   --> @openzeppelin/contracts/token/ERC721/ERC721.sol:143:5:\n    |\n143 |     function isApprovedForAll(address owner, address operator) public view virtual override returns (bool) {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Derived contract must override function \"setApprovalForAll\". Two or more base classes define function with same name and parameter types.\n  --> contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol:21:1:\n   |\n21 | contract DungeonCrawler is ERC721, ERC1155, Ownable, ReentrancyGuard {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC1155\": \n   --> @openzeppelin/contracts/token/ERC1155/ERC1155.sol:100:5:\n    |\n100 |     function setApprovalForAll(address operator, bool approved) public virtual override {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC721\": \n   --> @openzeppelin/contracts/token/ERC721/ERC721.sol:136:5:\n    |\n136 |     function setApprovalForAll(address operator, bool approved) public virtual override {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 11,
+        "t": 1768228730262,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 12,
+        "t": 1768228730263,
+        "level": "error",
+        "msg": "HardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n"
+      },
+      {
+        "i": 13,
+        "t": 1768228730263,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 14,
+        "t": 1768228730308,
+        "level": "debug",
+        "msg": "iter 1/11: compile failed in 2579ms"
+      },
+      {
+        "i": 15,
+        "t": 1768228730308,
+        "level": "warn",
+        "msg": "Compile failed (iter 0). Running AI fix. Error length=5014"
+      },
+      {
+        "i": 16,
+        "t": 1768228730310,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=25350"
+      },
+      {
+        "i": 17,
+        "t": 1768228912040,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=10837 ai_ms=181730"
+      },
+      {
+        "i": 18,
+        "t": 1768228914408,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol\n\n\n"
+      },
+      {
+        "i": 19,
+        "t": 1768228914408,
+        "level": "error",
+        "msg": "DeclarationError: Event with same name and parameter types defined twice.\n  --> @openzeppelin/contracts/token/ERC1155/IERC1155.sol:36:5:\n   |\n36 |     event ApprovalForAll(address indexed account, address indexed operator, bool approved);\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: Other declaration is here:\n  --> @openzeppelin/contracts/token/ERC721/IERC721.sol:25:5:\n   |\n25 |     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 20,
+        "t": 1768228914420,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 21,
+        "t": 1768228914421,
+        "level": "error",
+        "msg": "HardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n"
+      },
+      {
+        "i": 22,
+        "t": 1768228914421,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 23,
+        "t": 1768228914461,
+        "level": "debug",
+        "msg": "iter 2/11: compile failed in 2420ms"
+      },
+      {
+        "i": 24,
+        "t": 1768228914461,
+        "level": "warn",
+        "msg": "Compile failed (iter 1). Running AI fix. Error length=2097"
+      },
+      {
+        "i": 25,
+        "t": 1768228914462,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=22336"
+      },
+      {
+        "i": 26,
+        "t": 1768229008292,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=10528 ai_ms=93830"
+      },
+      {
+        "i": 27,
+        "t": 1768229017439,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol\n\n\n"
+      },
+      {
+        "i": 28,
+        "t": 1768229017502,
+        "level": "info",
+        "msg": "Compiled 18 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 29,
+        "t": 1768229017555,
+        "level": "debug",
+        "msg": "iter 3/11: compile ok in 9262ms"
+      },
+      {
+        "i": 30,
+        "t": 1768229017555,
+        "level": "info",
+        "msg": "Compile success after 2 fix iterations."
+      },
+      {
+        "i": 31,
+        "t": 1768229017558,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: DungeonCrawler"
+      },
+      {
+        "i": 32,
+        "t": 1768229017558,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract DungeonCrawler"
+      },
+      {
+        "i": 33,
+        "t": 1768229017558,
+        "level": "info",
+        "msg": "Contract chosen for deploy: DungeonCrawler"
+      },
+      {
+        "i": 34,
+        "t": 1768229017559,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "i": 35,
+        "t": 1768229029003,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"DungeonCrawler\",\"fqName\":\"contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol:DungeonCrawler\",\"address\":\"0x1165F51c858ca9872B8030e37b263E74F74745a7\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 36,
+        "t": 1768229029066,
+        "level": "info",
+        "msg": "Deploy success. Address=0x1165F51c858ca9872B8030e37b263E74F74745a7"
+      }
+    ],
+    "_logIndex": 36,
+    "logsCount": 36,
+    "lastLogTs": 1768229029066,
+    "lastErrors": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol\n\n\nDeclarationError: Event with same name and parameter types defined twice.\n  --> @openzeppelin/contracts/token/ERC1155/IERC1155.sol:36:5:\n   |\n36 |     event ApprovalForAll(address indexed account, address indexed operator, bool approved);\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: Other declaration is here:\n  --> @openzeppelin/contracts/token/ERC721/IERC721.sol:25:5:\n   |\n25 |     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nError HH600: Compilation failed\nHardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n\n\n",
+    "contractName": "DungeonCrawler",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"DungeonCrawler\",\"fqName\":\"contracts/AI_ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19_DungeonCrawler.sol:DungeonCrawler\",\"address\":\"0x1165F51c858ca9872B8030e37b263E74F74745a7\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

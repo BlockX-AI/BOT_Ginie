@@ -1,0 +1,341 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490",
+  "scope": "job:ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490_Bus.sol",
+      "content": "pragma solidity ^0.8.20;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/security/Pausable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\n\n/**\n * @title Bus\n * @dev A smart contract representing a public bus service.\n * It allows passengers to board by paying a fare, tracks passenger count,\n * and allows the owner to manage the service's parameters and withdraw funds.\n *\n * This contract uses OpenZeppelin's Ownable for access control, Pausable\n * for emergency stops, and ReentrancyGuard to prevent reentrancy attacks\n * on functions involving Ether transfers.\n */\ncontract Bus is Ownable, Pausable, ReentrancyGuard {\n    // ======== State Variables ========\n\n    string public route;\n    uint256 public capacity;\n    uint256 public fare;\n    uint256 public passengerCount;\n\n    mapping(address => bool) private _isPassenger;\n\n    // ======== Events ========\n\n    /**\n     * @dev Emitted when a passenger successfully boards the bus.\n     * @param passenger The address of the passenger.\n     * @param farePaid The amount of ETH paid as fare.\n     */\n    event PassengerBoarded(address indexed passenger, uint256 farePaid);\n\n    /**\n     * @dev Emitted when a passenger alights from the bus.\n     * @param passenger The address of the passenger.\n     */\n    event PassengerAlighted(address indexed passenger);\n\n    /**\n     * @dev Emitted when the bus fare is updated by the owner.\n     * @param newFare The new fare amount.\n     */\n    event FareUpdated(uint256 newFare);\n\n    /**\n     * @dev Emitted when the bus route is updated by the owner.\n     * @param newRoute The new route description.\n     */\n    event RouteUpdated(string newRoute);\n\n    /**\n     * @dev Emitted when the bus capacity is updated by the owner.\n     * @param newCapacity The new maximum capacity.\n     */\n    event CapacityUpdated(uint256 newCapacity);\n\n    // ======== Constructor ========\n\n    /**\n     * @dev Initializes the contract with default values.\n     * The owner can change these values later using the provided setter functions.\n     * The constructor is intentionally parameterless to meet deployment requirements.\n     */\n    constructor() {\n        route = \"City Center Loop\";\n        capacity = 50;\n        fare = 0.001 ether; // 0.001 ETH\n    }\n\n    // ======== View Functions ========\n\n    /**\n     * @dev Checks if a given address is currently a passenger on the bus.\n     * @param account The address to check.\n     * @return bool True if the address is a passenger, false otherwise.\n     */\n    function isPassenger(address account) public view returns (bool) {\n        return _isPassenger[account];\n    }\n\n    // ======== Public Functions ========\n\n    /**\n     * @dev Allows a user to board the bus by paying the required fare.\n     * The contract must not be paused, the bus must not be full, the user\n     * cannot already be a passenger, and the sent value must match the fare exactly.\n     */\n    function board() external payable whenNotPaused nonReentrant {\n        require(passengerCount < capacity, \"Bus: Bus is full\");\n        require(!_isPassenger[msg.sender], \"Bus: Already on board\");\n        require(msg.value == fare, \"Bus: Incorrect fare paid\");\n\n        _isPassenger[msg.sender] = true;\n        passengerCount++;\n\n        emit PassengerBoarded(msg.sender, msg.value);\n    }\n\n    /**\n     * @dev Allows a passenger to alight from the bus.\n     * The contract must not be paused and the caller must be a passenger.\n     */\n    function alight() external whenNotPaused {\n        require(_isPassenger[msg.sender], \"Bus: Not a passenger\");\n\n        _isPassenger[msg.sender] = false;\n        passengerCount--;\n\n        emit PassengerAlighted(msg.sender);\n    }\n\n    // ======== Owner-Only Functions ========\n\n    /**\n     * @dev Updates the bus route. Only the owner can call this.\n     * @param newRoute The new route description string.\n     */\n    function setRoute(string calldata newRoute) external onlyOwner {\n        route = newRoute;\n        emit RouteUpdated(newRoute);\n    }\n\n    /**\n     * @dev Updates the bus capacity. Only the owner can call this.\n     * The new capacity cannot be less than the current number of passengers.\n     * @param newCapacity The new maximum capacity.\n     */\n    function setCapacity(uint256 newCapacity) external onlyOwner {\n        require(newCapacity >= passengerCount, \"Bus: Capacity cannot be less than current passengers\");\n        capacity = newCapacity;\n        emit CapacityUpdated(newCapacity);\n    }\n\n    /**\n     * @dev Updates the bus fare. Only the owner can call this.\n     * @param newFare The new fare in wei.\n     */\n    function setFare(uint256 newFare) external onlyOwner {\n        fare = newFare;\n        emit FareUpdated(newFare);\n    }\n\n    /**\n     * @dev Pauses the service, preventing new passengers from boarding or alighting.\n     * Only the owner can call this.\n     */\n    function pause() external onlyOwner {\n        _pause();\n    }\n\n    /**\n     * @dev Unpauses the service, resuming normal operations.\n     * Only the owner can call this.\n     */\n    function unpause() external onlyOwner {\n        _unpause();\n    }\n\n    /**\n     * @dev Withdraws the entire contract balance to the owner's address.\n     * Only the owner can call this.\n     */\n    function withdraw() external onlyOwner nonReentrant {\n        uint256 balance = address(this).balance;\n        require(balance > 0, \"Bus: No funds to withdraw\");\n        (bool success, ) = owner().call{value: balance}(\"\");\n        require(success, \"Bus: Withdrawal failed\");\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490_Bus.sol/Bus.json",
+      "name": "Bus",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newCapacity",
+              "type": "uint256"
+            }
+          ],
+          "name": "CapacityUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newFare",
+              "type": "uint256"
+            }
+          ],
+          "name": "FareUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "passenger",
+              "type": "address"
+            }
+          ],
+          "name": "PassengerAlighted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "passenger",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "farePaid",
+              "type": "uint256"
+            }
+          ],
+          "name": "PassengerBoarded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "newRoute",
+              "type": "string"
+            }
+          ],
+          "name": "RouteUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "alight",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "board",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "capacity",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "fare",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "isPassenger",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "passengerCount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "route",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "newCapacity",
+              "type": "uint256"
+            }
+          ],
+          "name": "setCapacity",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "newFare",
+              "type": "uint256"
+            }
+          ],
+          "name": "setFare",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "newRoute",
+              "type": "string"
+            }
+          ],
+          "name": "setRoute",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "withdraw",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x60806040523480156200001157600080fd5b506200001d336200007b565b6000805460ff60a01b191690556001805560408051808201909152601081526f0436974792043656e746572204c6f6f760841b602082015260029062000064908262000170565b50603260035566038d7ea4c680006004556200023c565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b634e487b7160e01b600052604160045260246000fd5b600181811c90821680620000f657607f821691505b6020821081036200011757634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156200016b57600081815260208120601f850160051c81016020861015620001465750805b601f850160051c820191505b81811015620001675782815560010162000152565b5050505b505050565b81516001600160401b038111156200018c576200018c620000cb565b620001a4816200019d8454620000e1565b846200011d565b602080601f831160018114620001dc5760008415620001c35750858301515b600019600386901b1c1916600185901b17855562000167565b600085815260208120601f198616915b828110156200020d57888601518255948401946001909101908401620001ec565b50858210156200022c5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b610df0806200024c6000396000f3fe6080604052600436106100fe5760003560e01c80638456cb5911610095578063d96661ef11610064578063d96661ef14610266578063e76b87cf14610288578063f2fde38b146102a8578063f6e0da03146102c8578063fb2d4e68146102e857600080fd5b80638456cb59146101f35780638da5cb5b1461020857806391915ef814610230578063adeb03821461025057600080fd5b80635c975abb116100d15780635c975abb146101a15780635cfc1a51146101c0578063715018a6146101d65780637cd3229a146101eb57600080fd5b80631dd13a1d14610103578063349ef932146101515780633ccfd60b146101755780633f4ba83a1461018c575b600080fd5b34801561010f57600080fd5b5061013c61011e366004610adc565b6001600160a01b031660009081526006602052604090205460ff1690565b60405190151581526020015b60405180910390f35b34801561015d57600080fd5b5061016760055481565b604051908152602001610148565b34801561018157600080fd5b5061018a6102fd565b005b34801561019857600080fd5b5061018a610409565b3480156101ad57600080fd5b50600054600160a01b900460ff1661013c565b3480156101cc57600080fd5b5061016760035481565b3480156101e257600080fd5b5061018a610419565b61018a61042b565b3480156101ff57600080fd5b5061018a610595565b34801561021457600080fd5b506000546040516001600160a01b039091168152602001610148565b34801561023c57600080fd5b5061018a61024b366004610b0c565b6105a5565b34801561025c57600080fd5b5061016760045481565b34801561027257600080fd5b5061027b610658565b6040516101489190610b25565b34801561029457600080fd5b5061018a6102a3366004610b73565b6106e6565b3480156102b457600080fd5b5061018a6102c3366004610adc565b610739565b3480156102d457600080fd5b5061018a6102e3366004610b0c565b6107b2565b3480156102f457600080fd5b5061018a6107ef565b6103056108a4565b61030d6108fe565b47806103605760405162461bcd60e51b815260206004820152601960248201527f4275733a204e6f2066756e647320746f2077697468647261770000000000000060448201526064015b60405180910390fd5b600080546040516001600160a01b039091169083908381818185875af1925050503d80600081146103ad576040519150601f19603f3d011682016040523d82523d6000602084013e6103b2565b606091505b50509050806103fc5760405162461bcd60e51b8152602060048201526016602482015275109d5cce8815da5d1a191c985dd85b0819985a5b195960521b6044820152606401610357565b505061040760018055565b565b6104116108a4565b610407610957565b6104216108a4565b61040760006109ac565b6104336109fc565b61043b6108fe565b600354600554106104815760405162461bcd60e51b815260206004820152601060248201526f109d5cce88109d5cc81a5cc8199d5b1b60821b6044820152606401610357565b3360009081526006602052604090205460ff16156104d95760405162461bcd60e51b8152602060048201526015602482015274109d5cce88105b1c9958591e481bdb88189bd85c99605a1b6044820152606401610357565b600454341461052a5760405162461bcd60e51b815260206004820152601860248201527f4275733a20496e636f72726563742066617265207061696400000000000000006044820152606401610357565b336000908152600660205260408120805460ff19166001179055600580549161055283610bfb565b909155505060405134815233907f56fd8f23f30168a5453dbaa67ddae8482eafcaedebf9fc101b3bef57b82727969060200160405180910390a261040760018055565b61059d6108a4565b610407610a49565b6105ad6108a4565b60055481101561061c5760405162461bcd60e51b815260206004820152603460248201527f4275733a2043617061636974792063616e6e6f74206265206c657373207468616044820152736e2063757272656e742070617373656e6765727360601b6064820152608401610357565b60038190556040518181527f161ab4db855064d603dd1cc5517b1938db43fb85b56aab98c326b307dd1f9356906020015b60405180910390a150565b6002805461066590610c14565b80601f016020809104026020016040519081016040528092919081815260200182805461069190610c14565b80156106de5780601f106106b3576101008083540402835291602001916106de565b820191906000526020600020905b8154815290600101906020018083116106c157829003601f168201915b505050505081565b6106ee6108a4565b60026106fb828483610cb3565b507faf97c96185891cdb03605f2f1468c9ef829dc9a51a1371932aafdec15246d886828260405161072d929190610d74565b60405180910390a15050565b6107416108a4565b6001600160a01b0381166107a65760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610357565b6107af816109ac565b50565b6107ba6108a4565b60048190556040518181527f3f0aee874642534bd8ee96516d696989f752ebcdfae7ba0e2e493f1529e090a49060200161064d565b6107f76109fc565b3360009081526006602052604090205460ff1661084d5760405162461bcd60e51b8152602060048201526014602482015273213ab99d102737ba1030903830b9b9b2b733b2b960611b6044820152606401610357565b336000908152600660205260408120805460ff19169055600580549161087283610da3565b909155505060405133907f4d667079503a838a18d4396922beab25180bbe39194570c0329541aec9236f5890600090a2565b6000546001600160a01b031633146104075760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610357565b6002600154036109505760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606401610357565b6002600155565b61095f610a8c565b6000805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b600054600160a01b900460ff16156104075760405162461bcd60e51b815260206004820152601060248201526f14185d5cd8589b194e881c185d5cd95960821b6044820152606401610357565b610a516109fc565b6000805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a25861098f3390565b600054600160a01b900460ff166104075760405162461bcd60e51b815260206004820152601460248201527314185d5cd8589b194e881b9bdd081c185d5cd95960621b6044820152606401610357565b600060208284031215610aee57600080fd5b81356001600160a01b0381168114610b0557600080fd5b9392505050565b600060208284031215610b1e57600080fd5b5035919050565b600060208083528351808285015260005b81811015610b5257858101830151858201604001528201610b36565b506000604082860101526040601f19601f8301168501019250505092915050565b60008060208385031215610b8657600080fd5b823567ffffffffffffffff80821115610b9e57600080fd5b818501915085601f830112610bb257600080fd5b813581811115610bc157600080fd5b866020828501011115610bd357600080fd5b60209290920196919550909350505050565b634e487b7160e01b600052601160045260246000fd5b600060018201610c0d57610c0d610be5565b5060010190565b600181811c90821680610c2857607f821691505b602082108103610c4857634e487b7160e01b600052602260045260246000fd5b50919050565b634e487b7160e01b600052604160045260246000fd5b601f821115610cae57600081815260208120601f850160051c81016020861015610c8b5750805b601f850160051c820191505b81811015610caa57828155600101610c97565b5050505b505050565b67ffffffffffffffff831115610ccb57610ccb610c4e565b610cdf83610cd98354610c14565b83610c64565b6000601f841160018114610d135760008515610cfb5750838201355b600019600387901b1c1916600186901b178355610d6d565b600083815260209020601f19861690835b82811015610d445786850135825560209485019460019092019101610d24565b5086821015610d615760001960f88860031b161c19848701351681555b505060018560011b0183555b5050505050565b60208152816020820152818360408301376000818301604090810191909152601f909201601f19160101919050565b600081610db257610db2610be5565b50600019019056fea2646970667358221220af759c70ebebffefbd7db040c33f1cfd088535733493538d5f86dba256ae7a2864736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490.js",
+      "content": "// Auto-generated by AI pipeline for job ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490_Bus.sol:Bus\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"Bus\", fqName: \"contracts/AI_ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490_Bus.sol:Bus\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/app/tmp/jobs/ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490"
+  }
+}

@@ -1,0 +1,4 @@
+{"i":1,"t":1760431541114,"level":"info","msg":"Pipeline started. Network=basecamp, maxIters=11, file=Web3BouncingBalls.sol, strictArgs=true"}
+{"i":2,"t":1760431541114,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1760431541115,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1760431541115,"level":"debug","msg":"Enhanced prompt length=6760"}

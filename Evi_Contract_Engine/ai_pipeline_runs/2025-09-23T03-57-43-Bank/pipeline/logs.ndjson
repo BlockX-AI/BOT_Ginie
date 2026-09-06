@@ -1,0 +1,27 @@
+{"i":1,"t":1758599863186,"level":"info","msg":"Pipeline started. Network=basecamp, maxIters=11, file=varaStreams.sol, strictArgs=true"}
+{"i":2,"t":1758599863186,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758599863187,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1758599863188,"level":"debug","msg":"Enhanced prompt length=5424"}
+{"i":5,"t":1758599957879,"level":"debug","msg":"generate_ai_response_len=13574 ai_ms=94691"}
+{"i":6,"t":1758599957879,"level":"info","msg":"Generation done in 94692ms. Code size=13527"}
+{"i":7,"t":1758599957879,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1758599957880,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1758599959667,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925_varaStreams.sol\n\n\n"}
+{"i":10,"t":1758599959667,"level":"error","msg":"TypeError: Referenced declaration is neither modifier nor base class.\n   --> contracts/AI_ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925_varaStreams.sol:128:28:\n    |\n128 |     ) public whenNotPaused hasRole(SUBMITTER_ROLE) {\n    |                            ^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Wrong argument count for function call: 1 arguments given but expected 2.\n   --> contracts/AI_ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925_varaStreams.sol:140:57:\n    |\n140 |         if (_msgSender() != latestVersion.submitter && !hasRole(DEFAULT_ADMIN_ROLE)) {\n    |                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Referenced declaration is neither modifier nor base class.\n   --> contracts/AI_ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925_varaStreams.sol:161:41:\n    |\n161 |     ) public whenNotPaused nonReentrant hasRole(AUDITOR_ROLE) {\n    |                                         ^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Referenced declaration is neither modifier nor base class.\n   --> contracts/AI_ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925_varaStreams.sol:227:70:\n    |\n227 |     function stake(uint256 amount) public whenNotPaused nonReentrant hasRole(AUDITOR_ROLE) {\n    |                                                                      ^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Referenced declaration is neither modifier nor base class.\n   --> contracts/AI_ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925_varaStreams.sol:239:72:\n    |\n239 |     function unstake(uint256 amount) public whenNotPaused nonReentrant hasRole(AUDITOR_ROLE) {\n    |                                                                        ^^^^^^^^^^^^^^^^^^^^^\n\n\n"}
+{"i":11,"t":1758599959675,"level":"error","msg":"Error HH600: Compilation failed\n"}
+{"i":12,"t":1758599959675,"level":"info","msg":"\n"}
+{"i":13,"t":1758599959675,"level":"error","msg":"For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"}
+{"i":14,"t":1758599959699,"level":"debug","msg":"iter 1/11: compile failed in 1819ms"}
+{"i":15,"t":1758599959699,"level":"warn","msg":"Compile failed (iter 0). Running AI fix. Error length=2206"}
+{"i":16,"t":1758599959699,"level":"debug","msg":"pipeline_fix_prompt_len=16442"}
+{"i":17,"t":1758600009902,"level":"debug","msg":"pipeline_ai_fix_response_len=13599 ai_ms=50203"}
+{"i":18,"t":1758600012255,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925_varaStreams.sol\n\n\n"}
+{"i":19,"t":1758600012275,"level":"info","msg":"Compiled 17 Solidity files successfully (evm target: paris).\n"}
+{"i":20,"t":1758600012292,"level":"debug","msg":"iter 2/11: compile ok in 2388ms"}
+{"i":21,"t":1758600012292,"level":"info","msg":"Compile success after 1 fix iterations."}
+{"i":22,"t":1758600012294,"level":"debug","msg":"Artifact chosen for deploy: varaStreams"}
+{"i":23,"t":1758600012294,"level":"info","msg":"Stage: deploy_script -> contract varaStreams"}
+{"i":24,"t":1758600012294,"level":"info","msg":"Contract chosen for deploy: varaStreams"}
+{"i":25,"t":1758600012296,"level":"info","msg":"Stage: deploy -> network basecamp"}
+{"i":26,"t":1758600021498,"level":"info","msg":"DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"varaStreams\",\"fqName\":\"contracts/AI_ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925_varaStreams.sol:varaStreams\",\"address\":\"0xa2b8ce5D1DCc72dB71aE52729B17885e16B1C8Af\",\"params\":{\"args\":[]}}\n"}
+{"i":27,"t":1758600021524,"level":"info","msg":"Deploy success. Address=0xa2b8ce5D1DCc72dB71aE52729B17885e16B1C8Af"}

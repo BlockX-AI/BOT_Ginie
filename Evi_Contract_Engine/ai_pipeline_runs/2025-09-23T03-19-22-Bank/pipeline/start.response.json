@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_37a00b1f-baeb-4699-99ac-17bd81550153",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758597562644,
+    "updatedAt": 1758597562644,
+    "payload": {
+      "prompt": "Develop a quantum-resistant decentralized identity system with biometric\nauthentication, zero-knowledge credential verification, selective\ndisclosure of personal information, integration with government ID\nsystems, support for corporate identities with complex hierarchies,\nautomated KYC/AML compliance, privacy-preserving age verification, cross-\nchain identity portability, reputation systems with time-decay algorithms,\nand recovery mechanisms for lost keys. Include support for delegation,\nguardianship for minors, and integration with existing OAuth/SAML\nsystems.",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "DecentralizedIdentity",
+      "filename": "DecentralizedIdentity.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758597562644
+      }
+    ],
+    "timings": {
+      "startedAt": 1758597562644,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758597562644
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758597562644,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=DecentralizedIdentity.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758597562644,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758597562644
+  }
+}

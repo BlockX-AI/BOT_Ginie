@@ -1,0 +1,211 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1768228421421,
+    "updatedAt": 1768228495491,
+    "payload": {
+      "prompt": "Create an RPG Dungeon Crawler game smart contract. Features:\n- Character creation with stats (STR, DEX, INT)\n- Dungeon exploration with random encounters\n- Loot drops as NFT items\n- Experience and leveling system\n- Equipment slots and inventory\n- Boss battles with rewards\n- Keep constructor empty",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "DungeonCrawler",
+      "filename": "DungeonCrawler.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1768228421421
+      },
+      {
+        "step": "generate",
+        "t": 1768228421422
+      },
+      {
+        "step": "write",
+        "t": 1768228477844
+      },
+      {
+        "step": "compile",
+        "t": 1768228477846
+      },
+      {
+        "step": "deploy_script",
+        "t": 1768228485396
+      },
+      {
+        "step": "deploy",
+        "t": 1768228485397
+      }
+    ],
+    "timings": {
+      "startedAt": 1768228421421,
+      "endedAt": 1768228495491,
+      "phases": {
+        "init": {
+          "startedAt": 1768228421421,
+          "endedAt": 1768228421422
+        },
+        "generate": {
+          "startedAt": 1768228421422,
+          "endedAt": 1768228477844
+        },
+        "write": {
+          "startedAt": 1768228477844,
+          "endedAt": 1768228477846
+        },
+        "compile": {
+          "startedAt": 1768228477846,
+          "endedAt": 1768228485396
+        },
+        "deploy_script": {
+          "startedAt": 1768228485396,
+          "endedAt": 1768228485397
+        },
+        "deploy": {
+          "startedAt": 1768228485397,
+          "endedAt": 1768228495491
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "DungeonCrawler",
+      "fqName": "contracts/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol:DungeonCrawler",
+      "address": "0x83814605389040E4A313222674dD76a65F17C787",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768228421421,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=DungeonCrawler.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1768228421421,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      },
+      {
+        "i": 3,
+        "t": 1768228421422,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1768228421424,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1484"
+      },
+      {
+        "i": 5,
+        "t": 1768228421424,
+        "level": "warn",
+        "msg": "game_classification_low_confidence: 20.8% - using legacy prompts"
+      },
+      {
+        "i": 6,
+        "t": 1768228477841,
+        "level": "debug",
+        "msg": "generate_ai_response_len=9475 ai_ms=56413"
+      },
+      {
+        "i": 7,
+        "t": 1768228477842,
+        "level": "info",
+        "msg": "Generation done in 56420ms. Code size=9579"
+      },
+      {
+        "i": 8,
+        "t": 1768228477844,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 9,
+        "t": 1768228477846,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 10,
+        "t": 1768228485212,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol\n\n\n"
+      },
+      {
+        "i": 11,
+        "t": 1768228485307,
+        "level": "info",
+        "msg": "Compiled 15 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 12,
+        "t": 1768228485391,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 7545ms"
+      },
+      {
+        "i": 13,
+        "t": 1768228485391,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 14,
+        "t": 1768228485396,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: DungeonCrawler"
+      },
+      {
+        "i": 15,
+        "t": 1768228485396,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract DungeonCrawler"
+      },
+      {
+        "i": 16,
+        "t": 1768228485396,
+        "level": "info",
+        "msg": "Contract chosen for deploy: DungeonCrawler"
+      },
+      {
+        "i": 17,
+        "t": 1768228485398,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "i": 18,
+        "t": 1768228495422,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"DungeonCrawler\",\"fqName\":\"contracts/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol:DungeonCrawler\",\"address\":\"0x83814605389040E4A313222674dD76a65F17C787\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 19,
+        "t": 1768228495491,
+        "level": "info",
+        "msg": "Deploy success. Address=0x83814605389040E4A313222674dD76a65F17C787"
+      }
+    ],
+    "_logIndex": 19,
+    "logsCount": 19,
+    "lastLogTs": 1768228495491,
+    "contractName": "DungeonCrawler",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"DungeonCrawler\",\"fqName\":\"contracts/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol:DungeonCrawler\",\"address\":\"0x83814605389040E4A313222674dD76a65F17C787\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

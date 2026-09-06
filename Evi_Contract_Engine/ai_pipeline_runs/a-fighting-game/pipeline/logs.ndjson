@@ -1,0 +1,18 @@
+{"i":1,"t":1759414454318,"level":"info","msg":"Pipeline started. Network=basecamp, maxIters=21, file=Fight.sol, strictArgs=true"}
+{"i":2,"t":1759414454318,"level":"debug","msg":"config: maxIters=21 (hardCap=51)"}
+{"i":3,"t":1759414454318,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1759414454319,"level":"debug","msg":"Enhanced prompt length=1112"}
+{"i":5,"t":1759414536816,"level":"debug","msg":"generate_ai_response_len=10646 ai_ms=82497"}
+{"i":6,"t":1759414536816,"level":"info","msg":"Generation done in 82498ms. Code size=10599"}
+{"i":7,"t":1759414536816,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1759414536817,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1759414541904,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_0bd2380c-f8c3-446e-bbfe-2b03db022cb3_Fight.sol\n\n\n"}
+{"i":10,"t":1759414541947,"level":"info","msg":"Compiled 19 Solidity files successfully (evm target: paris).\n"}
+{"i":11,"t":1759414542000,"level":"debug","msg":"iter 1/21: compile ok in 5183ms"}
+{"i":12,"t":1759414542000,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":13,"t":1759414542003,"level":"debug","msg":"Artifact chosen for deploy: FightToken"}
+{"i":14,"t":1759414542004,"level":"info","msg":"Stage: deploy_script -> contract FightToken"}
+{"i":15,"t":1759414542004,"level":"info","msg":"Contract chosen for deploy: FightToken"}
+{"i":16,"t":1759414542004,"level":"info","msg":"Stage: deploy -> network basecamp"}
+{"i":17,"t":1759414548193,"level":"info","msg":"DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"FightToken\",\"fqName\":\"contracts/AI_ai_pipeline_0bd2380c-f8c3-446e-bbfe-2b03db022cb3_Fight.sol:FightToken\",\"address\":\"0xAc028289DBB089615da77bc5E6232f0F7BeE7531\",\"params\":{\"args\":[]}}\n"}
+{"i":18,"t":1759414548237,"level":"info","msg":"Deploy success. Address=0xAc028289DBB089615da77bc5E6232f0F7BeE7531"}

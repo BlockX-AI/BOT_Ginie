@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_1f77b401-7107-483d-a3f5-fd3142706266",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1769366348274,
+    "updatedAt": 1769366348274,
+    "payload": {
+      "network": "basecamp",
+      "filename": "Web3BouncingBalls.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1769366348274
+      }
+    ],
+    "timings": {
+      "startedAt": 1769366348274,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1769366348274
+        }
+      }
+    },
+    "contract": null,
+    "deployment": null,
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1769366348274,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp, file=Web3BouncingBalls.sol"
+      },
+      {
+        "i": 2,
+        "t": 1769366348274,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1769366348274
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:22:11.562Z",
+  "contracts": {
+    "BusinessToken": "0x53524e4Be72EE36DcCb33Cb35528643D06B4A7be"
+  },
+  "params": {
+    "name": "Neon Camp Token 13",
+    "symbol": "NNX13",
+    "initialSupplyTokens": "271828182",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

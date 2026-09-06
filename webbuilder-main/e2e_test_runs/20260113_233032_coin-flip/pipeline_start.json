@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_1cf39f04-628c-4f74-8c9a-de50ff330967",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1768327233479,
+    "updatedAt": 1768327233480,
+    "payload": {
+      "prompt": "Create a Coin Flip betting game smart contract. Features:\n- Players bet ETH on heads or tails\n- Use commit-reveal for fairness (or VRF placeholder)\n- House edge 2%\n- Track betting history per player\n- Emit events for bets placed and results\n- Anti-cheat with commit-reveal pattern\n- Keep constructor empty",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "CoinFlipBet",
+      "filename": "CoinFlipBet.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1768327233479
+      }
+    ],
+    "timings": {
+      "startedAt": 1768327233479,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1768327233479
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768327233480,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=CoinFlipBet.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1768327233480,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1768327233480
+  }
+}

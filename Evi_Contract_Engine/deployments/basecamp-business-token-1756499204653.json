@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:26:44.652Z",
+  "contracts": {
+    "BusinessToken": "0xec3EF953428513c392B5fA8BffefaE1a0489dC45"
+  },
+  "params": {
+    "name": "Theta Camp Token 35",
+    "symbol": "THT35",
+    "initialSupplyTokens": "333000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

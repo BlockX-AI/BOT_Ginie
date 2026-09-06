@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign with WalletConnect - Camp-CodeGen</title>
+  
+  <!-- WalletConnect + Wagmi + Viem -->
+  <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      color: #1a202c;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    
+    .info-box {
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .info-row:last-child { border-bottom: none; }
+    
+    .button {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .button-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .button-secondary {
+      background: white;
+      border: 2px solid #e2e8f0;
+      color: #2d3748;
+    }
+    
+    .button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    
+    .button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      margin: 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .status-loading { background: #edf2f7; color: #2d3748; }
+    .status-success { background: #c6f6d5; color: #22543d; }
+    .status-error { background: #fed7d7; color: #742a2a; }
+    
+    .spinner {
+      border: 2px solid #e2e8f0;
+      border-top: 2px solid #667eea;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .hidden { display: none; }
+    
+    #qr-code {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    #qr-code canvas {
+      border: 4px solid #e2e8f0;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✍️ Sign Transaction</h1>
+    
+    <div class="info-box">
+      <div class="info-row">
+        <span>Contract:</span>
+        <strong id="contract-name">-</strong>
+      </div>
+      <div class="info-row">
+        <span>Network:</span>
+        <strong id="network-name">-</strong>
+      </div>
+      <div class="info-row">
+        <span>Gas:</span>
+        <strong id="estimated-gas">-</strong>
+      </div>
+    </div>
+    
+    <div id="status-message" class="hidden"></div>
+    
+    <div id="qr-code" class="hidden"></div>
+    
+    <button id="walletconnect-button" class="button button-primary">
+      <span>📱</span>
+      <span>Connect with WalletConnect</span>
+    </button>
+    
+    <button id="metamask-button" class="button button-secondary">
+      <span>🦊</span>
+      <span>Connect with MetaMask</span>
+    </button>
+  </div>
+  
+  <script>
+    const API_URL = window.location.origin;
+    const sessionId = window.location.pathname.split('/').pop();
+    
+    let sessionData = null;
+    let wcProvider = null;
+    
+    const log = (...args) => console.log('[WalletConnect]', ...args);
+    const logError = (...args) => console.error('[WalletConnect ERROR]', ...args);
+    
+    const statusMessage = document.getElementById('status-message');
+    const qrCodeDiv = document.getElementById('qr-code');
+    const wcButton = document.getElementById('walletconnect-button');
+    const metamaskButton = document.getElementById('metamask-button');
+    
+    function showStatus(msg, type = 'loading') {
+      statusMessage.className = `status status-${type}`;
+      statusMessage.innerHTML = type === 'loading' 
+        ? `<div class="spinner"></div>${msg}`
+        : msg;
+      statusMessage.classList.remove('hidden');
+    }
+    
+    // Network configs
+    const RPC_URLS = {
+      123420001114: 'https://rpc.basecamp.t.raas.gelato.cloud',
+      325000: 'https://325000.rpc.thirdweb.com',
+      90354: 'https://90354.rpc.thirdweb.com',
+      325001: 'https://mainnet.campprotocol.xyz',
+      84532: 'https://sepolia.base.org',
+      8453: 'https://mainnet.base.org',
+      28882: 'https://sepolia.boba.network',
+      43113: 'https://api.avax-test.network/ext/bc/C/rpc',
+      97: 'https://bsc-testnet-rpc.publicnode.com'
+    };
+    
+    async function init() {
+      try {
+        const response = await fetch(`${API_URL}/api/wallet/sign/${sessionId}`);
+        if (!response.ok) throw new Error('Session not found');
+        
+        sessionData = await response.json();
+        log('Session loaded:', sessionData);
+        
+        document.getElementById('contract-name').textContent = sessionData.contractName;
+        document.getElementById('network-name').textContent = sessionData.networkName;
+        document.getElementById('estimated-gas').textContent = `${sessionData.estimatedGas} ETH`;
+        
+      } catch (e) {
+        logError('Init failed:', e);
+        showStatus(`Error: ${e.message}`, 'error');
+      }
+    }
+    
+    async function signWithWalletConnect() {
+      try {
+        log('=== Initializing WalletConnect ===');
+        wcButton.disabled = true;
+        showStatus('Initializing WalletConnect...', 'loading');
+        
+        // Create WalletConnect provider
+        wcProvider = new WalletConnectProvider.default({
+          rpc: RPC_URLS,
+          chainId: sessionData.chainId,
+          qrcode: true
+        });
+        
+        // Listen for QR code display
+        wcProvider.connector.on('display_uri', (err, payload) => {
+          const uri = payload.params[0];
+          log('WalletConnect URI:', uri);
+          
+          // Show QR code
+          qrCodeDiv.classList.remove('hidden');
+          qrCodeDiv.innerHTML = '';
+          QRCode.toCanvas(uri, { width: 256 }, (err, canvas) => {
+            if (!err) qrCodeDiv.appendChild(canvas);
+          });
+          
+          showStatus('Scan QR code with your wallet', 'loading');
+        });
+        
+        // Enable provider
+        const accounts = await wcProvider.enable();
+        const walletAddress = accounts[0];
+        log('Connected:', walletAddress);
+        
+        qrCodeDiv.classList.add('hidden');
+        showStatus('Preparing transaction...', 'loading');
+        
+        // Send transaction
+        const txParams = {
+          from: walletAddress,
+          to: sessionData.unsignedTx.to,
+          data: sessionData.unsignedTx.data,
+          value: sessionData.unsignedTx.value || '0x0',
+          gas: '0x' + parseInt(sessionData.unsignedTx.gasLimit).toString(16)
+        };
+        
+        log('Sending transaction:', txParams);
+        showStatus('Please confirm in your wallet...', 'loading');
+        
+        const txHash = await wcProvider.request({
+          method: 'eth_sendTransaction',
+          params: [txParams]
+        });
+        
+        log('Transaction hash:', txHash);
+        showStatus('Submitting to backend...', 'loading');
+        
+        // Submit to backend
+        const submitResponse = await fetch(`${API_URL}/api/wallet/sign/${sessionId}/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ txHash, walletAddress })
+        });
+        
+        if (!submitResponse.ok) {
+          throw new Error('Backend submission failed');
+        }
+        
+        const result = await submitResponse.json();
+        log('Success:', result);
+        
+        showStatus('✅ Transaction submitted successfully!', 'success');
+        
+        // Disconnect and redirect
+        await wcProvider.disconnect();
+        
+        setTimeout(() => {
+          if (result.callbackUrl) {
+            window.location.href = result.callbackUrl;
+          }
+        }, 2000);
+        
+      } catch (e) {
+        logError('WalletConnect failed:', e);
+        showStatus(`❌ ${e.message}`, 'error');
+        wcButton.disabled = false;
+        qrCodeDiv.classList.add('hidden');
+        
+        if (wcProvider) {
+          await wcProvider.disconnect();
+        }
+      }
+    }
+    
+    async function signWithMetaMask() {
+      try {
+        if (!window.ethereum) {
+          throw new Error('MetaMask not installed');
+        }
+        
+        metamaskButton.disabled = true;
+        showStatus('Connecting to MetaMask...', 'loading');
+        
+        const accounts = await window.ethereum.request({ 
+          method: 'eth_requestAccounts' 
+        });
+        
+        const walletAddress = accounts[0];
+        log('MetaMask connected:', walletAddress);
+        
+        showStatus('Please sign in MetaMask...', 'loading');
+        
+        const txHash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [{
+            from: walletAddress,
+            to: sessionData.unsignedTx.to,
+            data: sessionData.unsignedTx.data,
+            value: sessionData.unsignedTx.value || '0x0',
+            gas: '0x' + parseInt(sessionData.unsignedTx.gasLimit).toString(16)
+          }]
+        });
+        
+        log('TX hash:', txHash);
+        
+        const submitResponse = await fetch(`${API_URL}/api/wallet/sign/${sessionId}/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ txHash, walletAddress })
+        });
+        
+        if (!submitResponse.ok) throw new Error('Failed to submit');
+        
+        showStatus('✅ Success!', 'success');
+        
+        const result = await submitResponse.json();
+        setTimeout(() => {
+          if (result.callbackUrl) {
+            window.location.href = result.callbackUrl;
+          }
+        }, 2000);
+        
+      } catch (e) {
+        logError('MetaMask failed:', e);
+        showStatus(`❌ ${e.message}`, 'error');
+        metamaskButton.disabled = false;
+      }
+    }
+    
+    wcButton.addEventListener('click', signWithWalletConnect);
+    metamaskButton.addEventListener('click', signWithMetaMask);
+    
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+# Ignore VCS and local configs
+.git
+.gitignore
+.env
+.DS_Store
+
+# Node modules & logs
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build caches and heavy folders
+artifacts/*
+!artifacts/contracts/
+artifacts/contracts/build-info/
+!api/artifacts/**
+!api/static-artifacts/**
+cache/
+tmp/
+contracts_archive/
+
+# Exclude experimental AI-generated contracts from image
+contracts/AI*
+
+# Large generated outputs
+deployments/
+
+# IDE and OS clutter
+.vscode/
+.idea/
+*.swp
+
+# Tests and misc not required for runtime
+coverage/
+*.lcov
+
+# Frontend (if present) not needed by API server
+frontend/
+
+# Prevent including local scripts that aren't used in container (optional)
+# If you need all scripts for deployments, comment the next line out
+# scripts/local-*

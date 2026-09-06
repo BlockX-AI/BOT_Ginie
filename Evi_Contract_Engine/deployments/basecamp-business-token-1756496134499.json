@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:35:34.499Z",
+  "contracts": {
+    "BusinessToken": "0x69aF626fCE5A8BA37D66a3999853a3Fe2263f553"
+  },
+  "params": {
+    "name": "Jai Shree Shyam",
+    "symbol": "SHYAM",
+    "initialSupplyTokens": "1000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

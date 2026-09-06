@@ -1,0 +1,202 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_d049efea-2bd8-4f8c-a8c6-f72360e3de5f",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1756924846839,
+    "updatedAt": 1756925284284,
+    "payload": {
+      "prompt": "OrderBookDEX ^0.8.20 on Camp (BaseCAMP). Non-custodial on-chain limit order book for ERC20 pairs.\nRequirements:\n- Support pair base/quote tokens; users place limit orders (price in quote per base, amount, side buy/sell); orders stored in price-level lists.\n- Matching engine: best-price-first, time-priority; partial fills; maker/taker fees (bps) to treasury; emit OrderPlaced/Cancelled/Matched.\n- Deposits: users deposit tokens into internal balance (SafeERC20); withdrawals anytime (no open obligations); prevent reentrancy.\n- Admin can list supported pairs; pause per-pair.\n- Views: order book snapshots (top-N levels), user open orders, balances, fees.",
+      "network": "basecamp",
+      "maxIters": 4,
+      "providedName": "",
+      "filename": "OrderBookDEX.sol",
+      "constructorArgs": [
+        "address feeTreasury",
+        "uint96 makerFeeBps",
+        "uint96 takerFeeBps"
+      ]
+    },
+    "result": null,
+    "error": "exit 1",
+    "logs": [
+      {
+        "t": 1756924846839,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=4, file=OrderBookDEX.sol"
+      },
+      {
+        "t": 1756924846842,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "t": 1756924846842,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1456"
+      },
+      {
+        "t": 1756924983659,
+        "level": "info",
+        "msg": "Generation done in 136817ms. Code size=20619"
+      },
+      {
+        "t": 1756924983659,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "t": 1756924983660,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "t": 1756924984170,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756924984171,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924984171,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924987563,
+        "level": "error",
+        "msg": "ParserError: Expected primary expression.\n   --> contracts/AI_ai_pipeline_d049efea-2bd8-4f8c-a8c6-f72360e3de5f_OrderBookDEX.sol:361:43:\n    |\n361 |             address(this) == address(0) ? &bestBuyPrice[pairId] : &bestBuyPrice[pairId] // Dummy to pass static analysis\n    |                                           ^\n\n\n"
+      },
+      {
+        "t": 1756924987604,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "t": 1756924987604,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924987604,
+        "level": "error",
+        "msg": "HardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n"
+      },
+      {
+        "t": 1756924987641,
+        "level": "warn",
+        "msg": "Compile failed (iter 0). Running AI fix. Error length=1571"
+      },
+      {
+        "t": 1756925150045,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756925150045,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925150045,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925155475,
+        "level": "error",
+        "msg": "TypeError: Uninitialized mapping. Mappings cannot be created dynamically, you have to assign them from a state variable.\n   --> contracts/AI_ai_pipeline_d049efea-2bd8-4f8c-a8c6-f72360e3de5f_OrderBookDEX.sol:466:9:\n    |\n466 |         mapping(uint256 => mapping(uint256 => PriceLevel)) storage book;\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "t": 1756925155492,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "t": 1756925155492,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925155493,
+        "level": "error",
+        "msg": "HardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n"
+      },
+      {
+        "t": 1756925155519,
+        "level": "warn",
+        "msg": "Compile failed (iter 1). Running AI fix. Error length=1629"
+      },
+      {
+        "t": 1756925276692,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756925276693,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925276693,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925282209,
+        "level": "info",
+        "msg": "Compiled 8 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "t": 1756925282242,
+        "level": "info",
+        "msg": "Compile success after 2 fix iterations."
+      },
+      {
+        "t": 1756925282244,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: OrderBookDEX"
+      },
+      {
+        "t": 1756925282244,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract OrderBookDEX"
+      },
+      {
+        "t": 1756925282245,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "t": 1756925282828,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756925282828,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925282828,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925284236,
+        "level": "error",
+        "msg": "NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented\n    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)\n    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)\n    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60\n    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)\n    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22\n    at Array.map (<anonymous>)\n    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)\n    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)\n"
+      }
+    ],
+    "step": "deploy",
+    "lastErrors": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\nTypeError: Uninitialized mapping. Mappings cannot be created dynamically, you have to assign them from a state variable.\n   --> contracts/AI_ai_pipeline_d049efea-2bd8-4f8c-a8c6-f72360e3de5f_OrderBookDEX.sol:466:9:\n    |\n466 |         mapping(uint256 => mapping(uint256 => PriceLevel)) storage book;\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nError HH600: Compilation failed\nHardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n\n\n\n\n",
+    "contractName": "OrderBookDEX",
+    "stdout": "\n\n",
+    "stderr": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\nNotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented\n    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)\n    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)\n    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60\n    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)\n    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22\n    at Array.map (<anonymous>)\n    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)\n    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)\n"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:48:42.300Z",
+  "contracts": {
+    "BusinessToken": "0xE1152db3B9964EaF9fCDe4dAd1FB15D513d28Fd0"
+  },
+  "params": {
+    "name": "Gamma Camp Token 34",
+    "symbol": "GMM34",
+    "initialSupplyTokens": "900000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

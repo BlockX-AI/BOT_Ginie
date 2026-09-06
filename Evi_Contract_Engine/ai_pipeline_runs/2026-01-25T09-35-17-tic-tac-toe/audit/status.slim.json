@@ -1,0 +1,329 @@
+{
+  "ok": true,
+  "data": {
+    "id": "audit_orchestrate_582bf318-785b-4cef-9446-a394486f48a5",
+    "type": "audit_orchestrate",
+    "state": "completed",
+    "progress": 100,
+    "step": "done",
+    "result": {
+      "audit": {
+        "summary": "The TicTacToe smart contract is a well-engineered and gas-optimized implementation of the classic game, demonstrating strong adherence to modern Solidity best practices like storage packing, custom errors, and the Checks-Effects-Interactions pattern. However, the audit identified two critical fund-loss vulnerabilities that render it unsafe for deployment. Specifically, player stakes are permanently locked if a game is created but never joined, and any Ether sent directly to the contract via its `receive()` function is also irrecoverable. These issues require immediate remediation.",
+        "score": 88,
+        "severityMax": "error",
+        "findings": [
+          {
+            "id": "FUND_LOSS_NO_CANCEL",
+            "title": "Player's Stake is Permanently Locked if a Game is Not Joined",
+            "severity": "error",
+            "category": "funds",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 119,
+            "description": "When a player calls `createGame()`, their stake is transferred to the contract and the game status is set to `WAITING`. There is no function allowing the creator to cancel this game and reclaim their stake if no second player joins. The funds remain locked in the contract indefinitely.",
+            "impact": "Permanent loss of funds for player 1 if their created game is not matched by another player. This creates a significant financial risk and discourages participation.",
+            "likelihood": "high",
+            "evidence": "The `createGame` function at line 119 accepts a stake and creates a game. No corresponding `cancelGame` or timeout function exists for games in the `WAITING` state to allow player 1 to recover their funds.",
+            "exploitScenario": "Alice calls `createGame()` and stakes 1 ETH, creating game #1. No other player decides to join her game. Alice's 1 ETH is now permanently trapped in the contract balance with no mechanism for her to retrieve it.",
+            "attackSteps": [
+              "1. A user calls `createGame()` with a value of 1 ETH.",
+              "2. A new game is created with `status = GameStatus.WAITING`.",
+              "3. No other player calls `joinGame()` for this specific game ID.",
+              "4. The 1 ETH stake from the first player is now permanently locked in the contract."
+            ],
+            "references": [
+              "SWC-132: Unexpected Ether balance",
+              "CWE-667: Improper Locking"
+            ],
+            "remediation": "Implement a `cancelGame` function. This function should allow the creator of a game (`player1`) to cancel it and reclaim their stake, but only if the game is still in the `WAITING` state. To prevent potential abuse, a timeout could be added before a game can be cancelled.",
+            "remediationCode": "--- a/TicTacToe.sol\n+++ b/TicTacToe.sol\n@@ -48,6 +48,7 @@\n     error TimeoutNotReached(uint256 currentTime, uint256 deadline);\n     error NotAPlayer();\n     error SelfPlayNotAllowed();\n+    error NotGameCreator();\n \n     // ═══════════════════════════════════════════════════════════════\n     // EVENTS\n@@ -148,6 +149,21 @@\n         emit GameJoined(_gameId, msg.sender);\n     }\n \n+    /// @notice Cancel a waiting game and reclaim stake\n+    /// @param _gameId The ID of the game to cancel\n+    function cancelGame(uint256 _gameId) external nonReentrant {\n+        Game storage g = games[_gameId];\n+\n+        if (g.status != GameStatus.WAITING) revert GameNotJoinable();\n+        if (msg.sender != g.player1) revert NotGameCreator();\n+\n+        uint256 stake = g.stake;\n+        delete games[_gameId]; // Effects first\n+\n+        pendingWithdrawals[msg.sender] += stake;\n+        // Optionally emit a GameCancelled event\n+    }\n+\n     /// @notice Make a move on the board\n     /// @param _gameId The ID of the game\n     /// @param _col Column index (0-2)"
+          },
+          {
+            "id": "FUND_LOSS_RECEIVE",
+            "title": "ETH Sent via `receive()` is Permanently Locked",
+            "severity": "error",
+            "category": "funds",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 250,
+            "description": "The contract includes a `receive() external payable` function, allowing it to accept direct Ether transfers. However, there is no corresponding withdrawal function for these 'treasury' funds. Any ETH sent to the contract that is not part of a game stake via `createGame` or `joinGame` becomes permanently locked.",
+            "impact": "Permanent loss of any Ether sent directly to the contract address, either by mistake or for a presumed 'treasury' purpose which lacks a withdrawal mechanism.",
+            "likelihood": "medium",
+            "evidence": "Line 250: `receive() external payable { emit TreasuryFunded(msg.sender, msg.value); }`. No function exists to allow an admin or any user to withdraw funds from `address(this).balance` that are not accounted for in `pendingWithdrawals`.",
+            "exploitScenario": "A user intending to fund a game accidentally sends 1 ETH directly to the contract address without calling a function. The `receive()` function accepts the ETH, but since it is not allocated to any player's `pendingWithdrawals`, it becomes irrecoverable.",
+            "attackSteps": [
+              "1. A user performs a standard ETH transfer (e.g., from a wallet's 'send' function) to the TicTacToe contract address.",
+              "2. The contract's `receive()` function executes and accepts the funds.",
+              "3. The user's ETH is now trapped in the contract's balance, as no logic path exists to withdraw it."
+            ],
+            "references": [
+              "SWC-132: Unexpected Ether balance"
+            ],
+            "remediation": "If a treasury is not an intended feature, the `receive()` function should be removed to prevent accidental fund loss. If a treasury is desired, a secure withdrawal function controlled by an owner or governance mechanism must be added to manage these funds.",
+            "remediationCode": "--- a/TicTacToe.sol\n+++ b/TicTacToe.sol\n@@ -247,11 +247,6 @@\n         emit Withdrawal(msg.sender, amount);\n     }\n \n-    /// @notice Allow treasury funding\n-    receive() external payable {\n-        emit TreasuryFunded(msg.sender, msg.value);\n-    }\n-\n     // ═══════════════════════════════════════════════════════════════\n     // INTERNAL LOGIC\n     // ═══════════════════════════════════════════════════════════════"
+          },
+          {
+            "id": "STORAGE_BLOAT",
+            "title": "Unjoined Games Lead to Storage Bloat",
+            "severity": "warning",
+            "category": "dos",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 95,
+            "description": "While the contract correctly uses `delete games[_gameId]` to clean up completed games, games that are created but never joined remain in the `games` mapping forever. This leads to an ever-growing mapping of 'stale' games.",
+            "impact": "This does not pose a direct financial risk, but it constitutes storage bloat, making on-chain enumeration or off-chain indexing of active games progressively more difficult and costly over time. It is a direct consequence of the fund lock issue.",
+            "likelihood": "medium",
+            "evidence": "The `games` mapping at line 95 is only cleared in the `_endGame` function. Games stuck in the `WAITING` state are never cleared.",
+            "references": [
+              "SWC-128: DoS With Block Gas Limit"
+            ],
+            "remediation": "Implementing the recommended `cancelGame` function would also solve this issue, as it would provide a mechanism to delete the storage for stale, unjoined games."
+          },
+          {
+            "id": "REENTRANCY-OK",
+            "title": "Reentrancy - OK",
+            "severity": "info",
+            "category": "reentrancy",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 242,
+            "description": "The contract correctly prevents reentrancy attacks. All functions that could perform external calls (`makeMove`, `claimTimeout`, `withdraw`) are protected by the `nonReentrant` modifier from OpenZeppelin. The `withdraw` function also strictly adheres to the Checks-Effects-Interactions (CEI) pattern.",
+            "impact": "The contract is secure against reentrancy-based exploits that could drain funds or corrupt state.",
+            "likelihood": "low",
+            "evidence": "Functions `makeMove` (L154), `claimTimeout` (L211), and `withdraw` (L242) use `nonReentrant`. `withdraw` updates state (L245) before the external call (L247).",
+            "references": [
+              "SWC-107: Reentrancy"
+            ],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "WITHDRAWAL_LOGIC-OK",
+            "title": "Withdrawal Logic - OK",
+            "severity": "info",
+            "category": "funds",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 243,
+            "description": "The withdrawal logic in the `withdraw` function is implemented securely. It reads the amount to be withdrawn into a local variable, sets the user's balance to zero in storage, and only then performs the external call to transfer the funds. This correctly prevents reentrancy and avoids the 'zero-then-read' bug.",
+            "impact": "Users can safely withdraw their winnings without risk of common withdrawal-related exploits.",
+            "likelihood": "low",
+            "evidence": "L243: `uint256 amount = pendingWithdrawals[msg.sender];` -> L245: `pendingWithdrawals[msg.sender] = 0;` -> L247: `payable(msg.sender).call{value: amount}(\"\");`.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "CORE_LOGIC-OK",
+            "title": "Core Logic Correctness - OK",
+            "severity": "info",
+            "category": "logic",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 302,
+            "description": "The core game logic, including turn management, move validation, and the win/draw condition checks, is correctly implemented. The use of a bitmask for the board state is efficient and the `_checkWin` function accurately verifies all 8 possible winning lines.",
+            "impact": "The game operates as expected according to the rules of Tic-Tac-Toe, ensuring fair outcomes.",
+            "likelihood": "low",
+            "evidence": "The `_checkWin` function (L302) and its helper `_checkLine` (L321) correctly check rows, columns, and diagonals. Turn logic in `makeMove` (L169) and timeout winner determination in `claimTimeout` (L226) are also sound.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "HASH_OPS-NA",
+            "title": "Hash Operations - N/A",
+            "severity": "info",
+            "category": "hash",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 1,
+            "description": "The contract does not use a commit-reveal scheme or any other mechanism that requires cryptographic hashing. Therefore, vulnerabilities related to incorrect hash implementation (e.g., missing `keccak256`) are not applicable.",
+            "impact": "N/A",
+            "likelihood": "low",
+            "evidence": "No functions in the contract compute or verify hashes.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "INPUT_VALIDATION-OK",
+            "title": "Input Validation - OK",
+            "severity": "info",
+            "category": "validation",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 156,
+            "description": "All external functions properly validate inputs and check state conditions before execution. This includes verifying stakes, game status, turn ownership, move coordinates, and preventing players from playing against themselves.",
+            "impact": "The contract is resilient against invalid inputs that could lead to unexpected behavior or state corruption.",
+            "likelihood": "low",
+            "evidence": "Examples include `if (_col > 2 || _row > 2)` in `makeMove`, `if (msg.value != g.stake)` in `joinGame`, and `if (msg.sender == g.player1)` in `joinGame`.",
+            "references": [
+              "SWC-123: Requirement Violation"
+            ],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "ACCESS_CONTROL-OK",
+            "title": "Access Control - OK",
+            "severity": "info",
+            "category": "access-control",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 1,
+            "description": "The contract operates without any centralized administrative roles. Access control is correctly managed on a per-game basis, restricting actions like making a move to the correct player whose turn it is. This decentralized design enhances trustlessness.",
+            "impact": "The contract is free from centralization risks, such as a malicious or compromised owner altering game states or funds.",
+            "likelihood": "low",
+            "evidence": "No `onlyOwner` modifiers or similar privileged roles are present. All actions are validated against the `player1` and `player2` addresses stored in the `Game` struct.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "FRONT_RUNNING-NA",
+            "title": "Front-Running - N/A",
+            "severity": "info",
+            "category": "logic",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 1,
+            "description": "The game of Tic-Tac-Toe is a perfect information game where player moves are public. The contract's design reflects this, and there is no hidden information (like a secret number or hash) that could be exploited via front-running. Therefore, front-running vulnerabilities are not applicable.",
+            "impact": "N/A",
+            "likelihood": "low",
+            "evidence": "The game state, including the board, is public. No commit-reveal scheme is used or needed for this type of game.",
+            "references": [
+              "SWC-114: Transaction Order Dependence"
+            ],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "REFUND_ACCOUNTING-OK",
+            "title": "Refund Accounting - OK",
+            "severity": "info",
+            "category": "funds",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 284,
+            "description": "The accounting for draws is handled correctly. In the event of a draw, the total pot is split evenly, and each player's share is correctly credited to their `pendingWithdrawals` balance. This ensures funds are not lost or misallocated.",
+            "impact": "Players receive the correct refund amount in the event of a draw.",
+            "likelihood": "low",
+            "evidence": "In `_endGame`, if `_isDraw` is true, `uint256 half = totalPot / 2; pendingWithdrawals[_p1] += half; pendingWithdrawals[_p2] += half;` correctly distributes the funds.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "GAS_BOMBS-OK",
+            "title": "Array/Loop Gas Bombs - OK",
+            "severity": "info",
+            "category": "gas",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 1,
+            "description": "The contract is designed to be scalable and avoid denial-of-service vectors from gas limits. It exclusively uses mappings for game and player data instead of arrays, and it contains no unbounded loops. All operations have a predictable, constant gas cost.",
+            "impact": "The contract can support a large number of games and players without risk of hitting block gas limits.",
+            "likelihood": "low",
+            "evidence": "The contract uses `mapping(uint256 => Game)` and `mapping(address => uint256)`. No loops are used for iteration over players or games.",
+            "references": [
+              "SWC-128: DoS With Block Gas Limit"
+            ],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TIMESTAMP_DEPENDENCE-OK",
+            "title": "Timestamp Dependence - OK",
+            "severity": "info",
+            "category": "dos",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 216,
+            "description": "The contract uses `block.timestamp` for its turn timeout mechanism. While `block.timestamp` can be manipulated by miners to a small degree, the use of a long timeout period (1 hour) makes any such manipulation impractical and not a viable attack vector. This is an acceptable use of timestamp dependence.",
+            "impact": "The timeout feature functions as intended without being vulnerable to miner manipulation.",
+            "likelihood": "low",
+            "evidence": "The timeout check `if (block.timestamp < deadline)` uses a `deadline` calculated with `TURN_TIMEOUT` which is set to `1 hours`.",
+            "references": [
+              "SWC-116: Block Timestamp Manipulation"
+            ],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "PAUSE_MECH-NA",
+            "title": "Pause Mechanisms - N/A",
+            "severity": "info",
+            "category": "upgradeability",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 1,
+            "description": "The contract does not implement a pausable mechanism. Given its decentralized design without administrative roles, such a feature is not applicable.",
+            "impact": "N/A",
+            "likelihood": "low",
+            "evidence": "The contract does not import or inherit from OpenZeppelin's `Pausable` contract.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "EVENTS-OK",
+            "title": "Event Emissions - OK",
+            "severity": "info",
+            "category": "style",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 52,
+            "description": "The contract emits events for all significant state changes, including game creation, joining, moves, game end, draws, and withdrawals. Important parameters like `gameId` and player addresses are correctly indexed, facilitating efficient off-chain monitoring.",
+            "impact": "Provides good transparency and allows for easy integration with off-chain services and user interfaces.",
+            "likelihood": "low",
+            "evidence": "Events such as `GameCreated`, `GameJoined`, `MoveMade`, and `GameEnded` are emitted at the appropriate points in the code.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "CUSTOM_ERRORS-OK",
+            "title": "Custom Errors - OK",
+            "severity": "info",
+            "category": "gas",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 31,
+            "description": "The contract effectively uses custom errors (e.g., `InvalidStake()`, `NotYourTurn()`) instead of `require` statements with string messages. This is a modern Solidity best practice that significantly reduces contract deployment and runtime gas costs.",
+            "impact": "Lower gas costs for users when transactions revert, and lower deployment cost.",
+            "likelihood": "low",
+            "evidence": "Custom errors are defined from lines 31-48 and used throughout the contract, such as `revert InvalidMove(_col, _row);` on line 156.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "STORAGE_PACKING-OK",
+            "title": "Storage Optimization - OK",
+            "severity": "info",
+            "category": "gas",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 84,
+            "description": "The `Game` struct is optimally packed to fit within two storage slots, demonstrating a strong understanding of the EVM's storage layout. This minimizes the gas costs associated with reading from and writing to the struct.",
+            "impact": "Reduces gas costs for all state-modifying functions that interact with the `Game` struct.",
+            "likelihood": "low",
+            "evidence": "The layout of the `Game` struct (L84) is explicitly commented to show packing: Slot 0 contains `address` (160 bits) and `uint96` (96 bits), summing to 256. Slot 1 contains the remaining smaller variables.",
+            "references": [
+              "Solidity Docs: Layout of State Variables in Storage"
+            ],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "DOCS-OK",
+            "title": "Documentation/NatSpec - OK",
+            "severity": "info",
+            "category": "style",
+            "file": "AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol",
+            "line": 10,
+            "description": "The contract is well-documented with NatSpec comments for the contract itself and all external functions. This improves code clarity, readability, and makes it easier for developers to integrate with and for auditors to review.",
+            "impact": "High code quality and maintainability.",
+            "likelihood": "low",
+            "evidence": "The file contains `@title`, `@notice`, `@dev`, `@param`, and `@return` tags.",
+            "references": [],
+            "remediation": "No remediation needed."
+          }
+        ],
+        "recommendations": [
+          "Implement a `cancelGame` function to allow creators of `WAITING` games to reclaim their stake, resolving the critical fund lock vulnerability.",
+          "Remove the `receive() external payable` function to prevent accidental Ether transfers from becoming permanently locked in the contract.",
+          "After remediation, conduct a final review and deploy with a comprehensive test suite covering the new `cancelGame` functionality.",
+          "This automated audit provides systematic coverage of common vulnerabilities but cannot replace human security review. Recommended next steps: (1) Manual review of all 'error' findings, (2) Unit tests for each attack scenario, (3) External audit before mainnet, (4) Bug bounty program."
+        ],
+        "coverage": {
+          "critical": 6,
+          "high": 4,
+          "medium": 4,
+          "low": 4,
+          "totalAddressed": 18,
+          "totalAvailable": 18
+        },
+        "scoreBreakdown": {
+          "security": 30,
+          "functionality": 23,
+          "codeQuality": 20,
+          "gas": 15
+        }
+      },
+      "fixJob": null
+    },
+    "error": null,
+    "updatedAt": 1769333983672,
+    "createdAt": 1769333843760
+  }
+}

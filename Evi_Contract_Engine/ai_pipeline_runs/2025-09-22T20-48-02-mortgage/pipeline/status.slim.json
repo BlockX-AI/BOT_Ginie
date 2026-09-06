@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "basecamp-testnet",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "Treasury",
+      "fqName": "contracts/AI_ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac_Treasury.sol:Treasury",
+      "address": "0xFCA47A13624A6DCa7Ef5e3C06b1612B5Aba96A8d",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1758574174110,
+    "createdAt": 1758574082554
+  }
+}

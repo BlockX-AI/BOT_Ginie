@@ -1,0 +1,17 @@
+{"i":1,"t":1758723599779,"level":"info","msg":"Pipeline started. Network=basecamp-testnet, maxIters=11, file=Bus.sol, strictArgs=true"}
+{"i":2,"t":1758723599779,"level":"debug","msg":"config: maxIters=11 (hardCap=51)"}
+{"i":3,"t":1758723599779,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1758723599779,"level":"debug","msg":"Enhanced prompt length=1185"}
+{"i":5,"t":1758723651635,"level":"debug","msg":"generate_ai_response_len=6099 ai_ms=51856"}
+{"i":6,"t":1758723651635,"level":"info","msg":"Generation done in 51856ms. Code size=6052"}
+{"i":7,"t":1758723651635,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1758723651636,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1758723653733,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_5487322e-f206-4f77-b0d7-2a309918ae92_Bus.sol\n\n\n"}
+{"i":10,"t":1758723653746,"level":"info","msg":"Compiled 4 Solidity files successfully (evm target: paris).\n"}
+{"i":11,"t":1758723653779,"level":"debug","msg":"iter 1/11: compile ok in 2143ms"}
+{"i":12,"t":1758723653779,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":13,"t":1758723653780,"level":"debug","msg":"Artifact chosen for deploy: Bus"}
+{"i":14,"t":1758723653780,"level":"info","msg":"Stage: deploy_script -> contract Bus"}
+{"i":15,"t":1758723653780,"level":"info","msg":"Contract chosen for deploy: Bus"}
+{"i":16,"t":1758723653781,"level":"info","msg":"Stage: deploy -> network basecamp-testnet"}
+{"i":17,"t":1758723660048,"level":"error","msg":"ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 913594609878, overshot 913594609878\n    at HttpProvider.request (/app/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at HardhatEthersSigner.sendTransaction (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/app/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/app/tmp/jobs/ai_pipeline_5487322e-f206-4f77-b0d7-2a309918ae92/scripts/deploy-ai_pipeline_5487322e-f206-4f77-b0d7-2a309918ae92.js:8:13)\n"}

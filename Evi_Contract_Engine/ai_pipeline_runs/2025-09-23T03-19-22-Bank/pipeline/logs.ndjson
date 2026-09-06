@@ -1,0 +1,17 @@
+{"i":1,"t":1758597562644,"level":"info","msg":"Pipeline started. Network=basecamp-testnet, maxIters=11, file=DecentralizedIdentity.sol, strictArgs=true"}
+{"i":2,"t":1758597562644,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758597562647,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1758597562648,"level":"debug","msg":"Enhanced prompt length=3757"}
+{"i":5,"t":1758597656378,"level":"debug","msg":"generate_ai_response_len=18669 ai_ms=93730"}
+{"i":6,"t":1758597656379,"level":"info","msg":"Generation done in 93732ms. Code size=18622"}
+{"i":7,"t":1758597656379,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1758597656381,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1758597658626,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_37a00b1f-baeb-4699-99ac-17bd81550153_DecentralizedIdentity.sol\n\n\n"}
+{"i":10,"t":1758597658647,"level":"info","msg":"Compiled 17 Solidity files successfully (evm target: paris).\n"}
+{"i":11,"t":1758597658662,"level":"debug","msg":"iter 1/11: compile ok in 2281ms"}
+{"i":12,"t":1758597658662,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":13,"t":1758597658664,"level":"debug","msg":"Artifact chosen for deploy: DecentralizedIdentity"}
+{"i":14,"t":1758597658664,"level":"info","msg":"Stage: deploy_script -> contract DecentralizedIdentity"}
+{"i":15,"t":1758597658664,"level":"info","msg":"Contract chosen for deploy: DecentralizedIdentity"}
+{"i":16,"t":1758597658665,"level":"info","msg":"Stage: deploy -> network basecamp-testnet"}
+{"i":17,"t":1758597662151,"level":"error","msg":"ProviderError: insufficient funds for gas * price + value: have 0 want 2963753456202\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_37a00b1f-baeb-4699-99ac-17bd81550153/scripts/deploy-ai_pipeline_37a00b1f-baeb-4699-99ac-17bd81550153.js:8:13)\n"}

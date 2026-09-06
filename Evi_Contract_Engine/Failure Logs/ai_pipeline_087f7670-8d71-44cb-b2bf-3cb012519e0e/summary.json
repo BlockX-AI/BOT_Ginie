@@ -1,0 +1,8 @@
+{
+  "jobId": "ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e",
+  "state": "failed",
+  "step": "deploy",
+  "category": "error",
+  "reason": "NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented\n    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)\n    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)\n    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60\n    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)\n    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22\n    at Array.map (<anonymous>)\n    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)\n    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)",
+  "logLines": 850
+}

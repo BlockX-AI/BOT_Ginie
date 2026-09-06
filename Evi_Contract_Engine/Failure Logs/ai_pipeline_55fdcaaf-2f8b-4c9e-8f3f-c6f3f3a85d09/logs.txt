@@ -1,0 +1,1500 @@
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=MiniLendingPool.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1692
+[info] Generation done in 158098ms. Code size=16737
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] Warning: This declaration has the same name as another declaration.
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:400:29:
+    |
+400 |         uint256 collateral, uint256 deposit, uint256 debt, uint256 healthFactor
+    |                             ^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> contracts/AI_ai_pipeline_55fdcaaf-2f8b-4c9e-8f3f-c6f3f3a85d09_MiniLendingPool.sol:162:5:
+    |
+162 |     function deposit(uint256 amount) external whenNotPaused nonReentrant {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: MiniLendingPool
+[info] Stage: deploy_script -> contract MiniLendingPool
+[error] Constructor args mismatch. Expected 3, provided 2.

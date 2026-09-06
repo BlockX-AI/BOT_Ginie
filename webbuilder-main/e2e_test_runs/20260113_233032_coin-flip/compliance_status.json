@@ -1,0 +1,323 @@
+{
+  "ok": true,
+  "data": {
+    "id": "compliance_orchestrate_5bbeeaa1-5fce-4b32-b9b0-6f2469935cb9",
+    "type": "compliance_orchestrate",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1768327678755,
+    "updatedAt": 1768327734734,
+    "payload": {
+      "fix": false,
+      "deploy": false,
+      "network": "basecamp"
+    },
+    "step": "done",
+    "stepHistory": [
+      {
+        "step": "analyze",
+        "t": 1768327678755
+      },
+      {
+        "step": "done",
+        "t": 1768327734734
+      }
+    ],
+    "timings": {
+      "startedAt": 1768327678755,
+      "endedAt": 1768327734734,
+      "phases": {
+        "analyze": {
+          "startedAt": 1768327678755,
+          "endedAt": 1768327734734
+        },
+        "done": {
+          "startedAt": 1768327734734,
+          "endedAt": 1768327734734
+        }
+      }
+    },
+    "result": {
+      "compliance": {
+        "profile": "generic",
+        "analysisVersion": "v2.1.0",
+        "timestamp": "2024-05-21T10:00:00Z",
+        "solcVersion": "^0.8.20",
+        "passed": false,
+        "score": 88,
+        "riskLevel": "high",
+        "confidence": 0.95,
+        "checks": [
+          {
+            "id": "A-001",
+            "category": "security",
+            "subcategory": "access-control",
+            "title": "Centralization Risk: Owner Can Invalidate Solvency of Active Bets",
+            "description": "The contract owner can withdraw funds using `withdrawHouseFunds` at any time. While `placeBet` performs a solvency check, funds are not locked for the duration of the bet. The owner can withdraw funds after a bet is placed but before it's revealed, leaving the contract unable to pay out a potential win.",
+            "passed": false,
+            "severity": "high",
+            "evidence": {
+              "locations": [
+                {
+                  "line": 194,
+                  "endLine": 199,
+                  "function": "withdrawHouseFunds",
+                  "contract": "CoinFlipBet"
+                }
+              ],
+              "snippet": "function withdrawHouseFunds(uint256 amount) external onlyOwner {\n    require(address(this).balance >= amount, \"Insufficient funds\");\n    (bool success, ) = payable(owner()).call{value: amount}(\"\");\n    require(success, \"Transfer failed\");\n    emit HouseFundsWithdrawn(owner(), amount);\n}",
+              "reason": "The `withdrawHouseFunds` function allows the owner to remove any amount of the contract's balance. This can happen while bets are active, breaking the solvency assumption that was valid when the bet was placed.",
+              "context": "A player places a bet, the contract is solvent. The owner then withdraws funds. The player reveals their choice and wins, but the contract now lacks the funds to pay, causing a loss for the player despite winning the game."
+            },
+            "cwe": "CWE-284: Improper Access Control",
+            "swc": "SWC-105: Unprotected Ether Withdrawal",
+            "owasp": "A01:2021 - Broken Access Control",
+            "impact": {
+              "financial": "high",
+              "availability": "none",
+              "reputation": "critical",
+              "dataIntegrity": "none"
+            },
+            "recommendation": "Implement a mechanism to escrow funds for active bets. Maintain a separate state variable, `totalEscrowed`, which is increased on `placeBet` and decreased on `reveal` or `claimTimeout`. The `withdrawHouseFunds` function should then only allow withdrawing `address(this).balance - totalEscrowed`.",
+            "fixComplexity": "moderate",
+            "estimatedEffort": "2 hours",
+            "references": [
+              "https://consensys.github.io/smart-contract-best-practices/attacks/centralization/"
+            ],
+            "mapping": []
+          },
+          {
+            "id": "A-002",
+            "category": "security",
+            "subcategory": "predictable-state",
+            "title": "Randomness Source Susceptible to Miner Influence",
+            "description": "The contract uses `blockhash` as a source of entropy. While the commit-reveal scheme prevents players from gaming the outcome, a miner has control over the block hash. If a bet's payout is significant enough (i.e., greater than the block reward), a miner could be incentivized to manipulate the hash to ensure the house wins.",
+            "passed": false,
+            "severity": "low",
+            "evidence": {
+              "locations": [
+                {
+                  "line": 128,
+                  "function": "reveal",
+                  "contract": "CoinFlipBet"
+                }
+              ],
+              "snippet": "bytes32 entropy = blockhash(bet.blockNumber);",
+              "reason": "`blockhash` is determined by miners and is not truly random. For high-stakes bets, this can create an incentive for miners to influence the outcome in their favor (or the house's favor if colluding).",
+              "context": "This is a known trade-off for on-chain randomness. The risk is mitigated by the default `maxBet` limit (1 ether), which is currently lower than the block reward on Ethereum mainnet, making manipulation unprofitable."
+            },
+            "cwe": "CWE-330: Use of Insufficiently Random Values",
+            "swc": "SWC-120: Weak Sources of Randomness from Chain Attributes",
+            "impact": {
+              "financial": "medium",
+              "availability": "none",
+              "reputation": "medium",
+              "dataIntegrity": "low"
+            },
+            "recommendation": "For higher security and larger bet limits, integrate a more robust source of randomness like Chainlink VRF (Verifiable Random Function). For the current implementation, clearly document this risk to users.",
+            "fixComplexity": "complex",
+            "estimatedEffort": "1 day",
+            "references": [
+              "https://docs.chain.link/vrf/v2/introduction",
+              "https://consensys.github.io/smart-contract-best-practices/attacks/randomness/"
+            ],
+            "mapping": []
+          },
+          {
+            "id": "G-019",
+            "category": "security",
+            "subcategory": "denial-of-service",
+            "title": "Public Function Allows for Griefing",
+            "description": "The `claimTimeout` function is `external` and can be called by anyone. A third party can monitor for expired bets and call this function, spending their own gas to process the forfeiture. While this benefits the house, it constitutes a griefing vector where an attacker can interact with the contract on behalf of others without permission.",
+            "passed": false,
+            "severity": "low",
+            "evidence": {
+              "locations": [
+                {
+                  "line": 158,
+                  "endLine": 158,
+                  "function": "claimTimeout",
+                  "contract": "CoinFlipBet"
+                }
+              ],
+              "snippet": "function claimTimeout(address player) external nonReentrant {",
+              "reason": "The function lacks any access control, allowing any address to trigger the state change for an expired bet. The impact is low as it doesn't cause financial loss to the house or player (the bet was already forfeit).",
+              "context": "An attacker could write a script to call `claimTimeout` immediately for all expired bets, potentially for nuisance or to disrupt off-chain monitoring systems."
+            },
+            "cwe": "CWE-284: Improper Access Control",
+            "impact": {
+              "financial": "none",
+              "availability": "low",
+              "reputation": "low",
+              "dataIntegrity": "none"
+            },
+            "recommendation": "Consider adding access control to `claimTimeout`, for example, making it `onlyOwner` or allowing only the player or a designated keeper address to call it. Alternatively, this can be accepted as a low-risk feature.",
+            "fixComplexity": "easy",
+            "estimatedEffort": "30 minutes",
+            "mapping": []
+          },
+          {
+            "id": "G-002",
+            "category": "best-practices",
+            "subcategory": "license",
+            "title": "Missing SPDX License Identifier",
+            "description": "The contract is missing the SPDX license identifier comment, which is a best practice for legal clarity and to suppress compiler warnings.",
+            "passed": false,
+            "severity": "info",
+            "evidence": {
+              "locations": [
+                {
+                  "line": 1
+                }
+              ],
+              "snippet": "/**\n * This smart contract is generated by Camp-Codegen",
+              "reason": "The first line of a Solidity file should be the SPDX license identifier, e.g., `// SPDX-License-Identifier: MIT`.",
+              "context": "This is a non-critical issue but is part of standard Solidity development practices."
+            },
+            "impact": {
+              "financial": "none",
+              "availability": "none",
+              "reputation": "none",
+              "dataIntegrity": "none"
+            },
+            "recommendation": "Add `// SPDX-License-Identifier: MIT` (or another appropriate license) as the very first line of the source file.",
+            "fixComplexity": "trivial",
+            "estimatedEffort": "1 minute"
+          },
+          {
+            "id": "G-006",
+            "category": "security",
+            "subcategory": "reentrancy",
+            "title": "Effective Reentrancy Protection",
+            "description": "The contract correctly uses OpenZeppelin's ReentrancyGuard and applies the `nonReentrant` modifier to all state-changing external functions. Additionally, the `reveal` function follows the Checks-Effects-Interactions pattern by deleting the user's bet state *before* sending the payout.",
+            "passed": true,
+            "severity": "info",
+            "evidence": {
+              "locations": [
+                {
+                  "line": 149,
+                  "function": "reveal",
+                  "contract": "CoinFlipBet"
+                }
+              ],
+              "snippet": "delete currentBets[msg.sender];\n\nemit BetRevealed(msg.sender, choice, outcomeIsTails, payout, bytes32(salt));\n\nif (payout > 0) {\n    (bool success, ) = payable(msg.sender).call{value: payout}(\"\");\n    require(success, \"Transfer failed\");\n}",
+              "reason": "State is modified (`delete currentBets`) before the external call (`.call{value: payout}`), which is a robust defense against reentrancy.",
+              "context": "This demonstrates a strong understanding of reentrancy vulnerabilities and how to prevent them."
+            }
+          },
+          {
+            "id": "G-014",
+            "category": "security",
+            "subcategory": "external-calls",
+            "title": "Safe Ether Transfers",
+            "description": "Ether transfers are performed using `payable(address).call{value: amount}(\"\")`, which is the currently recommended safe pattern. The boolean return value of the call is correctly checked to ensure the transfer was successful.",
+            "passed": true,
+            "severity": "info",
+            "evidence": {
+              "locations": [
+                {
+                  "line": 154,
+                  "function": "reveal",
+                  "contract": "CoinFlipBet"
+                }
+              ],
+              "snippet": "(bool success, ) = payable(msg.sender).call{value: payout}(\"\");\nrequire(success, \"Transfer failed\");",
+              "reason": "The use of `.call` is flexible and forwards all gas, and the explicit check of the `success` variable prevents the contract from proceeding on a failed transfer, avoiding issues that `.transfer()` and `.send()` can have.",
+              "context": "This is a key security primitive that is correctly implemented."
+            }
+          }
+        ],
+        "metrics": {
+          "criticalIssues": 0,
+          "highIssues": 1,
+          "mediumIssues": 0,
+          "lowIssues": 2,
+          "infoIssues": 3,
+          "gasEfficiency": "good",
+          "upgradeability": "n/a",
+          "testCoverage": "unknown",
+          "complexity": "low",
+          "maintainability": 95,
+          "documentation": "comprehensive"
+        },
+        "summary": "The contract is a well-implemented coin-flip game using a secure commit-reveal pattern and robust reentrancy protection. However, it contains a high-severity centralization risk where the owner can withdraw funds that should be available for active bets, potentially rendering the contract insolvent.",
+        "keyFindings": [
+          "High Risk: Owner can withdraw funds required for active bet payouts, breaking the contract's solvency promise.",
+          "Low Risk: The randomness source (blockhash) is susceptible to miner influence, though this is not profitable at current bet limits.",
+          "Low Risk: A public function for claiming timed-out bets presents a minor griefing vector.",
+          "Best Practice: Excellent use of ReentrancyGuard and the Checks-Effects-Interactions pattern.",
+          "Best Practice: All state changes correctly emit events for off-chain monitoring."
+        ],
+        "recommendations": [
+          {
+            "priority": "high",
+            "title": "Lock Funds for Active Bets to Prevent Owner-Induced Insolvency",
+            "description": "The current design allows the owner to withdraw all contract funds, which could prevent winning players from being paid. To fix this, implement an escrow mechanism that locks funds associated with active bets, making them unavailable for owner withdrawal.",
+            "benefits": [
+              "Guarantees that winning players will always be paid.",
+              "Removes the primary centralization risk and builds user trust.",
+              "Makes the contract truly non-custodial for the duration of a bet."
+            ],
+            "risks": [
+              "If not implemented correctly, could permanently lock funds in the contract."
+            ],
+            "effort": "medium",
+            "relatedChecks": [
+              "A-001"
+            ]
+          },
+          {
+            "priority": "low",
+            "title": "Acknowledge or Mitigate Miner Influence on Randomness",
+            "description": "The use of `blockhash` for randomness is acceptable for low-stakes games but is not truly random. For enhanced security, especially if bet limits increase, consider upgrading to a Chainlink VRF. At a minimum, this risk should be documented for users.",
+            "benefits": [
+              "Provides provably fair and tamper-proof randomness.",
+              "Enables higher, more secure bet limits."
+            ],
+            "effort": "high",
+            "relatedChecks": [
+              "A-002"
+            ]
+          }
+        ],
+        "quickWins": [
+          "Add `// SPDX-License-Identifier: MIT` to the first line of the contract to adhere to best practices.",
+          "Consider adding `onlyOwner` to the `claimTimeout` function to remove the minor griefing vector."
+        ],
+        "assumptions": [
+          "The contract is intended for EVM-compatible chains where `blockhash` is available for recent blocks.",
+          "The OpenZeppelin contracts imported are from a recent, secure version (v4.x or v5.x)."
+        ],
+        "limitations": [
+          "This analysis does not verify the security of the client-side code used to generate the salt for commitments.",
+          "The economic viability of miner manipulation was assessed based on current Ethereum mainnet conditions and may differ on other networks or in the future."
+        ]
+      },
+      "fixJob": null
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768327678755,
+        "level": "info",
+        "msg": "Compliance orchestrate started. fix=false deploy=false network=basecamp"
+      },
+      {
+        "i": 2,
+        "t": 1768327734734,
+        "level": "info",
+        "msg": "Compliance analysis complete. score=88"
+      },
+      {
+        "i": 3,
+        "t": 1768327734734,
+        "level": "info",
+        "msg": "Mirrored compliance report under source job: ai_pipeline_1cf39f04-628c-4f74-8c9a-de50ff330967"
+      }
+    ],
+    "_logIndex": 3,
+    "logsCount": 3,
+    "lastLogTs": 1768327734734
+  }
+}

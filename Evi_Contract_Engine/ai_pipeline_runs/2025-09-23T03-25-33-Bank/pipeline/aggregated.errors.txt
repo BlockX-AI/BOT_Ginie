@@ -1,0 +1,11 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> contracts/AI_ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8_PaniPuri.sol
+
+
+
+ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 1459223195676, overshot 1459223195676
+    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)
+    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)
+    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8/scripts/deploy-ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8.js:8:13)

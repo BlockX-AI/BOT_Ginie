@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_2618682d-554d-4c3a-a6a1-24823beba2c7",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "TicTacToe",
+      "fqName": "contracts/AI_ai_pipeline_2618682d-554d-4c3a-a6a1-24823beba2c7_TicTacToe.sol:TicTacToe",
+      "address": "0x42577Ba3C648a94aeDc56b7a7d7792A249A120a5",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1768222891804,
+    "createdAt": 1768222771824
+  }
+}

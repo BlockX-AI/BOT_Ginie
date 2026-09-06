@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_73b04bf3-f88f-4786-82ab-78f0b1bbcaf6",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1769364945854,
+    "updatedAt": 1769364945854,
+    "payload": {
+      "prompt": "Create a comprehensive Web3 Bouncing Balls game smart contract. Features:\n- Ball NFTs with physics properties\n- Arena competitions\n- Earn rewards for wins\n- Leaderboard system\n- Keep constructor empty\n- Production-ready, auditable code",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "Web3BouncingBalls",
+      "filename": "Web3BouncingBalls.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1769364945854
+      }
+    ],
+    "timings": {
+      "startedAt": 1769364945854,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1769364945854
+        }
+      }
+    },
+    "contract": null,
+    "deployment": null,
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1769364945854,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=Web3BouncingBalls.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1769364945854,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1769364945854
+  }
+}

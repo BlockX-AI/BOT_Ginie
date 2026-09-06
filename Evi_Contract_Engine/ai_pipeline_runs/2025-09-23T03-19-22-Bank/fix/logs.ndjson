@@ -1,0 +1,10 @@
+{"i":1,"t":1758597663786,"level":"info","msg":"Fix job started. Network=basecamp-testnet, file=DecentralizedIdentity.sol"}
+{"i":2,"t":1758597663786,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758597663789,"level":"info","msg":"Starting compile/fix loop"}
+{"i":4,"t":1758597665658,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239_DecentralizedIdentity.sol\n\n\n"}
+{"i":5,"t":1758597665681,"level":"info","msg":"Compiled 17 Solidity files successfully (evm target: paris).\n"}
+{"i":6,"t":1758597665695,"level":"debug","msg":"iter 1/11: compile ok in 1906ms"}
+{"i":7,"t":1758597665695,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":8,"t":1758597665696,"level":"info","msg":"Contract chosen for deploy: DecentralizedIdentity"}
+{"i":9,"t":1758597665696,"level":"info","msg":"Deploying to network basecamp-testnet"}
+{"i":10,"t":1758597669837,"level":"error","msg":"ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 2963756952330, overshot 2963756952330\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239/scripts/deploy-ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239.js:8:13)\n"}

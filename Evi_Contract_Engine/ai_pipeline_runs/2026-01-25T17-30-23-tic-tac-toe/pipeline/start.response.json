@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_5a386199-f4fd-4edb-a289-5ac7822c7e14",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1769362224485,
+    "updatedAt": 1769362224486,
+    "payload": {
+      "prompt": "Create a Tic Tac Toe game smart contract. Features:\n- Two players take turns marking X or O on a 3x3 grid\n- Track game state on-chain with board array\n- Detect win conditions (rows, columns, diagonals) and draw\n- Emit events for moves, wins, and draws\n- Allow starting new games\n- Keep constructor empty, gas-efficient design",
+      "network": "fuji",
+      "maxIters": 11,
+      "providedName": "TicTacToe",
+      "filename": "TicTacToe.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1769362224485
+      }
+    ],
+    "timings": {
+      "startedAt": 1769362224485,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1769362224485
+        }
+      }
+    },
+    "contract": null,
+    "deployment": null,
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1769362224485,
+        "level": "info",
+        "msg": "Pipeline started. Network=fuji, maxIters=11, file=TicTacToe.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1769362224486,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1769362224486
+  }
+}

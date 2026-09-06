@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1759154124808,
+    "updatedAt": 1759154124808,
+    "payload": {
+      "prompt": "A normal Bus service contract\n",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "Bus",
+      "filename": "Bus.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1759154124808
+      }
+    ],
+    "timings": {
+      "startedAt": 1759154124808,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1759154124808
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1759154124808,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=Bus.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1759154124808,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1759154124808
+  }
+}

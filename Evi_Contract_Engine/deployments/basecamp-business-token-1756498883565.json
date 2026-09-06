@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:21:23.565Z",
+  "contracts": {
+    "BusinessToken": "0x36F31Ec0BD8d63f03c722e59E80F407C6a959561"
+  },
+  "params": {
+    "name": "Vertex Camp Token 09",
+    "symbol": "VRTX09",
+    "initialSupplyTokens": "1000000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_2618682d-554d-4c3a-a6a1-24823beba2c7",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1768222771824,
+    "updatedAt": 1768222771825,
+    "payload": {
+      "prompt": "Create a Tic Tac Toe game smart contract. Features:\n- Two players take turns marking X or O on a 3x3 grid\n- Track game state on-chain with board array\n- Detect win conditions (rows, columns, diagonals) and draw\n- Emit events for moves, wins, and draws\n- Allow starting new games\n- Keep constructor empty, gas-efficient design",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "TicTacToe",
+      "filename": "TicTacToe.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1768222771824
+      }
+    ],
+    "timings": {
+      "startedAt": 1768222771824,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1768222771824
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768222771825,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=TicTacToe.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1768222771825,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1768222771825
+  }
+}

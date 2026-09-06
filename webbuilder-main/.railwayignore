@@ -1,0 +1,82 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+.pytest_cache
+.coverage
+htmlcov
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Environment files
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+
+# Frontend (not needed in backend)
+frontend/
+astro-main/
+react-bits-main/
+EVI-4/
+EVII-main/
+
+# Project files
+projects/
+test_*.py
+test_*.html
+*.html
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Large files
+*.zip
+*.tar.gz
+*.tgz
+uv.lock
+
+# Railway specific
+.railway/
+railway.toml
+
+# Development files
+.python-version
+setup.sh
+inject.py
+test_api.py
+test_websocket.html

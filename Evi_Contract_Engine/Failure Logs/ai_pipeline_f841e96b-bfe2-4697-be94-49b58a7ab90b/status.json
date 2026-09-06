@@ -1,0 +1,118 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_f841e96b-bfe2-4697-be94-49b58a7ab90b",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1756924847007,
+    "updatedAt": 1756924943513,
+    "payload": {
+      "prompt": "MerkleCrowdsale ^0.8.20 on Camp (BaseCAMP). Whitelisted token sale with soft/hard caps, per-user caps, and vesting claims.\nRequirements:\n- Accept ETH; price in tokens per ETH (fixed); parameters: start, end, softCap, hardCap, wallet (funds receiver), merkleRoot, userCap.\n- Buyers prove whitelist via Merkle proof; track contributions; emit Purchased.\n- If softCap met by end: finalize SUCCESS, send ETH to wallet; else: FAILED => buyers refund claim.\n- Token distribution via vesting escrow (e.g., 25% TGE + linear 9 months) using an internal VestingEscrow contract; emit Finalized.\n- Admin can pause; Security: ReentrancyGuard; Views: purchased amount, claimable tokens, sale status.",
+      "network": "basecamp",
+      "maxIters": 4,
+      "providedName": "",
+      "filename": "MerkleCrowdsale.sol",
+      "constructorArgs": [
+        "address saleToken",
+        "uint256 priceTokensPerETH"
+      ]
+    },
+    "result": null,
+    "error": "CONSTRUCTOR_ARGS_MISMATCH",
+    "logs": [
+      {
+        "t": 1756924847007,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=4, file=MerkleCrowdsale.sol"
+      },
+      {
+        "t": 1756924847007,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "t": 1756924847007,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1488"
+      },
+      {
+        "t": 1756924933993,
+        "level": "info",
+        "msg": "Generation done in 86986ms. Code size=13809"
+      },
+      {
+        "t": 1756924933994,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "t": 1756924933994,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "t": 1756924934798,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756924934798,
+        "level": "info",
+        "msg": "\n\n"
+      },
+      {
+        "t": 1756924943445,
+        "level": "info",
+        "msg": "Compiled 7 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "t": 1756924943512,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "t": 1756924943513,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: VestingEscrow"
+      },
+      {
+        "t": 1756924943513,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract VestingEscrow"
+      },
+      {
+        "t": 1756924943513,
+        "level": "error",
+        "msg": "Constructor args mismatch. Expected 4, provided 2."
+      }
+    ],
+    "step": "deploy_prep",
+    "contractName": "VestingEscrow",
+    "details": {
+      "contractName": "VestingEscrow",
+      "expectedConstructor": [
+        {
+          "name": "_beneficiary",
+          "type": "address"
+        },
+        {
+          "name": "_totalAmount",
+          "type": "uint256"
+        },
+        {
+          "name": "_startTime",
+          "type": "uint64"
+        },
+        {
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "providedConstructorArgs": [
+        "address saleToken",
+        "uint256 priceTokensPerETH"
+      ]
+    }
+  }
+}

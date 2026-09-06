@@ -1,0 +1,10 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Keep important alembic files
+!env.py
+!script.py.mako
+!versions/

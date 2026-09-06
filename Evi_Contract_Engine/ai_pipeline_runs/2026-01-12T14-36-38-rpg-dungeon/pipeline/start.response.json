@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_385f6b59-0cf6-40c8-87db-d482cd212b19",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1768228600193,
+    "updatedAt": 1768228600193,
+    "payload": {
+      "prompt": "Create an RPG Dungeon Crawler game smart contract. Features:\n- Character creation with stats (STR, DEX, INT)\n- Dungeon exploration with random encounters\n- Loot drops as NFT items\n- Experience and leveling system\n- Equipment slots and inventory\n- Boss battles with rewards\n- Keep constructor empty",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "DungeonCrawler",
+      "filename": "DungeonCrawler.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1768228600193
+      }
+    ],
+    "timings": {
+      "startedAt": 1768228600193,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1768228600193
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768228600193,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=DungeonCrawler.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1768228600193,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1768228600193
+  }
+}

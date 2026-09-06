@@ -1,0 +1,430 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e",
+  "scope": "job:ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e_VestingVaultMulti.sol",
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\nimport \"@openzeppelin/contracts/token/ERC20/IERC20.sol\";\nimport \"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol\";\nimport \"@openzeppelin/contracts/security/Pausable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\n\n/**\n * @title VestingVaultMulti\n * @author Based on a request\n * @notice A multi-beneficiary ERC20 token vesting contract with cliffs, linear schedules, and revocation.\n * @dev This contract allows a single owner to create multiple vesting schedules for an ERC20 token.\n * Each schedule defines a beneficiary, a total amount of tokens, a start time, a cliff, a duration,\n * and whether it's revocable. Beneficiaries can claim their vested tokens at any time. The owner\n * can revoke certain schedules, returning the unvested portion of the tokens to the owner and locking\n * the vested amount for the beneficiary. The contract is pausable by the owner.\n * This contract targets OpenZeppelin v4.9.x APIs.\n */\ncontract VestingVaultMulti is Ownable, Pausable, ReentrancyGuard {\n    using SafeERC20 for IERC20;\n\n    /// @notice The ERC20 token being vested.\n    IERC20 public immutable token;\n\n    /// @dev A mapping from a unique schedule ID to its details.\n    mapping(uint256 => VestingSchedule) private _schedules;\n\n    /// @dev Counter for creating unique schedule IDs. Starts at 1.\n    uint256 private _nextScheduleId;\n\n    /**\n     * @notice Defines the structure of a vesting schedule.\n     * @param beneficiary The address receiving the vested tokens.\n     * @param totalAmount The total amount of tokens to be vested. This value is reduced upon revocation.\n     * @param startTime The Unix timestamp when vesting begins.\n     * @param cliffDuration The duration in seconds from startTime before any tokens are vested.\n     * @param duration The total duration in seconds of the vesting period from startTime.\n     * @param amountClaimed The amount of tokens already claimed by the beneficiary.\n     * @param revocable A boolean indicating if the schedule can be revoked by the owner.\n     * @param isRevoked A boolean indicating if the schedule has been revoked.\n     * @param metadataURI A URI pointing to metadata about the vesting schedule.\n     */\n    struct VestingSchedule {\n        address beneficiary;\n        uint256 totalAmount;\n        uint64 startTime;\n        uint64 cliffDuration;\n        uint64 duration;\n        uint256 amountClaimed;\n        bool revocable;\n        bool isRevoked;\n        string metadataURI;\n    }\n\n    /// @notice Emitted when a new vesting schedule is created.\n    event ScheduleCreated(\n        uint256 indexed scheduleId,\n        address indexed beneficiary,\n        uint256 totalAmount,\n        uint64 startTime,\n        uint64 cliffDuration,\n        uint64 duration,\n        bool revocable,\n        string metadataURI\n    );\n\n    /// @notice Emitted when a beneficiary claims vested tokens.\n    event Claimed(uint256 indexed scheduleId, address indexed beneficiary, uint256 amount);\n\n    /// @notice Emitted when a vesting schedule is revoked by the owner.\n    event Revoked(uint256 indexed scheduleId, uint256 unvestedAmountReturned);\n\n    /**\n     * @notice Sets up the vesting vault with the specified ERC20 token.\n     * @param tokenAddress The address of the ERC20 token to be used for vesting.\n     */\n    constructor(address tokenAddress) {\n        require(tokenAddress != address(0), \"VestingVaultMulti: Token cannot be zero address\");\n        token = IERC20(tokenAddress);\n        _nextScheduleId = 1; // Start schedule IDs from 1.\n    }\n\n    /**\n     * @notice Pauses the contract, preventing schedule creation, claims, and revocations.\n     * @dev Can only be called by the owner.\n     */\n    function pause() public onlyOwner {\n        _pause();\n    }\n\n    /**\n     * @notice Unpauses the contract, re-enabling normal operations.\n     * @dev Can only be called by the owner.\n     */\n    function unpause() public onlyOwner {\n        _unpause();\n    }\n\n    /**\n     * @notice Creates a new vesting schedule.\n     * @dev The owner must have approved the contract to spend `totalAmount` of the token.\n     * The tokens are transferred into the vault upon creation.\n     * @param beneficiary The address that will receive the vested tokens.\n     * @param totalAmount The total amount of tokens for this schedule.\n     * @param startTime The Unix timestamp for the start of the vesting period.\n     * @param cliffDuration The duration in seconds from the start time before any tokens are vested.\n     * @param duration The total duration of the vesting period in seconds from the start time.\n     * @param revocable Whether the schedule can be revoked by the owner.\n     * @param metadataURI A URI for schedule metadata.\n     */\n    function createSchedule(\n        address beneficiary,\n        uint256 totalAmount,\n        uint64 startTime,\n        uint64 cliffDuration,\n        uint64 duration,\n        bool revocable,\n        string calldata metadataURI\n    ) public onlyOwner whenNotPaused {\n        require(beneficiary != address(0), \"VestingVaultMulti: Beneficiary cannot be zero address\");\n        require(totalAmount > 0, \"VestingVaultMulti: Total amount must be greater than zero\");\n        require(duration > 0, \"VestingVaultMulti: Duration must be greater than zero\");\n        require(cliffDuration <= duration, \"VestingVaultMulti: Cliff must be less than or equal to duration\");\n        \n        uint256 scheduleId = _nextScheduleId;\n        _nextScheduleId++;\n\n        _schedules[scheduleId] = VestingSchedule({\n            beneficiary: beneficiary,\n            totalAmount: totalAmount,\n            startTime: startTime,\n            cliffDuration: cliffDuration,\n            duration: duration,\n            amountClaimed: 0,\n            revocable: revocable,\n            isRevoked: false,\n            metadataURI: metadataURI\n        });\n\n        token.safeTransferFrom(msg.sender, address(this), totalAmount);\n\n        emit ScheduleCreated(\n            scheduleId,\n            beneficiary,\n            totalAmount,\n            startTime,\n            cliffDuration,\n            duration,\n            revocable,\n            metadataURI\n        );\n    }\n\n    /**\n     * @notice Revokes a vesting schedule.\n     * @dev Can only be called by the owner for revocable, non-revoked schedules.\n     * Unvested tokens are transferred back to the owner. The schedule is then updated to\n     * permanently lock the vested amount at the time of revocation by adjusting its totalAmount and duration.\n     * @param scheduleId The ID of the schedule to revoke.\n     */\n    function revoke(uint256 scheduleId) public onlyOwner whenNotPaused nonReentrant {\n        VestingSchedule storage schedule = _schedules[scheduleId];\n        require(schedule.beneficiary != address(0), \"VestingVaultMulti: Schedule not found\");\n        require(schedule.revocable, \"VestingVaultMulti: Schedule not revocable\");\n        require(!schedule.isRevoked, \"VestingVaultMulti: Schedule already revoked\");\n\n        uint256 vested = _getVestedAmountAt(scheduleId, block.timestamp);\n        uint256 unvested = schedule.totalAmount - vested;\n\n        schedule.totalAmount = vested;\n        \n        // Freeze vesting at the current point by setting the duration to the elapsed time.\n        if (block.timestamp > schedule.startTime) {\n            schedule.duration = uint64(block.timestamp - schedule.startTime);\n        } else {\n            // Revoked before start time, so effective duration is 0.\n            schedule.duration = 0;\n        }\n\n        // The cliff must be <= new duration to maintain the invariant.\n        if (schedule.cliffDuration > schedule.duration) {\n            schedule.cliffDuration = schedule.duration;\n        }\n\n        schedule.isRevoked = true;\n        schedule.revocable = false; // A revoked schedule cannot be re-revoked.\n\n        if (unvested > 0) {\n            token.safeTransfer(owner(), unvested);\n        }\n\n        emit Revoked(scheduleId, unvested);\n    }\n\n    /**\n     * @notice Allows a beneficiary to claim their vested tokens.\n     * @dev The caller must be the beneficiary of the schedule.\n     * @param scheduleId The ID of the schedule to claim from.\n     */\n    function claim(uint256 scheduleId) public whenNotPaused nonReentrant {\n        VestingSchedule storage schedule = _schedules[scheduleId];\n        require(schedule.beneficiary != address(0), \"VestingVaultMulti: Schedule not found\");\n        require(msg.sender == schedule.beneficiary, \"VestingVaultMulti: Only beneficiary can claim\");\n\n        uint256 releasable = releasableAmount(scheduleId);\n        require(releasable > 0, \"VestingVaultMulti: No tokens to claim\");\n\n        schedule.amountClaimed += releasable;\n\n        token.safeTransfer(schedule.beneficiary, releasable);\n\n        emit Claimed(scheduleId, schedule.beneficiary, releasable);\n    }\n\n    /**\n     * @notice Gets the details of a specific vesting schedule.\n     * @param scheduleId The ID of the schedule.\n     * @return The VestingSchedule struct.\n     */\n    function getSchedule(uint256 scheduleId) public view returns (VestingSchedule memory) {\n        return _schedules[scheduleId];\n    }\n\n    /**\n     * @notice Calculates the total amount of vested tokens for a schedule at the current time.\n     * @param scheduleId The ID of the schedule.\n     * @return The amount of tokens that have vested.\n     */\n    function vestedAmount(uint256 scheduleId) public view returns (uint256) {\n        require(_schedules[scheduleId].beneficiary != address(0), \"VestingVaultMulti: Schedule not found\");\n        return _getVestedAmountAt(scheduleId, block.timestamp);\n    }\n\n    /**\n     * @notice Calculates the amount of vested tokens that are available to be claimed.\n     * @param scheduleId The ID of the schedule.\n     * @return The amount of tokens that can be claimed now.\n     */\n    function releasableAmount(uint256 scheduleId) public view returns (uint256) {\n        VestingSchedule storage schedule = _schedules[scheduleId];\n        require(schedule.beneficiary != address(0), \"VestingVaultMulti: Schedule not found\");\n        uint256 vested = _getVestedAmountAt(scheduleId, block.timestamp);\n        return vested - schedule.amountClaimed;\n    }\n\n    /**\n     * @dev Internal function to calculate the vested amount for a schedule at a specific timestamp.\n     * The calculation is piecewise: 0 until the cliff, then linear vesting until the duration ends.\n     * @param scheduleId The ID of the schedule.\n     * @param timestamp The Unix timestamp to calculate vested amount at.\n     * @return The calculated vested amount.\n     */\n    function _getVestedAmountAt(uint256 scheduleId, uint256 timestamp) private view returns (uint256) {\n        VestingSchedule storage schedule = _schedules[scheduleId];\n\n        uint256 startTime = schedule.startTime;\n        uint256 cliffTime = startTime + schedule.cliffDuration;\n        uint256 endTime = startTime + schedule.duration;\n\n        if (timestamp < cliffTime) {\n            return 0;\n        }\n        if (timestamp >= endTime) {\n            return schedule.totalAmount;\n        }\n\n        // Linear vesting period starts after the cliff\n        uint256 vestingPeriod = endTime - cliffTime;\n        if (vestingPeriod == 0) {\n            // This happens if cliffDuration == duration. All vests at endTime.\n            // Since timestamp < endTime, nothing has vested yet.\n            return 0;\n        }\n\n        uint256 timeElapsedInVestingPeriod = timestamp - cliffTime;\n        return (schedule.totalAmount * timeElapsedInVestingPeriod) / vestingPeriod;\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e_VestingVaultMulti.sol/VestingVaultMulti.json",
+      "name": "VestingVaultMulti",
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "tokenAddress",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "scheduleId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "beneficiary",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "Claimed",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "scheduleId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "unvestedAmountReturned",
+              "type": "uint256"
+            }
+          ],
+          "name": "Revoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "scheduleId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "beneficiary",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "totalAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "startTime",
+              "type": "uint64"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "cliffDuration",
+              "type": "uint64"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "duration",
+              "type": "uint64"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "revocable",
+              "type": "bool"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "metadataURI",
+              "type": "string"
+            }
+          ],
+          "name": "ScheduleCreated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "scheduleId",
+              "type": "uint256"
+            }
+          ],
+          "name": "claim",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "beneficiary",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint64",
+              "name": "startTime",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "cliffDuration",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "duration",
+              "type": "uint64"
+            },
+            {
+              "internalType": "bool",
+              "name": "revocable",
+              "type": "bool"
+            },
+            {
+              "internalType": "string",
+              "name": "metadataURI",
+              "type": "string"
+            }
+          ],
+          "name": "createSchedule",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "scheduleId",
+              "type": "uint256"
+            }
+          ],
+          "name": "getSchedule",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "beneficiary",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "totalAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "startTime",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "cliffDuration",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "duration",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amountClaimed",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "revocable",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isRevoked",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "string",
+                  "name": "metadataURI",
+                  "type": "string"
+                }
+              ],
+              "internalType": "struct VestingVaultMulti.VestingSchedule",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "scheduleId",
+              "type": "uint256"
+            }
+          ],
+          "name": "releasableAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "scheduleId",
+              "type": "uint256"
+            }
+          ],
+          "name": "revoke",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "token",
+          "outputs": [
+            {
+              "internalType": "contract IERC20",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "scheduleId",
+              "type": "uint256"
+            }
+          ],
+          "name": "vestedAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x60a060405234801561001057600080fd5b5060405162001a0d38038062001a0d83398101604081905261003191610123565b61003a336100d3565b6000805460ff60a01b19169055600180556001600160a01b0381166100bd5760405162461bcd60e51b815260206004820152602f60248201527f56657374696e675661756c744d756c74693a20546f6b656e2063616e6e6f742060448201526e6265207a65726f206164647265737360881b606482015260840160405180910390fd5b6001600160a01b03166080526001600355610153565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60006020828403121561013557600080fd5b81516001600160a01b038116811461014c57600080fd5b9392505050565b60805161188962000184600039600081816101da015281816104950152818161064d0152610af901526118896000f3fe608060405234801561001057600080fd5b50600436106100cf5760003560e01c8063715018a61161008c5780638da5cb5b116100665780638da5cb5b1461017d578063c5ca93a7146101a2578063f2fde38b146101c2578063fc0c546a146101d557600080fd5b8063715018a61461015a5780638456cb59146101625780638691096b1461016a57600080fd5b80631bfce853146100d457806320c5429b146100fa578063379607f51461010f5780633f4ba83a146101225780635927fca21461012a5780635c975abb1461013d575b600080fd5b6100e76100e236600461131d565b6101fc565b6040519081526020015b60405180910390f35b61010d61010836600461131d565b610249565b005b61010d61011d36600461131d565b610505565b61010d6106c4565b6100e761013836600461131d565b6106d6565b600054600160a01b900460ff1660405190151581526020016100f1565b61010d610731565b61010d610743565b61010d610178366004611377565b610753565b6000546001600160a01b03165b6040516001600160a01b0390911681526020016100f1565b6101b56101b036600461131d565b610b7a565b6040516100f19190611497565b61010d6101d036600461154f565b610cf2565b61018a7f000000000000000000000000000000000000000000000000000000000000000081565b6000818152600260205260408120546001600160a01b03166102395760405162461bcd60e51b815260040161023090611571565b60405180910390fd5b6102438242610d68565b92915050565b610251610e47565b610259610ea1565b610261610eee565b600081815260026020526040902080546001600160a01b03166102965760405162461bcd60e51b815260040161023090611571565b600481015460ff166102fc5760405162461bcd60e51b815260206004820152602960248201527f56657374696e675661756c744d756c74693a205363686564756c65206e6f74206044820152687265766f6361626c6560b81b6064820152608401610230565b6004810154610100900460ff161561036a5760405162461bcd60e51b815260206004820152602b60248201527f56657374696e675661756c744d756c74693a205363686564756c6520616c726560448201526a18591e481c995d9bdad95960aa1b6064820152608401610230565b60006103768342610d68565b9050600081836001015461038a91906115cc565b6001840183905560028401549091506001600160401b03164211156103ee5760028301546103c1906001600160401b0316426115cc565b8360020160106101000a8154816001600160401b0302191690836001600160401b03160217905550610405565b60028301805467ffffffffffffffff60801b191690555b60028301546001600160401b03600160801b82048116600160401b90920416111561045f57600283018054600160401b6001600160401b03600160801b830416026fffffffffffffffff0000000000000000199091161790555b60048301805461ffff191661010017905580156104bc576104bc61048b6000546001600160a01b031690565b6001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000169083610f47565b837f9512e2d66d9b885c324382c80570578a239c21840d3ce4e7607e9583440f49c9826040516104ee91815260200190565b60405180910390a250505061050260018055565b50565b61050d610ea1565b610515610eee565b600081815260026020526040902080546001600160a01b031661054a5760405162461bcd60e51b815260040161023090611571565b80546001600160a01b031633146105b95760405162461bcd60e51b815260206004820152602d60248201527f56657374696e675661756c744d756c74693a204f6e6c792062656e656669636960448201526c6172792063616e20636c61696d60981b6064820152608401610230565b60006105c4836106d6565b9050600081116106245760405162461bcd60e51b815260206004820152602560248201527f56657374696e675661756c744d756c74693a204e6f20746f6b656e7320746f20604482015264636c61696d60d81b6064820152608401610230565b8082600301600082825461063891906115df565b90915550508154610676906001600160a01b037f00000000000000000000000000000000000000000000000000000000000000008116911683610f47565b81546040518281526001600160a01b039091169084907f4ec90e965519d92681267467f775ada5bd214aa92c0dc93d90a5e880ce9ed0269060200160405180910390a3505061050260018055565b6106cc610e47565b6106d4610faf565b565b600081815260026020526040812080546001600160a01b031661070b5760405162461bcd60e51b815260040161023090611571565b60006107178442610d68565b905081600301548161072991906115cc565b949350505050565b610739610e47565b6106d46000611004565b61074b610e47565b6106d4611054565b61075b610e47565b610763610ea1565b6001600160a01b0388166107d75760405162461bcd60e51b815260206004820152603560248201527f56657374696e675661756c744d756c74693a2042656e65666963696172792063604482015274616e6e6f74206265207a65726f206164647265737360581b6064820152608401610230565b6000871161084d5760405162461bcd60e51b815260206004820152603960248201527f56657374696e675661756c744d756c74693a20546f74616c20616d6f756e742060448201527f6d7573742062652067726561746572207468616e207a65726f000000000000006064820152608401610230565b6000846001600160401b0316116108c45760405162461bcd60e51b815260206004820152603560248201527f56657374696e675661756c744d756c74693a204475726174696f6e206d7573746044820152742062652067726561746572207468616e207a65726f60581b6064820152608401610230565b836001600160401b0316856001600160401b0316111561094c5760405162461bcd60e51b815260206004820152603f60248201527f56657374696e675661756c744d756c74693a20436c696666206d75737420626560448201527f206c657373207468616e206f7220657175616c20746f206475726174696f6e006064820152608401610230565b60038054908190600061095e836115f2565b91905055506040518061012001604052808a6001600160a01b03168152602001898152602001886001600160401b03168152602001876001600160401b03168152602001866001600160401b0316815260200160008152602001851515815260200160001515815260200184848080601f016020809104026020016040519081016040528093929190818152602001838380828437600092018290525093909452505083815260026020818152604092839020855181546001600160a01b0319166001600160a01b03909116178155908501516001820155918401519082018054606086015160808701516001600160401b039485166fffffffffffffffffffffffffffffffff1990931692909217600160401b918516919091021767ffffffffffffffff60801b1916600160801b939091169290920291909117905560a0830151600382015560c083015160048201805460e086015161ffff1990911692151561ff0019169290921761010092151583021790558301519091506005820190610ae890826116a9565b50610b219150506001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001633308b611097565b886001600160a01b0316817f2866f2bc2942ec97e1d21852b6a17d056b7c74ee151d556d3a3f72af445c971d8a8a8a8a8a8a8a604051610b679796959493929190611768565b60405180910390a3505050505050505050565b604080516101208101825260008082526020820181905291810182905260608082018390526080820183905260a0820183905260c0820183905260e082019290925261010081019190915260008281526002602081815260409283902083516101208101855281546001600160a01b03168152600182015492810192909252918201546001600160401b0380821694830194909452600160401b810484166060830152600160801b90049092166080830152600381015460a0830152600481015460ff808216151560c08501526101009182900416151560e084015260058201805491840191610c6990611621565b80601f0160208091040260200160405190810160405280929190818152602001828054610c9590611621565b8015610ce25780601f10610cb757610100808354040283529160200191610ce2565b820191906000526020600020905b815481529060010190602001808311610cc557829003601f168201915b5050505050815250509050919050565b610cfa610e47565b6001600160a01b038116610d5f5760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610230565b61050281611004565b60008281526002602081905260408220908101546001600160401b03808216918491610d9c91600160401b900416836115df565b6002840154909150600090610dc190600160801b90046001600160401b0316846115df565b905081861015610dd8576000945050505050610243565b808610610ded57505050600101549050610243565b6000610df983836115cc565b905080600003610e1157600095505050505050610243565b6000610e1d84896115cc565b905081818760010154610e3091906117ce565b610e3a91906117e5565b9998505050505050505050565b6000546001600160a01b031633146106d45760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610230565b600054600160a01b900460ff16156106d45760405162461bcd60e51b815260206004820152601060248201526f14185d5cd8589b194e881c185d5cd95960821b6044820152606401610230565b600260015403610f405760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606401610230565b6002600155565b6040516001600160a01b038316602482015260448101829052610faa90849063a9059cbb60e01b906064015b60408051601f198184030181529190526020810180516001600160e01b03166001600160e01b0319909316929092179091526110d5565b505050565b610fb76111aa565b6000805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b61105c610ea1565b6000805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258610fe73390565b6040516001600160a01b03808516602483015283166044820152606481018290526110cf9085906323b872dd60e01b90608401610f73565b50505050565b600061112a826040518060400160405280602081526020017f5361666545524332303a206c6f772d6c6576656c2063616c6c206661696c6564815250856001600160a01b03166111fa9092919063ffffffff16565b905080516000148061114b57508080602001905181019061114b9190611807565b610faa5760405162461bcd60e51b815260206004820152602a60248201527f5361666545524332303a204552433230206f7065726174696f6e20646964206e6044820152691bdd081cdd58d8d9595960b21b6064820152608401610230565b600054600160a01b900460ff166106d45760405162461bcd60e51b815260206004820152601460248201527314185d5cd8589b194e881b9bdd081c185d5cd95960621b6044820152606401610230565b6060610729848460008585600080866001600160a01b031685876040516112219190611824565b60006040518083038185875af1925050503d806000811461125e576040519150601f19603f3d011682016040523d82523d6000602084013e611263565b606091505b50915091506112748783838761127f565b979650505050505050565b606083156112ee5782516000036112e7576001600160a01b0385163b6112e75760405162461bcd60e51b815260206004820152601d60248201527f416464726573733a2063616c6c20746f206e6f6e2d636f6e74726163740000006044820152606401610230565b5081610729565b61072983838151156113035781518083602001fd5b8060405162461bcd60e51b81526004016102309190611840565b60006020828403121561132f57600080fd5b5035919050565b80356001600160a01b038116811461134d57600080fd5b919050565b80356001600160401b038116811461134d57600080fd5b801515811461050257600080fd5b60008060008060008060008060e0898b03121561139357600080fd5b61139c89611336565b9750602089013596506113b160408a01611352565b95506113bf60608a01611352565b94506113cd60808a01611352565b935060a08901356113dd81611369565b925060c08901356001600160401b03808211156113f957600080fd5b818b0191508b601f83011261140d57600080fd5b81358181111561141c57600080fd5b8c602082850101111561142e57600080fd5b6020830194508093505050509295985092959890939650565b60005b8381101561146257818101518382015260200161144a565b50506000910152565b60008151808452611483816020860160208601611447565b601f01601f19169290920160200192915050565b602081526114b16020820183516001600160a01b03169052565b60208201516040820152600060408301516114d760608401826001600160401b03169052565b5060608301516001600160401b03811660808401525060808301516001600160401b03811660a08401525060a083015160c083015260c083015161151f60e084018215159052565b5060e08301516101006115358185018315159052565b84015161012084810152905061072961014084018261146b565b60006020828403121561156157600080fd5b61156a82611336565b9392505050565b60208082526025908201527f56657374696e675661756c744d756c74693a205363686564756c65206e6f7420604082015264199bdd5b9960da1b606082015260800190565b634e487b7160e01b600052601160045260246000fd5b81810381811115610243576102436115b6565b80820180821115610243576102436115b6565b600060018201611604576116046115b6565b5060010190565b634e487b7160e01b600052604160045260246000fd5b600181811c9082168061163557607f821691505b60208210810361165557634e487b7160e01b600052602260045260246000fd5b50919050565b601f821115610faa57600081815260208120601f850160051c810160208610156116825750805b601f850160051c820191505b818110156116a15782815560010161168e565b505050505050565b81516001600160401b038111156116c2576116c261160b565b6116d6816116d08454611621565b8461165b565b602080601f83116001811461170b57600084156116f35750858301515b600019600386901b1c1916600185901b1785556116a1565b600085815260208120601f198616915b8281101561173a5788860151825594840194600190910190840161171b565b50858210156117585787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b87815260006001600160401b0380891660208401528088166040840152808716606084015250841515608083015260c060a08301528260c0830152828460e0840137600060e0848401015260e0601f19601f850116830101905098975050505050505050565b8082028115828204841417610243576102436115b6565b60008261180257634e487b7160e01b600052601260045260246000fd5b500490565b60006020828403121561181957600080fd5b815161156a81611369565b60008251611836818460208701611447565b9190910192915050565b60208152600061156a602083018461146b56fea2646970667358221220aef9563c97e79ae011d83b8e54cd657693fd9aad207e4319fbea2f28b24177ab64736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e.js",
+      "content": "// Auto-generated by AI pipeline for job ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e_VestingVaultMulti.sol:VestingVaultMulti\");\n  const args = [\"address token\"];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"VestingVaultMulti\", fqName: \"contracts/AI_ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e_VestingVaultMulti.sol:VestingVaultMulti\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/app/tmp/jobs/ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e"
+  }
+}

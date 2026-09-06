@@ -1,0 +1,190 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1758597933891,
+    "updatedAt": 1758598023915,
+    "payload": {
+      "prompt": "Pani Puri ka thela",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "PaniPuri",
+      "filename": "PaniPuri.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758597933892
+      },
+      {
+        "step": "generate",
+        "t": 1758597933892
+      },
+      {
+        "step": "write",
+        "t": 1758598018574
+      },
+      {
+        "step": "compile",
+        "t": 1758598018580
+      },
+      {
+        "step": "deploy_script",
+        "t": 1758598020537
+      },
+      {
+        "step": "deploy",
+        "t": 1758598020537
+      }
+    ],
+    "timings": {
+      "startedAt": 1758597933892,
+      "endedAt": 1758598023915,
+      "phases": {
+        "init": {
+          "startedAt": 1758597933892,
+          "endedAt": 1758597933892
+        },
+        "generate": {
+          "startedAt": 1758597933892,
+          "endedAt": 1758598018574
+        },
+        "write": {
+          "startedAt": 1758598018574,
+          "endedAt": 1758598018580
+        },
+        "compile": {
+          "startedAt": 1758598018580,
+          "endedAt": 1758598020537
+        },
+        "deploy_script": {
+          "startedAt": 1758598020537,
+          "endedAt": 1758598020537
+        },
+        "deploy": {
+          "startedAt": 1758598020537,
+          "endedAt": 1758598023915
+        }
+      }
+    },
+    "result": null,
+    "error": "exit 1",
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758597933892,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=PaniPuri.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758597933892,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758597933892,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1758597933893,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1184"
+      },
+      {
+        "i": 5,
+        "t": 1758598018574,
+        "level": "debug",
+        "msg": "generate_ai_response_len=7715 ai_ms=84681"
+      },
+      {
+        "i": 6,
+        "t": 1758598018574,
+        "level": "info",
+        "msg": "Generation done in 84682ms. Code size=7668"
+      },
+      {
+        "i": 7,
+        "t": 1758598018574,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1758598018580,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1758598020506,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8_PaniPuri.sol\n\n\n"
+      },
+      {
+        "i": 10,
+        "t": 1758598020523,
+        "level": "info",
+        "msg": "Compiled 8 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 11,
+        "t": 1758598020536,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 1956ms"
+      },
+      {
+        "i": 12,
+        "t": 1758598020536,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 13,
+        "t": 1758598020537,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: PaniPuri"
+      },
+      {
+        "i": 14,
+        "t": 1758598020537,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract PaniPuri"
+      },
+      {
+        "i": 15,
+        "t": 1758598020537,
+        "level": "info",
+        "msg": "Contract chosen for deploy: PaniPuri"
+      },
+      {
+        "i": 16,
+        "t": 1758598020537,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp-testnet"
+      },
+      {
+        "i": 17,
+        "t": 1758598023897,
+        "level": "error",
+        "msg": "ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 1459223195676, overshot 1459223195676\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8/scripts/deploy-ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8.js:8:13)\n"
+      }
+    ],
+    "_logIndex": 17,
+    "logsCount": 17,
+    "lastLogTs": 1758598023897,
+    "contractName": "PaniPuri",
+    "stdout": "",
+    "stderr": "ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 1459223195676, overshot 1459223195676\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8/scripts/deploy-ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8.js:8:13)\n"
+  }
+}

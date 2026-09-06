@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:22:00.362Z",
+  "contracts": {
+    "BusinessToken": "0x4341965b9545aead11624BDCEC3Ae9E929Bc8bc7"
+  },
+  "params": {
+    "name": "Titan Camp Token 12",
+    "symbol": "TTN12",
+    "initialSupplyTokens": "314159265",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_789f2c15-bcd3-4c94-9194-8402492fdd6a",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 10,
+    "step": "generate",
+    "result": null,
+    "error": null,
+    "updatedAt": 1759523315883,
+    "createdAt": 1759523315882
+  }
+}

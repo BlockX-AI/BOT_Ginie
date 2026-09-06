@@ -1,0 +1,766 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1758616091297,
+    "updatedAt": 1758617294639,
+    "payload": {
+      "prompt": "Ai agents marketplace\n",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "TicTacToe",
+      "filename": "TicTacToe.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758616091297
+      },
+      {
+        "step": "generate",
+        "t": 1758616091298
+      },
+      {
+        "step": "write",
+        "t": 1758616202609
+      },
+      {
+        "step": "compile",
+        "t": 1758616202613
+      },
+      {
+        "step": "fix",
+        "t": 1758616204464
+      },
+      {
+        "step": "deploy_script",
+        "t": 1758617283895
+      },
+      {
+        "step": "deploy",
+        "t": 1758617283896
+      }
+    ],
+    "timings": {
+      "startedAt": 1758616091297,
+      "endedAt": 1758617294639,
+      "phases": {
+        "init": {
+          "startedAt": 1758616091297,
+          "endedAt": 1758616091298
+        },
+        "generate": {
+          "startedAt": 1758616091298,
+          "endedAt": 1758616202609
+        },
+        "write": {
+          "startedAt": 1758616202609,
+          "endedAt": 1758616202613
+        },
+        "compile": {
+          "startedAt": 1758616202613,
+          "endedAt": 1758616204464
+        },
+        "fix": {
+          "startedAt": 1758616204464,
+          "endedAt": 1758617283895
+        },
+        "deploy_script": {
+          "startedAt": 1758617283895,
+          "endedAt": 1758617283896
+        },
+        "deploy": {
+          "startedAt": 1758617283896,
+          "endedAt": 1758617294639
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "TicTacToe",
+      "fqName": "contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:TicTacToe",
+      "address": "0xaD88d2f5A168e415c13d867eC0f7574Fc7495ac6",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758616091297,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=TicTacToe.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758616091297,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758616091298,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1758616091298,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1181"
+      },
+      {
+        "i": 5,
+        "t": 1758616202609,
+        "level": "debug",
+        "msg": "generate_ai_response_len=12427 ai_ms=111311"
+      },
+      {
+        "i": 6,
+        "t": 1758616202609,
+        "level": "info",
+        "msg": "Generation done in 111311ms. Code size=12380"
+      },
+      {
+        "i": 7,
+        "t": 1758616202609,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1758616202613,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1758616204445,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 10,
+        "t": 1758616204445,
+        "level": "error",
+        "msg": "DeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:132:9:\n    |\n132 |         _setTokenURI(newItemId, tokenURI);\n    |         ^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 11,
+        "t": 1758616204453,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 12,
+        "t": 1758616204453,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 13,
+        "t": 1758616204453,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 14,
+        "t": 1758616204464,
+        "level": "debug",
+        "msg": "iter 1/11: compile failed in 1851ms"
+      },
+      {
+        "i": 15,
+        "t": 1758616204464,
+        "level": "warn",
+        "msg": "Compile failed (iter 0). Running AI fix. Error length=716"
+      },
+      {
+        "i": 16,
+        "t": 1758616204464,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=13805"
+      },
+      {
+        "i": 17,
+        "t": 1758616280533,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12404 ai_ms=76069"
+      },
+      {
+        "i": 18,
+        "t": 1758616281702,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 19,
+        "t": 1758616281702,
+        "level": "error",
+        "msg": "DeclarationError: Undeclared identifier.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:132:9:\n    |\n132 |         _setTokenURI(newItemId, tokenURI);\n    |         ^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 20,
+        "t": 1758616281710,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 21,
+        "t": 1758616281710,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 22,
+        "t": 1758616281710,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 23,
+        "t": 1758616281724,
+        "level": "debug",
+        "msg": "iter 2/11: compile failed in 1191ms"
+      },
+      {
+        "i": 24,
+        "t": 1758616281724,
+        "level": "warn",
+        "msg": "Compile failed (iter 1). Running AI fix. Error length=716"
+      },
+      {
+        "i": 25,
+        "t": 1758616281724,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=13775"
+      },
+      {
+        "i": 26,
+        "t": 1758616360601,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12730 ai_ms=78877"
+      },
+      {
+        "i": 27,
+        "t": 1758616361737,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 28,
+        "t": 1758616361737,
+        "level": "error",
+        "msg": "Warning: This declaration shadows an existing declaration.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:128:38:\n    |\n128 |     function createAgent(address to, string memory tokenURI) public onlyRole(MINTER_ROLE) whenNotPaused returns (uint256) {\n    |                                      ^^^^^^^^^^^^^^^^^^^^^^\nNote: The shadowed declaration is here:\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:350:5:\n    |\n350 |     function tokenURI(uint256 tokenId)\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Function has override specified but does not override anything.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:317:9:\n    |\n317 |         override(ERC721Enumerable, ERC721URIStorage)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Invalid contracts specified in override list: \"ERC721Enumerable\" and \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:317:9:\n    |\n317 |         override(ERC721Enumerable, ERC721URIStorage)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:14:1:\n   |\n14 | abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Invalid contracts specified in override list: \"ERC721Enumerable\" and \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:345:39:\n    |\n345 |     function _baseURI() internal view override(ERC721Enumerable, ERC721URIStorage) returns (string memory) {\n    |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:14:1:\n   |\n14 | abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Function needs to specify overridden contract \"ERC721\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:353:9:\n    |\n353 |         override(ERC721Enumerable, ERC721URIStorage)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/ERC721.sol:19:1:\n   |\n19 | contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Invalid contract specified in override list: \"ERC721Enumerable\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:353:9:\n    |\n353 |         override(ERC721Enumerable, ERC721URIStorage)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:14:1:\n   |\n14 | abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Derived contract must override function \"_beforeTokenTransfer\". Two or more base classes define function with same name and parameter types.\n  --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:24:1:\n   |\n24 | contract TicTacToe is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pausable, ReentrancyGuard {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC721\": \n   --> @openzeppelin/contracts/token/ERC721/ERC721.sol:437:5:\n    |\n437 |     function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal virtual {}\n    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: Definition in \"ERC721Enumerable\": \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:60:5:\n   |\n60 |     function _beforeTokenTransfer(\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 29,
+        "t": 1758616361738,
+        "level": "error",
+        "msg": "TypeError: Derived contract must override function \"_burn\". Two or more base classes define function with same name and parameter types.\n  --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:24:1:\n   |\n24 | contract TicTacToe is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pausable, ReentrancyGuard {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC721\": \n   --> @openzeppelin/contracts/token/ERC721/ERC721.sol:299:5:\n    |\n299 |     function _burn(uint256 tokenId) internal virtual {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC721URIStorage\": \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:67:5:\n   |\n67 |     function _burn(uint256 tokenId) internal virtual override {\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Type uint8[3][8] memory is not implicitly convertible to expected type uint8[8][3] memory.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:276:9:\n    |\n276 |         uint8[8][3] memory winCombos = [\n    |         ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Wrong argument count for function call: 3 arguments given but expected 4.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:320:9:\n    |\n320 |         super._beforeTokenTransfer(from, to, tokenId);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 30,
+        "t": 1758616361748,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 31,
+        "t": 1758616361748,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 32,
+        "t": 1758616361748,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 33,
+        "t": 1758616361778,
+        "level": "debug",
+        "msg": "iter 3/11: compile failed in 1176ms"
+      },
+      {
+        "i": 34,
+        "t": 1758616361778,
+        "level": "warn",
+        "msg": "Compile failed (iter 2). Running AI fix. Error length=6793"
+      },
+      {
+        "i": 35,
+        "t": 1758616361778,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=20178"
+      },
+      {
+        "i": 36,
+        "t": 1758616488935,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12590 ai_ms=127157"
+      },
+      {
+        "i": 37,
+        "t": 1758616490596,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 38,
+        "t": 1758616490596,
+        "level": "error",
+        "msg": "TypeError: Function needs to specify overridden contract \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:339:9:\n    |\n339 |         override(ERC721Enumerable, AccessControlEnumerable)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Type uint8[3][8] memory is not implicitly convertible to expected type uint8[8][3] memory.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:276:9:\n    |\n276 |         uint8[8][3] memory winCombos = [\n    |         ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 39,
+        "t": 1758616490605,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 40,
+        "t": 1758616490605,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 41,
+        "t": 1758616490605,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 42,
+        "t": 1758616490630,
+        "level": "debug",
+        "msg": "iter 4/11: compile failed in 1694ms"
+      },
+      {
+        "i": 43,
+        "t": 1758616490631,
+        "level": "warn",
+        "msg": "Compile failed (iter 3). Running AI fix. Error length=1384"
+      },
+      {
+        "i": 44,
+        "t": 1758616490631,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=14629"
+      },
+      {
+        "i": 45,
+        "t": 1758616613785,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12608 ai_ms=123154"
+      },
+      {
+        "i": 46,
+        "t": 1758616615445,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 47,
+        "t": 1758616615445,
+        "level": "error",
+        "msg": "TypeError: Type uint8[3][8] memory is not implicitly convertible to expected type uint8[8][3] memory.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:276:9:\n    |\n276 |         uint8[8][3] memory winCombos = [\n    |         ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 48,
+        "t": 1758616615453,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 49,
+        "t": 1758616615453,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 50,
+        "t": 1758616615453,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 51,
+        "t": 1758616615465,
+        "level": "debug",
+        "msg": "iter 5/11: compile failed in 1679ms"
+      },
+      {
+        "i": 52,
+        "t": 1758616615466,
+        "level": "warn",
+        "msg": "Compile failed (iter 4). Running AI fix. Error length=832"
+      },
+      {
+        "i": 53,
+        "t": 1758616615466,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=14095"
+      },
+      {
+        "i": 54,
+        "t": 1758616721137,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12590 ai_ms=105670"
+      },
+      {
+        "i": 55,
+        "t": 1758616722490,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 56,
+        "t": 1758616722490,
+        "level": "error",
+        "msg": "TypeError: Function needs to specify overridden contract \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:339:9:\n    |\n339 |         override(ERC721Enumerable, AccessControlEnumerable)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 57,
+        "t": 1758616722500,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 58,
+        "t": 1758616722500,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 59,
+        "t": 1758616722500,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 60,
+        "t": 1758616722510,
+        "level": "debug",
+        "msg": "iter 6/11: compile failed in 1373ms"
+      },
+      {
+        "i": 61,
+        "t": 1758616722510,
+        "level": "warn",
+        "msg": "Compile failed (iter 5). Running AI fix. Error length=1053"
+      },
+      {
+        "i": 62,
+        "t": 1758616722510,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=14298"
+      },
+      {
+        "i": 63,
+        "t": 1758616891156,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12638 ai_ms=168646"
+      },
+      {
+        "i": 64,
+        "t": 1758616892235,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 65,
+        "t": 1758616892235,
+        "level": "error",
+        "msg": "TypeError: Function needs to specify overridden contract \"ERC721\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:317:9:\n    |\n317 |         override(ERC721Enumerable, ERC721URIStorage)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/ERC721.sol:19:1:\n   |\n19 | contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Invalid contract specified in override list: \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:317:9:\n    |\n317 |         override(ERC721Enumerable, ERC721URIStorage)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Function needs to specify overridden contract \"ERC721\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:329:46:\n    |\n329 |     function _burn(uint256 tokenId) internal override(ERC721Enumerable, ERC721URIStorage) {\n    |                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/ERC721.sol:19:1:\n   |\n19 | contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Invalid contract specified in override list: \"ERC721Enumerable\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:329:46:\n    |\n329 |     function _burn(uint256 tokenId) internal override(ERC721Enumerable, ERC721URIStorage) {\n    |                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:14:1:\n   |\n14 | abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Function needs to specify overridden contract \"ERC721\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:349:9:\n    |\n349 |         override(ERC721Enumerable, ERC721URIStorage)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/ERC721.sol:19:1:\n   |\n19 | contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Invalid contract specified in override list: \"ERC721Enumerable\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:349:9:\n    |\n349 |         override(ERC721Enumerable, ERC721URIStorage)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:14:1:\n   |\n14 | abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 66,
+        "t": 1758616892242,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 67,
+        "t": 1758616892242,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 68,
+        "t": 1758616892242,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 69,
+        "t": 1758616892265,
+        "level": "debug",
+        "msg": "iter 7/11: compile failed in 1108ms"
+      },
+      {
+        "i": 70,
+        "t": 1758616892265,
+        "level": "warn",
+        "msg": "Compile failed (iter 6). Running AI fix. Error length=3823"
+      },
+      {
+        "i": 71,
+        "t": 1758616892265,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=17116"
+      },
+      {
+        "i": 72,
+        "t": 1758617009405,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12580 ai_ms=117140"
+      },
+      {
+        "i": 73,
+        "t": 1758617010463,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 74,
+        "t": 1758617010463,
+        "level": "error",
+        "msg": "TypeError: Function needs to specify overridden contracts \"ERC721Enumerable\" and \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:339:9:\n    |\n339 |         override(ERC721, AccessControlEnumerable)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:14:1:\n   |\n14 | abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Invalid contract specified in override list: \"ERC721\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:339:9:\n    |\n339 |         override(ERC721, AccessControlEnumerable)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/ERC721.sol:19:1:\n   |\n19 | contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 75,
+        "t": 1758617010472,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 76,
+        "t": 1758617010472,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 77,
+        "t": 1758617010472,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 78,
+        "t": 1758617010493,
+        "level": "debug",
+        "msg": "iter 8/11: compile failed in 1085ms"
+      },
+      {
+        "i": 79,
+        "t": 1758617010493,
+        "level": "warn",
+        "msg": "Compile failed (iter 7). Running AI fix. Error length=1817"
+      },
+      {
+        "i": 80,
+        "t": 1758617010493,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=15052"
+      },
+      {
+        "i": 81,
+        "t": 1758617127179,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12453 ai_ms=116686"
+      },
+      {
+        "i": 82,
+        "t": 1758617128551,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 83,
+        "t": 1758617128551,
+        "level": "error",
+        "msg": "TypeError: Function has override specified but does not override anything.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:317:9:\n    |\n317 |         override(ERC721, ERC721Enumerable)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\nTypeError: Invalid contracts specified in override list: \"ERC721\" and \"ERC721Enumerable\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:317:9:\n    |\n317 |         override(ERC721, ERC721Enumerable)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/ERC721.sol:19:1:\n   |\n19 | contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:14:1:\n   |\n14 | abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Function needs to specify overridden contract \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:338:9:\n    |\n338 |         override(ERC721Enumerable, AccessControlEnumerable)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 84,
+        "t": 1758617128551,
+        "level": "error",
+        "msg": "TypeError: Derived contract must override function \"_beforeTokenTransfer\". Two or more base classes define function with same name and parameter types.\n  --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:24:1:\n   |\n24 | contract TicTacToe is ERC721Enumerable, ERC721URIStorage, AccessControlEnumerable, Pausable, ReentrancyGuard {\n   | ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in \"ERC721\": \n   --> @openzeppelin/contracts/token/ERC721/ERC721.sol:437:5:\n    |\n437 |     function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal virtual {}\n    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: Definition in \"ERC721Enumerable\": \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol:60:5:\n   |\n60 |     function _beforeTokenTransfer(\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\nTypeError: Wrong argument count for function call: 3 arguments given but expected 4.\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:320:9:\n    |\n320 |         super._beforeTokenTransfer(from, to, tokenId);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 85,
+        "t": 1758617128560,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 86,
+        "t": 1758617128560,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 87,
+        "t": 1758617128560,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 88,
+        "t": 1758617128593,
+        "level": "debug",
+        "msg": "iter 9/11: compile failed in 1413ms"
+      },
+      {
+        "i": 89,
+        "t": 1758617128593,
+        "level": "warn",
+        "msg": "Compile failed (iter 8). Running AI fix. Error length=3435"
+      },
+      {
+        "i": 90,
+        "t": 1758617128593,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=16543"
+      },
+      {
+        "i": 91,
+        "t": 1758617214258,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12608 ai_ms=85665"
+      },
+      {
+        "i": 92,
+        "t": 1758617215212,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 93,
+        "t": 1758617215213,
+        "level": "error",
+        "msg": "TypeError: Function needs to specify overridden contract \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:339:9:\n    |\n339 |         override(ERC721Enumerable, AccessControlEnumerable)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 94,
+        "t": 1758617215219,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 95,
+        "t": 1758617215219,
+        "level": "error",
+        "msg": "For more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n"
+      },
+      {
+        "i": 96,
+        "t": 1758617215219,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 97,
+        "t": 1758617215236,
+        "level": "debug",
+        "msg": "iter 10/11: compile failed in 977ms"
+      },
+      {
+        "i": 98,
+        "t": 1758617215236,
+        "level": "warn",
+        "msg": "Compile failed (iter 9). Running AI fix. Error length=1053"
+      },
+      {
+        "i": 99,
+        "t": 1758617215236,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=14316"
+      },
+      {
+        "i": 100,
+        "t": 1758617281923,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=12626 ai_ms=66687"
+      },
+      {
+        "i": 101,
+        "t": 1758617283862,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 102,
+        "t": 1758617283882,
+        "level": "info",
+        "msg": "Compiled 27 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 103,
+        "t": 1758617283894,
+        "level": "debug",
+        "msg": "iter 11/11: compile ok in 1970ms"
+      },
+      {
+        "i": 104,
+        "t": 1758617283894,
+        "level": "info",
+        "msg": "Compile success after 10 fix iterations."
+      },
+      {
+        "i": 105,
+        "t": 1758617283895,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: TicTacToe"
+      },
+      {
+        "i": 106,
+        "t": 1758617283895,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract TicTacToe"
+      },
+      {
+        "i": 107,
+        "t": 1758617283895,
+        "level": "info",
+        "msg": "Contract chosen for deploy: TicTacToe"
+      },
+      {
+        "i": 108,
+        "t": 1758617283896,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "i": 109,
+        "t": 1758617294627,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"TicTacToe\",\"fqName\":\"contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:TicTacToe\",\"address\":\"0xaD88d2f5A168e415c13d867eC0f7574Fc7495ac6\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 110,
+        "t": 1758617294639,
+        "level": "info",
+        "msg": "Deploy success. Address=0xaD88d2f5A168e415c13d867eC0f7574Fc7495ac6"
+      }
+    ],
+    "_logIndex": 110,
+    "logsCount": 110,
+    "lastLogTs": 1758617294639,
+    "lastErrors": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol\n\n\nTypeError: Function needs to specify overridden contract \"ERC721URIStorage\".\n   --> contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:339:9:\n    |\n339 |         override(ERC721Enumerable, AccessControlEnumerable)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nNote: This contract: \n  --> @openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol:12:1:\n   |\n12 | abstract contract ERC721URIStorage is IERC4906, ERC721 {\n   | ^ (Relevant source part starts here and spans across multiple lines).\n\n\nError HH600: Compilation failed\nFor more info go to https://hardhat.org/HH600 or run Hardhat with --show-stack-traces\n\n\n",
+    "contractName": "TicTacToe",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"TicTacToe\",\"fqName\":\"contracts/AI_ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e_TicTacToe.sol:TicTacToe\",\"address\":\"0xaD88d2f5A168e415c13d867eC0f7574Fc7495ac6\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,4 @@
+{"i":1,"t":1758577072697,"level":"info","msg":"Pipeline started. Network=basecamp-testnet, maxIters=11, file=CentralBank.sol, strictArgs=true"}
+{"i":2,"t":1758577072697,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758577072698,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1758577072698,"level":"debug","msg":"Enhanced prompt length=1824"}

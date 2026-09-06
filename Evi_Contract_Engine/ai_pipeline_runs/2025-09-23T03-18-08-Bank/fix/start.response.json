@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_84164332-f3fe-49c0-9ad3-57fa4388b903",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758597492483,
+    "updatedAt": 1758597492483,
+    "payload": {
+      "network": "basecamp-testnet",
+      "filename": "DecentralizedIdentity.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758597492483
+      }
+    ],
+    "timings": {
+      "startedAt": 1758597492483,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758597492483
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758597492483,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp-testnet, file=DecentralizedIdentity.sol"
+      },
+      {
+        "i": 2,
+        "t": 1758597492483,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758597492483
+  }
+}

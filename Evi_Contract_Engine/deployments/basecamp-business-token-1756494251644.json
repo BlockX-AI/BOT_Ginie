@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:04:11.644Z",
+  "contracts": {
+    "BusinessToken": "0xCA2fFC7AA933810f5775D56558650c1f92622b7B"
+  },
+  "params": {
+    "name": "Zenith My Token 04",
+    "symbol": "ZNTH04",
+    "initialSupplyTokens": "100000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

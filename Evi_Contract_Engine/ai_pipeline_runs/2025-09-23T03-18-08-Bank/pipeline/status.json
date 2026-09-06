@@ -1,0 +1,83 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_bcf81dde-7a72-495d-87c5-f73ca77b712f",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1758597488328,
+    "updatedAt": 1758597490692,
+    "payload": {
+      "prompt": "Develop a quantum-resistant decentralized identity system with biometric\nauthentication, zero-knowledge credential verification, selective\ndisclosure of personal information, integration with government ID\nsystems, support for corporate identities with complex hierarchies,\nautomated KYC/AML compliance, privacy-preserving age verification, cross-\nchain identity portability, reputation systems with time-decay algorithms,\nand recovery mechanisms for lost keys. Include support for delegation,\nguardianship for minors, and integration with existing OAuth/SAML\nsystems.",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "DecentralizedIdentity",
+      "filename": "DecentralizedIdentity.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "generate",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758597488328
+      },
+      {
+        "step": "generate",
+        "t": 1758597488332
+      }
+    ],
+    "timings": {
+      "startedAt": 1758597488328,
+      "endedAt": 1758597490692,
+      "phases": {
+        "init": {
+          "startedAt": 1758597488328,
+          "endedAt": 1758597488332
+        },
+        "generate": {
+          "startedAt": 1758597488332,
+          "endedAt": 1758597490692
+        }
+      }
+    },
+    "result": null,
+    "error": "Gemini API error 400: {\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"API key expired. Please renew the API key.\",\n    \"status\": \"INVALID_ARGUMENT\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"API_KEY_INVALID\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"service\": \"generativelanguage.googleapis.com\"\n        }\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.LocalizedMessage\",\n        \"locale\": \"en-US\",\n        \"message\": \"API key expired. Please renew the API key.\"\n      }\n    ]\n  }\n}\n",
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758597488329,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=DecentralizedIdentity.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758597488329,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758597488332,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1758597488332,
+        "level": "debug",
+        "msg": "Enhanced prompt length=3757"
+      },
+      {
+        "i": 5,
+        "t": 1758597490692,
+        "level": "error",
+        "msg": "Pipeline failed: Gemini API error 400: {\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"API key expired. Please renew the API key.\",\n    \"status\": \"INVALID_ARGUMENT\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"API_KEY_INVALID\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"service\": \"generativelanguage.googleapis.com\"\n        }\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.LocalizedMessage\",\n        \"locale\": \"en-US\",\n        \"message\": \"API key expired. Please renew the API key.\"\n      }\n    ]\n  }\n}\n"
+      }
+    ],
+    "_logIndex": 5,
+    "logsCount": 5,
+    "lastLogTs": 1758597490692
+  }
+}

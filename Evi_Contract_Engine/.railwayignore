@@ -1,0 +1,61 @@
+# VCS and system files
+.git/
+.gitignore
+.DS_Store
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local env files (set env vars in Railway dashboard instead)
+.env
+.env.*
+
+# Node and package manager caches
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+.yarn/cache/
+.yarnrc.yml
+
+# Build artifacts and coverage
+build/
+dist/
+coverage/
+*.coverage
+*.lcov
+
+# Hardhat and solidity artifacts
+artifacts/
+cache/
+broadcast/
+deployments/
+.hardhat/
+typechain/
+typechain-types/
+
+# Keep vendored API ABIs in upload
+!api/artifacts/**
+!api/static-artifacts/**
+
+# AI / sandbox temp
+tmp/
+tmp/jobs/
+tmp/cache/
+tmp/artifacts/
+
+# Frontend outputs
+.next/
+out/
+*.map
+
+# Monorepo/frontend subfolder (if present)
+academic-chain-front-main/node_modules/
+academic-chain-front-main/.next/
+academic-chain-front-main/out/
+academic-chain-front-main/build/
+academic-chain-front-main/dist/
+
+# Misc local-only folders
+Failure Logs/

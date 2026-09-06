@@ -1,0 +1,268 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1759523678044,
+    "updatedAt": 1759523776304,
+    "payload": {
+      "prompt": "Create a single Solidity smart contract named NGODonation for campaign-based ETH donations.\n\nConstraints:\n- Single .sol file, no external imports. Include SPDX-License-Identifier: MIT and pragma ^0.8.20.\n- Implement minimal Ownable, Pausable, and ReentrancyGuard patterns inline to avoid external dependencies.\n\nFeatures:\n- Owner can create campaigns: createCampaign(string name, string metadataURI, address payable beneficiary, uint256 goal) returns (uint256 campaignId).\n- Donors can donate ETH: donate(uint256 campaignId, string message) payable whenNotPaused nonReentrant. Track donor totals and campaign totals.\n- Beneficiary can withdraw funds from their campaign: withdraw(uint256 campaignId, uint256 amount) nonReentrant; transfer via call; update balances.\n- Owner or beneficiary can closeCampaign(uint256 campaignId). Closed campaigns cannot accept donations.\n- Events: CampaignCreated, DonationReceived, FundsWithdrawn, CampaignClosed.\n- Views: getCampaign(uint256), campaignCount(), donorTotal(uint256,address), campaignRaised(uint256).\n\nSecurity & UX:\n- Clear require messages, check active campaigns, and prevent reentrancy.\n- Make constructor require no arguments.\n",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "NGODonation",
+      "filename": "NGODonation.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1759523678044
+      },
+      {
+        "step": "generate",
+        "t": 1759523678045
+      },
+      {
+        "step": "write",
+        "t": 1759523723690
+      },
+      {
+        "step": "compile",
+        "t": 1759523723691
+      },
+      {
+        "step": "fix",
+        "t": 1759523725122
+      },
+      {
+        "step": "deploy_script",
+        "t": 1759523764804
+      },
+      {
+        "step": "deploy",
+        "t": 1759523764805
+      }
+    ],
+    "timings": {
+      "startedAt": 1759523678044,
+      "endedAt": 1759523776304,
+      "phases": {
+        "init": {
+          "startedAt": 1759523678044,
+          "endedAt": 1759523678045
+        },
+        "generate": {
+          "startedAt": 1759523678045,
+          "endedAt": 1759523723690
+        },
+        "write": {
+          "startedAt": 1759523723690,
+          "endedAt": 1759523723691
+        },
+        "compile": {
+          "startedAt": 1759523723691,
+          "endedAt": 1759523725122
+        },
+        "fix": {
+          "startedAt": 1759523725122,
+          "endedAt": 1759523764804
+        },
+        "deploy_script": {
+          "startedAt": 1759523764804,
+          "endedAt": 1759523764805
+        },
+        "deploy": {
+          "startedAt": 1759523764805,
+          "endedAt": 1759523776304
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "NGODonation",
+      "fqName": "contracts/AI_ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21_NGODonation.sol:NGODonation",
+      "address": "0x0e0fef97cd26C5d14B9608AF06613f188BBdb0dA",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1759523678044,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=NGODonation.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1759523678044,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1759523678045,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1759523678045,
+        "level": "debug",
+        "msg": "Enhanced prompt length=2340"
+      },
+      {
+        "i": 5,
+        "t": 1759523723690,
+        "level": "debug",
+        "msg": "generate_ai_response_len=9602 ai_ms=45645"
+      },
+      {
+        "i": 6,
+        "t": 1759523723690,
+        "level": "info",
+        "msg": "Generation done in 45645ms. Code size=9706"
+      },
+      {
+        "i": 7,
+        "t": 1759523723690,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1759523723691,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1759523725062,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21_NGODonation.sol\n\n\n"
+      },
+      {
+        "i": 10,
+        "t": 1759523725063,
+        "level": "error",
+        "msg": "DocstringParsingError: Documentation tag \"@return A tuple containing the campaign's details.\" does not contain the name of its return parameter.\n   --> contracts/AI_ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21_NGODonation.sol:220:5:\n    |\n220 |     /**\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 11,
+        "t": 1759523725088,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "i": 12,
+        "t": 1759523725088,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "i": 13,
+        "t": 1759523725089,
+        "level": "error",
+        "msg": "HardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n"
+      },
+      {
+        "i": 14,
+        "t": 1759523725122,
+        "level": "debug",
+        "msg": "iter 1/11: compile failed in 1431ms"
+      },
+      {
+        "i": 15,
+        "t": 1759523725122,
+        "level": "warn",
+        "msg": "Compile failed (iter 0). Running AI fix. Error length=1806"
+      },
+      {
+        "i": 16,
+        "t": 1759523725122,
+        "level": "debug",
+        "msg": "pipeline_fix_prompt_len=12231"
+      },
+      {
+        "i": 17,
+        "t": 1759523762283,
+        "level": "debug",
+        "msg": "pipeline_ai_fix_response_len=10156 ai_ms=37161"
+      },
+      {
+        "i": 18,
+        "t": 1759523764765,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21_NGODonation.sol\n\n\n"
+      },
+      {
+        "i": 19,
+        "t": 1759523764774,
+        "level": "info",
+        "msg": "Compiled 1 Solidity file successfully (evm target: paris).\n"
+      },
+      {
+        "i": 20,
+        "t": 1759523764803,
+        "level": "debug",
+        "msg": "iter 2/11: compile ok in 2520ms"
+      },
+      {
+        "i": 21,
+        "t": 1759523764803,
+        "level": "info",
+        "msg": "Compile success after 1 fix iterations."
+      },
+      {
+        "i": 22,
+        "t": 1759523764804,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: NGODonation"
+      },
+      {
+        "i": 23,
+        "t": 1759523764804,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract NGODonation"
+      },
+      {
+        "i": 24,
+        "t": 1759523764804,
+        "level": "info",
+        "msg": "Contract chosen for deploy: NGODonation"
+      },
+      {
+        "i": 25,
+        "t": 1759523764805,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "i": 26,
+        "t": 1759523776264,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"NGODonation\",\"fqName\":\"contracts/AI_ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21_NGODonation.sol:NGODonation\",\"address\":\"0x0e0fef97cd26C5d14B9608AF06613f188BBdb0dA\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 27,
+        "t": 1759523776304,
+        "level": "info",
+        "msg": "Deploy success. Address=0x0e0fef97cd26C5d14B9608AF06613f188BBdb0dA"
+      }
+    ],
+    "_logIndex": 27,
+    "logsCount": 27,
+    "lastLogTs": 1759523776304,
+    "lastErrors": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21_NGODonation.sol\n\n\nDocstringParsingError: Documentation tag \"@return A tuple containing the campaign's details.\" does not contain the name of its return parameter.\n   --> contracts/AI_ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21_NGODonation.sol:220:5:\n    |\n220 |     /**\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\nError HH600: Compilation failed\nHardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n\n\n",
+    "contractName": "NGODonation",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"NGODonation\",\"fqName\":\"contracts/AI_ai_pipeline_17a77c7f-0c82-461d-9915-f52fcfb82f21_NGODonation.sol:NGODonation\",\"address\":\"0x0e0fef97cd26C5d14B9608AF06613f188BBdb0dA\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,1749 @@
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)
+
+[info] Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1428
+[info] Generation done in 121371ms. Code size=11683
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+[info] 
+
+[info] Compiled 9 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 0 fix iterations.
+[debug] Artifact chosen for deploy: VestingVaultMulti
+[info] Stage: deploy_script -> contract VestingVaultMulti
+[info] Stage: deploy -> network basecamp
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented
+    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)
+    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)
+    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60
+    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)
+    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)
+    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22
+    at Array.map (<anonymous>)
+    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)
+    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)

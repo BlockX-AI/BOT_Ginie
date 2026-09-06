@@ -1,0 +1,5 @@
+{"i":1,"t":1768228600193,"level":"info","msg":"Pipeline started. Network=basecamp, maxIters=11, file=DungeonCrawler.sol, strictArgs=true"}
+{"i":2,"t":1768228600193,"level":"debug","msg":"config: maxIters=11 (hardCap=51)"}
+{"i":3,"t":1768228600194,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1768228600196,"level":"debug","msg":"Enhanced prompt length=1484"}
+{"i":5,"t":1768228600196,"level":"warn","msg":"game_classification_low_confidence: 20.8% - using legacy prompts"}

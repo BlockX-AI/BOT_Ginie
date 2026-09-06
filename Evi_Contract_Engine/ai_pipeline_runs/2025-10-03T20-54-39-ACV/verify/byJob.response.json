@@ -1,0 +1,6 @@
+{
+  "ok": true,
+  "verified": true,
+  "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xE1DA55F525c817ADB63fE975fb99A8846AaD87ba#code",
+  "stdout": "[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:\n\nsourcify: {\n  enabled: true\n}\n\nOr set 'enabled' to false to hide this message.\n\nFor more information, visit https://hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify\nSuccessfully submitted source code for contract\ncontracts/AI_ai_pipeline_24cd7aa7-276b-411d-9dd2-381119293c5c_NGODonation.sol:NGODonation at 0xE1DA55F525c817ADB63fE975fb99A8846AaD87ba\nfor verification on the block explorer. Waiting for verification result...\n\nSuccessfully verified contract NGODonation on the block explorer.\nhttps://basecamp.cloud.blockscout.com/address/0xE1DA55F525c817ADB63fE975fb99A8846AaD87ba#code\n\n"
+}

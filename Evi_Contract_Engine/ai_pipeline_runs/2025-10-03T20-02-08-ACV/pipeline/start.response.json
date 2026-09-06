@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1759521729089,
+    "updatedAt": 1759521729089,
+    "payload": {
+      "prompt": "I need two Solidity smart contracts that work together for an INR-backed token and a Uniswap v4 hook for UPI withdrawals.\nIndian Rupee Token (INRT)\nIt’s an ERC-20 token named “Indian Rupee Token” with symbol “INRT”.\nIt represents rupees backed 1:1 by real bank deposits.\nOnly the owner can mint tokens after confirming a bank deposit, and each mint is tied to a unique bankTxIdso the same deposit can’t be counted twice.\nWhen users withdraw to a UPI bank account, tokens must be burned.\nThe burn can be triggered either by the owner or by a separate Hook contract that we’ll build.\nKeep a running total of the real INR reserves in totalBankReserves.\nIncrease reserves on mint, decrease on burn.\nTrack every withdrawal request in a struct containing the user’s address, amount, UPI ID, timestamp, and a processed flag.\nEmit events whenever tokens are minted, burned, or a withdrawal is requested, so the backend can listen to them.\nInclude pausable transfers for emergencies.\nOwner should be able to pause/unpause, authorize or revoke the hook contract, and mark a withdrawal as processed after the INR is actually paid out.\nAdd view functions to check a withdrawal’s details, whether a bankTxId has been processed, and a backing-ratio view that reports totalBankReserves ÷ totalSupply.\nCryptoUPIHook\n\nDon’t add any features that aren’t described above.",
+      "network": "base-sepolia",
+      "maxIters": 11,
+      "providedName": "INRT",
+      "filename": "INRTAndCryptoUPIHook.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1759521729089
+      }
+    ],
+    "timings": {
+      "startedAt": 1759521729089,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1759521729089
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1759521729089,
+        "level": "info",
+        "msg": "Pipeline started. Network=base-sepolia, maxIters=11, file=INRTAndCryptoUPIHook.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1759521729089,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1759521729089
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "address": "0x1B3Bc8db00cE9CE051A48327727105E974e60b9b",
+  "name": "MarketChannelProxy",
+  "compiler": "v0.8.20+commit.a1b79de6",
+  "optimization": false,
+  "evmVersion": "paris",
+  "isProxy": false,
+  "implementation": null,
+  "retrievedAt": "2025-10-13T11:00:17.683Z"
+}

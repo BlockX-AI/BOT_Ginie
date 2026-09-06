@@ -1,0 +1,791 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287",
+  "scope": "job:ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287_SafeTreasuryTimelock.sol",
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\nimport \"@openzeppelin/contracts/access/AccessControl.sol\";\nimport \"@openzeppelin/contracts/security/Pausable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\nimport \"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol\";\nimport \"@openzeppelin/contracts/token/ERC20/IERC20.sol\";\nimport \"@openzeppelin/contracts/utils/Address.sol\";\n\n/**\n * @title SafeTreasuryTimelock\n * @author Your Name\n * @notice A multi-signature-like treasury with role-based access control and a\n * mandatory timelock for queued ETH and ERC20 token transfers.\n *\n * This contract uses four distinct roles for managing operations:\n * - ADMIN_ROLE: Manages roles and contract parameters like the minimum delay.\n * - PROPOSER_ROLE: Can queue new transfer operations.\n * - EXECUTOR_ROLE: Can execute queued operations after the timelock delay has passed.\n * - CANCELLER_ROLE: Can cancel a queued operation.\n *\n * All transfers must be queued and can only be executed after a configurable `minDelay`.\n * Operations are identified by a unique hash of their parameters. The contract can be\n * paused by an ADMIN, which prevents the execution of operations.\n */\ncontract SafeTreasuryTimelock is AccessControl, Pausable, ReentrancyGuard {\n    using SafeERC20 for IERC20;\n\n    // --- Events ---\n    event OperationQueued(\n        bytes32 indexed id,\n        address indexed proposer,\n        address target,\n        address token,\n        address recipient,\n        uint256 amount,\n        uint256 eta,\n        bytes32 salt\n    );\n    event OperationExecuted(bytes32 indexed id, address indexed executor);\n    event OperationCancelled(bytes32 indexed id, address indexed canceller);\n    event MinDelayChanged(uint256 oldDelay, uint256 newDelay);\n\n    // --- Roles ---\n    bytes32 public constant ADMIN_ROLE = DEFAULT_ADMIN_ROLE;\n    bytes32 public constant PROPOSER_ROLE = keccak256(\"PROPOSER_ROLE\");\n    bytes32 public constant EXECUTOR_ROLE = keccak256(\"EXECUTOR_ROLE\");\n    bytes32 public constant CANCELLER_ROLE = keccak256(\"CANCELLER_ROLE\");\n\n    // --- State ---\n    enum State { Unused, Queued, Executed, Cancelled }\n\n    uint256 public minDelay;\n    uint256 public constant GRACE_PERIOD = 14 days;\n\n    mapping(bytes32 => State) public operations;\n    mapping(bytes32 => uint256) public operationEtas;\n\n    // For listing pending operations\n    bytes32[] private _pendingOperationIds;\n    mapping(bytes32 => uint256) private _pendingOperationIndex;\n\n    // --- Custom Errors ---\n    error InvalidEta(uint256 providedEta, uint256 minEta);\n    error OperationAlreadyExists(bytes32 id);\n    error OperationNotQueued(bytes32 id);\n    error TimestampNotInWindow(uint256 blockTimestamp, uint256 eta);\n    error InvalidTransferParams();\n\n    // --- Constructor ---\n    constructor(\n        address initialAdmin,\n        address[] memory initialProposers,\n        address[] memory initialExecutors,\n        address[] memory initialCancellers,\n        uint256 initialMinDelay\n    ) {\n        _grantRole(ADMIN_ROLE, initialAdmin);\n\n        for (uint256 i = 0; i < initialProposers.length; i++) {\n            _grantRole(PROPOSER_ROLE, initialProposers[i]);\n        }\n        for (uint256 i = 0; i < initialExecutors.length; i++) {\n            _grantRole(EXECUTOR_ROLE, initialExecutors[i]);\n        }\n        for (uint256 i = 0; i < initialCancellers.length; i++) {\n            _grantRole(CANCELLER_ROLE, initialCancellers[i]);\n        }\n        \n        minDelay = initialMinDelay;\n        emit MinDelayChanged(0, initialMinDelay);\n    }\n    \n    // --- Receive ETH ---\n    receive() external payable {}\n\n    // --- Admin and Pausable Functions ---\n    /**\n     * @notice Pauses the contract, preventing operation execution.\n     * @dev Can only be called by an account with the ADMIN_ROLE.\n     */\n    function pause() public onlyRole(ADMIN_ROLE) {\n        _pause();\n    }\n\n    /**\n     * @notice Unpauses the contract, re-enabling operation execution.\n     * @dev Can only be called by an account with the ADMIN_ROLE.\n     */\n    function unpause() public onlyRole(ADMIN_ROLE) {\n        _unpause();\n    }\n\n    /**\n     * @notice Updates the minimum delay for new operations.\n     * @dev Can only be called by an account with the ADMIN_ROLE.\n     * @param newMinDelay The new minimum delay in seconds.\n     */\n    function updateMinDelay(uint256 newMinDelay) public onlyRole(ADMIN_ROLE) {\n        uint256 oldDelay = minDelay;\n        minDelay = newMinDelay;\n        emit MinDelayChanged(oldDelay, newMinDelay);\n    }\n\n    // --- Core Logic ---\n    /**\n     * @notice Queues a transfer operation.\n     * @dev The `eta` must be at least `block.timestamp + minDelay`.\n     * For ETH transfers, `token` and `target` must be the zero address.\n     * For ERC20 transfers, `token` and `target` must be the token's contract address.\n     * @param target For ERC20, the token address. For ETH, the zero address.\n     * @param token The token address, or zero address for ETH.\n     * @param recipient The recipient of the funds.\n     * @param amount The amount of tokens or ETH to transfer.\n     * @param eta The estimated time of arrival (execution time).\n     * @param salt A random value to ensure operation uniqueness.\n     */\n    function queue(\n        address target,\n        address token,\n        address recipient,\n        uint256 amount,\n        uint256 eta,\n        bytes32 salt\n    ) public onlyRole(PROPOSER_ROLE) {\n        uint256 minEta = block.timestamp + minDelay;\n        if (eta < minEta) {\n            revert InvalidEta(eta, minEta);\n        }\n\n        if ((token == address(0) && target != address(0)) || (token != address(0) && target != token)) {\n            revert InvalidTransferParams();\n        }\n\n        bytes32 id = hashOperation(target, token, recipient, amount, eta, salt);\n\n        if (operations[id] != State.Unused) {\n            revert OperationAlreadyExists(id);\n        }\n\n        operations[id] = State.Queued;\n        operationEtas[id] = eta;\n        \n        _addPendingOperation(id);\n\n        emit OperationQueued(id, _msgSender(), target, token, recipient, amount, eta, salt);\n    }\n\n    /**\n     * @notice Executes a queued transfer operation.\n     * @dev Can only be executed after `eta` and before `eta + GRACE_PERIOD`.\n     * The contract must hold the funds to be transferred.\n     * This function is protected against reentrancy and is disabled when paused.\n     */\n    function execute(\n        address target,\n        address token,\n        address recipient,\n        uint256 amount,\n        uint256 eta,\n        bytes32 salt\n    ) public onlyRole(EXECUTOR_ROLE) whenNotPaused nonReentrant {\n        bytes32 id = hashOperation(target, token, recipient, amount, eta, salt);\n\n        if (operations[id] != State.Queued) {\n            revert OperationNotQueued(id);\n        }\n        \n        if (block.timestamp < operationEtas[id] || block.timestamp > operationEtas[id] + GRACE_PERIOD) {\n            revert TimestampNotInWindow(block.timestamp, operationEtas[id]);\n        }\n\n        operations[id] = State.Executed;\n        _removePendingOperation(id);\n\n        _performTransfer(token, recipient, amount);\n\n        emit OperationExecuted(id, _msgSender());\n    }\n\n    /**\n     * @notice Cancels a queued operation.\n     * @param id The unique identifier of the operation to cancel.\n     */\n    function cancel(bytes32 id) public onlyRole(CANCELLER_ROLE) {\n        if (operations[id] != State.Queued) {\n            revert OperationNotQueued(id);\n        }\n        \n        operations[id] = State.Cancelled;\n        _removePendingOperation(id);\n\n        emit OperationCancelled(id, _msgSender());\n    }\n\n    // --- Private Helpers ---\n    function _performTransfer(\n        address token,\n        address recipient,\n        uint256 amount\n    ) private {\n        if (token == address(0)) {\n            Address.sendValue(payable(recipient), amount);\n        } else {\n            IERC20(token).safeTransfer(recipient, amount);\n        }\n    }\n    \n    function _addPendingOperation(bytes32 id) private {\n        _pendingOperationIndex[id] = _pendingOperationIds.length;\n        _pendingOperationIds.push(id);\n    }\n    \n    function _removePendingOperation(bytes32 id) private {\n        uint256 index = _pendingOperationIndex[id];\n        uint256 lastIndex = _pendingOperationIds.length - 1;\n        if (index != lastIndex) {\n            bytes32 lastId = _pendingOperationIds[lastIndex];\n            _pendingOperationIds[index] = lastId;\n            _pendingOperationIndex[lastId] = index;\n        }\n        \n        _pendingOperationIds.pop();\n        delete _pendingOperationIndex[id];\n    }\n\n    // --- Views ---\n    /**\n     * @notice Gets the state and ETA of a specific operation.\n     * @param id The unique identifier of the operation.\n     * @return state The current state of the operation.\n     * @return eta The scheduled execution timestamp of the operation.\n     */\n    function getOperation(bytes32 id) public view returns (State state, uint256 eta) {\n        return (operations[id], operationEtas[id]);\n    }\n    \n    /**\n     * @notice Returns an array of all pending operation IDs.\n     * @dev Useful for UIs to display all operations awaiting execution or cancellation.\n     */\n    function getPendingOperations() public view returns (bytes32[] memory) {\n        return _pendingOperationIds;\n    }\n\n    /**\n     * @notice Computes the unique identifier for an operation.\n     * @dev Pure function that can be called off-chain to predict an operation's ID.\n     */\n    function hashOperation(\n        address target,\n        address token,\n        address recipient,\n        uint256 amount,\n        uint256 eta,\n        bytes32 salt\n    ) public pure returns (bytes32) {\n        return keccak256(abi.encode(target, token, recipient, amount, eta, salt));\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287_SafeTreasuryTimelock.sol/SafeTreasuryTimelock.json",
+      "name": "SafeTreasuryTimelock",
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "initialAdmin",
+              "type": "address"
+            },
+            {
+              "internalType": "address[]",
+              "name": "initialProposers",
+              "type": "address[]"
+            },
+            {
+              "internalType": "address[]",
+              "name": "initialExecutors",
+              "type": "address[]"
+            },
+            {
+              "internalType": "address[]",
+              "name": "initialCancellers",
+              "type": "address[]"
+            },
+            {
+              "internalType": "uint256",
+              "name": "initialMinDelay",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "providedEta",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minEta",
+              "type": "uint256"
+            }
+          ],
+          "name": "InvalidEta",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "InvalidTransferParams",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            }
+          ],
+          "name": "OperationAlreadyExists",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            }
+          ],
+          "name": "OperationNotQueued",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "blockTimestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "eta",
+              "type": "uint256"
+            }
+          ],
+          "name": "TimestampNotInWindow",
+          "type": "error"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "oldDelay",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newDelay",
+              "type": "uint256"
+            }
+          ],
+          "name": "MinDelayChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "canceller",
+              "type": "address"
+            }
+          ],
+          "name": "OperationCancelled",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "executor",
+              "type": "address"
+            }
+          ],
+          "name": "OperationExecuted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "proposer",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "target",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "eta",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "bytes32",
+              "name": "salt",
+              "type": "bytes32"
+            }
+          ],
+          "name": "OperationQueued",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32"
+            }
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleGranted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleRevoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "ADMIN_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "CANCELLER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "EXECUTOR_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "GRACE_PERIOD",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "PROPOSER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            }
+          ],
+          "name": "cancel",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "target",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "eta",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "salt",
+              "type": "bytes32"
+            }
+          ],
+          "name": "execute",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getOperation",
+          "outputs": [
+            {
+              "internalType": "enum SafeTreasuryTimelock.State",
+              "name": "state",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "eta",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getPendingOperations",
+          "outputs": [
+            {
+              "internalType": "bytes32[]",
+              "name": "",
+              "type": "bytes32[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getRoleAdmin",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "grantRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "hasRole",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "target",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "eta",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "salt",
+              "type": "bytes32"
+            }
+          ],
+          "name": "hashOperation",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "minDelay",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "name": "operationEtas",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "name": "operations",
+          "outputs": [
+            {
+              "internalType": "enum SafeTreasuryTimelock.State",
+              "name": "",
+              "type": "uint8"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "target",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "eta",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "salt",
+              "type": "bytes32"
+            }
+          ],
+          "name": "queue",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "renounceRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "revokeRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "newMinDelay",
+              "type": "uint256"
+            }
+          ],
+          "name": "updateMinDelay",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "stateMutability": "payable",
+          "type": "receive"
+        }
+      ],
+      "bytecode": "0x60806040523480156200001157600080fd5b5060405162001c8138038062001c81833981016040819052620000349162000344565b6001805460ff191681556002556200004e600086620001c3565b60005b8451811015620000be57620000a97fb09aa5aeb3702cfd50b6b62bc4532604938f21248a27a1d5ca736082b6819cc1868381518110620000955762000095620003f3565b6020026020010151620001c360201b60201c565b80620000b58162000409565b91505062000051565b5060005b83518110156200011b57620001067fd8aa0f3194971a2a116679f7c2090f6939c8d4e01a2a8d7e41d55e5351469e63858381518110620000955762000095620003f3565b80620001128162000409565b915050620000c2565b5060005b82518110156200017857620001637ffd643c72710c63c0180259aba6b2d05451e3591a24e58b62239378085726f783848381518110620000955762000095620003f3565b806200016f8162000409565b9150506200011f565b5060038190556040805160008152602081018390527f45854098aeafd91c38d730a2133b7b6ce90e04244182352141cf7d865281e347910160405180910390a1505050505062000431565b6000828152602081815260408083206001600160a01b038516845290915290205460ff1662000260576000828152602081815260408083206001600160a01b03851684529091529020805460ff191660011790556200021f3390565b6001600160a01b0316816001600160a01b0316837f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d60405160405180910390a45b5050565b80516001600160a01b03811681146200027c57600080fd5b919050565b634e487b7160e01b600052604160045260246000fd5b600082601f830112620002a957600080fd5b815160206001600160401b0380831115620002c857620002c862000281565b8260051b604051601f19603f83011681018181108482111715620002f057620002f062000281565b6040529384528581018301938381019250878511156200030f57600080fd5b83870191505b848210156200033957620003298262000264565b8352918301919083019062000315565b979650505050505050565b600080600080600060a086880312156200035d57600080fd5b620003688662000264565b60208701519095506001600160401b03808211156200038657600080fd5b6200039489838a0162000297565b95506040880151915080821115620003ab57600080fd5b620003b989838a0162000297565b94506060880151915080821115620003d057600080fd5b50620003df8882890162000297565b925050608086015190509295509295909350565b634e487b7160e01b600052603260045260246000fd5b6000600182016200042a57634e487b7160e01b600052601160045260246000fd5b5060010190565b61184080620004416000396000f3fe60806040526004361061016a5760003560e01c80638a99d586116100d1578063b7a60a851161008a578063c583a6ea11610064578063c583a6ea14610470578063c63c4e9b14610490578063c74f349b146104a6578063d547741f146104e357600080fd5b8063b7a60a8514610419578063c1a287e214610439578063c4d252f51461045057600080fd5b80638a99d586146103515780638f61f4f514610371578063914b38d9146103a557806391d14854146103c5578063a217fddf14610327578063b08e51c0146103e557600080fd5b806336568abe1161012357806336568abe146102b85780633f4ba83a146102d85780635c975abb146102ed57806364440ce51461030557806375b238fc146103275780638456cb591461033c57600080fd5b806301ffc9a71461017657806307bd0265146101ab5780631d7c6295146101ed578063248a9ca31461021a578063279412c51461024a5780632f2ff15d1461029657600080fd5b3661017157005b600080fd5b34801561018257600080fd5b5061019661019136600461148c565b610503565b60405190151581526020015b60405180910390f35b3480156101b757600080fd5b506101df7fd8aa0f3194971a2a116679f7c2090f6939c8d4e01a2a8d7e41d55e5351469e6381565b6040519081526020016101a2565b3480156101f957600080fd5b506101df6102083660046114b6565b60056020526000908152604090205481565b34801561022657600080fd5b506101df6102353660046114b6565b60009081526020819052604090206001015490565b34801561025657600080fd5b506102886102653660046114b6565b60009081526004602090815260408083205460059092529091205460ff90911691565b6040516101a2929190611507565b3480156102a257600080fd5b506102b66102b136600461153e565b61053a565b005b3480156102c457600080fd5b506102b66102d336600461153e565b610564565b3480156102e457600080fd5b506102b66105e7565b3480156102f957600080fd5b5060015460ff16610196565b34801561031157600080fd5b5061031a6105fd565b6040516101a2919061156a565b34801561033357600080fd5b506101df600081565b34801561034857600080fd5b506102b6610655565b34801561035d57600080fd5b506102b661036c3660046114b6565b610668565b34801561037d57600080fd5b506101df7fb09aa5aeb3702cfd50b6b62bc4532604938f21248a27a1d5ca736082b6819cc181565b3480156103b157600080fd5b506102b66103c03660046115ae565b6106b9565b3480156103d157600080fd5b506101966103e036600461153e565b61089f565b3480156103f157600080fd5b506101df7ffd643c72710c63c0180259aba6b2d05451e3591a24e58b62239378085726f78381565b34801561042557600080fd5b506102b66104343660046115ae565b6108c8565b34801561044557600080fd5b506101df6212750081565b34801561045c57600080fd5b506102b661046b3660046114b6565b610a36565b34801561047c57600080fd5b506101df61048b3660046115ae565b610af9565b34801561049c57600080fd5b506101df60035481565b3480156104b257600080fd5b506104d66104c13660046114b6565b60046020526000908152604090205460ff1681565b6040516101a2919061160d565b3480156104ef57600080fd5b506102b66104fe36600461153e565b610b38565b60006001600160e01b03198216637965db0b60e01b148061053457506301ffc9a760e01b6001600160e01b03198316145b92915050565b60008281526020819052604090206001015461055581610b5d565b61055f8383610b67565b505050565b6001600160a01b03811633146105d95760405162461bcd60e51b815260206004820152602f60248201527f416363657373436f6e74726f6c3a2063616e206f6e6c792072656e6f756e636560448201526e103937b632b9903337b91039b2b63360891b60648201526084015b60405180910390fd5b6105e38282610beb565b5050565b60006105f281610b5d565b6105fa610c50565b50565b6060600680548060200260200160405190810160405280929190818152602001828054801561064b57602002820191906000526020600020905b815481526020019060010190808311610637575b5050505050905090565b600061066081610b5d565b6105fa610ca2565b600061067381610b5d565b600380549083905560408051828152602081018590527f45854098aeafd91c38d730a2133b7b6ce90e04244182352141cf7d865281e347910160405180910390a1505050565b7fb09aa5aeb3702cfd50b6b62bc4532604938f21248a27a1d5ca736082b6819cc16106e381610b5d565b6000600354426106f39190611631565b9050808410156107205760405163add6515f60e01b815260048101859052602481018290526044016105d0565b6001600160a01b03871615801561073f57506001600160a01b03881615155b8061076f57506001600160a01b0387161580159061076f5750866001600160a01b0316886001600160a01b031614155b1561078d576040516349b89fb160e11b815260040160405180910390fd5b600061079d898989898989610af9565b90506000808281526004602052604090205460ff1660038111156107c3576107c36114cf565b146107e4576040516315fd53e760e21b8152600481018290526024016105d0565b6000818152600460209081526040808320805460ff1916600190811790915560058352818420899055600680546007909452918420839055820181559091527ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f01819055336001600160a01b0316817fb81f04eb971b86091ab9821d5d8441d8749a75d9a04a19f0efb588a163abf36c8b8b8b8b8b8b60405161088c96959493929190611644565b60405180910390a3505050505050505050565b6000918252602082815260408084206001600160a01b0393909316845291905290205460ff1690565b7fd8aa0f3194971a2a116679f7c2090f6939c8d4e01a2a8d7e41d55e5351469e636108f281610b5d565b6108fa610cdd565b610902610d25565b6000610912888888888888610af9565b9050600160008281526004602052604090205460ff166003811115610939576109396114cf565b1461095a5760405163f80a117b60e01b8152600481018290526024016105d0565b600081815260056020526040902054421080610991575060008181526005602052604090205461098e906212750090611631565b42115b156109c957600081815260056020526040908190205490516377ac9d6b60e01b815242600482015260248101919091526044016105d0565b6000818152600460205260409020805460ff191660021790556109eb81610d7c565b6109f6878787610e39565b604051339082907e1d1d6b8d664ddc069841e54d003c4a632a7392aa33ef7f83806380c2bc687390600090a350610a2d6001600255565b50505050505050565b7ffd643c72710c63c0180259aba6b2d05451e3591a24e58b62239378085726f783610a6081610b5d565b600160008381526004602052604090205460ff166003811115610a8557610a856114cf565b14610aa65760405163f80a117b60e01b8152600481018390526024016105d0565b6000828152600460205260409020805460ff19166003179055610ac882610d7c565b604051339083907f55e0dd61c29aac6fc36807628300ad3e3ec68655ae76ae4002f7fb101496fa9f90600090a35050565b6000868686868686604051602001610b1696959493929190611644565b6040516020818303038152906040528051906020012090509695505050505050565b600082815260208190526040902060010154610b5381610b5d565b61055f8383610beb565b6105fa8133610e65565b610b71828261089f565b6105e3576000828152602081815260408083206001600160a01b03851684529091529020805460ff19166001179055610ba73390565b6001600160a01b0316816001600160a01b0316837f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d60405160405180910390a45050565b610bf5828261089f565b156105e3576000828152602081815260408083206001600160a01b0385168085529252808320805460ff1916905551339285917ff6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b9190a45050565b610c58610ebe565b6001805460ff191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b610caa610cdd565b6001805460ff1916811790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a25833610c85565b60015460ff1615610d235760405162461bcd60e51b815260206004820152601060248201526f14185d5cd8589b194e881c185d5cd95960821b60448201526064016105d0565b565b6002805403610d765760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c0060448201526064016105d0565b60028055565b600081815260076020526040812054600654909190610d9d9060019061167d565b9050808214610dfc57600060068281548110610dbb57610dbb611690565b906000526020600020015490508060068481548110610ddc57610ddc611690565b600091825260208083209091019290925591825260079052604090208290555b6006805480610e0d57610e0d6116a6565b600082815260208082208301600019908101839055909201909255938152600790935250506040812055565b6001600160a01b038316610e515761055f8282610f07565b61055f6001600160a01b0384168383611020565b610e6f828261089f565b6105e357610e7c81611072565b610e87836020611084565b604051602001610e989291906116e0565b60408051601f198184030181529082905262461bcd60e51b82526105d091600401611755565b60015460ff16610d235760405162461bcd60e51b815260206004820152601460248201527314185d5cd8589b194e881b9bdd081c185d5cd95960621b60448201526064016105d0565b80471015610f575760405162461bcd60e51b815260206004820152601d60248201527f416464726573733a20696e73756666696369656e742062616c616e636500000060448201526064016105d0565b6000826001600160a01b03168260405160006040518083038185875af1925050503d8060008114610fa4576040519150601f19603f3d011682016040523d82523d6000602084013e610fa9565b606091505b505090508061055f5760405162461bcd60e51b815260206004820152603a60248201527f416464726573733a20756e61626c6520746f2073656e642076616c75652c207260448201527f6563697069656e74206d6179206861766520726576657274656400000000000060648201526084016105d0565b604080516001600160a01b038416602482015260448082018490528251808303909101815260649091019091526020810180516001600160e01b031663a9059cbb60e01b17905261055f908490611227565b60606105346001600160a01b03831660145b60606000611093836002611788565b61109e906002611631565b67ffffffffffffffff8111156110b6576110b661179f565b6040519080825280601f01601f1916602001820160405280156110e0576020820181803683370190505b509050600360fc1b816000815181106110fb576110fb611690565b60200101906001600160f81b031916908160001a905350600f60fb1b8160018151811061112a5761112a611690565b60200101906001600160f81b031916908160001a905350600061114e846002611788565b611159906001611631565b90505b60018111156111d1576f181899199a1a9b1b9c1cb0b131b232b360811b85600f166010811061118d5761118d611690565b1a60f81b8282815181106111a3576111a3611690565b60200101906001600160f81b031916908160001a90535060049490941c936111ca816117b5565b905061115c565b5083156112205760405162461bcd60e51b815260206004820181905260248201527f537472696e67733a20686578206c656e67746820696e73756666696369656e7460448201526064016105d0565b9392505050565b600061127c826040518060400160405280602081526020017f5361666545524332303a206c6f772d6c6576656c2063616c6c206661696c6564815250856001600160a01b03166112fc9092919063ffffffff16565b905080516000148061129d57508080602001905181019061129d91906117cc565b61055f5760405162461bcd60e51b815260206004820152602a60248201527f5361666545524332303a204552433230206f7065726174696f6e20646964206e6044820152691bdd081cdd58d8d9595960b21b60648201526084016105d0565b606061130b8484600085611313565b949350505050565b6060824710156113745760405162461bcd60e51b815260206004820152602660248201527f416464726573733a20696e73756666696369656e742062616c616e636520666f6044820152651c8818d85b1b60d21b60648201526084016105d0565b600080866001600160a01b0316858760405161139091906117ee565b60006040518083038185875af1925050503d80600081146113cd576040519150601f19603f3d011682016040523d82523d6000602084013e6113d2565b606091505b50915091506113e3878383876113ee565b979650505050505050565b6060831561145d578251600003611456576001600160a01b0385163b6114565760405162461bcd60e51b815260206004820152601d60248201527f416464726573733a2063616c6c20746f206e6f6e2d636f6e747261637400000060448201526064016105d0565b508161130b565b61130b83838151156114725781518083602001fd5b8060405162461bcd60e51b81526004016105d09190611755565b60006020828403121561149e57600080fd5b81356001600160e01b03198116811461122057600080fd5b6000602082840312156114c857600080fd5b5035919050565b634e487b7160e01b600052602160045260246000fd5b6004811061150357634e487b7160e01b600052602160045260246000fd5b9052565b6040810161151582856114e5565b8260208301529392505050565b80356001600160a01b038116811461153957600080fd5b919050565b6000806040838503121561155157600080fd5b8235915061156160208401611522565b90509250929050565b6020808252825182820181905260009190848201906040850190845b818110156115a257835183529284019291840191600101611586565b50909695505050505050565b60008060008060008060c087890312156115c757600080fd5b6115d087611522565b95506115de60208801611522565b94506115ec60408801611522565b9350606087013592506080870135915060a087013590509295509295509295565b6020810161053482846114e5565b634e487b7160e01b600052601160045260246000fd5b808201808211156105345761053461161b565b6001600160a01b03968716815294861660208601529290941660408401526060830152608082019290925260a081019190915260c00190565b818103818111156105345761053461161b565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052603160045260246000fd5b60005b838110156116d75781810151838201526020016116bf565b50506000910152565b7f416363657373436f6e74726f6c3a206163636f756e74200000000000000000008152600083516117188160178501602088016116bc565b7001034b99036b4b9b9b4b733903937b6329607d1b60179184019182015283516117498160288401602088016116bc565b01602801949350505050565b60208152600082518060208401526117748160408501602087016116bc565b601f01601f19169190910160400192915050565b80820281158282048414176105345761053461161b565b634e487b7160e01b600052604160045260246000fd5b6000816117c4576117c461161b565b506000190190565b6000602082840312156117de57600080fd5b8151801515811461122057600080fd5b600082516118008184602087016116bc565b919091019291505056fea26469706673582212205a7042a1e5859a54f0aa91849a93f5e8f2fae1277b4598b4fadb80b1181e8b2964736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287.js",
+      "content": "// Auto-generated by AI pipeline for job ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287_SafeTreasuryTimelock.sol:SafeTreasuryTimelock\");\n  const args = [\"uint256 minDelaySeconds\"];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"SafeTreasuryTimelock\", fqName: \"contracts/AI_ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287_SafeTreasuryTimelock.sol:SafeTreasuryTimelock\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/app/tmp/jobs/ai_pipeline_1f9e87ee-2887-4941-acfd-3519eef88287"
+  }
+}

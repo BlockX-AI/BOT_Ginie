@@ -1,0 +1,412 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a",
+  "scope": "job:ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a_Bus.sol",
+      "content": "pragma solidity ^0.8.20;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/security/Pausable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\n\n/**\n * @title Bus\n * @dev A simple contract to manage a bus service.\n * The contract owner (the bus company) can set the ticket price and bus capacity.\n * Users can buy tickets and board the bus when it is at the station.\n * The owner can manage the bus's journey (depart/arrive) and pause the service.\n * All funds are held in the contract until withdrawn by the owner.\n */\ncontract Bus is Ownable, Pausable, ReentrancyGuard {\n\n    /**\n     * @dev Represents the operational status of the bus.\n     * - AtStation: The bus is stationary, ready for boarding.\n     * - InTransit: The bus is on its journey.\n     * - OutOfService: The bus is not operational.\n     */\n    enum Status {\n        AtStation,\n        InTransit,\n        OutOfService\n    }\n\n    uint256 public ticketPrice;\n    uint256 public capacity;\n    uint256 public boardedPassengersCount;\n    Status public busStatus;\n\n    mapping(address => uint256) public tickets;\n\n    event TicketPurchased(address indexed passenger, uint256 quantity, uint256 totalCost);\n    event PassengerBoarded(address indexed passenger);\n    event BusDeparted(uint256 indexed timestamp);\n    event BusArrived(uint256 indexed timestamp);\n    event BusStatusChanged(Status newStatus);\n    event TicketPriceChanged(uint256 newPrice);\n    event CapacityChanged(uint256 newCapacity);\n\n    /**\n     * @dev The constructor is intentionally left empty.\n     * The bus starts at the station by default.\n     * The owner must configure the ticket price and capacity via setters before the service is operational.\n     */\n    constructor() {\n        busStatus = Status.AtStation;\n    }\n\n    /**\n     * @dev Allows the owner to set the price for a single ticket.\n     * @param _newPrice The new price of a ticket in wei.\n     */\n    function setTicketPrice(uint256 _newPrice) external onlyOwner {\n        require(_newPrice > 0, \"Bus: Price must be greater than zero\");\n        ticketPrice = _newPrice;\n        emit TicketPriceChanged(_newPrice);\n    }\n\n    /**\n     * @dev Allows the owner to set the maximum capacity of the bus.\n     * @param _newCapacity The new maximum passenger capacity.\n     */\n    function setCapacity(uint256 _newCapacity) external onlyOwner {\n        require(_newCapacity > 0, \"Bus: Capacity must be greater than zero\");\n        require(_newCapacity >= boardedPassengersCount, \"Bus: Capacity cannot be less than current passengers\");\n        capacity = _newCapacity;\n        emit CapacityChanged(_newCapacity);\n    }\n\n    /**\n     * @dev Allows the owner to change the bus status for administrative purposes.\n     * To complete a journey, the `arrive()` function should be used instead.\n     * @param _newStatus The new status for the bus.\n     */\n    function setBusStatus(Status _newStatus) external onlyOwner {\n        if (_newStatus == Status.AtStation && busStatus == Status.InTransit) {\n            revert(\"Bus: Use arrive() to complete a journey\");\n        }\n        busStatus = _newStatus;\n        emit BusStatusChanged(_newStatus);\n    }\n\n    /**\n     * @dev Allows the owner (acting as the driver) to depart from the station.\n     */\n    function depart() external onlyOwner whenNotPaused isAtStation {\n        busStatus = Status.InTransit;\n        emit BusDeparted(block.timestamp);\n    }\n\n    /**\n     * @dev Allows the owner (acting as the driver) to arrive at the destination.\n     * This resets the boarded passenger count for the next journey. Purchased tickets remain valid.\n     */\n    function arrive() external onlyOwner whenNotPaused isInTransit {\n        busStatus = Status.AtStation;\n        boardedPassengersCount = 0; // Passengers disembark, seats are free for the next trip\n        emit BusArrived(block.timestamp);\n    }\n    \n    /**\n     * @dev Allows the contract owner to withdraw the entire contract balance.\n     */\n    function withdrawFunds() external onlyOwner {\n        uint256 balance = address(this).balance;\n        require(balance > 0, \"Bus: No funds to withdraw\");\n        (bool success, ) = owner().call{value: balance}(\"\");\n        require(success, \"Bus: Withdrawal failed\");\n    }\n\n    /**\n     * @dev Allows a user to purchase one or more tickets.\n     * @param _quantity The number of tickets to purchase.\n     */\n    function buyTickets(uint256 _quantity) external payable whenNotPaused nonReentrant {\n        require(busStatus != Status.OutOfService, \"Bus: Currently out of service\");\n        require(ticketPrice > 0, \"Bus: Ticket price not set\");\n        require(_quantity > 0, \"Bus: Must buy at least one ticket\");\n\n        uint256 totalCost = ticketPrice * _quantity;\n        require(msg.value == totalCost, \"Bus: Incorrect payment amount\");\n\n        tickets[_msgSender()] += _quantity;\n        emit TicketPurchased(_msgSender(), _quantity, totalCost);\n    }\n\n    /**\n     * @dev Allows a user with a valid ticket to board the bus.\n     * This action consumes one ticket.\n     */\n    function boardBus() external whenNotPaused nonReentrant isAtStation {\n        require(capacity > 0, \"Bus: Capacity not set\");\n        require(tickets[_msgSender()] > 0, \"Bus: You do not have a ticket\");\n        require(boardedPassengersCount < capacity, \"Bus: Bus is full\");\n\n        tickets[_msgSender()]--;\n        boardedPassengersCount++;\n        emit PassengerBoarded(_msgSender());\n    }\n\n    /**\n     * @dev Pauses the service. Key functions like buying tickets and boarding will be disabled.\n     * Can only be called by the owner. See {Pausable-_pause}.\n     */\n    function pause() external onlyOwner {\n        _pause();\n    }\n\n    /**\n     * @dev Unpauses the service, resuming normal operations.\n     * Can only be called by the owner. See {Pausable-_unpause}.\n     */\n    function unpause() external onlyOwner {\n        _unpause();\n    }\n    \n    /**\n     * @dev Gets the number of tickets for a specific address.\n     * @param _passenger The address of the passenger.\n     * @return The number of tickets held by the passenger.\n     */\n    function getTicketCount(address _passenger) external view returns (uint256) {\n        return tickets[_passenger];\n    }\n\n    /**\n     * @dev Modifier to ensure the bus is at the station.\n     */\n    modifier isAtStation() {\n        require(busStatus == Status.AtStation, \"Bus: Not at station\");\n        _;\n    }\n\n    /**\n     * @dev Modifier to ensure the bus is in transit.\n     */\n    modifier isInTransit() {\n        require(busStatus == Status.InTransit, \"Bus: Not in transit\");\n        _;\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a_Bus.sol/Bus.json",
+      "name": "Bus",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "name": "BusArrived",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "name": "BusDeparted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "enum Bus.Status",
+              "name": "newStatus",
+              "type": "uint8"
+            }
+          ],
+          "name": "BusStatusChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newCapacity",
+              "type": "uint256"
+            }
+          ],
+          "name": "CapacityChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "passenger",
+              "type": "address"
+            }
+          ],
+          "name": "PassengerBoarded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newPrice",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketPriceChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "passenger",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "quantity",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "totalCost",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketPurchased",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "arrive",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "boardBus",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "boardedPassengersCount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "busStatus",
+          "outputs": [
+            {
+              "internalType": "enum Bus.Status",
+              "name": "",
+              "type": "uint8"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "buyTickets",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "capacity",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "depart",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_passenger",
+              "type": "address"
+            }
+          ],
+          "name": "getTicketCount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "enum Bus.Status",
+              "name": "_newStatus",
+              "type": "uint8"
+            }
+          ],
+          "name": "setBusStatus",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_newCapacity",
+              "type": "uint256"
+            }
+          ],
+          "name": "setCapacity",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_newPrice",
+              "type": "uint256"
+            }
+          ],
+          "name": "setTicketPrice",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "ticketPrice",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "tickets",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "withdrawFunds",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x608060405234801561001057600080fd5b5061001a3361003a565b6000805460ff60a01b19169055600180556005805460ff1916905561008a565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b611057806100996000396000f3fe60806040526004361061011f5760003560e01c8063715018a6116100a05780639f71f839116100645780639f71f839146102d6578063cff82e22146102eb578063d9105cfe14610321578063ebcd857d14610336578063f2fde38b1461035d57600080fd5b8063715018a61461024e57806377a80ea7146102635780638456cb59146102795780638da5cb5b1461028e57806391915ef8146102b657600080fd5b80635a81c73c116100e75780635a81c73c146101ac5780635c975abb146101c15780635cfc1a51146101eb5780636533f453146102015780636dcbf2a31461022157600080fd5b80631209b1f614610124578063159816501461014d57806324600fc31461016f5780632f366637146101845780633f4ba83a14610197575b600080fd5b34801561013057600080fd5b5061013a60025481565b6040519081526020015b60405180910390f35b34801561015957600080fd5b5061016d610168366004610f03565b61037d565b005b34801561017b57600080fd5b5061016d610422565b61016d610192366004610f03565b610518565b3480156101a357600080fd5b5061016d610707565b3480156101b857600080fd5b5061016d610719565b3480156101cd57600080fd5b50600054600160a01b900460ff166040519015158152602001610144565b3480156101f757600080fd5b5061013a60035481565b34801561020d57600080fd5b5061016d61021c366004610f1c565b6108eb565b34801561022d57600080fd5b5061013a61023c366004610f44565b60066020526000908152604090205481565b34801561025a57600080fd5b5061016d6109da565b34801561026f57600080fd5b5061013a60045481565b34801561028557600080fd5b5061016d6109ec565b34801561029a57600080fd5b506000546040516001600160a01b039091168152602001610144565b3480156102c257600080fd5b5061016d6102d1366004610f03565b6109fc565b3480156102e257600080fd5b5061016d610b08565b3480156102f757600080fd5b5061013a610306366004610f44565b6001600160a01b031660009081526006602052604090205490565b34801561032d57600080fd5b5061016d610bae565b34801561034257600080fd5b506005546103509060ff1681565b6040516101449190610f83565b34801561036957600080fd5b5061016d610378366004610f44565b610c55565b610385610ccb565b600081116103e65760405162461bcd60e51b8152602060048201526024808201527f4275733a205072696365206d7573742062652067726561746572207468616e206044820152637a65726f60e01b60648201526084015b60405180910390fd5b60028190556040518181527f70aa15e700a2c874a0358150f8fed3716cb8c992634a5321dc6d9a54a161e0b6906020015b60405180910390a150565b61042a610ccb565b47806104785760405162461bcd60e51b815260206004820152601960248201527f4275733a204e6f2066756e647320746f2077697468647261770000000000000060448201526064016103dd565b600080546040516001600160a01b039091169083908381818185875af1925050503d80600081146104c5576040519150601f19603f3d011682016040523d82523d6000602084013e6104ca565b606091505b50509050806105145760405162461bcd60e51b8152602060048201526016602482015275109d5cce8815da5d1a191c985dd85b0819985a5b195960521b60448201526064016103dd565b5050565b610520610d25565b610528610d72565b600260055460ff16600281111561054157610541610f6d565b0361058e5760405162461bcd60e51b815260206004820152601d60248201527f4275733a2043757272656e746c79206f7574206f66207365727669636500000060448201526064016103dd565b6000600254116105e05760405162461bcd60e51b815260206004820152601960248201527f4275733a205469636b6574207072696365206e6f74207365740000000000000060448201526064016103dd565b6000811161063a5760405162461bcd60e51b815260206004820152602160248201527f4275733a204d75737420627579206174206c65617374206f6e65207469636b656044820152601d60fa1b60648201526084016103dd565b60008160025461064a9190610fc1565b905080341461069b5760405162461bcd60e51b815260206004820152601d60248201527f4275733a20496e636f7272656374207061796d656e7420616d6f756e7400000060448201526064016103dd565b33600090815260066020526040812080548492906106ba908490610fde565b9091555050604080518381526020810183905233917f2a91574e12ad96234e84923e146b0946ecfb871cd8d5534dc1fdcbe87a7c01b3910160405180910390a25061070460018055565b50565b61070f610ccb565b610717610dcb565b565b610721610d25565b610729610d72565b600060055460ff16600281111561074257610742610f6d565b146107855760405162461bcd60e51b8152602060048201526013602482015272213ab99d102737ba1030ba1039ba30ba34b7b760691b60448201526064016103dd565b6000600354116107cf5760405162461bcd60e51b8152602060048201526015602482015274109d5cce8810d85c1858da5d1e481b9bdd081cd95d605a1b60448201526064016103dd565b3360009081526006602052604090205461082b5760405162461bcd60e51b815260206004820152601d60248201527f4275733a20596f7520646f206e6f7420686176652061207469636b657400000060448201526064016103dd565b600354600454106108715760405162461bcd60e51b815260206004820152601060248201526f109d5cce88109d5cc81a5cc8199d5b1b60821b60448201526064016103dd565b33600090815260066020526040812080549161088c83610ff1565b9091555050600480549060006108a183611008565b91905055506108ad3390565b6001600160a01b03167fb7d4cb58739f3c3bfdc561cb9a87b3969fec8dd879011e02d00679fe2cad9d9560405160405180910390a261071760018055565b6108f3610ccb565b600081600281111561090757610907610f6d565b14801561092a5750600160055460ff16600281111561092857610928610f6d565b145b156109875760405162461bcd60e51b815260206004820152602760248201527f4275733a2055736520617272697665282920746f20636f6d706c6574652061206044820152666a6f75726e657960c81b60648201526084016103dd565b6005805482919060ff191660018360028111156109a6576109a6610f6d565b02179055507f8b02f5995076a7014d1da0a318e60c7fdb8fb90d80e75f19167079f70c941ff2816040516104179190610f83565b6109e2610ccb565b6107176000610e20565b6109f4610ccb565b610717610e70565b610a04610ccb565b60008111610a645760405162461bcd60e51b815260206004820152602760248201527f4275733a204361706163697479206d7573742062652067726561746572207468604482015266616e207a65726f60c81b60648201526084016103dd565b600454811015610ad35760405162461bcd60e51b815260206004820152603460248201527f4275733a2043617061636974792063616e6e6f74206265206c657373207468616044820152736e2063757272656e742070617373656e6765727360601b60648201526084016103dd565b60038190556040518181527fa571c3ed13a1d46f35c78ec38747be02bc65d793e784cec8211a69273adaf4a590602001610417565b610b10610ccb565b610b18610d25565b600060055460ff166002811115610b3157610b31610f6d565b14610b745760405162461bcd60e51b8152602060048201526013602482015272213ab99d102737ba1030ba1039ba30ba34b7b760691b60448201526064016103dd565b6005805460ff1916600117905560405142907f957782ac79f83505b14a22af3f5cf1c4c712e2d77f7be847db7828d1be1eb70e90600090a2565b610bb6610ccb565b610bbe610d25565b600160055460ff166002811115610bd757610bd7610f6d565b14610c1a5760405162461bcd60e51b8152602060048201526013602482015272109d5cce88139bdd081a5b881d1c985b9cda5d606a1b60448201526064016103dd565b6005805460ff191690556000600481905560405142917f22ff9b0cf6dd1fc6616eb3803a3efe23e3bcfddbfb9cedb02df8f0f16627390e91a2565b610c5d610ccb565b6001600160a01b038116610cc25760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084016103dd565b61070481610e20565b6000546001600160a01b031633146107175760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103dd565b600054600160a01b900460ff16156107175760405162461bcd60e51b815260206004820152601060248201526f14185d5cd8589b194e881c185d5cd95960821b60448201526064016103dd565b600260015403610dc45760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c0060448201526064016103dd565b6002600155565b610dd3610eb3565b6000805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b610e78610d25565b6000805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258610e033390565b600054600160a01b900460ff166107175760405162461bcd60e51b815260206004820152601460248201527314185d5cd8589b194e881b9bdd081c185d5cd95960621b60448201526064016103dd565b600060208284031215610f1557600080fd5b5035919050565b600060208284031215610f2e57600080fd5b813560038110610f3d57600080fd5b9392505050565b600060208284031215610f5657600080fd5b81356001600160a01b0381168114610f3d57600080fd5b634e487b7160e01b600052602160045260246000fd5b6020810160038310610fa557634e487b7160e01b600052602160045260246000fd5b91905290565b634e487b7160e01b600052601160045260246000fd5b8082028115828204841417610fd857610fd8610fab565b92915050565b80820180821115610fd857610fd8610fab565b60008161100057611000610fab565b506000190190565b60006001820161101a5761101a610fab565b506001019056fea2646970667358221220eba53f4f6821e56b29f96cb1c6d966648c4f7cbb7b24e3698e3a60a5ad6f949e64736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a.js",
+      "content": "// Auto-generated by AI pipeline for job ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a_Bus.sol:Bus\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"Bus\", fqName: \"contracts/AI_ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a_Bus.sol:Bus\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/app/tmp/jobs/ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a"
+  }
+}

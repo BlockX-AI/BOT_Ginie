@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:04:00.072Z",
+  "contracts": {
+    "BusinessToken": "0x53f0B3744f318E2Ee413411C27c08914965B24ed"
+  },
+  "params": {
+    "name": "Orion My Token 03",
+    "symbol": "ORN03",
+    "initialSupplyTokens": "50000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

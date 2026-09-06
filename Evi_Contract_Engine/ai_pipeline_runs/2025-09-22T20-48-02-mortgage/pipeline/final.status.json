@@ -1,0 +1,205 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1758574082554,
+    "updatedAt": 1758574174110,
+    "payload": {
+      "prompt": "Design a multi-signature treasury management system for a $100M+ fund\nwith support for 50+ assets, automated rebalancing based on Markowitz\nportfolio optimization, risk management with VaR calculations, compliance\nreporting for multiple jurisdictions, support for derivatives trading\n(options, futures, swaps), integration with traditional banking rails,\nautomated tax loss harvesting, ESG scoring for investments, regulatory\ncompliance checks, and support for private equity investments with\nmilestone-based releases. Include emergency shutdown mechanisms, insurance\nclaims processing, and integration with external audit systems.",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "Treasury",
+      "filename": "Treasury.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758574082554
+      },
+      {
+        "step": "generate",
+        "t": 1758574082555
+      },
+      {
+        "step": "write",
+        "t": 1758574164548
+      },
+      {
+        "step": "compile",
+        "t": 1758574164554
+      },
+      {
+        "step": "deploy_script",
+        "t": 1758574166955
+      },
+      {
+        "step": "deploy",
+        "t": 1758574166956
+      }
+    ],
+    "timings": {
+      "startedAt": 1758574082554,
+      "endedAt": 1758574174110,
+      "phases": {
+        "init": {
+          "startedAt": 1758574082554,
+          "endedAt": 1758574082555
+        },
+        "generate": {
+          "startedAt": 1758574082555,
+          "endedAt": 1758574164548
+        },
+        "write": {
+          "startedAt": 1758574164548,
+          "endedAt": 1758574164554
+        },
+        "compile": {
+          "startedAt": 1758574164554,
+          "endedAt": 1758574166955
+        },
+        "deploy_script": {
+          "startedAt": 1758574166955,
+          "endedAt": 1758574166956
+        },
+        "deploy": {
+          "startedAt": 1758574166956,
+          "endedAt": 1758574174110
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp-testnet",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "Treasury",
+      "fqName": "contracts/AI_ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac_Treasury.sol:Treasury",
+      "address": "0xFCA47A13624A6DCa7Ef5e3C06b1612B5Aba96A8d",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758574082554,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=Treasury.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758574082554,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758574082555,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1758574082555,
+        "level": "debug",
+        "msg": "Enhanced prompt length=3794"
+      },
+      {
+        "i": 5,
+        "t": 1758574164548,
+        "level": "debug",
+        "msg": "generate_ai_response_len=16835 ai_ms=81993"
+      },
+      {
+        "i": 6,
+        "t": 1758574164548,
+        "level": "info",
+        "msg": "Generation done in 81993ms. Code size=16788"
+      },
+      {
+        "i": 7,
+        "t": 1758574164548,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1758574164554,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1758574166918,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac_Treasury.sol\n\n\n"
+      },
+      {
+        "i": 10,
+        "t": 1758574166938,
+        "level": "info",
+        "msg": "Compiled 17 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 11,
+        "t": 1758574166954,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 2400ms"
+      },
+      {
+        "i": 12,
+        "t": 1758574166954,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 13,
+        "t": 1758574166955,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: Treasury"
+      },
+      {
+        "i": 14,
+        "t": 1758574166955,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract Treasury"
+      },
+      {
+        "i": 15,
+        "t": 1758574166955,
+        "level": "info",
+        "msg": "Contract chosen for deploy: Treasury"
+      },
+      {
+        "i": 16,
+        "t": 1758574166956,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp-testnet"
+      },
+      {
+        "i": 17,
+        "t": 1758574174092,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp-testnet\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"Treasury\",\"fqName\":\"contracts/AI_ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac_Treasury.sol:Treasury\",\"address\":\"0xFCA47A13624A6DCa7Ef5e3C06b1612B5Aba96A8d\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 18,
+        "t": 1758574174110,
+        "level": "info",
+        "msg": "Deploy success. Address=0xFCA47A13624A6DCa7Ef5e3C06b1612B5Aba96A8d"
+      }
+    ],
+    "_logIndex": 18,
+    "logsCount": 18,
+    "lastLogTs": 1758574174110,
+    "contractName": "Treasury",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp-testnet\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"Treasury\",\"fqName\":\"contracts/AI_ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac_Treasury.sol:Treasury\",\"address\":\"0xFCA47A13624A6DCa7Ef5e3C06b1612B5Aba96A8d\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_1680541f-435a-40e1-81a8-7aa7dc76c89e",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758616091297,
+    "updatedAt": 1758616091297,
+    "payload": {
+      "prompt": "Ai agents marketplace\n",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "TicTacToe",
+      "filename": "TicTacToe.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758616091297
+      }
+    ],
+    "timings": {
+      "startedAt": 1758616091297,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758616091297
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758616091297,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=TicTacToe.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758616091297,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758616091297
+  }
+}

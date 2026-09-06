@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "data": {
+    "id": "audit_orchestrate_37b81e7b-80cd-40df-b546-d5fed0e5a571",
+    "type": "audit_orchestrate",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1760432440079,
+    "updatedAt": 1760432563828,
+    "payload": {
+      "fix": false,
+      "deploy": false,
+      "network": "basecamp"
+    },
+    "step": "analyze",
+    "stepHistory": [
+      {
+        "step": "analyze",
+        "t": 1760432440079
+      }
+    ],
+    "timings": {
+      "startedAt": 1760432440079,
+      "endedAt": null,
+      "phases": {
+        "analyze": {
+          "startedAt": 1760432440079
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1760432440079,
+        "level": "info",
+        "msg": "Orchestrate job started. fix=false deploy=false network=basecamp"
+      },
+      {
+        "i": 2,
+        "t": 1760432563828,
+        "level": "warn",
+        "msg": "Coverage gating failed: INSUFFICIENT_INFO_OK_OR_NA_FINDINGS"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1760432563828
+  }
+}

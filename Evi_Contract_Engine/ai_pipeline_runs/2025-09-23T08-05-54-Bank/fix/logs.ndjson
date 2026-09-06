@@ -1,0 +1,10 @@
+{"i":1,"t":1758614960359,"level":"info","msg":"Fix job started. Network=basecamp-testnet, file=AINFT.sol"}
+{"i":2,"t":1758614960359,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758614960362,"level":"info","msg":"Starting compile/fix loop"}
+{"i":4,"t":1758614962604,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_7d07290e-8125-4943-8e0a-1d63c653844a_AINFT.sol\n\n\n"}
+{"i":5,"t":1758614962630,"level":"info","msg":"Compiled 20 Solidity files successfully (evm target: paris).\n"}
+{"i":6,"t":1758614962649,"level":"debug","msg":"iter 1/11: compile ok in 2287ms"}
+{"i":7,"t":1758614962649,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":8,"t":1758614962650,"level":"info","msg":"Contract chosen for deploy: AINFT"}
+{"i":9,"t":1758614962650,"level":"info","msg":"Deploying to network basecamp-testnet"}
+{"i":10,"t":1758614966235,"level":"error","msg":"ProviderError: insufficient funds for gas * price + value: have 0 want 2400441219210\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_7d07290e-8125-4943-8e0a-1d63c653844a/scripts/deploy-ai_pipeline_7d07290e-8125-4943-8e0a-1d63c653844a.js:8:13)\n"}

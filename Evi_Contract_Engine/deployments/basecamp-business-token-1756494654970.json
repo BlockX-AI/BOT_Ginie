@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:10:54.970Z",
+  "contracts": {
+    "BusinessToken": "0xC5D80Fe1372042e78EE49694Fe9141d7fE273bA1"
+  },
+  "params": {
+    "name": "Phoenix My Token 39",
+    "symbol": "PHNX39",
+    "initialSupplyTokens": "50000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_c5487989-e3e7-46b0-881a-22fe63eb3621",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758615756070,
+    "updatedAt": 1758615756070,
+    "payload": {
+      "network": "basecamp-testnet",
+      "filename": "TicTacToe.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758615756070
+      }
+    ],
+    "timings": {
+      "startedAt": 1758615756070,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758615756070
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758615756070,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp-testnet, file=TicTacToe.sol"
+      },
+      {
+        "i": 2,
+        "t": 1758615756070,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758615756070
+  }
+}

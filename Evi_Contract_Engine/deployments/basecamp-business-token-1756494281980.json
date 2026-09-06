@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:04:41.980Z",
+  "contracts": {
+    "BusinessToken": "0xeFd3DcF16C699DD443059AE41B83dCc83676b917"
+  },
+  "params": {
+    "name": "Quantum My Token 06",
+    "symbol": "QNTM06",
+    "initialSupplyTokens": "420000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

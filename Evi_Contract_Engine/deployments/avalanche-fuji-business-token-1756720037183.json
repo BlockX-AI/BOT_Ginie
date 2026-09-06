@@ -1,0 +1,13 @@
+{
+  "network": "avalanche-fuji",
+  "timestamp": "2025-09-01T09:47:17.183Z",
+  "contracts": {
+    "BusinessToken": "0xf3A35D576C237A748D17011302c04AC6FC4f507c"
+  },
+  "params": {
+    "name": "Alice Johnson",
+    "symbol": "AJ0001",
+    "initialSupplyTokens": "1000000000000000000000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

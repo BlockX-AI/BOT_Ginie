@@ -1,0 +1,11 @@
+{"i":1,"t":1758575328969,"level":"info","msg":"Fix job started. Network=basecamp-testnet, file=MMORPG.sol"}
+{"i":2,"t":1758575328969,"level":"debug","msg":"config: maxIters=11 (hardCap=51)"}
+{"i":3,"t":1758575328971,"level":"info","msg":"Starting compile/fix loop"}
+{"i":4,"t":1758575336066,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_f5e2acdd-b86c-4778-9f07-e8680d9222b8_MMORPG.sol\n\n\n"}
+{"i":5,"t":1758575336066,"level":"error","msg":"Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_f5e2acdd-b86c-4778-9f07-e8680d9222b8_MMORPG.sol:446:75:\n    |\n446 |     function lockAssetForTransfer(address _nftContract, uint256 _tokenId, uint256 _targetChainId) external {\n    |                                                                           ^^^^^^^^^^^^^^^^^^^^^^\n\n\n"}
+{"i":6,"t":1758575336130,"level":"info","msg":"Compiled 20 Solidity files successfully (evm target: paris).\n"}
+{"i":7,"t":1758575336183,"level":"debug","msg":"iter 1/11: compile ok in 7212ms"}
+{"i":8,"t":1758575336183,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":9,"t":1758575336184,"level":"info","msg":"Contract chosen for deploy: MMORPG"}
+{"i":10,"t":1758575336185,"level":"info","msg":"Deploying to network basecamp-testnet"}
+{"i":11,"t":1758575339518,"level":"error","msg":"ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 1985079569395, overshot 1985079569395\n    at HttpProvider.request (/app/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at HardhatEthersSigner.sendTransaction (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/app/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/app/tmp/jobs/ai_pipeline_f5e2acdd-b86c-4778-9f07-e8680d9222b8/scripts/deploy-ai_pipeline_f5e2acdd-b86c-4778-9f07-e8680d9222b8.js:8:13)\n"}

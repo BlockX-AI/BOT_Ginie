@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758723662917,
+    "updatedAt": 1758723662917,
+    "payload": {
+      "network": "basecamp-testnet",
+      "filename": "Bus.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758723662917
+      }
+    ],
+    "timings": {
+      "startedAt": 1758723662917,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758723662917
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758723662917,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp-testnet, file=Bus.sol"
+      },
+      {
+        "i": 2,
+        "t": 1758723662917,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758723662917
+  }
+}

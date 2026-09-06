@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:45:48.515Z",
+  "contracts": {
+    "BusinessToken": "0xc181Ef9913F9EA50dc344800d20fe0CFcbc3c757"
+  },
+  "params": {
+    "name": "Pulse Camp Token 19",
+    "symbol": "PLS19",
+    "initialSupplyTokens": "1000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

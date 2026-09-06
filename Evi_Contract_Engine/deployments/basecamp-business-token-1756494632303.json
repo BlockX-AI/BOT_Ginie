@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:10:32.303Z",
+  "contracts": {
+    "BusinessToken": "0xeF6d7901AC5AFb2176feE6c5F8e3d205742c0EB8"
+  },
+  "params": {
+    "name": "Lambda My Token 37",
+    "symbol": "LMBD37",
+    "initialSupplyTokens": "1000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

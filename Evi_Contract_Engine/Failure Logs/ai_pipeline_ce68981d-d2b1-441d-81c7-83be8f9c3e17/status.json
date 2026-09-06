@@ -1,0 +1,191 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_ce68981d-d2b1-441d-81c7-83be8f9c3e17",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1756924847016,
+    "updatedAt": 1756925028189,
+    "payload": {
+      "prompt": "NFTDutchAuctionMarket ^0.8.20 on Camp (BaseCAMP). A Dutch-auction marketplace for ERC721 with creator royalties.\nRequirements:\n- Sellers create auctions with: nft, tokenId, startPrice, endPrice, duration, startTime (>= now), payout address, optional royalty support (ERC2981 if present); emit AuctionCreated.\n- Price linearly decays from startPrice to endPrice over duration.\n- Buyers purchase by paying current price in ETH; transfer NFT via safeTransfer; pay out proceeds: marketplace fee bps, royalty (2981) if supported, remainder to seller; emit AuctionSettled.\n- Cancel only if no purchase and before start; seller-only; emit AuctionCancelled.\n- Withdraw stuck ETH/fees by owner role; Pausable for emergency; ReentrancyGuard.\n- Security: pull-like fee withdrawal, checks-effects-interactions, royalty querying guarded.\n- Views: currentPrice(auctionId), auction details, fee bps, treasury.",
+      "network": "basecamp",
+      "maxIters": 4,
+      "providedName": "",
+      "filename": "NFTDutchAuctionMarket.sol",
+      "constructorArgs": [
+        "uint96 feeBps",
+        "address feeTreasury"
+      ]
+    },
+    "result": null,
+    "error": "exit 1",
+    "logs": [
+      {
+        "t": 1756924847016,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=4, file=NFTDutchAuctionMarket.sol"
+      },
+      {
+        "t": 1756924847017,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "t": 1756924847017,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1703"
+      },
+      {
+        "t": 1756924919418,
+        "level": "info",
+        "msg": "Generation done in 72400ms. Code size=13148"
+      },
+      {
+        "t": 1756924919418,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "t": 1756924919418,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "t": 1756924920092,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756924920093,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924920093,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924920505,
+        "level": "error",
+        "msg": "Error HH404: File @openzeppelin/contracts/token/common/interfaces/IERC2981.sol, imported from contracts/AI_ai_pipeline_ce68981d-d2b1-441d-81c7-83be8f9c3e17_NFTDutchAuctionMarket.sol, not found.\n"
+      },
+      {
+        "t": 1756924920505,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924920506,
+        "level": "error",
+        "msg": "HardhatError: HH404: File @openzeppelin/contracts/token/common/interfaces/IERC2981.sol, imported from contracts/AI_ai_pipeline_ce68981d-d2b1-441d-81c7-83be8f9c3e17_NFTDutchAuctionMarket.sol, not found.\n    at Resolver.resolveImport (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:221:17)\n    at /app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:188:28\n    at async Promise.all (index 1)\n    at DependencyGraph._addDependenciesFrom (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:186:5)\n    at async Promise.all (index 0)\n    at Function.createFromResolvedFiles (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:15:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1398:58)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n\n    Caused by: HardhatError: HH402: File @openzeppelin/contracts/token/common/interfaces/IERC2981.sol doesn't exist.\n        at Resolver._validateSourceNameExistenceAndCasing (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:544:15)\n        at Resolver._resolveLibrarySourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:354:7)\n        at Resolver.resolveSourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:103:22)\n        at Resolver.resolveImport (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:194:24)\n        at /app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:188:28\n        at async Promise.all (index 1)\n        at DependencyGraph._addDependenciesFrom (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:186:5)\n        at async Promise.all (index 0)\n        at Function.createFromResolvedFiles (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:15:5)\n        at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    \n        Caused by: HardhatError: HH1005: Solidity source file @openzeppelin/contracts/token/common/interfaces/IERC2981.sol not found\n            at getSourceNameTrueCase (/app/node_modules/hardhat/src/utils/source-names.ts:219:13)\n            at validateSourceNameExistenceAndCasing (/app/node_modules/hardhat/src/utils/source-names.ts:102:30)\n            at Resolver._validateSourceNameExistenceAndCasing (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:536:7)\n            at Resolver._resolveLibrarySourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:354:7)\n            at Resolver.resolveSourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:103:22)\n            at Resolver.resolveImport (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:194:24)\n            at /app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:188:28\n            at async Promise.all (index 1)\n            at DependencyGraph._addDependenciesFrom (/app/node_modules/hardhat/src/internal/solidity/dependencyGraph.ts:186:5)\n            at async Promise.all (index 0)\n        \n            Caused by: FileNotFoundError: File /app/node_modules/@openzeppelin/contracts/token/common/interfaces/IERC2981.sol not found\n                at getFileTrueCase (/app/node_modules/hardhat/src/internal/util/fs-utils.ts:152:9)\n                at getFileTrueCase (/app/node_modules/hardhat/src/internal/util/fs-utils.ts:143:9)\n                at getFileTrueCase (/app/node_modules/hardhat/src/internal/util/fs-utils.ts:143:9)\n                at getFileTrueCase (/app/node_modules/hardhat/src/internal/util/fs-utils.ts:143:9)\n                at getFileTrueCase (/app/node_modules/hardhat/src/internal/util/fs-utils.ts:143:9)\n                at getSourceNameTrueCase (/app/node_modules/hardhat/src/utils/source-names.ts:215:22)\n                at validateSourceNameExistenceAndCasing (/app/node_modules/hardhat/src/utils/source-names.ts:102:30)\n                at Resolver._validateSourceNameExistenceAndCasing (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:536:7)\n                at Resolver._resolveLibrarySourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:354:7)\n                at Resolver.resolveSourceName (/app/node_modules/hardhat/src/internal/solidity/resolver.ts:103:22)\n"
+      },
+      {
+        "t": 1756924920534,
+        "level": "warn",
+        "msg": "Compile failed (iter 0). Running AI fix. Error length=4912"
+      },
+      {
+        "t": 1756924976210,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756924976211,
+        "level": "info",
+        "msg": "\n\n"
+      },
+      {
+        "t": 1756924979451,
+        "level": "error",
+        "msg": "TypeError: More than 3 indexed arguments for event.\n  --> contracts/AI_ai_pipeline_ce68981d-d2b1-441d-81c7-83be8f9c3e17_NFTDutchAuctionMarket.sol:61:5:\n   |\n61 |     event AuctionCreated(\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "t": 1756924979461,
+        "level": "error",
+        "msg": "Error HH600: Compilation failed\n"
+      },
+      {
+        "t": 1756924979462,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924979462,
+        "level": "error",
+        "msg": "HardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n"
+      },
+      {
+        "t": 1756924979489,
+        "level": "warn",
+        "msg": "Compile failed (iter 1). Running AI fix. Error length=1519"
+      },
+      {
+        "t": 1756925017902,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756925017903,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925017904,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925025978,
+        "level": "info",
+        "msg": "Compiled 8 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "t": 1756925026015,
+        "level": "info",
+        "msg": "Compile success after 2 fix iterations."
+      },
+      {
+        "t": 1756925026022,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: NFTDutchAuctionMarket"
+      },
+      {
+        "t": 1756925026022,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract NFTDutchAuctionMarket"
+      },
+      {
+        "t": 1756925026022,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "t": 1756925026717,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756925026718,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925026718,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756925028119,
+        "level": "error",
+        "msg": "NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented\n    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)\n    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)\n    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60\n    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)\n    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22\n    at Array.map (<anonymous>)\n    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)\n    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)\n"
+      }
+    ],
+    "step": "deploy",
+    "lastErrors": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\nTypeError: More than 3 indexed arguments for event.\n  --> contracts/AI_ai_pipeline_ce68981d-d2b1-441d-81c7-83be8f9c3e17_NFTDutchAuctionMarket.sol:61:5:\n   |\n61 |     event AuctionCreated(\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\nError HH600: Compilation failed\nHardhatError: HH600: Compilation failed\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)\n    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)\n    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)\n    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)\n\n\n\n\n",
+    "contractName": "NFTDutchAuctionMarket",
+    "stdout": "\n\n",
+    "stderr": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\nNotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented\n    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)\n    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)\n    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60\n    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)\n    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22\n    at Array.map (<anonymous>)\n    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)\n    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)\n"
+  }
+}

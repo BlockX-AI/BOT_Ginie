@@ -1,0 +1,18 @@
+{"i":1,"t":1759521729089,"level":"info","msg":"Pipeline started. Network=base-sepolia, maxIters=11, file=INRTAndCryptoUPIHook.sol, strictArgs=true"}
+{"i":2,"t":1759521729089,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1759521729090,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1759521729090,"level":"debug","msg":"Enhanced prompt length=2521"}
+{"i":5,"t":1759521830083,"level":"debug","msg":"generate_ai_response_len=9300 ai_ms=100993"}
+{"i":6,"t":1759521830083,"level":"info","msg":"Generation done in 100993ms. Code size=9404"}
+{"i":7,"t":1759521830083,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1759521830083,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1759521833689,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e_INRTAndCryptoUPIHook.sol\n\n\n"}
+{"i":10,"t":1759521833713,"level":"info","msg":"Compiled 8 Solidity files successfully (evm target: paris).\n"}
+{"i":11,"t":1759521833748,"level":"debug","msg":"iter 1/11: compile ok in 3664ms"}
+{"i":12,"t":1759521833748,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":13,"t":1759521833749,"level":"debug","msg":"Artifact chosen for deploy: INRT"}
+{"i":14,"t":1759521833749,"level":"info","msg":"Stage: deploy_script -> contract INRT"}
+{"i":15,"t":1759521833749,"level":"info","msg":"Contract chosen for deploy: INRT"}
+{"i":16,"t":1759521833749,"level":"info","msg":"Stage: deploy -> network basecamp-testnet"}
+{"i":17,"t":1759521837726,"level":"info","msg":"DEPLOY_RESULT {\"network\":\"basecamp-testnet\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"INRT\",\"fqName\":\"contracts/AI_ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e_INRTAndCryptoUPIHook.sol:INRT\",\"address\":\"0xF4437552a67d5FAAdD1A06aaa6db4466eB9Fa969\",\"params\":{\"args\":[]}}\n"}
+{"i":18,"t":1759521837768,"level":"info","msg":"Deploy success. Address=0xF4437552a67d5FAAdD1A06aaa6db4466eB9Fa969"}

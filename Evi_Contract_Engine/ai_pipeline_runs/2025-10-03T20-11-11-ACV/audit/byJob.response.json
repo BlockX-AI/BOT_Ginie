@@ -1,0 +1,102 @@
+{
+  "ok": true,
+  "report": {
+    "summary": "The audit identified one critical access control vulnerability, several best practice violations, and a potential denial-of-service vector. The `CryptoUPIHook` contract lacks essential authentication for its `poolManagerOnly` modifier, rendering it insecure for production use. Additionally, the `INRT` contract uses an outdated `SafeMath` library for a Solidity version that has native overflow protection and lacks input validation on string length, posing gas-related risks.",
+    "score": 44,
+    "severityMax": "error",
+    "findings": [
+      {
+        "id": "AUDIT-001",
+        "title": "Critical Lack of Authentication in `poolManagerOnly` Modifier",
+        "severity": "error",
+        "category": "access-control",
+        "file": "AI_ai_pipeline_cf4fadd2-3a0c-4327-9721-25b184f112b5_INRTAndCryptoUPIHook.sol",
+        "line": 70,
+        "description": "The `poolManagerOnly` modifier in the `BaseHook` contract is a no-op, meaning it does not perform any access control checks. This allows any external account to call the `lockAcquired` function in `CryptoUPIHook`. An attacker could potentially call this function with forged data, disrupting the withdrawal mechanism or interacting with it in unintended ways.",
+        "impact": "In a real deployment, this vulnerability would allow anyone to execute the core withdrawal logic in `lockAcquired`. While forging the `data` payload is complex, a successful attempt could lead to unauthorized behavior. At a minimum, it allows for denial-of-service attacks by repeatedly calling the function and causing transactions to revert.",
+        "likelihood": "high",
+        "evidence": "modifier poolManagerOnly() {\n    _; // This is a no-op\n}",
+        "references": [
+          "SWC-105: Unprotected Ether Withdrawal",
+          "CWE-284: Improper Access Control"
+        ],
+        "remediation": "The `poolManagerOnly` modifier must be implemented to verify that `msg.sender` is the official Uniswap v4 PoolManager contract. This typically involves storing the PoolManager address in a state variable and checking against it.\n\nsolidity\ncontract CryptoUPIHook is BaseHook, Ownable {\n    // ...\n    address public immutable poolManager;\n\n    constructor(address _poolManager) {\n        require(_poolManager != address(0), \"Hook: Zero address\");\n        poolManager = _poolManager;\n    }\n\n    modifier poolManagerOnly() {\n        require(msg.sender == poolManager, \"Hook: Not PoolManager\");\n        _;\n    }\n    // ...\n}\n"
+      },
+      {
+        "id": "AUDIT-002",
+        "title": "Redundant Use of `SafeMath` Library",
+        "severity": "warning",
+        "category": "gas",
+        "file": "AI_ai_pipeline_cf4fadd2-3a0c-4327-9721-25b184f112b5_INRTAndCryptoUPIHook.sol",
+        "line": 10,
+        "description": "The `INRT` contract imports and uses the `SafeMath` library. Since the specified pragma version is `^0.8.20`, all arithmetic operations natively include overflow and underflow protection, making the `SafeMath` library redundant. Its usage increases both deployment and runtime gas costs unnecessarily.",
+        "impact": "The contract incurs higher gas costs for deployment due to the included library code and for every arithmetic operation that uses a `SafeMath` function instead of a native operator. This makes the contract less efficient.",
+        "likelihood": "high",
+        "evidence": "import \"@openzeppelin/contracts/utils/math/SafeMath.sol\";\n// ...\nusing SafeMath for uint256;\n// ...\ntotalBankReserves = totalBankReserves.add(amount);\n// ...\ntotalBankReserves = totalBankReserves.sub(amount);\n// ...\nreturn totalBankReserves.mul(1e18).div(currentSupply);",
+        "references": [
+          "https://docs.soliditylang.org/en/v0.8.20/080-breaking-changes.html#semantic-and-syntactic-changes"
+        ],
+        "remediation": "Remove the `SafeMath` import and the `using SafeMath for uint256;` directive. Replace all calls to `SafeMath` functions (e.g., `.add()`, `.sub()`, `.mul()`, `.div()`) with their corresponding native Solidity operators (`+`, `-`, `*`, `/`).\n\nExample:\n`totalBankReserves = totalBankReserves + amount;`"
+      },
+      {
+        "id": "AUDIT-003",
+        "title": "Potential Denial-of-Service via Unbounded UPI ID String",
+        "severity": "warning",
+        "category": "dos",
+        "file": "AI_ai_pipeline_cf4fadd2-3a0c-4327-9721-25b184f112b5_INRTAndCryptoUPIHook.sol",
+        "line": 206,
+        "description": "The `submitWithdrawal` function in the `INRT` contract accepts a `string calldata upiId` and stores it in the `withdrawalData` mapping. There is no check on the length of this string. A malicious actor could provide an extremely long string, causing the transaction to consume a large amount of gas for the `SSTORE` operation. This could lead to the transaction hitting the block gas limit and reverting, effectively preventing the withdrawal.",
+        "impact": "A malicious user can grief the system by initiating withdrawals with very long UPI IDs, causing their own transactions to fail. This could disrupt backend withdrawal processing systems or, in a scenario where multiple withdrawals are batched, cause the entire batch to fail.",
+        "likelihood": "medium",
+        "evidence": "function submitWithdrawal(address user, uint256 amount, string calldata upiId) external onlyAuthorized {\n    // ...\n    require(bytes(upiId).length > 0, \"INRT: UPI ID cannot be empty\");\n    // No upper bound check on length\n    // ...\n    withdrawalData[withdrawalId] = WithdrawalRequest({\n        // ...\n        upiId: upiId,\n        // ...\n    });\n}",
+        "references": [
+          "SWC-128: DoS with Block Gas Limit"
+        ],
+        "remediation": "Enforce a reasonable maximum length for the `upiId` string in the `submitWithdrawal` function. A limit of 100 characters, for example, would be sufficient for valid UPI IDs while preventing gas exhaustion attacks.\n\nsolidity\nfunction submitWithdrawal(address user, uint256 amount, string calldata upiId) external onlyAuthorized {\n    uint256 upiIdLength = bytes(upiId).length;\n    require(upiIdLength > 0, \"INRT: UPI ID cannot be empty\");\n    require(upiIdLength <= 100, \"INRT: UPI ID too long\");\n    // ...\n}\n"
+      },
+      {
+        "id": "AUDIT-004",
+        "title": "State Change After Event Emission",
+        "severity": "info",
+        "category": "style",
+        "file": "AI_ai_pipeline_cf4fadd2-3a0c-4327-9721-25b184f112b5_INRTAndCryptoUPIHook.sol",
+        "line": 175,
+        "description": "In the `revokeHook` function, the `HookContractUpdated` event is emitted before the `hookContract` state variable is set to `address(0)`. While not a vulnerability in this context, it deviates from the Checks-Effects-Interactions (CEI) pattern. The best practice is to perform all state changes before emitting events or interacting with external contracts.",
+        "impact": "This pattern has no direct security impact here. However, adhering to the CEI pattern consistently reduces the risk of introducing reentrancy vulnerabilities in more complex functions.",
+        "likelihood": "low",
+        "evidence": "function revokeHook() external onlyOwner {\n    emit HookContractUpdated(address(0));\n    hookContract = address(0);\n}",
+        "references": [
+          "https://docs.soliditylang.org/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern"
+        ],
+        "remediation": "Modify the `revokeHook` function to update the state variable before emitting the event.\n\nsolidity\nfunction revokeHook() external onlyOwner {\n    hookContract = address(0);\n    emit HookContractUpdated(address(0));\n}\n"
+      },
+      {
+        "id": "AUDIT-005",
+        "title": "Missing Check for Zero Address in `lockAcquired`",
+        "severity": "info",
+        "category": "validation",
+        "file": "AI_ai_pipeline_cf4fadd2-3a0c-4327-9721-25b184f112b5_INRTAndCryptoUPIHook.sol",
+        "line": 433,
+        "description": "The `lockAcquired` function in `CryptoUPIHook` directly uses the `inrtToken` address without first checking if it has been initialized. If the owner has not yet called `setInrtTokenAddress`, `inrtToken` will be `address(0)`, and the external call to `transferFrom` will revert. Adding an explicit check would provide a clearer error message and improve contract robustness.",
+        "impact": "If the `inrtToken` address is not set, withdrawal transactions will fail with a generic, low-level error instead of a descriptive one. This can make debugging and operational management more difficult.",
+        "likelihood": "low",
+        "evidence": "function lockAcquired(bytes calldata data) public override poolManagerOnly returns (bytes memory) {\n    // ...\n    // No check if inrtToken is address(0)\n    ERC20(address(inrtToken)).transferFrom(sender, address(this), amountToWithdraw);\n    // ...\n}",
+        "references": [
+          "CWE-476: NULL Pointer Dereference"
+        ],
+        "remediation": "Add a `require` statement at the beginning of the `lockAcquired` function to ensure the `inrtToken` address has been set.\n\nsolidity\nfunction lockAcquired(bytes calldata data) public override poolManagerOnly returns (bytes memory) {\n    require(address(inrtToken) != address(0), \"Hook: INRT address not set\");\n    // ...\n}\n"
+      }
+    ],
+    "recommendations": [
+      "Immediately implement a robust `poolManagerOnly` modifier in `CryptoUPIHook` to prevent unauthorized access.",
+      "Remove the `SafeMath` library from the `INRT` contract and use native arithmetic operators to reduce gas costs.",
+      "Add input validation to `submitWithdrawal` to limit the length of the `upiId` string, mitigating a potential DoS vector.",
+      "Refactor functions to consistently follow the Checks-Effects-Interactions pattern.",
+      "Add explicit zero-address checks for critical state variables like `inrtToken` before they are used."
+    ]
+  },
+  "sourceRef": {
+    "jobId": "ai_pipeline_cf4fadd2-3a0c-4327-9721-25b184f112b5",
+    "filename": "AI_ai_pipeline_cf4fadd2-3a0c-4327-9721-25b184f112b5_INRTAndCryptoUPIHook.sol"
+  }
+}

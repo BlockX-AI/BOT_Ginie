@@ -1,0 +1,244 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8",
+  "scope": "job:ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8_TicTacToe.sol",
+      "content": "pragma solidity ^0.8.19;\n\n/**\n * @title TicTacToe\n * @author Based on a request for a simple Tic Tac Toe game.\n * @notice A very simple, single-game instance of Tic Tac Toe for two players.\n * This contract does not use OpenZeppelin contracts as its logic is self-contained\n * and does not require features like access control, pausable, or token standards.\n */\ncontract TicTacToe {\n    // --- Enums ---\n\n    /**\n     * @dev Represents the state of the game.\n     * NotStarted: The game is idle, waiting for players.\n     * InProgress: The game is actively being played.\n     * Finished: The game has concluded with a winner or a draw.\n     */\n    enum GameState {\n        NotStarted,\n        InProgress,\n        Finished\n    }\n\n    /**\n     * @dev Represents a piece on the board.\n     * Empty: A cell that has not been played.\n     * X: A cell occupied by Player X.\n     * O: A cell occupied by Player O.\n     */\n    enum Piece {\n        Empty, // 0\n        X, // 1\n        O  // 2\n    }\n\n    // --- State Variables ---\n\n    address public playerX;\n    address public playerO;\n    address public currentPlayer;\n    GameState public gameState;\n    address public winner;\n    uint8 public moveCount;\n\n    // The 3x3 game board, represented as a flat array of 9 elements.\n    Piece[9] public board;\n\n    // --- Events ---\n\n    event GameStarted(address indexed playerX, address indexed playerO);\n    event MoveMade(address indexed player, uint8 row, uint8 col, Piece piece);\n    event GameOver(address indexed winner, bool isDraw);\n\n    /**\n     * @notice Constructor is empty as required. The contract is initialized with default values.\n     */\n    constructor() {}\n\n    /**\n     * @notice Starts a new game instance.\n     * @dev Can only be called when no game is currently in progress. The previous game's\n     * state is cleared upon starting a new one. The caller (`msg.sender`) becomes Player X.\n     * @param _playerO The address of the opponent, who will be Player O.\n     */\n    function startGame(address _playerO) external {\n        require(gameState != GameState.InProgress, \"A game is already in progress.\");\n        require(_playerO != address(0), \"Player O cannot be the zero address.\");\n        require(msg.sender != _playerO, \"Players cannot be the same address.\");\n\n        // Reset and initialize game state\n        for (uint8 i = 0; i < 9; i++) {\n            board[i] = Piece.Empty;\n        }\n\n        playerX = msg.sender;\n        playerO = _playerO;\n        currentPlayer = playerX; // Player X always starts\n        gameState = GameState.InProgress;\n        winner = address(0);\n        moveCount = 0;\n\n        emit GameStarted(playerX, playerO);\n    }\n\n    /**\n     * @notice Allows the current player to make a move on the board.\n     * @param row The row to place the piece (0, 1, or 2).\n     * @param col The column to place the piece (0, 1, or 2).\n     */\n    function makeMove(uint8 row, uint8 col) external {\n        require(gameState == GameState.InProgress, \"Game is not in progress.\");\n        require(msg.sender == currentPlayer, \"Not your turn.\");\n        require(row < 3 && col < 3, \"Move is out of bounds.\");\n\n        uint8 index = row * 3 + col;\n        require(board[index] == Piece.Empty, \"Cell is already taken.\");\n\n        Piece currentPiece = (currentPlayer == playerX) ? Piece.X : Piece.O;\n        board[index] = currentPiece;\n        moveCount++;\n\n        emit MoveMade(msg.sender, row, col, currentPiece);\n\n        // Check for win or draw\n        if (_checkWin(currentPiece)) {\n            _endGame(currentPlayer, false);\n        } else if (moveCount == 9) {\n            _endGame(address(0), true); // Draw\n        } else {\n            // Switch turn to the other player\n            currentPlayer = (currentPlayer == playerX) ? playerO : playerX;\n        }\n    }\n\n    /**\n     * @notice Internal function to check if the last move resulted in a win.\n     * @param _piece The piece (X or O) of the player who just moved.\n     * @return A boolean indicating if the player has won.\n     */\n    function _checkWin(Piece _piece) internal view returns (bool) {\n        // Winning combinations: 3 rows, 3 columns, 2 diagonals\n        // Check rows\n        for (uint8 i = 0; i < 3; i++) {\n            if (board[i * 3] == _piece && board[i * 3 + 1] == _piece && board[i * 3 + 2] == _piece) {\n                return true;\n            }\n        }\n\n        // Check columns\n        for (uint8 i = 0; i < 3; i++) {\n            if (board[i] == _piece && board[i + 3] == _piece && board[i + 6] == _piece) {\n                return true;\n            }\n        }\n\n        // Check diagonals\n        if (board[0] == _piece && board[4] == _piece && board[8] == _piece) {\n            return true;\n        }\n        if (board[2] == _piece && board[4] == _piece && board[6] == _piece) {\n            return true;\n        }\n\n        return false;\n    }\n\n    /**\n     * @notice Internal function to end the game and set the final state.\n     * @param _winner The address of the winning player, or address(0) for a draw.\n     * @param _isDraw A boolean indicating if the game was a draw.\n     */\n    function _endGame(address _winner, bool _isDraw) internal {\n        gameState = GameState.Finished;\n        winner = _winner;\n        emit GameOver(_winner, _isDraw);\n    }\n\n    /**\n     * @notice A view function to get the current board state.\n     * @return The 9-element array representing the board.\n     */\n    function getBoard() external view returns (Piece[9] memory) {\n        return board;\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8_TicTacToe.sol/TicTacToe.json",
+      "name": "TicTacToe",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "winner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "isDraw",
+              "type": "bool"
+            }
+          ],
+          "name": "GameOver",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "playerX",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "playerO",
+              "type": "address"
+            }
+          ],
+          "name": "GameStarted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "player",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "row",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "col",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "enum TicTacToe.Piece",
+              "name": "piece",
+              "type": "uint8"
+            }
+          ],
+          "name": "MoveMade",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "board",
+          "outputs": [
+            {
+              "internalType": "enum TicTacToe.Piece",
+              "name": "",
+              "type": "uint8"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "currentPlayer",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "gameState",
+          "outputs": [
+            {
+              "internalType": "enum TicTacToe.GameState",
+              "name": "",
+              "type": "uint8"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getBoard",
+          "outputs": [
+            {
+              "internalType": "enum TicTacToe.Piece[9]",
+              "name": "",
+              "type": "uint8[9]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint8",
+              "name": "row",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint8",
+              "name": "col",
+              "type": "uint8"
+            }
+          ],
+          "name": "makeMove",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "moveCount",
+          "outputs": [
+            {
+              "internalType": "uint8",
+              "name": "",
+              "type": "uint8"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "playerO",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "playerX",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_playerO",
+              "type": "address"
+            }
+          ],
+          "name": "startGame",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "winner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x608060405234801561001057600080fd5b50610e3a806100206000396000f3fe608060405234801561001057600080fd5b506004361061009e5760003560e01c80639c3e21ae116100665780639c3e21ae14610134578063ba8f73e214610147578063d1f9c24d1461016d578063dfbf53ae14610181578063e7dafa6e1461019457600080fd5b806328ed6e3f146100a35780633264a34b146100cc5780634404a438146100e15780634cdea7d21461010c5780635e24b0f11461011f575b600080fd5b6100b66100b1366004610c36565b6101a7565b6040516100c39190610c86565b60405180910390f35b6100d46101d1565b6040516100c39190610c99565b6002546100f4906001600160a01b031681565b6040516001600160a01b0390911681526020016100c3565b6000546100f4906001600160a01b031681565b61013261012d366004610ceb565b61023c565b005b610132610142366004610d1e565b61057c565b60035461015b90600160a01b900460ff1681565b60405160ff90911681526020016100c3565b6002546100b690600160a01b900460ff1681565b6003546100f4906001600160a01b031681565b6001546100f4906001600160a01b031681565b600481600981106101b757600080fd5b60209182820401919006915054906101000a900460ff1681565b6101d9610c17565b6040805161012081019182905290600490600990826000855b82829054906101000a900460ff16600281111561021157610211610c4f565b8152602060019283018181049485019490930390920291018084116101f25790505050505050905090565b600160028054600160a01b900460ff169081111561025c5761025c610c4f565b146102ae5760405162461bcd60e51b815260206004820152601860248201527f47616d65206973206e6f7420696e2070726f67726573732e000000000000000060448201526064015b60405180910390fd5b6002546001600160a01b031633146102f95760405162461bcd60e51b815260206004820152600e60248201526d2737ba103cb7bab9103a3ab9371760911b60448201526064016102a5565b60038260ff1610801561030f575060038160ff16105b6103545760405162461bcd60e51b815260206004820152601660248201527526b7bb329034b99037baba1037b3103137bab732399760511b60448201526064016102a5565b600081610362846003610d64565b61036c9190610d87565b9050600060048260ff166009811061038657610386610da6565b602081049091015460ff601f9092166101000a90041660028111156103ad576103ad610c4f565b146103f35760405162461bcd60e51b815260206004820152601660248201527521b2b6361034b99030b63932b0b23c903a30b5b2b71760511b60448201526064016102a5565b600080546002546001600160a01b03908116911614610413576002610416565b60015b90508060048360ff166009811061042f5761042f610da6565b602091828204019190066101000a81548160ff0219169083600281111561045857610458610c4f565b021790555060038054600160a01b900460ff1690601461047783610dbc565b91906101000a81548160ff021916908360ff16021790555050336001600160a01b03167f83266dccf22adc9a289b947b87c46af82ecc482f96a07bf4aa62b8c91f6aedc68585846040516104cd93929190610ddb565b60405180910390a26104de8161079a565b156104ff576002546104fa906001600160a01b03166000610bad565b610576565b600354600160a01b900460ff1660090361051f576104fa60006001610bad565b6000546002546001600160a01b03908116911614610548576000546001600160a01b0316610555565b6001546001600160a01b03165b600280546001600160a01b0319166001600160a01b03929092169190911790555b50505050565b600160028054600160a01b900460ff169081111561059c5761059c610c4f565b036105e95760405162461bcd60e51b815260206004820152601e60248201527f412067616d6520697320616c726561647920696e2070726f67726573732e000060448201526064016102a5565b6001600160a01b03811661064b5760405162461bcd60e51b8152602060048201526024808201527f506c61796572204f2063616e6e6f7420626520746865207a65726f206164647260448201526332b9b99760e11b60648201526084016102a5565b6001600160a01b03811633036106af5760405162461bcd60e51b815260206004820152602360248201527f506c61796572732063616e6e6f74206265207468652073616d6520616464726560448201526239b99760e91b60648201526084016102a5565b60005b60098160ff16101561071657600060048260ff16600981106106d6576106d6610da6565b602091828204019190066101000a81548160ff021916908360028111156106ff576106ff610c4f565b02179055508061070e81610dbc565b9150506106b2565b50600080546001600160a01b0319908116339081178355600180546001600160a01b03861693168317905560028054600160a01b60ff60a01b1984166001600160a81b03199283161717909155600380549091169055604051919290917f55b25d7f9b5bf8ea934ba7079455d2ba00c68ea7e66c13695275f6b75b95e5f89190a350565b6000805b60038160ff1610156108fe578260028111156107bc576107bc610c4f565b60046107c9836003610d64565b60ff16600981106107dc576107dc610da6565b602081049091015460ff601f9092166101000a900416600281111561080357610803610c4f565b148015610871575082600281111561081d5761081d610c4f565b600461082a836003610d64565b610835906001610d87565b60ff166009811061084857610848610da6565b602081049091015460ff601f9092166101000a900416600281111561086f5761086f610c4f565b145b80156108de575082600281111561088a5761088a610c4f565b6004610897836003610d64565b6108a2906002610d87565b60ff16600981106108b5576108b5610da6565b602081049091015460ff601f9092166101000a90041660028111156108dc576108dc610c4f565b145b156108ec5750600192915050565b806108f681610dbc565b91505061079e565b5060005b60038160ff161015610a425782600281111561092057610920610c4f565b60048260ff166009811061093657610936610da6565b602081049091015460ff601f9092166101000a900416600281111561095d5761095d610c4f565b1480156109c0575082600281111561097757610977610c4f565b6004610984836003610d87565b60ff166009811061099757610997610da6565b602081049091015460ff601f9092166101000a90041660028111156109be576109be610c4f565b145b8015610a2257508260028111156109d9576109d9610c4f565b60046109e6836006610d87565b60ff16600981106109f9576109f9610da6565b602081049091015460ff601f9092166101000a9004166002811115610a2057610a20610c4f565b145b15610a305750600192915050565b80610a3a81610dbc565b915050610902565b50816002811115610a5557610a55610c4f565b60045460ff166002811115610a6c57610a6c610c4f565b148015610aa75750816002811115610a8657610a86610c4f565b600454640100000000900460ff166002811115610aa557610aa5610c4f565b145b8015610ae55750816002811115610ac057610ac0610c4f565b60045468010000000000000000900460ff166002811115610ae357610ae3610c4f565b145b15610af257506001919050565b816002811115610b0457610b04610c4f565b60045462010000900460ff166002811115610b2157610b21610c4f565b148015610b5c5750816002811115610b3b57610b3b610c4f565b600454640100000000900460ff166002811115610b5a57610b5a610c4f565b145b8015610b985750816002811115610b7557610b75610c4f565b6004546601000000000000900460ff166002811115610b9657610b96610c4f565b145b15610ba557506001919050565b506000919050565b6002805460ff60a01b1916600160a11b179055600380546001600160a01b0319166001600160a01b03841690811790915560408051831515815290517f963df1814dc0a9eba3e98b14f6c69874b207776f56f77eeb74cbae97ab29127a9181900360200190a25050565b6040518061012001604052806009906020820280368337509192915050565b600060208284031215610c4857600080fd5b5035919050565b634e487b7160e01b600052602160045260246000fd5b60038110610c8357634e487b7160e01b600052602160045260246000fd5b50565b60208101610c9383610c65565b91905290565b6101208101818360005b6009811015610ccc578151610cb781610c65565b83526020928301929190910190600101610ca3565b50505092915050565b803560ff81168114610ce657600080fd5b919050565b60008060408385031215610cfe57600080fd5b610d0783610cd5565b9150610d1560208401610cd5565b90509250929050565b600060208284031215610d3057600080fd5b81356001600160a01b0381168114610d4757600080fd5b9392505050565b634e487b7160e01b600052601160045260246000fd5b60ff8181168382160290811690818114610d8057610d80610d4e565b5092915050565b60ff8181168382160190811115610da057610da0610d4e565b92915050565b634e487b7160e01b600052603260045260246000fd5b600060ff821660ff8103610dd257610dd2610d4e565b60010192915050565b60ff84811682528316602082015260608101610df683610c65565b82604083015294935050505056fea2646970667358221220c394c6983111224ba65f7289bd1aa78a7d9dc2098b5ace515d0710f404add1eb64736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8.js",
+      "content": "// Auto-generated by AI pipeline for job ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8_TicTacToe.sol:TicTacToe\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"TicTacToe\", fqName: \"contracts/AI_ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8_TicTacToe.sol:TicTacToe\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_297552a5-2245-4a2e-889a-be2e348c96e8"
+  }
+}

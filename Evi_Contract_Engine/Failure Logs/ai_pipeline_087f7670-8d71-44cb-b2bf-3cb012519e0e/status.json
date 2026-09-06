@@ -1,0 +1,114 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_087f7670-8d71-44cb-b2bf-3cb012519e0e",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1756924847022,
+    "updatedAt": 1756924975521,
+    "payload": {
+      "prompt": "VestingVaultMulti ^0.8.20 on Camp (BaseCAMP). Multi-beneficiary token vesting with cliffs, linear schedules, and revocation.\nRequirements:\n- Fund vault with ERC20; create schedules: beneficiary, total, start, cliff, duration, revocable (bool), metadataURI; emit ScheduleCreated.\n- Beneficiary can claim vested tokens anytime; compute vested = piecewise (0 until cliff, then linear to duration); emit Claimed.\n- Owner can revoke revocable schedules: transfer unvested back to owner; vested remains claimable; emit Revoked.\n- Pause/unpause; ReentrancyGuard; SafeERC20; Views: vestedAmount, releasableAmount, schedule details.",
+      "network": "basecamp",
+      "maxIters": 3,
+      "providedName": "",
+      "filename": "VestingVaultMulti.sol",
+      "constructorArgs": [
+        "address token"
+      ]
+    },
+    "result": null,
+    "error": "exit 1",
+    "logs": [
+      {
+        "t": 1756924847022,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=3, file=VestingVaultMulti.sol"
+      },
+      {
+        "t": 1756924847024,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "t": 1756924847024,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1428"
+      },
+      {
+        "t": 1756924968395,
+        "level": "info",
+        "msg": "Generation done in 121371ms. Code size=11683"
+      },
+      {
+        "t": 1756924968396,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "t": 1756924968396,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "t": 1756924968989,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756924968989,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924968990,
+        "level": "info",
+        "msg": "\n"
+      },
+      {
+        "t": 1756924973430,
+        "level": "info",
+        "msg": "Compiled 9 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "t": 1756924973460,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "t": 1756924973461,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: VestingVaultMulti"
+      },
+      {
+        "t": 1756924973461,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract VestingVaultMulti"
+      },
+      {
+        "t": 1756924973464,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "t": 1756924974041,
+        "level": "error",
+        "msg": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\n"
+      },
+      {
+        "t": 1756924974042,
+        "level": "info",
+        "msg": "\n\n"
+      },
+      {
+        "t": 1756924975448,
+        "level": "error",
+        "msg": "NotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented\n    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)\n    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)\n    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60\n    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)\n    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22\n    at Array.map (<anonymous>)\n    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)\n    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)\n"
+      }
+    ],
+    "step": "deploy",
+    "contractName": "VestingVaultMulti",
+    "stdout": "\n\n",
+    "stderr": "WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions\nNotImplementedError: Method 'HardhatEthersProvider.resolveName' is not implemented\n    at HardhatEthersProvider.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/internal/hardhat-ethers-provider.ts:364:11)\n    at HardhatEthersSigner.resolveName (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:164:26)\n    at resolveAddress (/app/node_modules/ethers/src.ts/address/checks.ts:113:46)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:172:60\n    at ParamType.#walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:779:24)\n    at ParamType.walkAsync (/app/node_modules/ethers/src.ts/abi/fragments.ts:797:24)\n    at /app/node_modules/ethers/src.ts/contract/contract.ts:170:22\n    at Array.map (<anonymous>)\n    at resolveArgs (/app/node_modules/ethers/src.ts/contract/contract.ts:169:37)\n    at ContractFactory.getDeployTransaction (/app/node_modules/ethers/src.ts/contract/factory.ts:90:47)\n"
+  }
+}

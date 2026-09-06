@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_12448d0f-fd2a-4ffa-9b0b-6575cc186c4c",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "step": "deploy",
+    "result": null,
+    "error": "exit 1",
+    "updatedAt": 1758615754947,
+    "createdAt": 1758615703863
+  }
+}

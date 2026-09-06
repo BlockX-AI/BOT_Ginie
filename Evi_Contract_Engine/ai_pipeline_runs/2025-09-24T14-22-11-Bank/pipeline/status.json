@@ -1,0 +1,205 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1758723733819,
+    "updatedAt": 1758723795873,
+    "payload": {
+      "prompt": "A normal Bus service contract\n",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "Bus",
+      "filename": "Bus.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758723733819
+      },
+      {
+        "step": "generate",
+        "t": 1758723733820
+      },
+      {
+        "step": "write",
+        "t": 1758723785600
+      },
+      {
+        "step": "compile",
+        "t": 1758723785600
+      },
+      {
+        "step": "deploy_script",
+        "t": 1758723788054
+      },
+      {
+        "step": "deploy",
+        "t": 1758723788055
+      }
+    ],
+    "timings": {
+      "startedAt": 1758723733819,
+      "endedAt": 1758723795873,
+      "phases": {
+        "init": {
+          "startedAt": 1758723733819,
+          "endedAt": 1758723733820
+        },
+        "generate": {
+          "startedAt": 1758723733820,
+          "endedAt": 1758723785600
+        },
+        "write": {
+          "startedAt": 1758723785600,
+          "endedAt": 1758723785600
+        },
+        "compile": {
+          "startedAt": 1758723785600,
+          "endedAt": 1758723788054
+        },
+        "deploy_script": {
+          "startedAt": 1758723788054,
+          "endedAt": 1758723788055
+        },
+        "deploy": {
+          "startedAt": 1758723788055,
+          "endedAt": 1758723795873
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "Bus",
+      "fqName": "contracts/AI_ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490_Bus.sol:Bus",
+      "address": "0xcED82EEb5AE10E7eB5e034190F34Dff5103fa6D2",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758723733819,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=Bus.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758723733819,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      },
+      {
+        "i": 3,
+        "t": 1758723733820,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1758723733820,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1177"
+      },
+      {
+        "i": 5,
+        "t": 1758723785600,
+        "level": "debug",
+        "msg": "generate_ai_response_len=5628 ai_ms=51780"
+      },
+      {
+        "i": 6,
+        "t": 1758723785600,
+        "level": "info",
+        "msg": "Generation done in 51780ms. Code size=5581"
+      },
+      {
+        "i": 7,
+        "t": 1758723785600,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1758723785600,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1758723788011,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490_Bus.sol\n\n\n"
+      },
+      {
+        "i": 10,
+        "t": 1758723788023,
+        "level": "info",
+        "msg": "Compiled 5 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 11,
+        "t": 1758723788053,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 2453ms"
+      },
+      {
+        "i": 12,
+        "t": 1758723788053,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 13,
+        "t": 1758723788054,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: Bus"
+      },
+      {
+        "i": 14,
+        "t": 1758723788054,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract Bus"
+      },
+      {
+        "i": 15,
+        "t": 1758723788054,
+        "level": "info",
+        "msg": "Contract chosen for deploy: Bus"
+      },
+      {
+        "i": 16,
+        "t": 1758723788055,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "i": 17,
+        "t": 1758723795826,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"Bus\",\"fqName\":\"contracts/AI_ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490_Bus.sol:Bus\",\"address\":\"0xcED82EEb5AE10E7eB5e034190F34Dff5103fa6D2\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 18,
+        "t": 1758723795873,
+        "level": "info",
+        "msg": "Deploy success. Address=0xcED82EEb5AE10E7eB5e034190F34Dff5103fa6D2"
+      }
+    ],
+    "_logIndex": 18,
+    "logsCount": 18,
+    "lastLogTs": 1758723795873,
+    "contractName": "Bus",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"Bus\",\"fqName\":\"contracts/AI_ai_pipeline_12198ea3-8ac5-4dc6-877a-38f02179e490_Bus.sol:Bus\",\"address\":\"0xcED82EEb5AE10E7eB5e034190F34Dff5103fa6D2\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

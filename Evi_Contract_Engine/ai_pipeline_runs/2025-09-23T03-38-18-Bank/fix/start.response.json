@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758598759155,
+    "updatedAt": 1758598759155,
+    "payload": {
+      "network": "camp-testnet",
+      "filename": "PaniPuri.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758598759155
+      }
+    ],
+    "timings": {
+      "startedAt": 1758598759155,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758598759155
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758598759155,
+        "level": "info",
+        "msg": "Fix job started. Network=camp-testnet, file=PaniPuri.sol"
+      },
+      {
+        "i": 2,
+        "t": 1758598759155,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758598759155
+  }
+}

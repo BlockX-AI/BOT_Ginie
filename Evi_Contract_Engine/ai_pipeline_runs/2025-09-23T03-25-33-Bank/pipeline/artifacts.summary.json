@@ -1,0 +1,583 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8",
+  "scope": "job:ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8_PaniPuri.sol",
+      "content": "pragma solidity ^0.8.19;\n\nimport \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/security/Pausable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\n\n/**\n * @title PaniPuri\n * @author An Expert Solidity Engineer\n * @notice A digital \"thela\" (stall) for buying and redeeming Pani Puri tokens.\n *\n * This contract simulates a Pani Puri stall where:\n * - The owner (thelawala) can set the price of a plate of Pani Puri and withdraw earnings.\n * - The stall can be paused (closed) and unpaused (opened).\n * - Customers can buy PANI tokens (representing plates of Pani Puri) with ETH.\n * - PANI tokens are non-transferable between users; they can only be bought from\n *   the stall and \"redeemed\" (burned) to simulate consumption.\n * - The total supply of Pani Puri is fixed.\n */\ncontract PaniPuri is ERC20, Ownable, Pausable, ReentrancyGuard {\n    // --- Constants ---\n\n    /**\n     * @dev Total number of Pani Puri plates available.\n     * With 18 decimals, this is 1,000,000 * 10**18.\n     */\n    uint256 public constant TOTAL_SUPPLY = 1_000_000 * 1e18;\n\n    /**\n     * @dev Maximum number of plates a customer can buy in a single transaction.\n     */\n    uint256 public constant MAX_PLATES_PER_ORDER = 100;\n\n    // --- State Variables ---\n\n    /**\n     * @dev Price of one plate of Pani Puri in wei.\n     */\n    uint256 public pricePerPlate;\n\n    // --- Events ---\n\n    /**\n     * @notice Emitted when a customer successfully buys Pani Puri.\n     * @param buyer The address of the customer.\n     * @param numberOfPlates The number of plates purchased.\n     * @param totalCost The total ETH paid.\n     */\n    event PaniPuriBought(address indexed buyer, uint256 numberOfPlates, uint256 totalCost);\n\n    /**\n     * @notice Emitted when a customer redeems their PANI tokens.\n     * @param redeemer The address of the customer.\n     * @param numberOfPlates The number of plates redeemed (consumed).\n     */\n    event PaniPuriServed(address indexed redeemer, uint256 numberOfPlates);\n\n    /**\n     * @notice Emitted when the owner updates the price per plate.\n     * @param newPrice The new price in wei.\n     */\n    event PriceUpdated(uint256 newPrice);\n\n    // --- Constructor ---\n\n    /**\n     * @notice Initializes the contract.\n     * The constructor is parameterless as required. It mints the total supply\n     * of PANI tokens to the stall (this contract) and sets an initial price.\n     */\n    constructor() ERC20(\"\", \"\") {\n        // Mint the total supply of PANI tokens to this contract (the stall).\n        _mint(address(this), TOTAL_SUPPLY);\n\n        // Set an initial price of 0.001 ETH per plate.\n        pricePerPlate = 0.001 ether;\n    }\n\n    // --- ERC20 Overrides ---\n\n    /**\n     * @dev Returns the name of the token. Overridden to return a constant\n     * value, which is more gas-efficient than storing it in a state variable.\n     */\n    function name() public pure override returns (string memory) {\n        return \"Pani Puri Plate\";\n    }\n\n    /**\n     * @dev Returns the symbol of the token. Overridden to return a constant\n     * value for gas efficiency.\n     */\n    function symbol() public pure override returns (string memory) {\n        return \"PANI\";\n    }\n\n    /**\n     * @dev Hook that is called before any transfer of tokens.\n     * This implementation restricts token transfers to ensure PANI tokens are\n     * non-transferable between users (soul-bound). They can only be:\n     * 1. Minted (from address(0)).\n     * 2. Sold by the stall (from this contract's address).\n     * 3. Burned by a user for redemption (to address(0)).\n     */\n    function _beforeTokenTransfer(address from, address to, uint256 amount)\n        internal\n        override\n    {\n        super._beforeTokenTransfer(from, to, amount);\n\n        if (from == address(0) || to == address(0) || from == address(this)) {\n            return;\n        }\n\n        revert(\"PaniPuri: PANI tokens are soul-bound and cannot be transferred.\");\n    }\n\n    // --- Customer Functions ---\n\n    /**\n     * @notice Allows a customer to buy Pani Puri plates by sending ETH.\n     * @param _numberOfPlates The number of plates to purchase.\n     */\n    function buyPaniPuri(uint256 _numberOfPlates) public payable whenNotPaused nonReentrant {\n        uint256 currentPrice = pricePerPlate;\n        require(currentPrice > 0, \"PaniPuri: Pricing not set.\");\n        require(_numberOfPlates > 0, \"PaniPuri: Must buy at least one plate.\");\n        require(_numberOfPlates <= MAX_PLATES_PER_ORDER, \"PaniPuri: Order exceeds max plates.\");\n\n        uint256 totalCost = _numberOfPlates * currentPrice;\n        require(msg.value >= totalCost, \"PaniPuri: Insufficient ETH sent.\");\n\n        uint256 amountToTransfer = _numberOfPlates * (10**decimals());\n        require(balanceOf(address(this)) >= amountToTransfer, \"PaniPuri: Stall is out of stock.\");\n\n        // Effects\n        _transfer(address(this), msg.sender, amountToTransfer);\n\n        // Interaction (refund)\n        uint256 refundAmount = msg.value - totalCost;\n        if (refundAmount > 0) {\n            (bool success, ) = msg.sender.call{value: refundAmount}(\"\");\n            require(success, \"PaniPuri: Refund failed.\");\n        }\n\n        emit PaniPuriBought(msg.sender, _numberOfPlates, totalCost);\n    }\n\n    /**\n     * @notice Allows a customer to redeem (consume) their PANI tokens.\n     * This action burns the tokens.\n     * @param _numberOfPlates The number of plates to redeem.\n     */\n    function redeemPaniPuri(uint256 _numberOfPlates) public whenNotPaused {\n        require(_numberOfPlates > 0, \"PaniPuri: Must redeem at least one plate.\");\n\n        // _burn checks for sufficient balance and reverts if needed.\n        _burn(msg.sender, _numberOfPlates * (10**decimals()));\n\n        emit PaniPuriServed(msg.sender, _numberOfPlates);\n    }\n\n    // --- Owner-only Functions ---\n\n    /**\n     * @notice Sets the price for one plate of Pani Puri.\n     * @param _newPrice The new price in wei.\n     */\n    function setPrice(uint256 _newPrice) public onlyOwner {\n        require(_newPrice > 0, \"PaniPuri: Price must be greater than zero.\");\n        pricePerPlate = _newPrice;\n        emit PriceUpdated(_newPrice);\n    }\n\n    /**\n     * @notice Pauses the stall, preventing new purchases or redemptions.\n     * Can only be called by the owner.\n     */\n    function pause() public onlyOwner {\n        _pause();\n    }\n\n    /**\n     * @notice Unpauses the stall, allowing new purchases and redemptions.\n     * Can only be called by the owner.\n     */\n    function unpause() public onlyOwner {\n        _unpause();\n    }\n\n    /**\n     * @notice Withdraws the accumulated ETH balance from the contract to the owner.\n     */\n    function withdrawFunds() public onlyOwner nonReentrant {\n        uint256 balance = address(this).balance;\n        require(balance > 0, \"PaniPuri: No funds to withdraw.\");\n        (bool success, ) = owner().call{value: balance}(\"\");\n        require(success, \"PaniPuri: Failed to withdraw funds.\");\n    }\n\n    // --- View Functions ---\n\n    /**\n     * @notice Returns the number of plates available for sale in the stall.\n     * This is the contract's PANI token balance, adjusted for decimals.\n     */\n    function platesInStock() public view returns (uint256) {\n        return balanceOf(address(this)) / (10**decimals());\n    }\n\n    /**\n     * @notice Returns the number of plates a user holds.\n     * This is the user's PANI token balance, adjusted for decimals.\n     */\n    function platesOf(address account) public view returns (uint256) {\n        return balanceOf(account) / (10**decimals());\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8_PaniPuri.sol/PaniPuri.json",
+      "name": "PaniPuri",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "buyer",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "numberOfPlates",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "totalCost",
+              "type": "uint256"
+            }
+          ],
+          "name": "PaniPuriBought",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "redeemer",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "numberOfPlates",
+              "type": "uint256"
+            }
+          ],
+          "name": "PaniPuriServed",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newPrice",
+              "type": "uint256"
+            }
+          ],
+          "name": "PriceUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "MAX_PLATES_PER_ORDER",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "TOTAL_SUPPLY",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            }
+          ],
+          "name": "allowance",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "approve",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "balanceOf",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_numberOfPlates",
+              "type": "uint256"
+            }
+          ],
+          "name": "buyPaniPuri",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "decimals",
+          "outputs": [
+            {
+              "internalType": "uint8",
+              "name": "",
+              "type": "uint8"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "subtractedValue",
+              "type": "uint256"
+            }
+          ],
+          "name": "decreaseAllowance",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "addedValue",
+              "type": "uint256"
+            }
+          ],
+          "name": "increaseAllowance",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "name",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "platesInStock",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "platesOf",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pricePerPlate",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_numberOfPlates",
+              "type": "uint256"
+            }
+          ],
+          "name": "redeemPaniPuri",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_newPrice",
+              "type": "uint256"
+            }
+          ],
+          "name": "setPrice",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "symbol",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "totalSupply",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "transfer",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "transferFrom",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "withdrawFunds",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x60806040523480156200001157600080fd5b506040805160208082018352600080835283519182019093529182529060036200003c838262000321565b5060046200004b828262000321565b5050506200006862000062620000a160201b60201c565b620000a5565b6005805460ff60a01b191690556001600655620000903069d3c21bcecceda1000000620000f7565b66038d7ea4c6800060075562000415565b3390565b600580546001600160a01b038381166001600160a01b0319831681179093556040519116919082907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e090600090a35050565b6001600160a01b038216620001535760405162461bcd60e51b815260206004820152601f60248201527f45524332303a206d696e7420746f20746865207a65726f20616464726573730060448201526064015b60405180910390fd5b6200016160008383620001cc565b8060026000828254620001759190620003ed565b90915550506001600160a01b038216600081815260208181526040808320805486019055518481527fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef910160405180910390a35050565b6001600160a01b0383161580620001ea57506001600160a01b038216155b80620001fe57506001600160a01b03831630145b156200020957505050565b60405162461bcd60e51b815260206004820152603f60248201527f50616e69507572693a2050414e4920746f6b656e732061726520736f756c2d6260448201527f6f756e6420616e642063616e6e6f74206265207472616e736665727265642e0060648201526084016200014a565b505050565b634e487b7160e01b600052604160045260246000fd5b600181811c90821680620002a857607f821691505b602082108103620002c957634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156200027857600081815260208120601f850160051c81016020861015620002f85750805b601f850160051c820191505b81811015620003195782815560010162000304565b505050505050565b81516001600160401b038111156200033d576200033d6200027d565b62000355816200034e845462000293565b84620002cf565b602080601f8311600181146200038d5760008415620003745750858301515b600019600386901b1c1916600185901b17855562000319565b600085815260208120601f198616915b82811015620003be578886015182559484019460019091019084016200039d565b5085821015620003dd5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b808201808211156200040f57634e487b7160e01b600052601160045260246000fd5b92915050565b6116bd80620004256000396000f3fe6080604052600436106101815760003560e01c806370a08231116100d157806391b7f5ed1161008a578063a9059cbb11610064578063a9059cbb14610450578063dd62ed3e14610470578063f2fde38b14610490578063fbb4599d146104b057600080fd5b806391b7f5ed146103e357806395d89b4114610403578063a457c2d71461043057600080fd5b806370a082311461032a578063715018a61461036057806376636050146103755780638456cb59146103885780638da5cb5b1461039d578063902d55a5146103c557600080fd5b806324600fc31161013e5780633f4ba83a116101185780633f4ba83a146102c05780634e75a452146102d55780634f61bc01146102f55780635c975abb1461030b57600080fd5b806324600fc31461026d578063313ce5671461028457806339509351146102a057600080fd5b806306fdde0314610186578063085e2e7c146101d0578063095ea7b3146101f35780630e0ccb491461022357806318160ddd1461023857806323b872dd1461024d575b600080fd5b34801561019257600080fd5b5060408051808201909152600f81526e50616e69205075726920506c61746560881b60208201525b6040516101c791906113e1565b60405180910390f35b3480156101dc57600080fd5b506101e5606481565b6040519081526020016101c7565b3480156101ff57600080fd5b5061021361020e36600461144b565b6104d0565b60405190151581526020016101c7565b34801561022f57600080fd5b506101e56104ea565b34801561024457600080fd5b506002546101e5565b34801561025957600080fd5b50610213610268366004611475565b610517565b34801561027957600080fd5b5061028261053b565b005b34801561029057600080fd5b50604051601281526020016101c7565b3480156102ac57600080fd5b506102136102bb36600461144b565b61066c565b3480156102cc57600080fd5b5061028261068e565b3480156102e157600080fd5b506102826102f03660046114b1565b61069e565b34801561030157600080fd5b506101e560075481565b34801561031757600080fd5b50600554600160a01b900460ff16610213565b34801561033657600080fd5b506101e56103453660046114ca565b6001600160a01b031660009081526020819052604090205490565b34801561036c57600080fd5b5061028261075f565b6102826103833660046114b1565b610771565b34801561039457600080fd5b50610282610a6a565b3480156103a957600080fd5b506005546040516001600160a01b0390911681526020016101c7565b3480156103d157600080fd5b506101e569d3c21bcecceda100000081565b3480156103ef57600080fd5b506102826103fe3660046114b1565b610a7a565b34801561040f57600080fd5b5060408051808201909152600481526350414e4960e01b60208201526101ba565b34801561043c57600080fd5b5061021361044b36600461144b565b610b20565b34801561045c57600080fd5b5061021361046b36600461144b565b610b9b565b34801561047c57600080fd5b506101e561048b3660046114ec565b610ba9565b34801561049c57600080fd5b506102826104ab3660046114ca565b610bd4565b3480156104bc57600080fd5b506101e56104cb3660046114ca565b610c4a565b6000336104de818585610c7b565b60019150505b92915050565b60006104f86012600a611619565b306000908152602081905260409020546105129190611628565b905090565b600033610525858285610da0565b610530858585610e1a565b506001949350505050565b610543610fc9565b61054b611023565b478061059e5760405162461bcd60e51b815260206004820152601f60248201527f50616e69507572693a204e6f2066756e647320746f2077697468647261772e0060448201526064015b60405180910390fd5b60006105b26005546001600160a01b031690565b6001600160a01b03168260405160006040518083038185875af1925050503d80600081146105fc576040519150601f19603f3d011682016040523d82523d6000602084013e610601565b606091505b505090508061065e5760405162461bcd60e51b815260206004820152602360248201527f50616e69507572693a204661696c656420746f2077697468647261772066756e60448201526232399760e91b6064820152608401610595565b505061066a6001600655565b565b6000336104de81858561067f8383610ba9565b610689919061164a565b610c7b565b610696610fc9565b61066a61107c565b6106a66110d1565b600081116107085760405162461bcd60e51b815260206004820152602960248201527f50616e69507572693a204d7573742072656465656d206174206c65617374206f604482015268373290383630ba329760b91b6064820152608401610595565b610727336107186012600a611619565b610722908461165d565b61111e565b60405181815233907f863d79ec5acad47818cd3251b282d93bda32bfa0f8f8bf52c450c8d55cb664c69060200160405180910390a250565b610767610fc9565b61066a6000611254565b6107796110d1565b610781611023565b600754806107d15760405162461bcd60e51b815260206004820152601a60248201527f50616e69507572693a2050726963696e67206e6f74207365742e0000000000006044820152606401610595565b600082116108305760405162461bcd60e51b815260206004820152602660248201527f50616e69507572693a204d75737420627579206174206c65617374206f6e6520604482015265383630ba329760d11b6064820152608401610595565b606482111561088d5760405162461bcd60e51b815260206004820152602360248201527f50616e69507572693a204f726465722065786365656473206d617820706c617460448201526232b99760e91b6064820152608401610595565b6000610899828461165d565b9050803410156108eb5760405162461bcd60e51b815260206004820181905260248201527f50616e69507572693a20496e73756666696369656e74204554482073656e742e6044820152606401610595565b60006108f96012600a611619565b610903908561165d565b306000908152602081905260409020549091508111156109655760405162461bcd60e51b815260206004820181905260248201527f50616e69507572693a205374616c6c206973206f7574206f662073746f636b2e6044820152606401610595565b610970303383610e1a565b600061097c8334611674565b90508015610a1e57604051600090339083908381818185875af1925050503d80600081146109c6576040519150601f19603f3d011682016040523d82523d6000602084013e6109cb565b606091505b5050905080610a1c5760405162461bcd60e51b815260206004820152601860248201527f50616e69507572693a20526566756e64206661696c65642e00000000000000006044820152606401610595565b505b604080518681526020810185905233917fcf2b9165399619e3f5e0a20f71515bf066e8674954c33d72ef87868c5b0134b8910160405180910390a250505050610a676001600655565b50565b610a72610fc9565b61066a6112a6565b610a82610fc9565b60008111610ae55760405162461bcd60e51b815260206004820152602a60248201527f50616e69507572693a205072696365206d7573742062652067726561746572206044820152693a3430b7103d32b9379760b11b6064820152608401610595565b60078190556040518181527f66cbca4f3c64fecf1dcb9ce094abcf7f68c3450a1d4e3a8e917dd621edb4ebe09060200160405180910390a150565b60003381610b2e8286610ba9565b905083811015610b8e5760405162461bcd60e51b815260206004820152602560248201527f45524332303a2064656372656173656420616c6c6f77616e63652062656c6f77604482015264207a65726f60d81b6064820152608401610595565b6105308286868403610c7b565b6000336104de818585610e1a565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b610bdc610fc9565b6001600160a01b038116610c415760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610595565b610a6781611254565b6000610c586012600a611619565b6001600160a01b0383166000908152602081905260409020546104e49190611628565b6001600160a01b038316610cdd5760405162461bcd60e51b8152602060048201526024808201527f45524332303a20617070726f76652066726f6d20746865207a65726f206164646044820152637265737360e01b6064820152608401610595565b6001600160a01b038216610d3e5760405162461bcd60e51b815260206004820152602260248201527f45524332303a20617070726f766520746f20746865207a65726f206164647265604482015261737360f01b6064820152608401610595565b6001600160a01b0383811660008181526001602090815260408083209487168084529482529182902085905590518481527f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b92591015b60405180910390a3505050565b6000610dac8484610ba9565b90506000198114610e145781811015610e075760405162461bcd60e51b815260206004820152601d60248201527f45524332303a20696e73756666696369656e7420616c6c6f77616e63650000006044820152606401610595565b610e148484848403610c7b565b50505050565b6001600160a01b038316610e7e5760405162461bcd60e51b815260206004820152602560248201527f45524332303a207472616e736665722066726f6d20746865207a65726f206164604482015264647265737360d81b6064820152608401610595565b6001600160a01b038216610ee05760405162461bcd60e51b815260206004820152602360248201527f45524332303a207472616e7366657220746f20746865207a65726f206164647260448201526265737360e81b6064820152608401610595565b610eeb8383836112e9565b6001600160a01b03831660009081526020819052604090205481811015610f635760405162461bcd60e51b815260206004820152602660248201527f45524332303a207472616e7366657220616d6f756e7420657863656564732062604482015265616c616e636560d01b6064820152608401610595565b6001600160a01b03848116600081815260208181526040808320878703905593871680835291849020805487019055925185815290927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef910160405180910390a3610e14565b6005546001600160a01b0316331461066a5760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610595565b6002600654036110755760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606401610595565b6002600655565b611084611391565b6005805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600554600160a01b900460ff161561066a5760405162461bcd60e51b815260206004820152601060248201526f14185d5cd8589b194e881c185d5cd95960821b6044820152606401610595565b6001600160a01b03821661117e5760405162461bcd60e51b815260206004820152602160248201527f45524332303a206275726e2066726f6d20746865207a65726f206164647265736044820152607360f81b6064820152608401610595565b61118a826000836112e9565b6001600160a01b038216600090815260208190526040902054818110156111fe5760405162461bcd60e51b815260206004820152602260248201527f45524332303a206275726e20616d6f756e7420657863656564732062616c616e604482015261636560f01b6064820152608401610595565b6001600160a01b0383166000818152602081815260408083208686039055600280548790039055518581529192917fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9101610d93565b600580546001600160a01b038381166001600160a01b0319831681179093556040519116919082907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e090600090a35050565b6112ae6110d1565b6005805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a2586110b43390565b6001600160a01b038316158061130657506001600160a01b038216155b8061131957506001600160a01b03831630145b1561132357505050565b60405162461bcd60e51b815260206004820152603f60248201527f50616e69507572693a2050414e4920746f6b656e732061726520736f756c2d6260448201527f6f756e6420616e642063616e6e6f74206265207472616e736665727265642e006064820152608401610595565b600554600160a01b900460ff1661066a5760405162461bcd60e51b815260206004820152601460248201527314185d5cd8589b194e881b9bdd081c185d5cd95960621b6044820152606401610595565b600060208083528351808285015260005b8181101561140e578581018301518582016040015282016113f2565b506000604082860101526040601f19601f8301168501019250505092915050565b80356001600160a01b038116811461144657600080fd5b919050565b6000806040838503121561145e57600080fd5b6114678361142f565b946020939093013593505050565b60008060006060848603121561148a57600080fd5b6114938461142f565b92506114a16020850161142f565b9150604084013590509250925092565b6000602082840312156114c357600080fd5b5035919050565b6000602082840312156114dc57600080fd5b6114e58261142f565b9392505050565b600080604083850312156114ff57600080fd5b6115088361142f565b91506115166020840161142f565b90509250929050565b634e487b7160e01b600052601160045260246000fd5b600181815b808511156115705781600019048211156115565761155661151f565b8085161561156357918102915b93841c939080029061153a565b509250929050565b600082611587575060016104e4565b81611594575060006104e4565b81600181146115aa57600281146115b4576115d0565b60019150506104e4565b60ff8411156115c5576115c561151f565b50506001821b6104e4565b5060208310610133831016604e8410600b84101617156115f3575081810a6104e4565b6115fd8383611535565b80600019048211156116115761161161151f565b029392505050565b60006114e560ff841683611578565b60008261164557634e487b7160e01b600052601260045260246000fd5b500490565b808201808211156104e4576104e461151f565b80820281158282048414176104e4576104e461151f565b818103818111156104e4576104e461151f56fea2646970667358221220a18d87254b6a851847f5a87eb76fd57dc61286a33cbd0e105cfe3c793ff7e77064736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8.js",
+      "content": "// Auto-generated by AI pipeline for job ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8_PaniPuri.sol:PaniPuri\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"PaniPuri\", fqName: \"contracts/AI_ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8_PaniPuri.sol:PaniPuri\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_110c9749-0cb2-4e7a-b112-aaa077fcf5f8"
+  }
+}

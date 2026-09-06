@@ -1,0 +1,377 @@
+{
+  "ok": true,
+  "data": {
+    "id": "audit_orchestrate_e3e8f5a9-3a2b-4c6e-94b1-33583d5e56a2",
+    "type": "audit_orchestrate",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1768228519304,
+    "updatedAt": 1768228710384,
+    "payload": {
+      "fix": false,
+      "deploy": false,
+      "network": "basecamp"
+    },
+    "step": "done",
+    "stepHistory": [
+      {
+        "step": "analyze",
+        "t": 1768228519304
+      },
+      {
+        "step": "done",
+        "t": 1768228710384
+      }
+    ],
+    "timings": {
+      "startedAt": 1768228519304,
+      "endedAt": 1768228710384,
+      "phases": {
+        "analyze": {
+          "startedAt": 1768228519304,
+          "endedAt": 1768228710384
+        },
+        "done": {
+          "startedAt": 1768228710384,
+          "endedAt": 1768228710384
+        }
+      }
+    },
+    "result": {
+      "audit": {
+        "summary": "The audit of the DungeonCrawler contract, an on-chain RPG, identified one 'error' severity finding, five 'warning' severity findings, and several informational items. The contract is well-structured, leveraging OpenZeppelin's ERC1155 and AccessControl components. The single critical error is an arithmetic overflow in the experience point calculation that breaks the core progression logic for high-level players. Warnings address a Denial of Service vector where items can be permanently locked, weak on-chain randomness susceptible to manipulation, a potential gas bomb in token transfers, significant centralization of power in the Game Master role, and suboptimal gas usage. The contract correctly implements reentrancy guards and basic input validation. Recommendations focus on correcting the overflow, providing a mechanism to unequip items, strengthening randomness, decentralizing admin privileges, and optimizing gas.",
+        "score": 85,
+        "severityMax": "error",
+        "findings": [
+          {
+            "id": "DC-001",
+            "title": "Arithmetic Overflow in Level-Up Calculation",
+            "severity": "error",
+            "category": "logic",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 269,
+            "description": "The `_addXp` function calculates the experience required for the next level using `uint32(char.level) * uint32(char.level) * 100`. The character's level is a `uint16` and can reach 65535. The calculation can easily exceed the maximum value of a `uint32` (approx 4.29 billion). For example, at level 6554, the required XP would be `6554*6554*100 = 4,295,431,600`, which overflows the `uint32` type. This causes `nextLevelXp` to wrap around to a small number, breaking the game's progression logic and effectively trapping high-level characters.",
+            "impact": "Core game progression is broken for high-level players. They may get stuck at a certain level or level up uncontrollably on every action, undermining the integrity and longevity of the game. This is a critical failure of the core game loop.",
+            "likelihood": "high",
+            "evidence": "uint32 nextLevelXp = uint32(char.level) * uint32(char.level) * 100;",
+            "exploitScenario": "A dedicated player reaches a level where the XP-to-next-level calculation overflows a uint32 (level 6554). When they gain more XP, the `nextLevelXp` calculation overflows and wraps to a much smaller number. The check `if (char.xp >= nextLevelXp)` will then always be true. The character will level up on every single action that grants any amount of XP, breaking the intended progression curve.",
+            "attackSteps": [
+              "A player grinds the game to reach level 6554.",
+              "The player calls the `explore()` function and wins, triggering the `_addXp` function.",
+              "The calculation `6554 * 6554 * 100` is performed, resulting in `4,295,431,600`.",
+              "This value is cast to `uint32`, overflowing and wrapping around to `473,064`.",
+              "The character's current XP is likely much higher than this wrapped value, so the level-up condition is met.",
+              "This continues on every subsequent XP gain, allowing the player to level up rapidly and unfairly."
+            ],
+            "references": [
+              "CWE-190: Integer Overflow or Wraparound"
+            ],
+            "remediation": "Perform the experience calculation using `uint256` to prevent overflow before comparing it with the character's `xp`.",
+            "remediationCode": "--- a/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol\n+++ b/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol\n@@ -266,7 +266,7 @@\n         char.xp += amount;\n \n         // Level Up Formula: Level^2 * 100\n-        uint32 nextLevelXp = uint32(char.level) * uint32(char.level) * 100;\n+        uint256 nextLevelXp = uint256(char.level) * uint256(char.level) * 100;\n         \n         if (char.xp >= nextLevelXp) {\n             char.level++;"
+          },
+          {
+            "id": "DC-002",
+            "title": "Equipped Items Can Be Permanently Locked",
+            "severity": "warning",
+            "category": "dos",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 211,
+            "description": "The `equipItem` function allows a player to equip a weapon, and the `_beforeTokenTransfer` hook correctly prevents this equipped item from being transferred. However, there is no corresponding `unequip` function. If a player equips a valuable or unique item, they have no way to unequip it, effectively making that ERC1155 token non-transferable and locking it to their character forever.",
+            "impact": "Players can permanently lose the ability to transfer or sell their weapon NFTs. This is a form of asset locking which leads to a poor user experience and can negatively impact the game's economy.",
+            "likelihood": "high",
+            "evidence": "function equipItem(uint256 itemId) external hasCharacter {\n    ...\n    characters[msg.sender].equippedWeapon = itemId;\n    ...\n}\n\n// No corresponding unequip function exists.",
+            "references": [
+              "SWC-133: Denial of Service"
+            ],
+            "remediation": "Add a dedicated `unequipItem` function that sets the player's `equippedWeapon` to 0, allowing the item to be transferred again.",
+            "remediationCode": "--- a/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol\n+++ b/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol\n@@ -216,6 +216,14 @@\n         emit ItemEquipped(msg.sender, itemId);\n     }\n \n+    /**\n+     * @dev Unequip the currently equipped item.\n+     */\n+    function unequipItem() external hasCharacter {\n+        uint256 unequippedItemId = characters[msg.sender].equippedWeapon;\n+        characters[msg.sender].equippedWeapon = 0;\n+        emit ItemEquipped(msg.sender, 0);\n+    }\n+\n     /**\n      * @dev Consume a potion to reset cooldown. Burns the token.\n      */"
+          },
+          {
+            "id": "DC-003",
+            "title": "Weak Pseudorandomness Subject to Manipulation",
+            "severity": "warning",
+            "category": "logic",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 158,
+            "description": "The `explore` function uses `keccak256(abi.encodePacked(block.timestamp, block.prevrandao, msg.sender, char.xp))` as a source of randomness. This method is vulnerable to miner manipulation and off-chain simulation. A sophisticated player can simulate the transaction's outcome and only submit it if the result is favorable (e.g., a victory with rare loot), undermining the game's fairness.",
+            "impact": "The game's core mechanics (combat and loot drops) can be gamed, allowing players to guarantee victories and rare loot. This devalues achievements and items, potentially ruining the in-game economy and fairness.",
+            "likelihood": "medium",
+            "evidence": "uint256 seed = uint256(keccak256(abi.encodePacked(\n    block.timestamp, \n    block.prevrandao, \n    msg.sender, \n    char.xp\n)));",
+            "references": [
+              "SWC-120: Weak Sources of Randomness from Chain Attributes"
+            ],
+            "remediation": "While noted as a low-stakes game, using a more robust randomness source is recommended. Consider implementing a commit-reveal scheme or, for higher security, using a trusted oracle solution like Chainlink VRF for verifiable, off-chain randomness."
+          },
+          {
+            "id": "DC-004",
+            "title": "Centralized Control by Game Master",
+            "severity": "warning",
+            "category": "access-control",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 86,
+            "description": "The `GAME_MASTER_ROLE` is granted to the contract deployer and has powerful capabilities, including minting any item in any quantity (`adminMint`) and changing the token URI (`setURI`). This creates a single point of failure. If the key holding this role is compromised, an attacker could destabilize the entire game economy by minting rare items at will.",
+            "impact": "A compromised Game Master key could lead to infinite minting of rare items, destroying the game's economy and player trust. It represents a significant centralization risk.",
+            "likelihood": "low",
+            "evidence": "constructor() ERC1155(...) {\n    _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);\n    _grantRole(GAME_MASTER_ROLE, msg.sender);\n}\n\nfunction adminMint(address to, uint256 id, uint256 amount) external onlyRole(GAME_MASTER_ROLE) { ... }",
+            "references": [
+              "SWC-105: Unprotected Ether Withdrawal"
+            ],
+            "remediation": "For enhanced security, the `GAME_MASTER_ROLE` and `DEFAULT_ADMIN_ROLE` should be assigned to a multi-signature wallet or a decentralized governance contract (DAO). This ensures that critical actions require approval from multiple parties."
+          },
+          {
+            "id": "DC-005",
+            "title": "Unbounded Loop in _beforeTokenTransfer Can Lead to DoS",
+            "severity": "warning",
+            "category": "dos",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 310,
+            "description": "The `_beforeTokenTransfer` hook iterates through the `ids` array to check if a transferred token is equipped. This array is user-supplied via `safeBatchTransferFrom`. A malicious user could call this function with an extremely large array of token IDs, causing the loop to consume all the gas in the block. This would cause the transaction to fail, and could potentially be used to block other users' transfers if they are in the same batch.",
+            "impact": "A user could be prevented from transferring their tokens if they attempt to batch-transfer a large number of distinct token types, leading to a gas-limit-based Denial of Service.",
+            "likelihood": "low",
+            "evidence": "for (uint256 i = 0; i < ids.length; i++) {\n    require(ids[i] != char.equippedWeapon, \"Cannot transfer equipped item\");\n}",
+            "references": [
+              "SWC-128: DoS with Block Gas Limit"
+            ],
+            "remediation": "The risk is inherent to the ERC1155 batch transfer standard. While a hard limit on array length could be added, a better approach is to document this behavior and advise UIs to limit the size of batch transfers. Since the check is simple, the practical number of IDs required to cause a DoS is very high, lowering the immediate risk."
+          },
+          {
+            "id": "DC-006",
+            "title": "Gas: Use Custom Errors Instead of Require Strings",
+            "severity": "warning",
+            "category": "gas",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 96,
+            "description": "The contract consistently uses `require(condition, \"error string\")`. Since Solidity v0.8.4, using custom errors (`error CharacterNotCreated(); ... if (!characters[msg.sender].exists) revert CharacterNotCreated();`) is more gas-efficient for both contract deployment and runtime transaction reverts.",
+            "impact": "Slightly higher gas costs for transactions that revert, and a larger contract size on deployment.",
+            "likelihood": "high",
+            "evidence": "require(characters[msg.sender].exists, \"Character not created\");",
+            "references": [
+              "Solidity Documentation: Custom Errors"
+            ],
+            "remediation": "Replace all `require` statements with custom error definitions and `if/revert` blocks to optimize gas usage.",
+            "remediationCode": "--- a/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol\n+++ b/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol\n@@ -45,6 +45,11 @@\n     mapping(address => Character) public characters;\n     mapping(uint256 => uint256) public itemPower; // ItemID => Stat Bonus\n \n+    // --- Custom Errors ---\n+    error CharacterAlreadyExists();\n+    error CharacterNotCreated();\n+    error CooldownActive();\n+\n     // Events\n     event CharacterCreated(address indexed player, uint8 str, uint8 dex, uint8 intl);\n     event LevelUp(address indexed player, uint16 newLevel);\n@@ -65,15 +70,15 @@\n \n     // --- Modifiers ---\n     modifier hasCharacter() {\n-        require(characters[msg.sender].exists, \"Character not created\");\n+        if (!characters[msg.sender].exists) revert CharacterNotCreated();\n         _;\n     }\n \n     modifier cooldownCheck() {\n-        require(\n-            block.timestamp >= characters[msg.sender].lastActionTimestamp + COOLDOWN_PERIOD,\n-            \"Action on cooldown\"\n-        );\n+        if (block.timestamp < characters[msg.sender].lastActionTimestamp + COOLDOWN_PERIOD) {\n+            revert CooldownActive();\n+        }\n         _;\n     }"
+          },
+          {
+            "id": "DC-007",
+            "title": "Incomplete NatSpec Documentation",
+            "severity": "info",
+            "category": "style",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 288,
+            "description": "Several external functions, including `drinkPotion`, `setURI`, `adminMint`, and `supportsInterface`, lack NatSpec documentation. Comprehensive documentation improves readability, maintainability, and makes it easier for developers and auditors to understand the contract's intended behavior.",
+            "impact": "Reduced code clarity and increased difficulty for developers to integrate with and audit the contract.",
+            "likelihood": "high",
+            "evidence": "function setURI(string memory newuri) external onlyRole(GAME_MASTER_ROLE) {\n    _setURI(newuri);\n}",
+            "references": [
+              "Solidity Style Guide: NatSpec"
+            ],
+            "remediation": "Add NatSpec comments (`@dev`, `@param`, `@return`) to all public and external functions to clearly document their purpose and parameters."
+          },
+          {
+            "id": "DC-008",
+            "title": "Missing Event for State-Changing Action",
+            "severity": "info",
+            "category": "style",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 227,
+            "description": "The `drinkPotion()` function modifies a character's state by resetting `lastActionTimestamp` but does not emit an event. Emitting events for all significant state changes is a best practice that aids off-chain monitoring and user interface updates.",
+            "impact": "It is more difficult for off-chain services and UIs to track when a player uses a potion to reset their action cooldown.",
+            "likelihood": "high",
+            "evidence": "characters[msg.sender].lastActionTimestamp = 0; // Reset cooldown",
+            "references": [
+              "Solidity Best Practices: Emit Events"
+            ],
+            "remediation": "Add and emit an event in the `drinkPotion` function to signal that the action occurred.",
+            "remediationCode": "--- a/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol\n+++ b/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol\n@@ -53,6 +53,7 @@\n     event LevelUp(address indexed player, uint16 newLevel);\n     event ExplorationResult(address indexed player, bool success, uint256 rewardId, uint32 xpGained);\n     event ItemEquipped(address indexed player, uint256 itemId);\n+    event PotionDrank(address indexed player);\n \n     // --- Constructor ---\n     // Constraints: Empty, no parameters. Hardcode initial setup.\n@@ -226,6 +227,7 @@\n         \n         _burn(msg.sender, ID_POTION_HEALTH, 1);\n         characters[msg.sender].lastActionTimestamp = 0; // Reset cooldown\n+        emit PotionDrank(msg.sender);\n     }"
+          },
+          {
+            "id": "DC-CK01",
+            "title": "Reentrancy - OK",
+            "severity": "info",
+            "category": "reentrancy",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 145,
+            "description": "The contract correctly uses the `nonReentrant` modifier from OpenZeppelin on the `explore` function, which involves external calls via `_mint`. State changes, such as updating `lastActionTimestamp`, are performed before any external interactions, adhering to the Checks-Effects-Interactions pattern.",
+            "impact": "The contract is protected against common reentrancy attacks.",
+            "likelihood": "low",
+            "evidence": "function explore(uint8 difficultyTier) external hasCharacter cooldownCheck nonReentrant { ... }",
+            "references": [],
+            "remediation": ""
+          },
+          {
+            "id": "DC-CK02",
+            "title": "Fund Loss (ETH Deposits) - N/A",
+            "severity": "info",
+            "category": "funds",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 1,
+            "description": "The contract does not handle Ether deposits or withdrawals from users. Therefore, vulnerabilities related to locked Ether or incorrect withdrawal accounting are not applicable.",
+            "impact": "N/A",
+            "likelihood": "low",
+            "evidence": "The contract does not have a receive() or fallback() function and no functions accept payable calls from users.",
+            "references": [],
+            "remediation": ""
+          },
+          {
+            "id": "DC-CK03",
+            "title": "Withdrawal Logic - N/A",
+            "severity": "info",
+            "category": "funds",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 1,
+            "description": "The contract does not implement any ETH or token withdrawal patterns where a user's balance is read, zeroed, and then transferred. Thus, common bugs like zeroing a balance before reading it for a transfer are not present.",
+            "impact": "N/A",
+            "likelihood": "low",
+            "evidence": "No user-facing withdrawal or claim functions exist in the contract.",
+            "references": [],
+            "remediation": ""
+          },
+          {
+            "id": "DC-CK04",
+            "title": "Hash Operations - OK",
+            "severity": "info",
+            "category": "hash",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 158,
+            "description": "The contract correctly uses `keccak256(abi.encodePacked(...))` for generating a pseudorandom seed. This avoids the common vulnerability of incorrectly using `bytes32(abi.encodePacked(...))`, which is not a cryptographic hash.",
+            "impact": "Hash generation is implemented correctly for its intended purpose within the contract.",
+            "likelihood": "low",
+            "evidence": "uint256 seed = uint256(keccak256(abi.encodePacked(...)));",
+            "references": [],
+            "remediation": ""
+          },
+          {
+            "id": "DC-CK05",
+            "title": "Input Validation - OK",
+            "severity": "info",
+            "category": "validation",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 105,
+            "description": "User-facing functions such as `createHero` and `explore` perform necessary input validation. For example, `createHero` checks total stat allocation, and `explore` validates the `difficultyTier` is within the expected range (1-3).",
+            "impact": "The contract is protected from trivial exploits caused by invalid inputs.",
+            "likelihood": "low",
+            "evidence": "require(str + dex + intl == MAX_STARTING_STATS, \"Invalid stat allocation\");\nrequire(difficultyTier >= 1 && difficultyTier <= 3, \"Invalid tier\");",
+            "references": [],
+            "remediation": ""
+          },
+          {
+            "id": "DC-CK06",
+            "title": "Refund Accounting - N/A",
+            "severity": "info",
+            "category": "logic",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 1,
+            "description": "The contract does not feature any crowdfunding or refund mechanisms. Therefore, vulnerabilities related to incorrect accounting during refunds are not applicable.",
+            "impact": "N/A",
+            "likelihood": "low",
+            "evidence": "No refund logic is present in the contract.",
+            "references": [],
+            "remediation": ""
+          },
+          {
+            "id": "DC-CK07",
+            "title": "Timestamp Dependence - OK",
+            "severity": "info",
+            "category": "logic",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 99,
+            "description": "The contract uses `block.timestamp` for player action cooldowns, which is an appropriate and standard use case. Its use in the pseudorandom number generation is a known weakness (covered in DC-003) but does not expose the contract to critical time-based attacks.",
+            "impact": "The contract is not vulnerable to miner manipulation of timestamps for critical logic like fund release.",
+            "likelihood": "low",
+            "evidence": "require(block.timestamp >= characters[msg.sender].lastActionTimestamp + COOLDOWN_PERIOD, \"Action on cooldown\");",
+            "references": [],
+            "remediation": ""
+          },
+          {
+            "id": "DC-CK08",
+            "title": "Pause Mechanisms - N/A",
+            "severity": "info",
+            "category": "access-control",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 1,
+            "description": "The contract does not implement a pausable mechanism. While often a good safety feature, its absence is not a vulnerability in this specific context.",
+            "impact": "N/A",
+            "likelihood": "low",
+            "evidence": "The contract does not inherit from OpenZeppelin's Pausable contract.",
+            "references": [],
+            "remediation": ""
+          },
+          {
+            "id": "DC-CK09",
+            "title": "Storage Packing - OK",
+            "severity": "info",
+            "category": "gas",
+            "file": "AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol",
+            "line": 56,
+            "description": "The `Stats` and `Character` structs are reasonably well-packed. In `Character`, the smaller types `bool`, `uint16`, and two `uint32`s are ordered together, allowing them to be packed into a single storage slot by the compiler, which is gas-efficient.",
+            "impact": "The contract uses storage efficiently, leading to lower gas costs for state-modifying transactions.",
+            "likelihood": "low",
+            "evidence": "struct Character {\n    bool exists;\n    uint16 level;\n    uint32 xp;\n    uint32 lastActionTimestamp;\n    ...\n}",
+            "references": [],
+            "remediation": ""
+          }
+        ],
+        "recommendations": [
+          "This automated audit provides systematic coverage of common vulnerabilities but cannot replace human security review. Recommended next steps: (1) Manual review of all 'error' findings, (2) Unit tests for each attack scenario, (3) External audit before mainnet, (4) Bug bounty program."
+        ],
+        "coverage": {
+          "critical": 6,
+          "high": 4,
+          "medium": 4,
+          "low": 4,
+          "totalAddressed": 18,
+          "totalAvailable": 18
+        },
+        "scoreBreakdown": {
+          "security": 38,
+          "functionality": 14,
+          "codeQuality": 19,
+          "gas": 14
+        }
+      },
+      "fixJob": null
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768228519304,
+        "level": "info",
+        "msg": "Orchestrate job started. fix=false deploy=false network=basecamp"
+      },
+      {
+        "i": 2,
+        "t": 1768228608178,
+        "level": "warn",
+        "msg": "Coverage gating failed: FINDINGS_LESS_THAN_MINIMUM_17, INSUFFICIENT_INFO_OK_OR_NA_FINDINGS"
+      },
+      {
+        "i": 3,
+        "t": 1768228710382,
+        "level": "info",
+        "msg": "Coverage gating passed after second pass."
+      },
+      {
+        "i": 4,
+        "t": 1768228710383,
+        "level": "info",
+        "msg": "Audit analysis complete. score=85"
+      },
+      {
+        "i": 5,
+        "t": 1768228710383,
+        "level": "info",
+        "msg": "Saved audit report: tmp/jobs/audit_orchestrate_e3e8f5a9-3a2b-4c6e-94b1-33583d5e56a2/audit/report.json"
+      },
+      {
+        "i": 6,
+        "t": 1768228710384,
+        "level": "info",
+        "msg": "Mirrored audit report under source job: ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4"
+      }
+    ],
+    "_logIndex": 6,
+    "logsCount": 6,
+    "lastLogTs": 1768228710384
+  }
+}

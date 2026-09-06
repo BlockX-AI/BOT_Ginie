@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet Deployment Demo - Camp-CodeGen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+    }
+    
+    h1 {
+      color: #1a202c;
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      color: #718096;
+      margin-bottom: 32px;
+    }
+    
+    .input-group {
+      margin-bottom: 24px;
+    }
+    
+    label {
+      display: block;
+      color: #4a5568;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    
+    textarea:focus, select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .button {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 16px;
+    }
+    
+    .button-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .button-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .button-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .status-box {
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 24px;
+      display: none;
+    }
+    
+    .status-box.visible {
+      display: block;
+    }
+    
+    .status-info {
+      background: #ebf8ff;
+      border-left: 4px solid #3182ce;
+    }
+    
+    .status-success {
+      background: #f0fff4;
+      border-left: 4px solid #38a169;
+    }
+    
+    .status-error {
+      background: #fff5f5;
+      border-left: 4px solid #e53e3e;
+    }
+    
+    .status-warning {
+      background: #fffaf0;
+      border-left: 4px solid #ed8936;
+    }
+    
+    .status-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    
+    .status-text {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      transition: width 0.3s;
+      width: 0%;
+    }
+    
+    .result-item {
+      padding: 12px;
+      background: #f7fafc;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    
+    .result-label {
+      font-weight: 600;
+      color: #4a5568;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .result-value {
+      color: #1a202c;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 13px;
+      word-break: break-all;
+      margin-top: 4px;
+    }
+    
+    a {
+      color: #667eea;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .logs {
+      background: #1a202c;
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 16px;
+    }
+    
+    .log-entry {
+      margin-bottom: 4px;
+    }
+    
+    .log-info { color: #63b3ed; }
+    .log-success { color: #68d391; }
+    .log-error { color: #fc8181; }
+    .log-warn { color: #f6ad55; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🦊 Wallet Deployment Demo</h1>
+    <p class="subtitle">Deploy smart contracts with your own wallet - backend-heavy approach</p>
+    
+    <div class="input-group">
+      <label for="prompt">Smart Contract Description</label>
+      <textarea 
+        id="prompt" 
+        placeholder="Example: Create an ERC20 token named MyToken with symbol MTK and initial supply of 1 million tokens"
+      >Create an ERC20 token named CampToken with symbol CAMP and initial supply of 1000000 tokens</textarea>
+    </div>
+    
+    <div class="input-group">
+      <label for="network">Network</label>
+      <select id="network">
+        <option value="basecamp-testnet">Base Sepolia (Basecamp Testnet)</option>
+        <option value="boba-sepolia">Boba Sepolia</option>
+        <option value="avalanche-fuji">Avalanche Fuji</option>
+        <option value="bsc-testnet">BSC Testnet</option>
+      </select>
+    </div>
+    
+    <button id="deploy-btn" class="button button-primary" onclick="startDeployment()">
+      🚀 Deploy with My Wallet
+    </button>
+    
+    <div id="status" class="status-box"></div>
+    
+    <div id="logs" style="display: none;">
+      <h3 style="margin-bottom: 12px; color: #4a5568;">Deployment Logs</h3>
+      <div id="log-container" class="logs"></div>
+    </div>
+  </div>
+  
+  <script>
+    const API_URL = window.location.origin;
+    let jobId = null;
+    let pollInterval = null;
+    let logs = [];
+    
+    // Start deployment
+    async function startDeployment() {
+      const prompt = document.getElementById('prompt').value.trim();
+      const network = document.getElementById('network').value;
+      
+      if (!prompt) {
+        showStatus('error', 'Error', 'Please enter a contract description');
+        return;
+      }
+      
+      const deployBtn = document.getElementById('deploy-btn');
+      deployBtn.disabled = true;
+      deployBtn.textContent = '⏳ Starting deployment...';
+      
+      clearLogs();
+      addLog('info', 'Starting wallet deployment...');
+      
+      try {
+        addLog('info', `Sending request to ${API_URL}/api/wallet/deploy-with-wallet`);
+        
+        const response = await fetch(`${API_URL}/api/wallet/deploy-with-wallet`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt,
+            network,
+            callbackUrl: window.location.href
+          })
+        });
+        
+        if (!response.ok) {
+          const error = await response.text();
+          throw new Error(`HTTP ${response.status}: ${error}`);
+        }
+        
+        const data = await response.json();
+        jobId = data.jobId;
+        
+        addLog('success', `Job created: ${jobId}`);
+        showStatus('info', 'Processing', `
+          <div>Job created successfully!</div>
+          <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+          <div style="margin-top: 12px; font-size: 13px;">
+            Job ID: <code>${jobId}</code>
+          </div>
+        `);
+        
+        // Start polling
+        pollJobStatus();
+        
+      } catch (error) {
+        addLog('error', `Deployment failed: ${error.message}`);
+        showStatus('error', 'Error', error.message);
+        deployBtn.disabled = false;
+        deployBtn.textContent = '🚀 Deploy with My Wallet';
+      }
+    }
+    
+    // Poll job status
+    async function pollJobStatus() {
+      if (pollInterval) clearInterval(pollInterval);
+      
+      pollInterval = setInterval(async () => {
+        try {
+          const response = await fetch(`${API_URL}/api/job/${jobId}`);
+          const job = await response.json();
+          
+          updateProgress(job.progress || 0);
+          
+          if (job.state === 'pending_signature') {
+            clearInterval(pollInterval);
+            handleSigningRequired(job);
+          } else if (job.state === 'completed') {
+            clearInterval(pollInterval);
+            handleSuccess(job);
+          } else if (job.state === 'failed') {
+            clearInterval(pollInterval);
+            handleError(job);
+          } else {
+            addLog('info', `Status: ${job.state} - ${job.step || 'processing'}`);
+          }
+        } catch (error) {
+          addLog('error', `Poll error: ${error.message}`);
+        }
+      }, 2000);
+    }
+    
+    // Handle signing required
+    function handleSigningRequired(job) {
+      const magicLink = job.result?.magicLink;
+      
+      if (!magicLink) {
+        addLog('error', 'No magic link provided');
+        showStatus('error', 'Error', 'Invalid response from server');
+        return;
+      }
+      
+      addLog('success', 'Contract compiled! Ready for signing.');
+      addLog('info', `Opening signing page: ${magicLink}`);
+      
+      showStatus('warning', '🦊 Sign Transaction', `
+        <div style="margin-bottom: 16px;">
+          Your contract is ready! Please sign the transaction in the new tab.
+        </div>
+        <div class="result-item">
+          <div class="result-label">Contract</div>
+          <div class="result-value">${job.result.contractName}</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Network</div>
+          <div class="result-value">${job.result.network}</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Estimated Gas</div>
+          <div class="result-value">${job.result.estimatedGas} ETH</div>
+        </div>
+        <div style="margin-top: 16px;">
+          <button class="button button-primary" onclick="window.open('${magicLink}', '_blank')">
+            🔗 Open Signing Page
+          </button>
+        </div>
+      `);
+      
+      // Open automatically
+      window.open(magicLink, '_blank');
+      
+      // Continue polling for completion
+      setTimeout(() => pollJobStatus(), 3000);
+    }
+    
+    // Handle success
+    function handleSuccess(job) {
+      const result = job.result;
+      
+      addLog('success', `✅ Deployment successful!`);
+      addLog('success', `Contract deployed at: ${result.address}`);
+      
+      showStatus('success', '✅ Deployment Successful!', `
+        <div class="result-item">
+          <div class="result-label">Contract Name</div>
+          <div class="result-value">${result.contract}</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Contract Address</div>
+          <div class="result-value">${result.address}</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Deployer</div>
+          <div class="result-value">${result.deployer}</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Network</div>
+          <div class="result-value">${result.network}</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Transaction Hash</div>
+          <div class="result-value">
+            <a href="${result.explorerUrl}" target="_blank">${result.txHash}</a>
+          </div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Block Number</div>
+          <div class="result-value">${result.blockNumber}</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Gas Used</div>
+          <div class="result-value">${result.gasUsed}</div>
+        </div>
+      `);
+      
+      const deployBtn = document.getElementById('deploy-btn');
+      deployBtn.disabled = false;
+      deployBtn.textContent = '🚀 Deploy Another Contract';
+    }
+    
+    // Handle error
+    function handleError(job) {
+      addLog('error', `Deployment failed: ${job.error}`);
+      showStatus('error', 'Deployment Failed', job.error || 'Unknown error');
+      
+      const deployBtn = document.getElementById('deploy-btn');
+      deployBtn.disabled = false;
+      deployBtn.textContent = '🚀 Try Again';
+    }
+    
+    // Update progress bar
+    function updateProgress(percent) {
+      const fill = document.getElementById('progress-fill');
+      if (fill) {
+        fill.style.width = `${percent}%`;
+      }
+    }
+    
+    // Show status
+    function showStatus(type, title, content) {
+      const statusBox = document.getElementById('status');
+      statusBox.className = `status-box visible status-${type}`;
+      statusBox.innerHTML = `
+        <div class="status-title">${title}</div>
+        <div class="status-text">${content}</div>
+      `;
+    }
+    
+    // Logging
+    function clearLogs() {
+      logs = [];
+      const logsDiv = document.getElementById('logs');
+      const container = document.getElementById('log-container');
+      logsDiv.style.display = 'block';
+      container.innerHTML = '';
+    }
+    
+    function addLog(level, message) {
+      const timestamp = new Date().toLocaleTimeString();
+      logs.push({ level, message, timestamp });
+      
+      const container = document.getElementById('log-container');
+      const entry = document.createElement('div');
+      entry.className = `log-entry log-${level}`;
+      entry.textContent = `[${timestamp}] ${message}`;
+      container.appendChild(entry);
+      container.scrollTop = container.scrollHeight;
+    }
+  </script>
+</body>
+</html>

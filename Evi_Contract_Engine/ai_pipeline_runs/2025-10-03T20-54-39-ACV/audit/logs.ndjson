@@ -1,0 +1,4 @@
+{"i":1,"t":1759525019863,"level":"info","msg":"Orchestrate job started. fix=false deploy=false network=basecamp"}
+{"i":2,"t":1759525079723,"level":"info","msg":"Audit analysis complete. score=85"}
+{"i":3,"t":1759525079723,"level":"info","msg":"Saved audit report: tmp/jobs/audit_orchestrate_983ce3e6-4a48-4eb4-92f2-c36027707a96/audit/report.json"}
+{"i":4,"t":1759525079723,"level":"info","msg":"Mirrored audit report under source job: ai_pipeline_24cd7aa7-276b-411d-9dd2-381119293c5c"}

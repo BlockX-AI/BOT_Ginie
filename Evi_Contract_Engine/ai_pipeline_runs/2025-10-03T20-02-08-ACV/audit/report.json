@@ -1,0 +1,97 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e",
+  "report": {
+    "summary": "The audit identified one critical vulnerability, one warning, and several informational findings. The most severe issue in the INRT contract is that the standard `burn` function from ERC20Burnable is exposed but not integrated with the withdrawal process, which could lead to a user's permanent and irrecoverable loss of funds. The CryptoUPIHook contract contains a centralization risk where the owner can arbitrarily change the target token address, potentially redirecting user funds if the owner key is compromised. Other findings relate to centralization by design, redundant code, and missing event emissions, which are best practice violations. Overall, the contracts are logically structured but contain a critical flaw in the token burning mechanism that must be addressed.",
+    "score": 46,
+    "severityMax": "error",
+    "findings": [
+      {
+        "id": "INRT-E-01",
+        "title": "Unhandled `burn` Function Leads to Irrecoverable Fund Loss",
+        "severity": "error",
+        "category": "other",
+        "file": "AI_ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e_INRTAndCryptoUPIHook.sol",
+        "line": 29,
+        "description": "The `INRT` contract inherits from `ERC20Burnable`, which exposes public `burn(uint256 amount)` and `burnFrom(address account, uint256 amount)` functions. The contract's withdrawal logic is exclusively handled by the `burnForWithdrawal` function, which creates a withdrawal record and adjusts `totalBankReserves`. If a user calls the standard `burn` or `burnFrom` functions, their tokens are destroyed, but no withdrawal request is created and bank reserves are not marked for payment. This results in a permanent loss of the user's funds, as there is no mechanism to process a withdrawal for a direct burn.",
+        "impact": "Users can permanently lose their funds by calling the standard `burn` or `burnFrom` functions, as this action is not integrated with the off-chain withdrawal process. This also causes the internal accounting of `totalBankReserves` to become inconsistent with `totalSupply`, incorrectly inflating the perceived backing ratio.",
+        "likelihood": "medium",
+        "evidence": "The contract inherits `ERC20Burnable` without overriding the standard `burn` and `burnFrom` functions to either disable them or integrate them with the required withdrawal mechanism.",
+        "references": [
+          "CWE-664: Improper Control of a Resource Through its Lifetime"
+        ],
+        "remediation": "Override the `burn` and `burnFrom` functions from `ERC20Burnable` and have them revert with an error message, directing users to use the official withdrawal process. This ensures that tokens can only be burned through the intended `burnForWithdrawal` flow.\n\nsolidity\n// In INRT contract\nfunction burn(uint256 amount) public override {\n    revert(\"INRT: Direct burn not supported. Use the withdrawal process.\");\n}\n\nfunction burnFrom(address account, uint256 amount) public override {\n    revert(\"INRT: Direct burn not supported. Use the withdrawal process.\");\n}\n"
+      },
+      {
+        "id": "HOOK-W-01",
+        "title": "Hook Contract Address Can Be Arbitrarily Changed by Owner",
+        "severity": "warning",
+        "category": "access-control",
+        "file": "AI_ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e_INRTAndCryptoUPIHook.sol",
+        "line": 288,
+        "description": "The `CryptoUPIHook` contract's owner can change the `inrtToken` address at any time via the `setInrtToken` function. If the owner's account is compromised or malicious, they could set this address to a fraudulent contract. This malicious contract could then steal the funds of users who have approved the `CryptoUPIHook` contract by consuming their allowance without performing the intended withdrawal action.",
+        "impact": "A compromised or malicious owner can redirect withdrawal requests to a malicious contract, potentially draining the ERC20 allowances that users have granted to the `CryptoUPIHook` contract.",
+        "likelihood": "low",
+        "evidence": "The `setInrtToken` function has `public onlyOwner` visibility and can be called at any time to change the `inrtToken` state variable.",
+        "references": [
+          "SWC-105: Unprotected Ether Withdrawal"
+        ],
+        "remediation": "To increase security and user trust, make the `inrtToken` address immutable by setting it only once in the constructor. If mutability is a requirement, implement a timelock for changing critical addresses to allow users time to react to changes.\n\nsolidity\n// In CryptoUPIHook contract\n\ncontract CryptoUPIHook is Ownable {\n    IINRT public immutable inrtToken;\n\n    constructor(address _inrtToken) {\n        require(_inrtToken != address(0), \"CryptoUPIHook: Address cannot be zero\");\n        inrtToken = IINRT(_inrtToken);\n    }\n\n    // ... remove setInrtToken function\n}\n"
+      },
+      {
+        "id": "INRT-I-01",
+        "title": "Significant Centralization of Privileges",
+        "severity": "info",
+        "category": "access-control",
+        "file": "AI_ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e_INRTAndCryptoUPIHook.sol",
+        "line": 29,
+        "description": "The `INRT` contract design grants significant power to the `owner`. The owner can unilaterally mint new tokens (`mint`), pause and unpause all transfers (`pause`, `unpause`), authorize the contract that can process withdrawals (`authorizeHook`), and is responsible for marking withdrawals as processed (`markWithdrawalProcessed`). While this may be a design choice for a centralized stablecoin, it introduces a single point of failure and trust.",
+        "impact": "Users must fully trust the owner to manage the token supply honestly, maintain the 1:1 backing with bank reserves, not abuse the pause functionality, and process withdrawals in a timely manner. A malicious or compromised owner could destabilize the entire system.",
+        "likelihood": "low",
+        "evidence": "The functions `mint`, `pause`, `unpause`, `authorizeHook`, `revokeHook`, and `markWithdrawalProcessed` all use the `onlyOwner` modifier.",
+        "references": [
+          "https://docs.openzeppelin.com/contracts/4.x/access-control#ownership-and-ownable"
+        ],
+        "remediation": "This is a fundamental design choice. To mitigate centralization risks, consider implementing a multi-signature wallet for the owner role and/or introducing a timelock for critical operations. No code change is strictly necessary, but these operational security measures are recommended."
+      },
+      {
+        "id": "INRT-I-02",
+        "title": "Redundant View Functions Increase Deployment Cost",
+        "severity": "info",
+        "category": "gas",
+        "file": "AI_ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e_INRTAndCryptoUPIHook.sol",
+        "line": 233,
+        "description": "The functions `getWithdrawalDetails` and `isBankTxIdProcessed` provide read-only access to the `withdrawals` and `processedBankTxIds` mappings, respectively. Since these state variables are declared as `public`, Solidity automatically generates getter functions for them. The explicitly defined functions are therefore redundant and increase contract size.",
+        "impact": "The redundant functions increase the contract's deployment size and associated gas costs without adding new functionality.",
+        "likelihood": "high",
+        "evidence": "`withdrawals` (line 58) and `processedBankTxIds` (line 57) are public mappings. The functions `getWithdrawalDetails` (line 233) and `isBankTxIdProcessed` (line 241) replicate the functionality of the auto-generated getters.",
+        "references": [
+          "https://docs.soliditylang.org/en/v0.8.20/contracts.html#getter-functions"
+        ],
+        "remediation": "Remove the `getWithdrawalDetails` and `isBankTxIdProcessed` functions. Off-chain clients and other smart contracts can call the automatically generated public getters to access the mapping data."
+      },
+      {
+        "id": "HOOK-I-01",
+        "title": "Missing Event for Critical Address Change",
+        "severity": "info",
+        "category": "style",
+        "file": "AI_ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e_INRTAndCryptoUPIHook.sol",
+        "line": 288,
+        "description": "The `setInrtToken` function in the `CryptoUPIHook` contract allows the owner to change the critical `inrtToken` address, but it does not emit an event. Emitting events for significant state changes is a best practice that improves transparency and allows off-chain services to monitor contract activity.",
+        "impact": "It is more difficult for users and monitoring tools to track changes to the trusted `INRT` token contract address, reducing system transparency.",
+        "likelihood": "high",
+        "evidence": "The body of the `setInrtToken` function modifies the `inrtToken` state variable but does not include an `emit` statement.",
+        "references": [
+          "https://consensys.github.io/smart-contract-best-practices/development-recommendations/solidity-specific/events/"
+        ],
+        "remediation": "Add an event to the `CryptoUPIHook` contract and emit it within the `setInrtToken` function to log this critical change.\n\nsolidity\n// In CryptoUPIHook contract\nevent InrtTokenSet(address indexed oldToken, address indexed newToken);\n\nfunction setInrtToken(address _inrtToken) public onlyOwner {\n    require(_inrtToken != address(0), \"CryptoUPIHook: Address cannot be zero\");\n    emit InrtTokenSet(address(inrtToken), _inrtToken);\n    inrtToken = IINRT(_inrtToken);\n}\n"
+      }
+    ],
+    "recommendations": [
+      "Immediately disable the standard `ERC20Burnable` functions to prevent accidental fund loss.",
+      "Strengthen the security of the `CryptoUPIHook` by making the `inrtToken` address immutable or subject to a timelock.",
+      "Implement operational security measures, such as a multi-signature wallet for the owner role, to mitigate centralization risks.",
+      "Refactor the code to remove redundant functions and add event emissions for all critical state changes to improve gas efficiency and transparency."
+    ]
+  }
+}

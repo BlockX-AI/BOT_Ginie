@@ -1,0 +1,1 @@
+pragma solidity ^0.8.19; contract MyContract { function v() public pure returns(uint){ return 1; } }

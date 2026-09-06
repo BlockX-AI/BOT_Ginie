@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:11:04.946Z",
+  "contracts": {
+    "BusinessToken": "0x9EA0B96425502143A79858c56BCAb4966dE22A58"
+  },
+  "params": {
+    "name": "Draco My Token 40",
+    "symbol": "DRC40",
+    "initialSupplyTokens": "100000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

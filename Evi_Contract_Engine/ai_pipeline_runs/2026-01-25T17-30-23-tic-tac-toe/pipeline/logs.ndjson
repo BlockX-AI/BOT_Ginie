@@ -1,0 +1,24 @@
+{"i":1,"t":1769362224485,"level":"info","msg":"Pipeline started. Network=fuji, maxIters=11, file=TicTacToe.sol, strictArgs=true"}
+{"i":2,"t":1769362224486,"level":"debug","msg":"config: maxIters=11 (hardCap=51)"}
+{"i":3,"t":1769362224489,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1769362224493,"level":"debug","msg":"Enhanced prompt length=3881"}
+{"i":5,"t":1769362224493,"level":"info","msg":"game_classified: PVP_TURN (94.1% confidence)"}
+{"i":6,"t":1769362224493,"level":"debug","msg":"prompt_suite: pvp_turn_complete with 19 prompts"}
+{"i":7,"t":1769362224493,"level":"debug","msg":"mechanics: [leaderboard_seasonal]"}
+{"i":8,"t":1769362224493,"level":"debug","msg":"complexity: medium, gas: high, security: advanced"}
+{"i":9,"t":1769362295651,"level":"debug","msg":"generate_ai_response_len=11385 ai_ms=71156"}
+{"i":10,"t":1769362295651,"level":"info","msg":"Generation done in 71162ms. Code size=11482"}
+{"i":11,"t":1769362295652,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":12,"t":1769362295670,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":13,"t":1769362297835,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_5a386199-f4fd-4edb-a289-5ac7822c7e14_TicTacToe.sol\n\n\n"}
+{"i":14,"t":1769362297846,"level":"info","msg":"Compiled 2 Solidity files successfully (evm target: paris).\n"}
+{"i":15,"t":1769362297863,"level":"debug","msg":"iter 1/11: compile ok in 2193ms"}
+{"i":16,"t":1769362297863,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":17,"t":1769362297864,"level":"debug","msg":"Artifact chosen for deploy: TicTacToe"}
+{"i":18,"t":1769362297864,"level":"info","msg":"Stage: deploy_script -> contract TicTacToe"}
+{"i":19,"t":1769362297864,"level":"info","msg":"Contract chosen for deploy: TicTacToe"}
+{"i":20,"t":1769362297872,"level":"info","msg":"Contract persisted to database: TicTacToe"}
+{"i":21,"t":1769362297872,"level":"info","msg":"Stage: deploy -> network avalanche-fuji"}
+{"i":22,"t":1769362304710,"level":"info","msg":"DEPLOY_RESULT {\"network\":\"avalanche-fuji\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"TicTacToe\",\"fqName\":\"contracts/AI_ai_pipeline_5a386199-f4fd-4edb-a289-5ac7822c7e14_TicTacToe.sol:TicTacToe\",\"address\":\"0xac4A957A63a5953B8C1c5e8Fe2bC82A28c4894A0\",\"params\":{\"args\":[]}}\n"}
+{"i":23,"t":1769362304735,"level":"info","msg":"Deploy success. Address=0xac4A957A63a5953B8C1c5e8Fe2bC82A28c4894A0"}
+{"i":24,"t":1769362304738,"level":"info","msg":"Deployment persisted to database: 0xac4A957A63a5953B8C1c5e8Fe2bC82A28c4894A0"}

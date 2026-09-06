@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "Bus",
+      "fqName": "contracts/AI_ai_pipeline_61944ad3-ada2-400c-8b89-b13c521c233a_Bus.sol:Bus",
+      "address": "0xfC82b2362F63E69aFB293ea91b6aAB9a4d5707b0",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1759154198956,
+    "createdAt": 1759154124808
+  }
+}

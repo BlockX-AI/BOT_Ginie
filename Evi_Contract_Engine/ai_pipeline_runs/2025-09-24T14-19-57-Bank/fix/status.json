@@ -1,0 +1,137 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1758723662917,
+    "updatedAt": 1758723669052,
+    "payload": {
+      "network": "basecamp-testnet",
+      "filename": "Bus.sol",
+      "constructorArgs": [],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758723662917
+      },
+      {
+        "step": "write",
+        "t": 1758723662918
+      },
+      {
+        "step": "compile",
+        "t": 1758723662919
+      },
+      {
+        "step": "deploy_script",
+        "t": 1758723665260
+      },
+      {
+        "step": "deploy",
+        "t": 1758723665261
+      }
+    ],
+    "timings": {
+      "startedAt": 1758723662917,
+      "endedAt": 1758723669052,
+      "phases": {
+        "init": {
+          "startedAt": 1758723662917,
+          "endedAt": 1758723662918
+        },
+        "write": {
+          "startedAt": 1758723662918,
+          "endedAt": 1758723662919
+        },
+        "compile": {
+          "startedAt": 1758723662919,
+          "endedAt": 1758723665260
+        },
+        "deploy_script": {
+          "startedAt": 1758723665260,
+          "endedAt": 1758723665261
+        },
+        "deploy": {
+          "startedAt": 1758723665261,
+          "endedAt": 1758723669052
+        }
+      }
+    },
+    "result": null,
+    "error": "exit 1",
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758723662917,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp-testnet, file=Bus.sol"
+      },
+      {
+        "i": 2,
+        "t": 1758723662917,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      },
+      {
+        "i": 3,
+        "t": 1758723662919,
+        "level": "info",
+        "msg": "Starting compile/fix loop"
+      },
+      {
+        "i": 4,
+        "t": 1758723665219,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee_Bus.sol\n\n\n"
+      },
+      {
+        "i": 5,
+        "t": 1758723665230,
+        "level": "info",
+        "msg": "Compiled 4 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 6,
+        "t": 1758723665260,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 2341ms"
+      },
+      {
+        "i": 7,
+        "t": 1758723665260,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 8,
+        "t": 1758723665260,
+        "level": "info",
+        "msg": "Contract chosen for deploy: Bus"
+      },
+      {
+        "i": 9,
+        "t": 1758723665261,
+        "level": "info",
+        "msg": "Deploying to network basecamp-testnet"
+      },
+      {
+        "i": 10,
+        "t": 1758723668996,
+        "level": "error",
+        "msg": "ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 830546443300, overshot 830546443300\n    at HttpProvider.request (/app/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at HardhatEthersSigner.sendTransaction (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/app/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/app/tmp/jobs/ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee/scripts/deploy-ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee.js:8:13)\n"
+      }
+    ],
+    "_logIndex": 10,
+    "logsCount": 10,
+    "lastLogTs": 1758723668996,
+    "contractName": "Bus",
+    "stdout": "",
+    "stderr": "ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 830546443300, overshot 830546443300\n    at HttpProvider.request (/app/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at HardhatEthersSigner.sendTransaction (/app/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/app/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/app/tmp/jobs/ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee/scripts/deploy-ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee.js:8:13)\n"
+  }
+}

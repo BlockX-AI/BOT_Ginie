@@ -1,0 +1,235 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_3f10bd39-7795-473a-b815-1ad9171a55d8",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1769331921831,
+    "updatedAt": 1769332054332,
+    "payload": {
+      "prompt": "Create a Tic Tac Toe game smart contract. Features:\n- Two players take turns marking X or O on a 3x3 grid\n- Track game state on-chain with board array\n- Detect win conditions (rows, columns, diagonals) and draw\n- Emit events for moves, wins, and draws\n- Allow starting new games\n- Keep constructor empty, gas-efficient design",
+      "network": "fuji",
+      "maxIters": 11,
+      "providedName": "TicTacToe",
+      "filename": "TicTacToe.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1769331921831
+      },
+      {
+        "step": "generate",
+        "t": 1769331921832
+      },
+      {
+        "step": "write",
+        "t": 1769332041427
+      },
+      {
+        "step": "compile",
+        "t": 1769332041434
+      },
+      {
+        "step": "deploy_script",
+        "t": 1769332045624
+      },
+      {
+        "step": "deploy",
+        "t": 1769332045625
+      }
+    ],
+    "timings": {
+      "startedAt": 1769331921831,
+      "endedAt": 1769332054332,
+      "phases": {
+        "init": {
+          "startedAt": 1769331921831,
+          "endedAt": 1769331921832
+        },
+        "generate": {
+          "startedAt": 1769331921832,
+          "endedAt": 1769332041427
+        },
+        "write": {
+          "startedAt": 1769332041427,
+          "endedAt": 1769332041434
+        },
+        "compile": {
+          "startedAt": 1769332041434,
+          "endedAt": 1769332045624
+        },
+        "deploy_script": {
+          "startedAt": 1769332045624,
+          "endedAt": 1769332045625
+        },
+        "deploy": {
+          "startedAt": 1769332045625,
+          "endedAt": 1769332054332
+        }
+      }
+    },
+    "result": {
+      "network": "avalanche-fuji",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "TicTacToe",
+      "fqName": "contracts/AI_ai_pipeline_3f10bd39-7795-473a-b815-1ad9171a55d8_TicTacToe.sol:TicTacToe",
+      "address": "0x044404Dcfe05eddC25f5DC33833975fdAC5D96dc",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1769331921831,
+        "level": "info",
+        "msg": "Pipeline started. Network=fuji, maxIters=11, file=TicTacToe.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1769331921831,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      },
+      {
+        "i": 3,
+        "t": 1769331921832,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1769331921833,
+        "level": "debug",
+        "msg": "Enhanced prompt length=3881"
+      },
+      {
+        "i": 5,
+        "t": 1769331921833,
+        "level": "info",
+        "msg": "game_classified: PVP_TURN (94.1% confidence)"
+      },
+      {
+        "i": 6,
+        "t": 1769331921833,
+        "level": "debug",
+        "msg": "prompt_suite: pvp_turn_complete with 19 prompts"
+      },
+      {
+        "i": 7,
+        "t": 1769331921833,
+        "level": "debug",
+        "msg": "mechanics: [leaderboard_seasonal]"
+      },
+      {
+        "i": 8,
+        "t": 1769331921833,
+        "level": "debug",
+        "msg": "complexity: medium, gas: high, security: advanced"
+      },
+      {
+        "i": 9,
+        "t": 1769332041426,
+        "level": "debug",
+        "msg": "generate_ai_response_len=12141 ai_ms=119592"
+      },
+      {
+        "i": 10,
+        "t": 1769332041427,
+        "level": "info",
+        "msg": "Generation done in 119595ms. Code size=12238"
+      },
+      {
+        "i": 11,
+        "t": 1769332041428,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 12,
+        "t": 1769332041434,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 13,
+        "t": 1769332045525,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_3f10bd39-7795-473a-b815-1ad9171a55d8_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 14,
+        "t": 1769332045525,
+        "level": "error",
+        "msg": "Warning: The result type of the shift operation is equal to the type of the first operand (uint32) ignoring the (larger) type of the second operand (uint256) which might be unexpected. Silence this warning by either converting the first or the second operand to the type of the other.\n   --> contracts/AI_ai_pipeline_3f10bd39-7795-473a-b815-1ad9171a55d8_TicTacToe.sol:169:19:\n    |\n169 |         board |= (playerValue << shift);\n    |                   ^^^^^^^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 15,
+        "t": 1769332045563,
+        "level": "info",
+        "msg": "Compiled 2 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 16,
+        "t": 1769332045623,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 4189ms"
+      },
+      {
+        "i": 17,
+        "t": 1769332045623,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 18,
+        "t": 1769332045624,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: TicTacToe"
+      },
+      {
+        "i": 19,
+        "t": 1769332045625,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract TicTacToe"
+      },
+      {
+        "i": 20,
+        "t": 1769332045625,
+        "level": "info",
+        "msg": "Contract chosen for deploy: TicTacToe"
+      },
+      {
+        "i": 21,
+        "t": 1769332045625,
+        "level": "info",
+        "msg": "Stage: deploy -> network avalanche-fuji"
+      },
+      {
+        "i": 22,
+        "t": 1769332054250,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"avalanche-fuji\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"TicTacToe\",\"fqName\":\"contracts/AI_ai_pipeline_3f10bd39-7795-473a-b815-1ad9171a55d8_TicTacToe.sol:TicTacToe\",\"address\":\"0x044404Dcfe05eddC25f5DC33833975fdAC5D96dc\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 23,
+        "t": 1769332054331,
+        "level": "info",
+        "msg": "Deploy success. Address=0x044404Dcfe05eddC25f5DC33833975fdAC5D96dc"
+      }
+    ],
+    "_logIndex": 23,
+    "logsCount": 23,
+    "lastLogTs": 1769332054331,
+    "contractName": "TicTacToe",
+    "stdout": "DEPLOY_RESULT {\"network\":\"avalanche-fuji\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"TicTacToe\",\"fqName\":\"contracts/AI_ai_pipeline_3f10bd39-7795-473a-b815-1ad9171a55d8_TicTacToe.sol:TicTacToe\",\"address\":\"0x044404Dcfe05eddC25f5DC33833975fdAC5D96dc\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,10 @@
+{"i":1,"t":1758598759155,"level":"info","msg":"Fix job started. Network=camp-testnet, file=PaniPuri.sol"}
+{"i":2,"t":1758598759155,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758598759156,"level":"info","msg":"Starting compile/fix loop"}
+{"i":4,"t":1758598760044,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a_PaniPuri.sol\n\n\n"}
+{"i":5,"t":1758598760052,"level":"info","msg":"Compiled 5 Solidity files successfully (evm target: paris).\n"}
+{"i":6,"t":1758598760065,"level":"debug","msg":"iter 1/11: compile ok in 909ms"}
+{"i":7,"t":1758598760065,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":8,"t":1758598760065,"level":"info","msg":"Contract chosen for deploy: PaniPuri"}
+{"i":9,"t":1758598760065,"level":"info","msg":"Deploying to network basecamp-testnet"}
+{"i":10,"t":1758598764861,"level":"error","msg":"ProviderError: insufficient funds for gas * price + value: balance 0, tx cost 741725721321, overshot 741725721321\n    at HttpProvider.request (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/hardhat/src/internal/core/providers/http.ts:116:21)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at HardhatEthersSigner.sendTransaction (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:181:18)\n    at ContractFactory.deploy (/Users/satyamsinghal/Desktop/Anadi_Submission/node_modules/ethers/src.ts/contract/factory.ts:111:24)\n    at main (/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a/scripts/deploy-ai_pipeline_403524e0-9e5f-4850-b9eb-80b5a704a71a.js:8:13)\n"}

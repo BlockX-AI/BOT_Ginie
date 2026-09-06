@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:20:36.714Z",
+  "contracts": {
+    "BusinessToken": "0x430D2705D1e852E9e820228d7B5382E849e856e1"
+  },
+  "params": {
+    "name": "Apex Camp Token 05",
+    "symbol": "APX05",
+    "initialSupplyTokens": "250000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

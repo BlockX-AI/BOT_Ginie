@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:44:19.441Z",
+  "contracts": {
+    "BusinessToken": "0xb7cC004b75BaBDfc5771Baf4D8483bA93a653A2c"
+  },
+  "params": {
+    "name": "Aurora Camp Token 11",
+    "symbol": "ARR11",
+    "initialSupplyTokens": "123456789",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

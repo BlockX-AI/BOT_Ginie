@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_5dfd119c-5fd7-4094-940a-6c792d2a4925",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758599863186,
+    "updatedAt": 1758599863186,
+    "payload": {
+      "prompt": " Puri ka thelaA1. Programs & Responsibilities\n1) Escrow Manager (vault + lifecycle)\nState\nprojects: Map<ProjectId, Project>\nproposals: Map<ProjectId, Vec<Proposal>>\nmilestones: Map<ProjectId, Vec<Milestone>>\nauthorized_verifier: ActorId (Verification Bridge)\nplatform_treasury: ActorId\nfee_bps: u16 (default 500 = 5%)\nCore Types\nProject { owner, selected_dev?, budget, currency, status, progress_pool, final_pool, released_progress, released_final }\nProposal { dev, quote, milestone_specs, metadata }\nMilestone { idx, name, weight_bps, target_tests?, status, percent_complete_bps, ipfs_cids[] }\nActions\nCreateProject{budget, currency, meta} (payer attaches funds) → fee skim to treasury; split: progress_pool = 60%, final_pool = 35%.\nSubmitProposal{project_id, quote, milestones, meta}\nSelectDeveloper{project_id, dev, accepted_quote}\nUpdateMilestone{project_id, idx, meta?} (owner/admin)\nMarkFinalApproved{project_id} (owner wallet)\nCancelProject{project_id} (rules: only pre-selection or by dispute outcome)\nVerifier-only:\nApplyProgress{project_id, idx, new_percent_bps, ipfs_cid}\nComputes delta, accrues releasable from progress_pool, and pays developer instantly up to pool remaining.\nQueries\nGetProject, GetMilestones, GetProposalList, GetAccounting\nEvents\nProposalSubmitted, DeveloperSelected, ProgressApplied, ProgressPaid, FinalApproved, Disputed, Refunded\nGuards\nOnly authorized_verifier may call ApplyProgress.\nFinal approval must be signed by owner to release final_pool (35%).\n2) Verification Bridge (attestations + policy)\nState\nadmin\nescrow_manager: ActorId\nbindings: Map<RepoOrArtifact, (project_id, milestone_idx)>\nrecords: Map<(project_id, idx), Vec<Attestation>> (bounded, e.g., 25)\npolicy_cfg { min_step_bps, smoothing_alpha_bps, test_required: bool }\nAction\nBind{ repo|artifact, project_id, idx }\nSubmitAttestation{ attestation } (whitelisted relayer only)\n→ Validates signature + repo binding, computes % completion (EMA optional), emits ApplyProgress to Escrow Manager with:\n{ project_id, idx, new_percent_bps, ipfs_cid_summary }\nNotes\nKeeps monotonic percent per milestone (never decreases).\nRequires/records evidence CIDs (commit diff report, test runs, coverage, SBOM, etc).\nIf test_required=true, caps percent until passing tests present.",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "varaStreams",
+      "filename": "varaStreams.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758599863186
+      }
+    ],
+    "timings": {
+      "startedAt": 1758599863186,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758599863186
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758599863186,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=varaStreams.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758599863186,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758599863186
+  }
+}

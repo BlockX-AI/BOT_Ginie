@@ -1,0 +1,2350 @@
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.
+[info] Pipeline started. Network=basecamp, maxIters=4, file=OracleGuardedVault.sol
+[info] Stage: generate -> prompt preparation
+[debug] Enhanced prompt length=1488
+[info] Generation done in 102787ms. Code size=20026
+[info] Stage: write -> preparing sandbox and files
+[info] Stage: compile -> starting compile/fix loop
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[error] TypeError: True expression's type int256 does not match false expression's type uint8.
+   --> contracts/AI_ai_pipeline_d3cb309d-22f2-47d2-bcbc-eee20e16159f_OracleGuardedVault.sol:220:26:
+    |
+220 |         int256 netFlow = (day == currentDay) ? netFlowToday : 0;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+[error] Error HH600: Compilation failed
+
+[info] 
+
+[error] HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+[warn] Compile failed (iter 0). Running AI fix. Error length=1586
+[error] WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+[info] 
+
+
+[info] Compiled 18 Solidity files successfully (evm target: paris).
+
+[info] Compile success after 1 fix iterations.
+[debug] Artifact chosen for deploy: OracleGuardedVault
+[info] Stage: deploy_script -> contract OracleGuardedVault
+[error] Constructor args mismatch. Expected 5, provided 2.

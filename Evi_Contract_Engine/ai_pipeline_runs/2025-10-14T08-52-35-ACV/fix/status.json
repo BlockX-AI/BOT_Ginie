@@ -1,0 +1,138 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_4e4a9962-4e09-4298-af02-fd59ad21eefa",
+    "type": "ai_pipeline",
+    "state": "failed",
+    "progress": 100,
+    "createdAt": 1760432430453,
+    "updatedAt": 1760432436996,
+    "payload": {
+      "network": "basecamp",
+      "filename": "Web3BouncingBalls.sol",
+      "constructorArgs": [
+        "0xTreasuryAddress"
+      ],
+      "jobKind": "fix",
+      "maxIters": 11
+    },
+    "step": "deploy_prep",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1760432430453
+      },
+      {
+        "step": "write",
+        "t": 1760432430454
+      },
+      {
+        "step": "compile",
+        "t": 1760432430455
+      },
+      {
+        "step": "deploy_script",
+        "t": 1760432436995
+      },
+      {
+        "step": "deploy_prep",
+        "t": 1760432436996
+      }
+    ],
+    "timings": {
+      "startedAt": 1760432430453,
+      "endedAt": 1760432436996,
+      "phases": {
+        "init": {
+          "startedAt": 1760432430453,
+          "endedAt": 1760432430454
+        },
+        "write": {
+          "startedAt": 1760432430454,
+          "endedAt": 1760432430455
+        },
+        "compile": {
+          "startedAt": 1760432430455,
+          "endedAt": 1760432436995
+        },
+        "deploy_script": {
+          "startedAt": 1760432436995,
+          "endedAt": 1760432436996
+        },
+        "deploy_prep": {
+          "startedAt": 1760432436996,
+          "endedAt": 1760432436996
+        }
+      }
+    },
+    "result": null,
+    "error": "CONSTRUCTOR_ARGS_MISMATCH",
+    "logs": [
+      {
+        "i": 1,
+        "t": 1760432430453,
+        "level": "info",
+        "msg": "Fix job started. Network=basecamp, file=Web3BouncingBalls.sol"
+      },
+      {
+        "i": 2,
+        "t": 1760432430453,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1760432430455,
+        "level": "info",
+        "msg": "Starting compile/fix loop"
+      },
+      {
+        "i": 4,
+        "t": 1760432436884,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_4e4a9962-4e09-4298-af02-fd59ad21eefa_Web3BouncingBalls.sol\n\n\n"
+      },
+      {
+        "i": 5,
+        "t": 1760432436937,
+        "level": "info",
+        "msg": "Compiled 22 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 6,
+        "t": 1760432436994,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 6539ms"
+      },
+      {
+        "i": 7,
+        "t": 1760432436994,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 8,
+        "t": 1760432436996,
+        "level": "info",
+        "msg": "Contract chosen for deploy: Web3BouncingBalls"
+      },
+      {
+        "i": 9,
+        "t": 1760432436996,
+        "level": "error",
+        "msg": "Constructor args mismatch. Expected 0, provided 1."
+      }
+    ],
+    "_logIndex": 9,
+    "logsCount": 9,
+    "lastLogTs": 1760432436996,
+    "contractName": "Web3BouncingBalls",
+    "details": {
+      "contractName": "Web3BouncingBalls",
+      "expectedConstructor": [],
+      "providedConstructorArgs": [
+        "0xTreasuryAddress"
+      ]
+    }
+  }
+}

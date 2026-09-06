@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "DungeonCrawler",
+      "fqName": "contracts/AI_ai_pipeline_9d0076ab-567f-464b-86dd-03f7d609d8d4_DungeonCrawler.sol:DungeonCrawler",
+      "address": "0x83814605389040E4A313222674dD76a65F17C787",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1768228495491,
+    "createdAt": 1768228421421
+  }
+}

@@ -1,0 +1,18 @@
+{"i":1,"t":1758574082554,"level":"info","msg":"Pipeline started. Network=basecamp-testnet, maxIters=11, file=Treasury.sol, strictArgs=true"}
+{"i":2,"t":1758574082554,"level":"debug","msg":"config: maxIters=11 (hardCap=12)"}
+{"i":3,"t":1758574082555,"level":"info","msg":"Stage: generate -> prompt preparation"}
+{"i":4,"t":1758574082555,"level":"debug","msg":"Enhanced prompt length=3794"}
+{"i":5,"t":1758574164548,"level":"debug","msg":"generate_ai_response_len=16835 ai_ms=81993"}
+{"i":6,"t":1758574164548,"level":"info","msg":"Generation done in 81993ms. Code size=16788"}
+{"i":7,"t":1758574164548,"level":"info","msg":"Stage: write -> preparing sandbox and files"}
+{"i":8,"t":1758574164554,"level":"info","msg":"Stage: compile -> starting compile/fix loop"}
+{"i":9,"t":1758574166918,"level":"error","msg":"Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac_Treasury.sol\n\n\n"}
+{"i":10,"t":1758574166938,"level":"info","msg":"Compiled 17 Solidity files successfully (evm target: paris).\n"}
+{"i":11,"t":1758574166954,"level":"debug","msg":"iter 1/11: compile ok in 2400ms"}
+{"i":12,"t":1758574166954,"level":"info","msg":"Compile success after 0 fix iterations."}
+{"i":13,"t":1758574166955,"level":"debug","msg":"Artifact chosen for deploy: Treasury"}
+{"i":14,"t":1758574166955,"level":"info","msg":"Stage: deploy_script -> contract Treasury"}
+{"i":15,"t":1758574166955,"level":"info","msg":"Contract chosen for deploy: Treasury"}
+{"i":16,"t":1758574166956,"level":"info","msg":"Stage: deploy -> network basecamp-testnet"}
+{"i":17,"t":1758574174092,"level":"info","msg":"DEPLOY_RESULT {\"network\":\"basecamp-testnet\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"Treasury\",\"fqName\":\"contracts/AI_ai_pipeline_ba5427ab-4807-477b-965d-681a2b1d9fac_Treasury.sol:Treasury\",\"address\":\"0xFCA47A13624A6DCa7Ef5e3C06b1612B5Aba96A8d\",\"params\":{\"args\":[]}}\n"}
+{"i":18,"t":1758574174110,"level":"info","msg":"Deploy success. Address=0xFCA47A13624A6DCa7Ef5e3C06b1612B5Aba96A8d"}

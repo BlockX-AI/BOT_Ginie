@@ -1,0 +1,5 @@
+{
+  "ok": true,
+  "verified": true,
+  "stdout": "[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:\n\nsourcify: {\n  enabled: true\n}\n\nOr set 'enabled' to false to hide this message.\n\nFor more information, visit https://hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify\nSuccessfully submitted source code for contract\ncontracts/AI_ai_pipeline_68b740f2-ff0f-4e64-8136-65b386dd0e2b_TicTacToe.sol:TicTacToe at 0x16FCD05ad63a7aeAB74927ac7d72dA77c6D3FeFc\nfor verification on the block explorer. Waiting for verification result...\n\nSuccessfully verified contract TicTacToe on the block explorer.\nhttps://testnet.snowtrace.io/address/0x16FCD05ad63a7aeAB74927ac7d72dA77c6D3FeFc#code\n\n"
+}

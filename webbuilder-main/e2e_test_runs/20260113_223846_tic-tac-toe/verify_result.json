@@ -1,0 +1,6 @@
+{
+  "ok": true,
+  "verified": true,
+  "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0x244361a737Cb46142b5F703642C4c92A42355FAD#code",
+  "stdout": "[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:\n\nsourcify: {\n  enabled: true\n}\n\nOr set 'enabled' to false to hide this message.\n\nFor more information, visit https://hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify\nSuccessfully submitted source code for contract\ncontracts/AI_ai_pipeline_9e8ca052-c73f-4ae5-98a6-6183f9c5d317_TicTacToe.sol:TicTacToe at 0x244361a737Cb46142b5F703642C4c92A42355FAD\nfor verification on the block explorer. Waiting for verification result...\n\nSuccessfully verified contract TicTacToe on the block explorer.\nhttps://basecamp.cloud.blockscout.com/address/0x244361a737Cb46142b5F703642C4c92A42355FAD#code\n\n"
+}

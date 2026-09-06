@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758574266874,
+    "updatedAt": 1758574266874,
+    "payload": {
+      "prompt": "Build a cross-chain DeFi aggregator that combines Uniswap V3 concentrated\nliquidity, Aave flash loans, Compound lending, MakerDAO CDP management,\nand Curve stable swaps. Include MEV protection via commit-reveal schemes,\nimplement Dutch auction liquidations, support 15+ different tokens with\ncustom pricing oracles, and add a governance token with quadratic voting,\ndelegation, and time-locked proposals. The contract should also handle\nyield farming across multiple protocols, auto-compound rewards, and\nprovide insurance against smart contract risks through a decentralized\ninsurance pool.",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "DeFiAggregator",
+      "filename": "DeFiAggregator.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758574266874
+      }
+    ],
+    "timings": {
+      "startedAt": 1758574266874,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758574266874
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758574266874,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=DeFiAggregator.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758574266874,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758574266874
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:07:36.367Z",
+  "contracts": {
+    "BusinessToken": "0x78Bb0bdC18d451e5070f60B3B174a5A5bcC992be"
+  },
+  "params": {
+    "name": "Cipher My Token 20",
+    "symbol": "CPHR20",
+    "initialSupplyTokens": "21000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

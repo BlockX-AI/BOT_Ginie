@@ -1,0 +1,6 @@
+{"i":1,"t":1769362306876,"level":"info","msg":"Orchestrate job started. fix=false deploy=false network=fuji"}
+{"i":2,"t":1769362379842,"level":"warn","msg":"Coverage gating failed: FINDINGS_LESS_THAN_MINIMUM_17"}
+{"i":3,"t":1769362451940,"level":"info","msg":"Coverage gating passed after second pass."}
+{"i":4,"t":1769362451940,"level":"info","msg":"Audit analysis complete. score=97"}
+{"i":5,"t":1769362451940,"level":"info","msg":"Saved audit report: tmp/jobs/audit_orchestrate_5fd3a456-5520-49fb-9901-ea2fbf9e0dc7/audit/report.json"}
+{"i":6,"t":1769362451941,"level":"info","msg":"Mirrored audit report under source job: ai_pipeline_5a386199-f4fd-4edb-a289-5ac7822c7e14"}

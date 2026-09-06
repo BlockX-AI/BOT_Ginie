@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:47:54.271Z",
+  "contracts": {
+    "BusinessToken": "0xc1B7624d2FFA7E2Ec9d53b8f3ecb1f5Ec8aB3b37"
+  },
+  "params": {
+    "name": "Falcon Camp Token 30",
+    "symbol": "FLCN30",
+    "initialSupplyTokens": "314159265",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

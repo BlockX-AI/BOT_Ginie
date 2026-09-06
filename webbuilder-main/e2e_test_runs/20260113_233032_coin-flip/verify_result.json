@@ -1,0 +1,6 @@
+{
+  "ok": true,
+  "verified": true,
+  "explorerUrl": "https://basecamp.cloud.blockscout.com/address/0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43#code",
+  "stdout": "[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:\n\nsourcify: {\n  enabled: true\n}\n\nOr set 'enabled' to false to hide this message.\n\nFor more information, visit https://hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify\nSuccessfully submitted source code for contract\ncontracts/AI_ai_pipeline_1cf39f04-628c-4f74-8c9a-de50ff330967_CoinFlipBet.sol:CoinFlipBet at 0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43\nfor verification on the block explorer. Waiting for verification result...\n\nSuccessfully verified contract CoinFlipBet on the block explorer.\nhttps://basecamp.cloud.blockscout.com/address/0xFe6922DE8B20C6C60CCC7F6f19dD64B4B83fFd43#code\n\n"
+}

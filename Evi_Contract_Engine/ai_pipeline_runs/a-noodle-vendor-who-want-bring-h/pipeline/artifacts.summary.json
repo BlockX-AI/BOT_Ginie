@@ -1,0 +1,357 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525",
+  "scope": "job:ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525_Noodle.sol",
+      "content": "pragma solidity ^0.8.19;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/security/Pausable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\n\n/**\n * @title NoodleVendor\n * @author Expert Solidity Engineer\n * @notice A smart contract for an on-chain Noodle Vending Machine.\n * @dev This contract allows an owner to manage a menu of noodle dishes and withdraw\n *      profits. Customers can purchase noodles by sending the exact amount of ETH.\n *      It uses OpenZeppelin contracts for ownership, pausable functionality, and\n *      reentrancy protection.\n */\ncontract NoodleVendor is Ownable, Pausable, ReentrancyGuard {\n    \n    /**\n     * @notice Represents a single noodle dish on the menu.\n     * @param name The name of the noodle dish (e.g., \"Spicy Ramen\").\n     * @param priceInWei The price of the dish in wei.\n     * @param isActive Whether the dish is currently available for purchase.\n     */\n    struct NoodleMenuItem {\n        string name;\n        uint256 priceInWei;\n        bool isActive;\n    }\n\n    /**\n     * @notice Mapping from a unique menu item ID to the NoodleMenuItem struct.\n     */\n    mapping(uint256 => NoodleMenuItem) public menu;\n\n    /**\n     * @notice A counter to generate unique IDs for new menu items.\n     */\n    uint256 public menuItemCounter;\n\n    // --- Events ---\n\n    event MenuItemAdded(uint256 indexed menuId, string name, uint256 priceInWei);\n    event MenuItemPriceUpdated(uint256 indexed menuId, uint256 newPriceInWei);\n    event MenuItemActiveToggled(uint256 indexed menuId, bool isActive);\n    event NoodlePurchased(address indexed customer, uint256 indexed menuId, uint256 pricePaid);\n    event FundsWithdrawn(address indexed owner, uint256 amount);\n\n    /**\n     * @notice The constructor is empty as per requirements.\n     * Ownership is set to the deployer in the Ownable constructor.\n     */\n    constructor() {}\n\n    // --- Customer Functions ---\n\n    /**\n     * @notice Allows a customer to purchase a noodle dish by sending its exact price in ETH.\n     * @dev The contract must not be paused, and the selected menu item must exist and be active.\n     * @param _menuId The ID of the noodle dish to purchase.\n     */\n    function purchaseNoodle(uint256 _menuId) external payable whenNotPaused {\n        require(_menuId < menuItemCounter, \"NoodleVendor: Menu item does not exist.\");\n        \n        NoodleMenuItem storage item = menu[_menuId];\n\n        require(item.isActive, \"NoodleVendor: This noodle dish is currently unavailable.\");\n        require(msg.value == item.priceInWei, \"NoodleVendor: Incorrect payment amount sent.\");\n        \n        emit NoodlePurchased(msg.sender, _menuId, msg.value);\n    }\n\n    // --- Admin Functions ---\n\n    /**\n     * @notice Adds a new noodle dish to the menu.\n     * @dev Can only be called by the contract owner.\n     * @param _name The name of the new noodle dish.\n     * @param _priceInWei The price of the dish in wei.\n     */\n    function addMenuItem(string memory _name, uint256 _priceInWei) external onlyOwner {\n        require(bytes(_name).length > 0, \"NoodleVendor: Noodle name cannot be empty.\");\n        require(_priceInWei > 0, \"NoodleVendor: Price must be greater than zero.\");\n\n        uint256 menuId = menuItemCounter;\n        menu[menuId] = NoodleMenuItem({\n            name: _name,\n            priceInWei: _priceInWei,\n            isActive: true\n        });\n\n        menuItemCounter++;\n\n        emit MenuItemAdded(menuId, _name, _priceInWei);\n    }\n\n    /**\n     * @notice Updates the price of an existing noodle dish.\n     * @dev Can only be called by the contract owner.\n     * @param _menuId The ID of the menu item to update.\n     * @param _newPriceInWei The new price in wei.\n     */\n    function updateMenuItemPrice(uint256 _menuId, uint256 _newPriceInWei) external onlyOwner {\n        require(_menuId < menuItemCounter, \"NoodleVendor: Menu item does not exist.\");\n        require(_newPriceInWei > 0, \"NoodleVendor: Price must be greater than zero.\");\n\n        menu[_menuId].priceInWei = _newPriceInWei;\n        emit MenuItemPriceUpdated(_menuId, _newPriceInWei);\n    }\n\n    /**\n     * @notice Toggles the availability of a noodle dish.\n     * @dev Can only be called by the contract owner.\n     * @param _menuId The ID of the menu item to toggle.\n     */\n    function toggleMenuItemActive(uint256 _menuId) external onlyOwner {\n        require(_menuId < menuItemCounter, \"NoodleVendor: Menu item does not exist.\");\n        \n        NoodleMenuItem storage item = menu[_menuId];\n        item.isActive = !item.isActive;\n\n        emit MenuItemActiveToggled(_menuId, item.isActive);\n    }\n    \n    /**\n     * @notice Pauses the contract, halting all purchases.\n     * @dev Can only be called by the contract owner. Administrative functions remain active.\n     */\n    function pause() external onlyOwner {\n        _pause();\n    }\n\n    /**\n     * @notice Unpauses the contract, resuming all purchases.\n     * @dev Can only be called by the contract owner.\n     */\n    function unpause() external onlyOwner {\n        _unpause();\n    }\n\n    /**\n     * @notice Withdraws the entire ETH balance of the contract to the owner's address.\n     * @dev Uses the nonReentrant modifier and a low-level call to securely transfer funds,\n     *      following the checks-effects-interactions pattern.\n     */\n    function withdraw() external onlyOwner nonReentrant {\n        uint256 amount = address(this).balance;\n        require(amount > 0, \"NoodleVendor: No funds to withdraw.\");\n\n        // Using a low-level call is the recommended way to send Ether since Solidity 0.8.0\n        (bool success, ) = owner().call{value: amount}(\"\");\n        require(success, \"NoodleVendor: Failed to send Ether.\");\n        \n        emit FundsWithdrawn(owner(), amount);\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525_Noodle.sol/NoodleVendor.json",
+      "name": "NoodleVendor",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "FundsWithdrawn",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "menuId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "isActive",
+              "type": "bool"
+            }
+          ],
+          "name": "MenuItemActiveToggled",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "menuId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "priceInWei",
+              "type": "uint256"
+            }
+          ],
+          "name": "MenuItemAdded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "menuId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newPriceInWei",
+              "type": "uint256"
+            }
+          ],
+          "name": "MenuItemPriceUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "customer",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "menuId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "pricePaid",
+              "type": "uint256"
+            }
+          ],
+          "name": "NoodlePurchased",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "_name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_priceInWei",
+              "type": "uint256"
+            }
+          ],
+          "name": "addMenuItem",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "menu",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInWei",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isActive",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "menuItemCounter",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_menuId",
+              "type": "uint256"
+            }
+          ],
+          "name": "purchaseNoodle",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_menuId",
+              "type": "uint256"
+            }
+          ],
+          "name": "toggleMenuItemActive",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_menuId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_newPriceInWei",
+              "type": "uint256"
+            }
+          ],
+          "name": "updateMenuItemPrice",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "withdraw",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x608060405234801561001057600080fd5b5061001a33610030565b6000805460ff60a01b1916905560018055610080565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b610f228061008f6000396000f3fe6080604052600436106100c25760003560e01c8063715018a61161007f578063cffb703c11610059578063cffb703c146101c7578063dfd24b3f146101f6578063f2fde38b14610216578063f300d15b1461023657600080fd5b8063715018a6146101755780638456cb591461018a5780638da5cb5b1461019f57600080fd5b80631119c61d146100c75780631b8c556e146100e95780632fa2ab00146101095780633ccfd60b1461011c5780633f4ba83a146101315780635c975abb14610146575b600080fd5b3480156100d357600080fd5b506100e76100e2366004610b1f565b61025a565b005b3480156100f557600080fd5b506100e7610104366004610b57565b610300565b6100e7610117366004610c0c565b61043f565b34801561012857600080fd5b506100e7610595565b34801561013d57600080fd5b506100e7610709565b34801561015257600080fd5b50600054600160a01b900460ff1660405190151581526020015b60405180910390f35b34801561018157600080fd5b506100e7610719565b34801561019657600080fd5b506100e761072b565b3480156101ab57600080fd5b506000546040516001600160a01b03909116815260200161016c565b3480156101d357600080fd5b506101e76101e2366004610c0c565b61073b565b60405161016c93929190610c6b565b34801561020257600080fd5b506100e7610211366004610c0c565b6107e9565b34801561022257600080fd5b506100e7610231366004610c95565b61086e565b34801561024257600080fd5b5061024c60035481565b60405190815260200161016c565b6102626108e7565b600354821061028c5760405162461bcd60e51b815260040161028390610cc5565b60405180910390fd5b600081116102ac5760405162461bcd60e51b815260040161028390610d0c565b600082815260026020526040908190206001018290555182907fb45e4011380a6eb231531f7410888ed932283a958c3bb45f5d2f59efe56b15e7906102f49084815260200190565b60405180910390a25050565b6103086108e7565b600082511161036c5760405162461bcd60e51b815260206004820152602a60248201527f4e6f6f646c6556656e646f723a204e6f6f646c65206e616d652063616e6e6f746044820152691031329032b6b83a3c9760b11b6064820152608401610283565b6000811161038c5760405162461bcd60e51b815260040161028390610d0c565b6003546040805160608101825284815260208082018590526001828401526000848152600290915291909120815181906103c69082610de3565b50602082015160018201556040909101516002909101805460ff1916911515919091179055600380549060006103fb83610ea3565b9190505550807ff133ddd3ec503b2ee33fbb4f5e12e83073f5383fb39a62fbed168496cf8f21258484604051610432929190610eca565b60405180910390a2505050565b610447610941565b60035481106104685760405162461bcd60e51b815260040161028390610cc5565b60008181526002602081905260409091209081015460ff166104f25760405162461bcd60e51b815260206004820152603860248201527f4e6f6f646c6556656e646f723a2054686973206e6f6f646c652064697368206960448201527f732063757272656e746c7920756e617661696c61626c652e00000000000000006064820152608401610283565b8060010154341461055a5760405162461bcd60e51b815260206004820152602c60248201527f4e6f6f646c6556656e646f723a20496e636f7272656374207061796d656e742060448201526b30b6b7bab73a1039b2b73a1760a11b6064820152608401610283565b604051348152829033907f64456c9ed487d8bfa07de832777bbddbacfbf5221459b46fa8d637deaa03f3229060200160405180910390a35050565b61059d6108e7565b6105a561098e565b47806105ff5760405162461bcd60e51b815260206004820152602360248201527f4e6f6f646c6556656e646f723a204e6f2066756e647320746f2077697468647260448201526230bb9760e91b6064820152608401610283565b600080546040516001600160a01b039091169083908381818185875af1925050503d806000811461064c576040519150601f19603f3d011682016040523d82523d6000602084013e610651565b606091505b50509050806106ae5760405162461bcd60e51b815260206004820152602360248201527f4e6f6f646c6556656e646f723a204661696c656420746f2073656e642045746860448201526232b91760e91b6064820152608401610283565b6000546001600160a01b03166001600160a01b03167feaff4b37086828766ad3268786972c0cd24259d4c87a80f9d3963a3c3d999b0d836040516106f491815260200190565b60405180910390a2505061070760018055565b565b6107116108e7565b6107076109e7565b6107216108e7565b6107076000610a3c565b6107336108e7565b610707610a8c565b60026020526000908152604090208054819061075690610d5a565b80601f016020809104026020016040519081016040528092919081815260200182805461078290610d5a565b80156107cf5780601f106107a4576101008083540402835291602001916107cf565b820191906000526020600020905b8154815290600101906020018083116107b257829003601f168201915b50505050600183015460029093015491929160ff16905083565b6107f16108e7565b60035481106108125760405162461bcd60e51b815260040161028390610cc5565b600081815260026020818152604092839020918201805460ff8082161560ff1990921682179092559351931615158352909183917f3da40a49b972b82e53368c81dd6113478ed6d0ead0c5bbf40636115c5f6a10fb91016102f4565b6108766108e7565b6001600160a01b0381166108db5760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610283565b6108e481610a3c565b50565b6000546001600160a01b031633146107075760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610283565b600054600160a01b900460ff16156107075760405162461bcd60e51b815260206004820152601060248201526f14185d5cd8589b194e881c185d5cd95960821b6044820152606401610283565b6002600154036109e05760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606401610283565b6002600155565b6109ef610acf565b6000805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b610a94610941565b6000805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258610a1f3390565b600054600160a01b900460ff166107075760405162461bcd60e51b815260206004820152601460248201527314185d5cd8589b194e881b9bdd081c185d5cd95960621b6044820152606401610283565b60008060408385031215610b3257600080fd5b50508035926020909101359150565b634e487b7160e01b600052604160045260246000fd5b60008060408385031215610b6a57600080fd5b823567ffffffffffffffff80821115610b8257600080fd5b818501915085601f830112610b9657600080fd5b813581811115610ba857610ba8610b41565b604051601f8201601f19908116603f01168101908382118183101715610bd057610bd0610b41565b81604052828152886020848701011115610be957600080fd5b826020860160208301376000602093820184015298969091013596505050505050565b600060208284031215610c1e57600080fd5b5035919050565b6000815180845260005b81811015610c4b57602081850181015186830182015201610c2f565b506000602082860101526020601f19601f83011685010191505092915050565b606081526000610c7e6060830186610c25565b602083019490945250901515604090910152919050565b600060208284031215610ca757600080fd5b81356001600160a01b0381168114610cbe57600080fd5b9392505050565b60208082526027908201527f4e6f6f646c6556656e646f723a204d656e75206974656d20646f6573206e6f746040820152661032bc34b9ba1760c91b606082015260800190565b6020808252602e908201527f4e6f6f646c6556656e646f723a205072696365206d757374206265206772656160408201526d3a32b9103a3430b7103d32b9379760911b606082015260800190565b600181811c90821680610d6e57607f821691505b602082108103610d8e57634e487b7160e01b600052602260045260246000fd5b50919050565b601f821115610dde57600081815260208120601f850160051c81016020861015610dbb5750805b601f850160051c820191505b81811015610dda57828155600101610dc7565b5050505b505050565b815167ffffffffffffffff811115610dfd57610dfd610b41565b610e1181610e0b8454610d5a565b84610d94565b602080601f831160018114610e465760008415610e2e5750858301515b600019600386901b1c1916600185901b178555610dda565b600085815260208120601f198616915b82811015610e7557888601518255948401946001909101908401610e56565b5085821015610e935787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b600060018201610ec357634e487b7160e01b600052601160045260246000fd5b5060010190565b604081526000610edd6040830185610c25565b9050826020830152939250505056fea264697066735822122091030a65dd20388ab5a9b9ed217ddbf03f7c4f5d19ace83ff8cabce7e959043d64736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525.js",
+      "content": "// Auto-generated by AI pipeline for job ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525_Noodle.sol:NoodleVendor\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"NoodleVendor\", fqName: \"contracts/AI_ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525_Noodle.sol:NoodleVendor\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/app/tmp/jobs/ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "network": "hardhat",
+  "timestamp": "2025-09-17T17:58:51.663Z",
+  "contracts": {
+    "BusinessToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+  },
+  "params": {
+    "name": "Local Test Token",
+    "symbol": "LTT",
+    "initialSupplyTokens": "1000000",
+    "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+  }
+}

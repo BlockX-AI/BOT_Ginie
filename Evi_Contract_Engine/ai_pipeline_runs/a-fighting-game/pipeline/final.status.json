@@ -1,0 +1,88 @@
+{
+  "id": "ai_pipeline_0bd2380c-f8c3-446e-bbfe-2b03db022cb3",
+  "type": "ai_pipeline",
+  "payload": {
+    "prompt": "A fighting Game",
+    "network": "basecamp",
+    "maxIters": 21,
+    "providedName": "",
+    "filename": "Fight.sol",
+    "constructorArgs": [],
+    "strictArgs": true,
+    "jobKind": "pipeline"
+  },
+  "state": "completed",
+  "progress": 100,
+  "step": "deploy",
+  "stepHistory": [
+    {
+      "step": "init",
+      "t": 1759414454318
+    },
+    {
+      "step": "generate",
+      "t": 1759414454318
+    },
+    {
+      "step": "write",
+      "t": 1759414536816
+    },
+    {
+      "step": "compile",
+      "t": 1759414536817
+    },
+    {
+      "step": "deploy_script",
+      "t": 1759414542003
+    },
+    {
+      "step": "deploy",
+      "t": 1759414542004
+    }
+  ],
+  "timings": {
+    "startedAt": 1759414454318,
+    "endedAt": 1759414548237,
+    "phases": {
+      "init": {
+        "startedAt": 1759414454318,
+        "endedAt": 1759414454318
+      },
+      "generate": {
+        "startedAt": 1759414454318,
+        "endedAt": 1759414536816
+      },
+      "write": {
+        "startedAt": 1759414536816,
+        "endedAt": 1759414536817
+      },
+      "compile": {
+        "startedAt": 1759414536817,
+        "endedAt": 1759414542003
+      },
+      "deploy_script": {
+        "startedAt": 1759414542003,
+        "endedAt": 1759414542004
+      },
+      "deploy": {
+        "startedAt": 1759414542004,
+        "endedAt": 1759414548237
+      }
+    }
+  },
+  "result": {
+    "network": "basecamp",
+    "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+    "contract": "FightToken",
+    "fqName": "contracts/AI_ai_pipeline_0bd2380c-f8c3-446e-bbfe-2b03db022cb3_Fight.sol:FightToken",
+    "address": "0xAc028289DBB089615da77bc5E6232f0F7BeE7531",
+    "params": {
+      "args": []
+    }
+  },
+  "error": null,
+  "createdAt": 1759414454318,
+  "updatedAt": 1759414548237,
+  "logsCount": 18,
+  "lastLogTs": 1759414548237
+}

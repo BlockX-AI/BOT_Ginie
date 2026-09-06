@@ -1,0 +1,88 @@
+{
+  "id": "ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525",
+  "type": "ai_pipeline",
+  "payload": {
+    "prompt": "A Noodle Vendor who want bring his venture on chain",
+    "network": "basecamp",
+    "maxIters": 11,
+    "providedName": "",
+    "filename": "Noodle.sol",
+    "constructorArgs": [],
+    "strictArgs": true,
+    "jobKind": "pipeline"
+  },
+  "state": "completed",
+  "progress": 100,
+  "step": "deploy",
+  "stepHistory": [
+    {
+      "step": "init",
+      "t": 1759331452000
+    },
+    {
+      "step": "generate",
+      "t": 1759331452001
+    },
+    {
+      "step": "write",
+      "t": 1759331494184
+    },
+    {
+      "step": "compile",
+      "t": 1759331494184
+    },
+    {
+      "step": "deploy_script",
+      "t": 1759331496597
+    },
+    {
+      "step": "deploy",
+      "t": 1759331496598
+    }
+  ],
+  "timings": {
+    "startedAt": 1759331452000,
+    "endedAt": 1759331503543,
+    "phases": {
+      "init": {
+        "startedAt": 1759331452000,
+        "endedAt": 1759331452001
+      },
+      "generate": {
+        "startedAt": 1759331452001,
+        "endedAt": 1759331494184
+      },
+      "write": {
+        "startedAt": 1759331494184,
+        "endedAt": 1759331494184
+      },
+      "compile": {
+        "startedAt": 1759331494184,
+        "endedAt": 1759331496597
+      },
+      "deploy_script": {
+        "startedAt": 1759331496597,
+        "endedAt": 1759331496598
+      },
+      "deploy": {
+        "startedAt": 1759331496598,
+        "endedAt": 1759331503543
+      }
+    }
+  },
+  "result": {
+    "network": "basecamp",
+    "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+    "contract": "NoodleVendor",
+    "fqName": "contracts/AI_ai_pipeline_9949a025-d61c-4a7f-8d33-667088564525_Noodle.sol:NoodleVendor",
+    "address": "0xc0667862ea1f8929Ea6804961A7E86f8497bcB33",
+    "params": {
+      "args": []
+    }
+  },
+  "error": null,
+  "createdAt": 1759331452000,
+  "updatedAt": 1759331503543,
+  "logsCount": 18,
+  "lastLogTs": 1759331503542
+}

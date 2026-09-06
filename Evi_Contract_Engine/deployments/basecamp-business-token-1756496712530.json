@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:45:12.528Z",
+  "contracts": {
+    "BusinessToken": "0x8D30579f7B9978dBa0F6DCA0aA398500Ff24e018"
+  },
+  "params": {
+    "name": "Flux Camp Token 16",
+    "symbol": "FLX16",
+    "initialSupplyTokens": "900000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-26T20:42:19.147Z",
+  "contracts": {
+    "BusinessToken": "0x941Ca723C71E0824e238505894254Ae214C11fF4"
+  },
+  "params": {
+    "name": "CDT",
+    "symbol": "sf",
+    "initialSupplyTokens": "23456677",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

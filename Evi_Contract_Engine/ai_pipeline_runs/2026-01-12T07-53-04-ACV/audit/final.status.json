@@ -1,0 +1,387 @@
+{
+  "ok": true,
+  "data": {
+    "id": "audit_orchestrate_ba91901e-488d-400f-baa5-61c3424f3a09",
+    "type": "audit_orchestrate",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1768204400193,
+    "updatedAt": 1768204537593,
+    "payload": {
+      "fix": false,
+      "deploy": false,
+      "network": "basecamp"
+    },
+    "step": "done",
+    "stepHistory": [
+      {
+        "step": "analyze",
+        "t": 1768204400193
+      },
+      {
+        "step": "done",
+        "t": 1768204537593
+      }
+    ],
+    "timings": {
+      "startedAt": 1768204400193,
+      "endedAt": 1768204537593,
+      "phases": {
+        "analyze": {
+          "startedAt": 1768204400193,
+          "endedAt": 1768204537593
+        },
+        "done": {
+          "startedAt": 1768204537593,
+          "endedAt": 1768204537593
+        }
+      }
+    },
+    "result": {
+      "audit": {
+        "summary": "This audit of the TempleRunner contract, a Play-to-Earn (P2E) gaming contract, identified one medium-risk centralization issue and several low-risk/informational findings. The contract's design relies on a trusted off-chain signer for game result validation, which is a common and acceptable pattern for P2E games. The core logic is sound, with proper protections against reentrancy, replay attacks, and other common vulnerabilities. The main risk stems from the owner's unilateral power to change the trusted game signer, which could be mitigated by introducing a timelock or multi-sig. Other findings are minor optimizations related to gas usage and code documentation.",
+        "score": 96,
+        "severityMax": "warning",
+        "findings": [
+          {
+            "id": "TR-WARN-1",
+            "title": "Centralized Control Over Game Signer",
+            "severity": "warning",
+            "category": "access-control",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 230,
+            "description": "The `setGameSigner` function is protected only by `onlyOwner`, allowing a single address to change the trusted signer responsible for verifying all game results. This creates a single point of failure and a significant centralization risk for the game's economy.",
+            "impact": "If the owner's private key is compromised, or if the owner acts maliciously, they can set the `gameSigner` to an address they control. This would allow them to submit fraudulent game scores and mint an arbitrary number of reward tokens for any player, effectively devaluing the token for all legitimate players and destroying the game's economy.",
+            "likelihood": "low",
+            "evidence": "function setGameSigner(address _signer) external onlyOwner {\n    require(_signer != address(0), \"Invalid signer\");\n    gameSigner = _signer;\n    emit SignerUpdated(_signer);\n}",
+            "exploitScenario": "A malicious actor gains control of the owner's address. They call `setGameSigner` to point to a new signer address they also control. They then use this new signer to sign fraudulent, high-score game results for their own player address, minting massive amounts of `TempleCoin` tokens and draining value from the ecosystem.",
+            "attackSteps": [
+              "Attacker compromises the owner's private key.",
+              "Attacker calls `setGameSigner(attackerControlledAddress)`.",
+              "Attacker's server generates a valid signature for a fake game session with a huge `score` and `coins` value.",
+              "Attacker calls `submitRun(fakeScore, fakeCoins, fakeSignature)`.",
+              "The contract validates the signature against the compromised signer, and mints an excessive amount of tokens to the attacker's address."
+            ],
+            "references": [
+              "CWE-284: Improper Access Control"
+            ],
+            "remediation": "To decentralize this critical function and reduce risk, implement a timelock mechanism for changing the game signer. This provides a delay where users can see a pending change and react accordingly. Alternatively, for higher security, require a multi-signature wallet to approve such changes.",
+            "remediationCode": "Before:\nfunction setGameSigner(address _signer) external onlyOwner {\n    require(_signer != address(0), \"Invalid signer\");\n    gameSigner = _signer;\n    emit SignerUpdated(_signer);\n}\n\nAfter (using OpenZeppelin's TimelockController):\n// This requires integrating with TimelockController, where the contract owner is the timelock.\n// The owner would queue a transaction and execute it after the delay.\n// A simpler alternative is a custom timelock:\n\naddress public pendingGameSigner;\nuint256 public gameSignerChangeTime;\n\nfunction setGameSigner(address _signer) external onlyOwner {\n    require(_signer != address(0), \"Invalid signer\");\n    pendingGameSigner = _signer;\n    gameSignerChangeTime = block.timestamp + 48 hours; // 2 day delay\n    // Emit event\n}\n\nfunction executeSetGameSigner() external {\n    require(block.timestamp >= gameSignerChangeTime, \"Timelock active\");\n    require(pendingGameSigner != address(0), \"No pending change\");\n    gameSigner = pendingGameSigner;\n    delete pendingGameSigner;\n    delete gameSignerChangeTime;\n    // Emit event\n}"
+          },
+          {
+            "id": "TR-INFO-1",
+            "title": "Gas: Use Custom Errors Instead of Require Strings",
+            "severity": "info",
+            "category": "gas",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 122,
+            "description": "The contract uses `require()` with string reasons for validation (e.g., \"Insufficient energy\"). Since Solidity 0.8.4, custom errors are a more gas-efficient way to handle reversions, reducing both deployment and runtime costs.",
+            "impact": "Using `require` with strings consumes more gas for deployment and execution during reverts compared to custom errors. While not a vulnerability, it represents a missed optimization opportunity that affects user transaction costs.",
+            "likelihood": "low",
+            "evidence": "require(current >= ENERGY_COST, \"Insufficient energy\");",
+            "references": [
+              "https://blog.soliditylang.org/2021/04/21/custom-errors/"
+            ],
+            "remediation": "Replace `require` statements with custom errors. Define the custom errors at the contract level and use `if`/`revert` checks for improved gas efficiency.",
+            "remediationCode": "Before:\nrequire(current >= ENERGY_COST, \"Insufficient energy\");\n\nAfter:\nerror InsufficientEnergy();\n// ... in contract ...\nfunction _spendEnergy(address player) internal {\n    uint256 current = getEnergy(player);\n    if (current < ENERGY_COST) revert InsufficientEnergy();\n    // ...\n}"
+          },
+          {
+            "id": "TR-INFO-2",
+            "title": "Gas: Potential Storage Packing in GameSession Struct",
+            "severity": "info",
+            "category": "gas",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 44,
+            "description": "The `GameSession` struct currently uses three storage slots. By changing `startTime` from `uint256` to `uint64`, it can be packed into a single storage slot with the `active` boolean, saving one SLOAD/SSTORE operation per game session.",
+            "impact": "This optimization would reduce the gas cost of the `startGame` function, which is paid by users for every game they play. A `uint64` is sufficient to store Unix timestamps for centuries.",
+            "likelihood": "low",
+            "evidence": "struct GameSession {\n    uint256 id;\n    uint256 startTime;\n    bool active;\n}",
+            "references": [
+              "https://docs.soliditylang.org/en/v0.8.20/internals/layout_in_storage.html"
+            ],
+            "remediation": "Reorder the struct and use a smaller integer type for `startTime` to enable storage packing.",
+            "remediationCode": "Before:\nstruct GameSession {\n    uint256 id;\n    uint256 startTime;\n    bool active;\n}\n\nAfter:\nstruct GameSession {\n    uint256 id;        // Slot 0\n    uint64 startTime;  // Slot 1 (with active)\n    bool active;       // Slot 1\n}"
+          },
+          {
+            "id": "TR-INFO-3",
+            "title": "Style: Incomplete NatSpec Documentation",
+            "severity": "info",
+            "category": "style",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 39,
+            "description": "Several public state variables (e.g., `gameSigner`, `stats`, `sessions`) and events lack NatSpec comments. While major functions are documented, comprehensive documentation enhances code clarity, maintainability, and compatibility with developer tools.",
+            "impact": "Lack of complete documentation can make it more difficult for new developers or auditors to understand the contract's intended functionality and state management.",
+            "likelihood": "low",
+            "evidence": "// Example of missing documentation:\naddress public gameSigner;\nmapping(address => PlayerStats) public stats;",
+            "references": [
+              "https://docs.soliditylang.org/en/latest/natspec-format.html"
+            ],
+            "remediation": "Add NatSpec comments (`@notice`, `@dev`) to all public state variables, structs, and events to clearly document their purpose and usage."
+          },
+          {
+            "id": "TR-OK-1",
+            "title": "Reentrancy - OK",
+            "severity": "info",
+            "category": "reentrancy",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 141,
+            "description": "The contract correctly uses the `nonReentrant` modifier from OpenZeppelin's ReentrancyGuard on all functions that modify state and could be potential entry points for an attack (`startGame`, `submitRun`, `quitGame`). The contract makes no external calls to untrusted contracts, adhering to the Checks-Effects-Interactions pattern.",
+            "impact": "The contract is protected against reentrancy attacks.",
+            "likelihood": "low",
+            "evidence": "function startGame() external nonReentrant { ... }\nfunction submitRun(...) external nonReentrant { ... }",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-2",
+            "title": "Fund Loss / Recovery - N/A",
+            "severity": "info",
+            "category": "funds",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 1,
+            "description": "The contract does not accept or hold user-deposited Ether or external ERC20 tokens. Its only financial operation is minting its own native token as a reward. Therefore, vulnerabilities related to locked funds, recovery functions draining active balances, or missing withdrawal paths are not applicable.",
+            "impact": "There is no risk of user-deposited funds being lost or frozen in the contract.",
+            "likelihood": "low",
+            "evidence": "The contract has no `payable` functions and no logic for receiving external tokens.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-3",
+            "title": "Withdrawal Logic - N/A",
+            "severity": "info",
+            "category": "funds",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 1,
+            "description": "The contract does not implement a withdrawal or claim pattern where users pull funds they have deposited. The reward mechanism is based on minting new tokens directly to the player's address. As such, common withdrawal bugs like 'zero then read' are not applicable.",
+            "impact": "The contract is not vulnerable to common withdrawal/claim exploits.",
+            "likelihood": "low",
+            "evidence": "Rewards are handled via `_mint(msg.sender, ...)` in `submitRun`, not a separate withdrawal function.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-4",
+            "title": "Core Logic Correctness - OK",
+            "severity": "info",
+            "category": "logic",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 109,
+            "description": "The core game mechanics, including energy regeneration, session management, nonce-based game ID generation, and leaderboard updates, are implemented logically and correctly. The off-chain verification model is well-defined and secure, assuming the signer is trusted.",
+            "impact": "The game's on-chain mechanics function as intended without apparent logical flaws or arithmetic errors.",
+            "likelihood": "low",
+            "evidence": "The energy calculation in `getEnergy` and the high score logic in `submitRun` are straightforward and correct.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-5",
+            "title": "Hash Operations - OK",
+            "severity": "info",
+            "category": "hash",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 182,
+            "description": "The contract correctly uses `keccak256` for all cryptographic hashing. The signature verification hash in `submitRun` properly includes the gameId, score, coins, player address, and contract address to prevent replay and manipulation attacks. It avoids the common vulnerability of using raw `abi.encodePacked` output as a hash.",
+            "impact": "The signature verification scheme is cryptographically sound and secure against forgery or replay attacks.",
+            "likelihood": "low",
+            "evidence": "bytes32 hash = keccak256(abi.encodePacked(...));\naddress signer = hash.toEthSignedMessageHash().recover(signature);",
+            "references": [
+              "SWC-133: Hash Collisions With Multiple Variable Length Arguments"
+            ],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-6",
+            "title": "Input Validation - OK",
+            "severity": "info",
+            "category": "validation",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 230,
+            "description": "Input validation is handled appropriately. The `setGameSigner` function checks for the zero address. Gameplay functions (`startGame`, `submitRun`) validate the game state (e.g., `session.active`). Critical gameplay inputs (`score`, `coins`) are validated cryptographically via the server's signature, which is a robust design pattern for this application.",
+            "impact": "The contract is protected against invalid state transitions and malicious inputs in its key functions.",
+            "likelihood": "low",
+            "evidence": "require(_signer != address(0), \"Invalid signer\");\nrequire(session.active, \"No active game\");",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-7",
+            "title": "Front-Running - N/A",
+            "severity": "info",
+            "category": "dos",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 1,
+            "description": "The contract's design, which relies on off-chain gameplay and signed result submission, is not susceptible to traditional front-running attacks. There are no on-chain actions (like revealing a move) that an attacker could observe in the mempool and exploit for profit.",
+            "impact": "Players cannot gain an unfair advantage by monitoring the transaction mempool.",
+            "likelihood": "low",
+            "evidence": "Game outcomes are determined off-chain and submitted as a signed, atomic result.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-8",
+            "title": "Refund Accounting - N/A",
+            "severity": "info",
+            "category": "logic",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 1,
+            "description": "The contract does not feature a refund mechanism for any user actions or payments. Therefore, bugs related to incorrect accounting during refunds are not applicable.",
+            "impact": "State variables related to funds cannot become desynchronized due to flawed refund logic.",
+            "likelihood": "low",
+            "evidence": "No `refund` function is present in the contract.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-9",
+            "title": "Array/Loop Gas Bombs - OK",
+            "severity": "info",
+            "category": "dos",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 1,
+            "description": "The contract avoids using unbounded loops or arrays for storing player data. All player-specific state is stored in mappings, ensuring that transaction gas costs remain constant and predictable, regardless of the number of players or games played. This prevents denial-of-service vulnerabilities via gas exhaustion.",
+            "impact": "The contract is not vulnerable to DoS attacks caused by iterating over a large data set.",
+            "likelihood": "low",
+            "evidence": "State variables `stats`, `sessions`, and `nonces` are mappings. No `for` or `while` loops are present.",
+            "references": [
+              "SWC-128: DoS with Block Gas Limit"
+            ],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-10",
+            "title": "Timestamp Dependence - OK",
+            "severity": "info",
+            "category": "logic",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 112,
+            "description": "`block.timestamp` is used for energy regeneration and recording game start times. This usage is non-critical, as miner manipulation of timestamps by a few seconds would have a negligible impact on a player's energy. This is an acceptable use of `block.timestamp`.",
+            "impact": "The contract is not vulnerable to exploitation via miner manipulation of block timestamps.",
+            "likelihood": "low",
+            "evidence": "uint256 timePassed = block.timestamp - p.lastEnergyUpdate;",
+            "references": [
+              "SWC-116: Block Timestamp Manipulation"
+            ],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-11",
+            "title": "Pause Mechanisms - N/A",
+            "severity": "info",
+            "category": "access-control",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 1,
+            "description": "The contract does not implement a pausable mechanism. While often useful for emergency stops, its absence is a design choice and not a vulnerability in this context.",
+            "impact": "In an emergency, the contract cannot be globally paused by the owner. This is a trade-off between centralization and operational control.",
+            "likelihood": "low",
+            "evidence": "The contract does not inherit from OpenZeppelin's `Pausable` contract.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-12",
+            "title": "Storage Bloat - OK",
+            "severity": "info",
+            "category": "dos",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 52,
+            "description": "The contract uses mappings for player data, which can grow indefinitely with the user base. This is an expected design for such applications and does not pose a direct vulnerability. Furthermore, the `sessions` mapping is actively cleaned up via `delete sessions[msg.sender]` in `submitRun` and `quitGame`, which is a best practice for managing temporary state and recovering gas.",
+            "impact": "The contract state can grow large, but this does not lead to a denial-of-service vulnerability for individual user actions.",
+            "likelihood": "low",
+            "evidence": "mapping(address => PlayerStats) public stats;\ndelete sessions[msg.sender];",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-13",
+            "title": "Goal Enforcement - N/A",
+            "severity": "info",
+            "category": "logic",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 1,
+            "description": "The contract is a game and does not have crowdfunding-style goals, caps, or targets. Therefore, checks related to goal enforcement are not applicable.",
+            "impact": "Not applicable.",
+            "likelihood": "low",
+            "evidence": "The contract's logic does not contain fundraising or goal-based mechanisms.",
+            "references": [],
+            "remediation": "No remediation needed."
+          },
+          {
+            "id": "TR-OK-14",
+            "title": "Event Emissions - OK",
+            "severity": "info",
+            "category": "style",
+            "file": "AI_ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a_TempleRunner.sol",
+            "line": 64,
+            "description": "The contract correctly emits events for all significant state changes, including starting and ending games, breaking high scores, and updating the game signer. Key parameters are properly indexed, which is crucial for off-chain services to efficiently track player activity.",
+            "impact": "The contract provides good transparency and allows for robust off-chain monitoring and indexing.",
+            "likelihood": "low",
+            "evidence": "event GameStarted(address indexed player, uint256 indexed gameId, uint256 nonce);\nemit GameStarted(msg.sender, gameId, nonce);",
+            "references": [],
+            "remediation": "No remediation needed."
+          }
+        ],
+        "recommendations": [
+          "This automated audit provides systematic coverage of common vulnerabilities but cannot replace human security review. Recommended next steps: (1) Manual review of all 'warning' and 'error' findings, (2) Unit tests for each attack scenario, (3) External audit before mainnet, (4) Bug bounty program."
+        ],
+        "coverage": {
+          "critical": 6,
+          "high": 4,
+          "medium": 4,
+          "low": 4,
+          "totalAddressed": 18,
+          "totalAvailable": 18
+        },
+        "scoreBreakdown": {
+          "security": 38,
+          "functionality": 25,
+          "codeQuality": 19,
+          "gas": 14
+        }
+      },
+      "fixJob": null
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768204400193,
+        "level": "info",
+        "msg": "Orchestrate job started. fix=false deploy=false network=basecamp"
+      },
+      {
+        "i": 2,
+        "t": 1768204464067,
+        "level": "warn",
+        "msg": "Coverage gating failed: FINDINGS_LESS_THAN_MINIMUM_17"
+      },
+      {
+        "i": 3,
+        "t": 1768204537592,
+        "level": "info",
+        "msg": "Coverage gating passed after second pass."
+      },
+      {
+        "i": 4,
+        "t": 1768204537592,
+        "level": "info",
+        "msg": "Audit analysis complete. score=96"
+      },
+      {
+        "i": 5,
+        "t": 1768204537592,
+        "level": "info",
+        "msg": "Saved audit report: tmp/jobs/audit_orchestrate_ba91901e-488d-400f-baa5-61c3424f3a09/audit/report.json"
+      },
+      {
+        "i": 6,
+        "t": 1768204537593,
+        "level": "info",
+        "msg": "Mirrored audit report under source job: ai_pipeline_0019ac02-f934-4a20-a0b0-867ff842375a"
+      }
+    ],
+    "_logIndex": 6,
+    "logsCount": 6,
+    "lastLogTs": 1768204537593
+  }
+}

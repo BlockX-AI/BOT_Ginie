@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:48:18.615Z",
+  "contracts": {
+    "BusinessToken": "0x01FeD7C55ae183223bcC827D06C7A8A8A36a5722"
+  },
+  "params": {
+    "name": "Sigma Camp Token 32",
+    "symbol": "SGM32",
+    "initialSupplyTokens": "690000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

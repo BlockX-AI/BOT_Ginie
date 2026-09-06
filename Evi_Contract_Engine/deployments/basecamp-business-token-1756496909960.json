@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:48:29.960Z",
+  "contracts": {
+    "BusinessToken": "0xf3A35D576C237A748D17011302c04AC6FC4f507c"
+  },
+  "params": {
+    "name": "Delta Camp Token 33",
+    "symbol": "DLT33",
+    "initialSupplyTokens": "777000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

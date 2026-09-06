@@ -1,0 +1,88 @@
+{
+  "id": "ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf",
+  "type": "ai_pipeline",
+  "payload": {
+    "prompt": "Reputation: EMPTY CONSTRUCTOR. increase(address,uint256). decrease(address,uint256). view score(address). Events: Increased, Decreased. No constructor args.",
+    "network": "basecamp",
+    "maxIters": 11,
+    "providedName": "",
+    "filename": "AIGenerated.sol",
+    "constructorArgs": [],
+    "strictArgs": true,
+    "jobKind": "pipeline"
+  },
+  "state": "completed",
+  "progress": 100,
+  "step": "deploy",
+  "stepHistory": [
+    {
+      "step": "init",
+      "t": 1759154471813
+    },
+    {
+      "step": "generate",
+      "t": 1759154471814
+    },
+    {
+      "step": "write",
+      "t": 1759154497123
+    },
+    {
+      "step": "compile",
+      "t": 1759154497123
+    },
+    {
+      "step": "deploy_script",
+      "t": 1759154499175
+    },
+    {
+      "step": "deploy",
+      "t": 1759154499176
+    }
+  ],
+  "timings": {
+    "startedAt": 1759154471813,
+    "endedAt": 1759154507819,
+    "phases": {
+      "init": {
+        "startedAt": 1759154471813,
+        "endedAt": 1759154471814
+      },
+      "generate": {
+        "startedAt": 1759154471814,
+        "endedAt": 1759154497123
+      },
+      "write": {
+        "startedAt": 1759154497123,
+        "endedAt": 1759154497123
+      },
+      "compile": {
+        "startedAt": 1759154497123,
+        "endedAt": 1759154499175
+      },
+      "deploy_script": {
+        "startedAt": 1759154499175,
+        "endedAt": 1759154499176
+      },
+      "deploy": {
+        "startedAt": 1759154499176,
+        "endedAt": 1759154507819
+      }
+    }
+  },
+  "result": {
+    "network": "basecamp",
+    "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+    "contract": "Reputation",
+    "fqName": "contracts/AI_ai_pipeline_04a6cb54-abd3-4bd8-9f3b-fc072aa60aaf_AIGenerated.sol:Reputation",
+    "address": "0x068C5154F48bA64E5dC68329af5086DD027E2F0f",
+    "params": {
+      "args": []
+    }
+  },
+  "error": null,
+  "createdAt": 1759154471813,
+  "updatedAt": 1759154507819,
+  "logsCount": 18,
+  "lastLogTs": 1759154507819
+}

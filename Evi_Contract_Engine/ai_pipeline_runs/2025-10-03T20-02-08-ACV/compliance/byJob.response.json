@@ -1,0 +1,258 @@
+{
+  "ok": true,
+  "compliance": {
+    "profile": "generic",
+    "analysisVersion": "v2.1.0",
+    "timestamp": "2024-05-21T10:30:00Z",
+    "solcVersion": "^0.8.19",
+    "passed": false,
+    "score": 60,
+    "riskLevel": "high",
+    "confidence": 0.95,
+    "checks": [
+      {
+        "id": "A-001",
+        "category": "security",
+        "subcategory": "access-control",
+        "title": "Excessive Centralization of Power",
+        "description": "The contract design centralizes critical administrative functions to a single owner address without any safeguards like timelocks or multi-signature requirements. A compromise of the owner's private key could lead to catastrophic events such as unauthorized minting, permanent freezing of all transfers via pause(), or replacement of the withdrawal hook with a malicious contract.",
+        "passed": false,
+        "severity": "high",
+        "evidence": {
+          "locations": [
+            {
+              "line": 108,
+              "function": "mint",
+              "contract": "INRT"
+            },
+            {
+              "line": 96,
+              "function": "pause",
+              "contract": "INRT"
+            },
+            {
+              "line": 121,
+              "function": "authorizeHook",
+              "contract": "INRT"
+            }
+          ],
+          "snippet": "function mint(address to, uint256 amount, string calldata bankTxId) external onlyOwner {\n    // ...\n}\n\nfunction authorizeHook(address hook) external onlyOwner {",
+          "reason": "Functions like mint(), pause(), and authorizeHook() are protected only by the `onlyOwner` modifier. A single point of failure exists if the owner key is compromised, which poses a systemic risk to the token's integrity and users' funds.",
+          "context": "This is a stablecoin contract where the owner has ultimate control over the token supply and operational status. Such power concentrated in a single EOA is a significant trust assumption and security risk."
+        },
+        "cwe": "CWE-284: Improper Access Control",
+        "swc": "SWC-106: Unprotected Ether Withdrawal",
+        "impact": {
+          "financial": "critical",
+          "availability": "critical",
+          "reputation": "critical",
+          "dataIntegrity": "critical"
+        },
+        "recommendation": "Replace the owner EOA with a multi-signature wallet (e.g., Gnosis Safe) to require M-of-N signatures for privileged actions. For critical changes like upgrading the hook contract, implement a Timelock contract to introduce a mandatory delay, allowing users to react to proposed changes.",
+        "fixComplexity": "moderate",
+        "estimatedEffort": "4 hours",
+        "references": [
+          "https://docs.openzeppelin.com/contracts/4.x/access-control#timelock",
+          "https://consensys.github.io/smart-contract-best-practices/attacks/centralization/"
+        ],
+        "mapping": [
+          "NIST-PR.AC-4",
+          "SOC2-CC6.1"
+        ]
+      },
+      {
+        "id": "SEC-001",
+        "category": "security",
+        "subcategory": "business-logic",
+        "title": "Backing Reserve Invariant Broken by Public Burn Functions",
+        "description": "The contract inherits from `ERC20Burnable`, which exposes public `burn()` and `burnFrom()` functions. However, only the custom `burnForWithdrawal()` function correctly decreases the `totalBankReserves` state variable. If a user calls the standard `burn()` function, the `totalSupply` will decrease while `totalBankReserves` remains unchanged. This breaks the contract's core 1:1 backing invariant and causes the `backingRatio()` function to report an artificially inflated value, misleading users about the token's collateralization.",
+        "passed": false,
+        "severity": "high",
+        "evidence": {
+          "locations": [
+            {
+              "line": 150,
+              "function": "burnForWithdrawal",
+              "contract": "INRT"
+            }
+          ],
+          "snippet": "// Decrease reserves only for withdrawal-related burns, ensuring the 1:1 liability is reduced.\n// solc >0.8.0 provides underflow protection.\ntotalBankReserves -= amount;",
+          "reason": "The crucial `totalBankReserves -= amount;` logic is only present in `burnForWithdrawal`. The standard burn functions inherited from OpenZeppelin's ERC20Burnable do not trigger this logic, leading to an accounting inconsistency between the on-chain supply and the recorded reserves.",
+          "context": "The contract is designed as a stablecoin with an explicit on-chain record of bank reserves. The `backingRatio()` function relies on `totalBankReserves` and `totalSupply()` being synchronized. This flaw undermines that core premise."
+        },
+        "cwe": "CWE-682: Incorrect Calculation",
+        "swc": "SWC-128: DoS With Block Gas Limit",
+        "impact": {
+          "financial": "medium",
+          "availability": "none",
+          "reputation": "high",
+          "dataIntegrity": "high"
+        },
+        "recommendation": "To ensure the reserve accounting is always correct, override the internal `_burn(address from, uint256 amount)` function. Inside the override, deduct the `amount` from `totalBankReserves` before calling `super._burn(from, amount)`. This will ensure that any action that burns tokens, whether a standard burn or a withdrawal, correctly updates the reserve balance.",
+        "fixComplexity": "easy",
+        "estimatedEffort": "30 minutes",
+        "references": [
+          "https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#ERC20Burnable"
+        ]
+      },
+      {
+        "id": "G-002",
+        "category": "best-practices",
+        "subcategory": "code-style",
+        "title": "Missing SPDX License Identifier",
+        "description": "The contract file does not include an SPDX license identifier. This is a best practice that clarifies the licensing of the code and helps suppress compiler warnings.",
+        "passed": false,
+        "severity": "info",
+        "evidence": {
+          "locations": [
+            {
+              "line": 1,
+              "contract": "INRT"
+            }
+          ],
+          "snippet": "/**\n * This smart contract is generated by Camp-Codegen",
+          "reason": "The file is missing a comment like `// SPDX-License-Identifier: MIT` at the very top.",
+          "context": "While not a security vulnerability, including an SPDX identifier is a standard convention in the Solidity ecosystem."
+        },
+        "recommendation": "Add `// SPDX-License-Identifier: MIT` (or another appropriate license) as the first line of the contract file.",
+        "fixComplexity": "trivial",
+        "estimatedEffort": "1 minute",
+        "references": [
+          "https://spdx.org/licenses/",
+          "https://docs.soliditylang.org/en/v0.8.20/layout-of-source-files.html#spdx-license-identifier"
+        ]
+      },
+      {
+        "id": "GO-002",
+        "category": "optimization",
+        "subcategory": "gas",
+        "title": "Public Functions That Could Be External",
+        "description": "Several `public` functions are not called internally by the contract. Changing their visibility to `external` can save gas because function arguments are read directly from calldata instead of being copied to memory.",
+        "passed": false,
+        "severity": "info",
+        "evidence": {
+          "locations": [
+            {
+              "line": 96,
+              "function": "pause",
+              "contract": "INRT"
+            },
+            {
+              "line": 102,
+              "function": "unpause",
+              "contract": "INRT"
+            },
+            {
+              "line": 235,
+              "function": "withdraw",
+              "contract": "CryptoUPIHook"
+            }
+          ],
+          "snippet": "function pause() public onlyOwner {\n    _pause();\n}\n\n// ...\n\nfunction withdraw(uint256 amount, string calldata upiId) external {",
+          "reason": "Functions like `pause()`, `unpause()`, `mint()`, `authorizeHook()`, `revokeHook()`, `markWithdrawalProcessed()` in INRT, and `setInrtToken()` in CryptoUPIHook are marked `public` but are only meant to be called externally. The `withdraw` function in CryptoUPIHook already correctly uses `external`.",
+          "context": "This is a minor gas optimization that improves contract efficiency at no cost to functionality."
+        },
+        "recommendation": "Change the visibility of `public` functions that are not called from within the contract to `external`.",
+        "fixComplexity": "trivial",
+        "estimatedEffort": "10 minutes"
+      },
+      {
+        "id": "G-001",
+        "category": "security",
+        "subcategory": "best-practices",
+        "title": "Solidity Version Safety",
+        "description": "The contract uses a modern Solidity version (^0.8.19), which provides built-in protection against integer overflow and underflow attacks.",
+        "passed": true,
+        "severity": "info",
+        "evidence": {
+          "locations": [
+            {
+              "line": 6,
+              "contract": "INRT"
+            }
+          ],
+          "snippet": "pragma solidity ^0.8.19;",
+          "reason": "Solidity version 0.8.0 and higher automatically revert on arithmetic overflow and underflow, mitigating a common class of vulnerabilities.",
+          "context": "The contract performs arithmetic operations, such as `totalBankReserves += amount`, which are safe due to the compiler version."
+        }
+      }
+    ],
+    "metrics": {
+      "criticalIssues": 0,
+      "highIssues": 2,
+      "mediumIssues": 0,
+      "lowIssues": 0,
+      "infoIssues": 2,
+      "gasEfficiency": "good",
+      "upgradeability": "n/a",
+      "testCoverage": "unknown",
+      "complexity": "low",
+      "maintainability": 85,
+      "documentation": "adequate"
+    },
+    "summary": "The audit identified two high-risk issues in the INRT stablecoin contract. The primary concerns are the excessive centralization of administrative power in a single owner account and a logical flaw that allows the token's backing-ratio to be artificially inflated. While the code is otherwise clean and follows standard practices, these issues pose significant risks to the system's integrity and user trust.",
+    "keyFindings": [
+      "A single owner account has unilateral control over minting, pausing, and critical system parameters, posing a major centralization risk.",
+      "The on-chain reserve accounting can be desynchronized from the token supply via the public `burn()` function, leading to an incorrect backing ratio.",
+      "The contract is well-structured and utilizes battle-tested OpenZeppelin libraries for core functionality.",
+      "Minor gas optimizations are possible by changing function visibilities from `public` to `external`."
+    ],
+    "recommendations": [
+      {
+        "priority": "high",
+        "title": "Mitigate Centralization Risks",
+        "description": "The current `onlyOwner` pattern creates a single point of failure. A compromised owner key would grant an attacker full control over the token supply and its core functions. This risk should be mitigated by distributing trust.",
+        "benefits": [
+          "Prevents a single point of failure from a compromised key.",
+          "Increases user trust and system resilience.",
+          "Introduces a safeguard against accidental or malicious administrative actions."
+        ],
+        "risks": [
+          "Loss of all user funds through malicious minting.",
+          "Permanent freezing of the contract.",
+          "Theft of user funds approved to the hook contract."
+        ],
+        "effort": "medium",
+        "relatedChecks": [
+          "A-001"
+        ]
+      },
+      {
+        "priority": "high",
+        "title": "Correct the Reserve Accounting Invariant",
+        "description": "The contract's core promise of a 1:1 backing, verifiable via `backingRatio()`, is currently flawed. Allowing any user to burn tokens without updating the reserve count breaks this invariant. This must be fixed to ensure the on-chain data is accurate and trustworthy.",
+        "benefits": [
+          "Ensures the `backingRatio()` function is always accurate.",
+          "Maintains the integrity of the on-chain accounting.",
+          "Prevents user confusion and protects the project's reputation."
+        ],
+        "risks": [
+          "Misrepresentation of the token's collateralization.",
+          "Loss of user trust due to incorrect on-chain data."
+        ],
+        "effort": "low",
+        "relatedChecks": [
+          "SEC-001"
+        ]
+      }
+    ],
+    "quickWins": [
+      "Add `// SPDX-License-Identifier: MIT` to the first line of the file.",
+      "Change visibility of `pause`, `unpause`, `mint`, `authorizeHook`, `revokeHook` from `public` to `external`.",
+      "Override the `_burn()` function to correctly decrement `totalBankReserves`."
+    ],
+    "assumptions": [
+      "The off-chain process for verifying bank deposits and processing UPI withdrawals is secure and reliable.",
+      "The owner is a trusted entity and will act in the best interest of the token holders.",
+      "The `CryptoUPIHook` is intended as the primary and trusted mechanism for user-initiated withdrawals."
+    ],
+    "limitations": [
+      "This analysis does not cover the off-chain infrastructure, which is a critical component of this system's security.",
+      "The economic model and the stability of the 1:1 peg rely on the trustworthiness and operational security of the owning entity, which cannot be verified from the smart contract code alone."
+    ]
+  },
+  "sourceRef": {
+    "jobId": "ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e",
+    "filename": "AI_ai_pipeline_87475615-da5a-4ee4-ae48-215a4a267b6e_INRTAndCryptoUPIHook.sol"
+  }
+}

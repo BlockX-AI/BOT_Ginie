@@ -1,0 +1,229 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_9e8ca052-c73f-4ae5-98a6-6183f9c5d317",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1768324128412,
+    "updatedAt": 1768324256352,
+    "payload": {
+      "prompt": "Create a Tic Tac Toe game smart contract. Features:\n- Two players take turns marking X or O on a 3x3 grid\n- Track game state on-chain with board array\n- Detect win conditions (rows, columns, diagonals) and draw\n- Emit events for moves, wins, and draws\n- Allow starting new games\n- Keep constructor empty, gas-efficient design",
+      "network": "basecamp",
+      "maxIters": 11,
+      "providedName": "TicTacToe",
+      "filename": "TicTacToe.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1768324128412
+      },
+      {
+        "step": "generate",
+        "t": 1768324128413
+      },
+      {
+        "step": "write",
+        "t": 1768324243414
+      },
+      {
+        "step": "compile",
+        "t": 1768324243415
+      },
+      {
+        "step": "deploy_script",
+        "t": 1768324245919
+      },
+      {
+        "step": "deploy",
+        "t": 1768324245919
+      }
+    ],
+    "timings": {
+      "startedAt": 1768324128412,
+      "endedAt": 1768324256352,
+      "phases": {
+        "init": {
+          "startedAt": 1768324128412,
+          "endedAt": 1768324128413
+        },
+        "generate": {
+          "startedAt": 1768324128413,
+          "endedAt": 1768324243414
+        },
+        "write": {
+          "startedAt": 1768324243414,
+          "endedAt": 1768324243415
+        },
+        "compile": {
+          "startedAt": 1768324243415,
+          "endedAt": 1768324245919
+        },
+        "deploy_script": {
+          "startedAt": 1768324245919,
+          "endedAt": 1768324245919
+        },
+        "deploy": {
+          "startedAt": 1768324245919,
+          "endedAt": 1768324256352
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "TicTacToe",
+      "fqName": "contracts/AI_ai_pipeline_9e8ca052-c73f-4ae5-98a6-6183f9c5d317_TicTacToe.sol:TicTacToe",
+      "address": "0x244361a737Cb46142b5F703642C4c92A42355FAD",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1768324128412,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp, maxIters=11, file=TicTacToe.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1768324128412,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=51)"
+      },
+      {
+        "i": 3,
+        "t": 1768324128413,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1768324128414,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1502"
+      },
+      {
+        "i": 5,
+        "t": 1768324128414,
+        "level": "info",
+        "msg": "game_classified: PVP_TURN (94.1% confidence)"
+      },
+      {
+        "i": 6,
+        "t": 1768324128414,
+        "level": "debug",
+        "msg": "prompt_suite: pvp_turn_complete with 13 prompts"
+      },
+      {
+        "i": 7,
+        "t": 1768324128414,
+        "level": "debug",
+        "msg": "mechanics: [leaderboard_seasonal]"
+      },
+      {
+        "i": 8,
+        "t": 1768324128414,
+        "level": "debug",
+        "msg": "complexity: medium, gas: high, security: advanced"
+      },
+      {
+        "i": 9,
+        "t": 1768324243413,
+        "level": "debug",
+        "msg": "generate_ai_response_len=8452 ai_ms=114998"
+      },
+      {
+        "i": 10,
+        "t": 1768324243414,
+        "level": "info",
+        "msg": "Generation done in 115001ms. Code size=8556"
+      },
+      {
+        "i": 11,
+        "t": 1768324243414,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 12,
+        "t": 1768324243415,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 13,
+        "t": 1768324245869,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_9e8ca052-c73f-4ae5-98a6-6183f9c5d317_TicTacToe.sol\n\n\n"
+      },
+      {
+        "i": 14,
+        "t": 1768324245885,
+        "level": "info",
+        "msg": "Compiled 2 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 15,
+        "t": 1768324245918,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 2503ms"
+      },
+      {
+        "i": 16,
+        "t": 1768324245918,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 17,
+        "t": 1768324245919,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: TicTacToe"
+      },
+      {
+        "i": 18,
+        "t": 1768324245919,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract TicTacToe"
+      },
+      {
+        "i": 19,
+        "t": 1768324245919,
+        "level": "info",
+        "msg": "Contract chosen for deploy: TicTacToe"
+      },
+      {
+        "i": 20,
+        "t": 1768324245919,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp"
+      },
+      {
+        "i": 21,
+        "t": 1768324256312,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"TicTacToe\",\"fqName\":\"contracts/AI_ai_pipeline_9e8ca052-c73f-4ae5-98a6-6183f9c5d317_TicTacToe.sol:TicTacToe\",\"address\":\"0x244361a737Cb46142b5F703642C4c92A42355FAD\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 22,
+        "t": 1768324256352,
+        "level": "info",
+        "msg": "Deploy success. Address=0x244361a737Cb46142b5F703642C4c92A42355FAD"
+      }
+    ],
+    "_logIndex": 22,
+    "logsCount": 22,
+    "lastLogTs": 1768324256352,
+    "contractName": "TicTacToe",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"TicTacToe\",\"fqName\":\"contracts/AI_ai_pipeline_9e8ca052-c73f-4ae5-98a6-6183f9c5d317_TicTacToe.sol:TicTacToe\",\"address\":\"0x244361a737Cb46142b5F703642C4c92A42355FAD\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

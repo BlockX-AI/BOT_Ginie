@@ -1,0 +1,249 @@
+{
+  "timestamp": "2025-08-12T14:30:14.096Z",
+  "duration": 80.713,
+  "totalTests": 22,
+  "passed": 22,
+  "failed": 0,
+  "results": [
+    {
+      "name": "API Health Check",
+      "status": "PASS",
+      "result": {
+        "message": "Welcome to AcademicChain API",
+        "documentation": "/api-docs",
+        "status": "online",
+        "contractAddresses": {
+          "ResearchPaper": "0x0D3afa3339Cad61d7a4f4390D651d933B5Dc913d",
+          "CitationRegistry": "0xF09B40Dfc07A584970312D1f62Ed84A4EDd575c9",
+          "RoyaltyDistributor": "0x41D13507f38b4acd2ED99BFbBc785D96Ce420386",
+          "MockOriginProtocol": "0x83A3AFEb5D6AEbcc01eaF42AA6bb9f08b58031A1"
+        }
+      }
+    },
+    {
+      "name": "Register Paper 1",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "paperId": "13",
+        "txHash": "0x65ae3d8df6c5aaf56c0dc0898a1bba409a80e96f6679d8bc4fc7bbb173c03c05"
+      }
+    },
+    {
+      "name": "Register Paper 2",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "paperId": "14",
+        "txHash": "0xed03a7047f458e4dbca6ed979afdc7dc4c5a4640cccd4c1319945eba0b0d10ca"
+      }
+    },
+    {
+      "name": "Get Paper Details",
+      "status": "PASS",
+      "result": {
+        "ipfsHash": "QmTestPaper1-1755008933384",
+        "researcher": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "publishDate": "1755008937",
+        "title": "Comprehensive Test Paper 1",
+        "citationCount": "0",
+        "isVerified": false,
+        "keywords": [
+          "test",
+          "comprehensive",
+          "paper1"
+        ],
+        "coAuthors": []
+      }
+    },
+    {
+      "name": "Get Papers by Keyword",
+      "status": "PASS",
+      "result": {
+        "papers": [
+          "3",
+          "5",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14"
+        ]
+      }
+    },
+    {
+      "name": "Get Papers by Researcher",
+      "status": "PASS",
+      "result": {
+        "papers": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14"
+        ]
+      }
+    },
+    {
+      "name": "Verify Paper",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "paperId": "13",
+        "txHash": "0x422a9b4f22dda2e560976cabba49a7ccb311a831c3a790f9215289e876065346"
+      }
+    },
+    {
+      "name": "Cite Paper",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "citationId": null,
+        "txHash": "0xe5b0cd577d5e3398339c290c32263dfd138c101d10003a8a9fa0b7ca1211e354"
+      }
+    },
+    {
+      "name": "Get Citations for Paper",
+      "status": "PASS",
+      "result": {
+        "citations": [
+          "6"
+        ]
+      }
+    },
+    {
+      "name": "Get Papers Cited By",
+      "status": "PASS",
+      "result": {
+        "citations": [
+          "6"
+        ]
+      }
+    },
+    {
+      "name": "Get Citation Count",
+      "status": "PASS",
+      "result": {
+        "count": "1"
+      }
+    },
+    {
+      "name": "Get Citation Details",
+      "status": "PASS",
+      "result": {
+        "citingPaperId": "14",
+        "citedPaperId": "13",
+        "citer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "timestamp": "1755008972",
+        "isVerified": false
+      }
+    },
+    {
+      "name": "Verify Citation",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "citationId": "6",
+        "txHash": "0xe2da61e22063fded22a8c1e2529f3aa80add48217fcffd82465c7aba3c2adf9f"
+      }
+    },
+    {
+      "name": "Pay Royalty",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "paymentId": "5",
+        "txHash": "0x2d2460f3a3a3a79784d67d41f38630db1932454b18c860a182b22095e5734d42",
+        "amount": "0.001"
+      }
+    },
+    {
+      "name": "Get Researcher Balance",
+      "status": "PASS",
+      "result": {
+        "balance": "0.00475",
+        "address": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+      }
+    },
+    {
+      "name": "Get Paper Payments",
+      "status": "PASS",
+      "result": {
+        "payments": [
+          "5"
+        ]
+      }
+    },
+    {
+      "name": "Get Payment Details",
+      "status": "PASS",
+      "result": {
+        "paperId": "13",
+        "researcher": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "amount": "0.00095",
+        "timestamp": "1755008996",
+        "payer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "reason": "test payment"
+      }
+    },
+    {
+      "name": "Get Total Royalties for Paper",
+      "status": "PASS",
+      "result": {
+        "total": "0.00095",
+        "paperId": "13"
+      }
+    },
+    {
+      "name": "Register Asset",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "assetId": "1",
+        "txHash": "0x1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    },
+    {
+      "name": "Verify Ownership",
+      "status": "PASS",
+      "result": {
+        "assetId": "1",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "isOwner": true
+      }
+    },
+    {
+      "name": "Get Asset Details",
+      "status": "PASS",
+      "result": {
+        "assetId": "1",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "metadata": "https://example.com/asset-metadata",
+        "timestamp": "1755009012"
+      }
+    },
+    {
+      "name": "Get Assets by Owner",
+      "status": "PASS",
+      "result": {
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "assets": [
+          "1",
+          "2"
+        ]
+      }
+    }
+  ]
+}

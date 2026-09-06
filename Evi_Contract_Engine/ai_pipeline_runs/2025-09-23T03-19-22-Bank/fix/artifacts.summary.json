@@ -1,0 +1,1097 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239",
+  "scope": "job:ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239_DecentralizedIdentity.sol",
+      "content": "pragma solidity ^0.8.19;\n\nimport \"@openzeppelin/contracts/access/AccessControl.sol\";\nimport \"@openzeppelin/contracts/security/Pausable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\nimport \"@openzeppelin/contracts/utils/cryptography/ECDSA.sol\";\nimport \"@openzeppelin/contracts/utils/cryptography/EIP712.sol\";\nimport \"@openzeppelin/contracts/token/ERC20/IERC20.sol\";\n\n/**\n * @title DecentralizedIdentity (Compliance and Verification Registry)\n * @author Expert Solidity Engineer\n * @notice This contract serves as a registry for compliance artifacts, their verification versions, and auditor attestations.\n * It implements role-based access control, pausable functionality, meta-transactions for gasless submissions,\n * and an optional ERC20 staking mechanism for auditors. The contract is named DecentralizedIdentity to meet\n * specific pipeline requirements, where each artifact can represent a unique decentralized entity.\n */\ncontract DecentralizedIdentity is AccessControl, Pausable, ReentrancyGuard, EIP712 {\n    // =============================================================\n    //                           Constants & Roles\n    // =============================================================\n\n    bytes32 public constant SUBMITTER_ROLE = keccak256(\"SUBMITTER_ROLE\");\n    bytes32 public constant AUDITOR_ROLE = keccak256(\"AUDITOR_ROLE\");\n    bytes32 public constant PAUSER_ROLE = keccak256(\"PAUSER_ROLE\");\n\n    bytes32 private constant SUBMIT_VERIFICATION_TYPEHASH = keccak256(\n        \"SubmitVerificationRequest(bytes32 artifactHash,bytes32 resultsHash,string oscalCid,string profileId,uint256 complianceScore,address submitter,uint256 nonce)\"\n    );\n\n    // =============================================================\n    //                             State\n    // =============================================================\n\n    // --- Data Model ---\n    enum Status { ACTIVE, REVOKED, SUPERSEDED }\n\n    struct Version {\n        bytes32 resultsHash;\n        string oscalCid;\n        string profileId;\n        uint256 complianceScore; // 0-100\n        uint256 verifiedAt;\n        address submitter;\n        Status status;\n        uint256 gasUsed;\n    }\n\n    struct Attestation {\n        address auditor;\n        bool approved;\n        bytes32 noteHash;\n        uint256 attestedAt;\n        uint8 confidenceLevel; // 1-5\n    }\n\n    // --- Storage ---\n    // Artifact hash => Array of versions\n    mapping(bytes32 => Version[]) private _versions;\n    // Artifact hash => Version index => Array of attestations\n    mapping(bytes32 => mapping(uint256 => Attestation[])) private _attestations;\n    // Artifact hash => Version index => Auditor address => Attestation index + 1 (to check existence)\n    mapping(bytes32 => mapping(uint256 => mapping(address => uint256))) private _auditorAttestationIndex;\n\n    // --- Reputation ---\n    struct SubmitterReputation {\n        uint256 validSubmissions;\n        uint256 revokedCount;\n    }\n\n    struct AuditorReputation {\n        uint256 attestationCount;\n        uint256 approvalSum; // Count of positive approvals for ratio calculation\n    }\n\n    mapping(address => SubmitterReputation) public submitterReputation;\n    mapping(address => AuditorReputation) public auditorReputation;\n\n    // --- Staking (Optional) ---\n    IERC20 public stakingToken;\n    uint256 public requiredStake;\n    mapping(address => uint256) public auditorStakes;\n\n    // --- Meta-transactions ---\n    mapping(address => uint256) public nonces;\n\n    // =============================================================\n    //                             Events\n    // =============================================================\n\n    event VerificationSubmitted(bytes32 indexed artifactHash, uint256 indexed versionIndex, address indexed submitter, bytes32 resultsHash, uint256 complianceScore);\n    event VerificationRevoked(bytes32 indexed artifactHash, uint256 indexed versionIndex, address indexed revoker, bytes32 reasonHash);\n    event AttestationAdded(bytes32 indexed artifactHash, uint256 indexed versionIndex, address indexed auditor, bool approved, uint8 confidenceLevel);\n    event StakingConfigUpdated(address indexed token, uint256 amount);\n    event StakeAdded(address indexed auditor, uint256 amount);\n    event StakeRemoved(address indexed auditor, uint256 amount);\n    event StakeSlashed(address indexed auditor, address indexed admin, address recipient, uint256 amount);\n\n    // =============================================================\n    //                           Constructor\n    // =============================================================\n\n    constructor() EIP712(\"DecentralizedIdentity\", \"1\") {\n        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);\n        _grantRole(PAUSER_ROLE, msg.sender);\n    }\n\n    // =============================================================\n    //                        Core Logic: Submission & Revocation\n    // =============================================================\n\n    /**\n     * @notice Submits a new verification version for a given artifact.\n     * @dev Supersedes the previous active version if one exists.\n     * @param artifactHash The unique identifier for the artifact.\n     * @param resultsHash A hash of the verification results.\n     * @param oscalCid The IPFS CID for the OSCAL document.\n     * @param profileId The identifier for the compliance profile used.\n     * @param complianceScore The compliance score from 0 to 100.\n     */\n    function submitVerification(\n        bytes32 artifactHash,\n        bytes32 resultsHash,\n        string calldata oscalCid,\n        string calldata profileId,\n        uint256 complianceScore\n    ) external whenNotPaused nonReentrant onlyRole(SUBMITTER_ROLE) {\n        _submitVerification(artifactHash, resultsHash, oscalCid, profileId, complianceScore, msg.sender);\n    }\n\n    /**\n     * @notice Revokes the latest active verification for an artifact.\n     * @dev Can only be called by an admin or the original submitter of that version.\n     * @param artifactHash The identifier of the artifact to revoke.\n     * @param reasonHash A hash of the reason for revocation.\n     */\n    function revokeLatest(bytes32 artifactHash, bytes32 reasonHash) external whenNotPaused nonReentrant {\n        uint256 versionCount = _versions[artifactHash].length;\n        require(versionCount > 0, \"Compliance: No versions exist for artifact\");\n        \n        Version storage latestVersion = _versions[artifactHash][versionCount - 1];\n        require(latestVersion.status == Status.ACTIVE, \"Compliance: Latest version is not active\");\n        \n        require(\n            hasRole(DEFAULT_ADMIN_ROLE, msg.sender) || latestVersion.submitter == msg.sender,\n            \"Compliance: Caller cannot revoke this version\"\n        );\n\n        latestVersion.status = Status.REVOKED;\n\n        SubmitterReputation storage rep = submitterReputation[latestVersion.submitter];\n        rep.revokedCount++;\n        // Decrement valid submissions as this is no longer a valid submission\n        if (rep.validSubmissions > 0) {\n            rep.validSubmissions--;\n        }\n\n        emit VerificationRevoked(artifactHash, versionCount - 1, msg.sender, reasonHash);\n    }\n\n    // =============================================================\n    //                     Core Logic: Attestation\n    // =============================================================\n\n    /**\n     * @notice Allows an auditor to attest to a specific verification version.\n     * @dev An auditor can update their attestation. Requires stake if configured.\n     * @param artifactHash The artifact identifier.\n     * @param versionIndex The index of the version to attest to.\n     * @param approved A boolean indicating approval.\n     * @param noteHash A hash of any notes provided by the auditor.\n     * @param confidenceLevel The auditor's confidence level (1-5).\n     */\n    function attest(\n        bytes32 artifactHash,\n        uint256 versionIndex,\n        bool approved,\n        bytes32 noteHash,\n        uint8 confidenceLevel\n    ) external whenNotPaused nonReentrant onlyRole(AUDITOR_ROLE) {\n        if (requiredStake > 0) {\n            require(auditorStakes[msg.sender] >= requiredStake, \"Attest: Insufficient stake\");\n        }\n        require(confidenceLevel >= 1 && confidenceLevel <= 5, \"Attest: Confidence level out of bounds\");\n        \n        require(versionIndex < _versions[artifactHash].length, \"Attest: Version index out of bounds\");\n        Version storage version = _versions[artifactHash][versionIndex];\n        require(version.status == Status.ACTIVE, \"Attest: Can only attest to active versions\");\n\n        uint256 attestationIndex = _auditorAttestationIndex[artifactHash][versionIndex][msg.sender];\n        AuditorReputation storage rep = auditorReputation[msg.sender];\n\n        if (attestationIndex > 0) { // Update existing attestation\n            Attestation storage existingAttestation = _attestations[artifactHash][versionIndex][attestationIndex - 1];\n            \n            // Update reputation if approval status changes\n            if (existingAttestation.approved && !approved) {\n                rep.approvalSum--;\n            } else if (!existingAttestation.approved && approved) {\n                rep.approvalSum++;\n            }\n\n            existingAttestation.approved = approved;\n            existingAttestation.noteHash = noteHash;\n            existingAttestation.confidenceLevel = confidenceLevel;\n            existingAttestation.attestedAt = block.timestamp;\n        } else { // Add new attestation\n            _attestations[artifactHash][versionIndex].push(Attestation({\n                auditor: msg.sender,\n                approved: approved,\n                noteHash: noteHash,\n                attestedAt: block.timestamp,\n                confidenceLevel: confidenceLevel\n            }));\n            _auditorAttestationIndex[artifactHash][versionIndex][msg.sender] = _attestations[artifactHash][versionIndex].length;\n\n            // Update reputation\n            rep.attestationCount++;\n            if (approved) {\n                rep.approvalSum++;\n            }\n        }\n\n        emit AttestationAdded(artifactHash, versionIndex, msg.sender, approved, confidenceLevel);\n    }\n    \n    // =============================================================\n    //                     Meta-transaction Logic\n    // =============================================================\n    \n    struct SubmitVerificationRequest {\n        bytes32 artifactHash;\n        bytes32 resultsHash;\n        string oscalCid;\n        string profileId;\n        uint256 complianceScore;\n        address submitter;\n        uint256 nonce;\n    }\n\n    /**\n     * @notice Allows a relayer to submit a verification on behalf of a user.\n     * @dev The user must sign a typed data hash (EIP-712) for the request.\n     * @param request The struct containing all parameters for the submission.\n     * @param signature The user's EIP-712 signature.\n     */\n    function executeSubmitVerification(\n        SubmitVerificationRequest calldata request,\n        bytes calldata signature\n    ) external whenNotPaused nonReentrant {\n        require(request.submitter != address(0), \"MetaTx: Invalid submitter\");\n        require(nonces[request.submitter] == request.nonce, \"MetaTx: Invalid nonce\");\n\n        bytes32 digest = _hashTypedDataV4(keccak256(abi.encode(\n            SUBMIT_VERIFICATION_TYPEHASH,\n            request.artifactHash,\n            request.resultsHash,\n            keccak256(bytes(request.oscalCid)),\n            keccak256(bytes(request.profileId)),\n            request.complianceScore,\n            request.submitter,\n            request.nonce\n        )));\n        \n        address signer = ECDSA.recover(digest, signature);\n        require(signer == request.submitter, \"MetaTx: Invalid signature\");\n        \n        nonces[request.submitter]++;\n\n        _submitVerification(\n            request.artifactHash,\n            request.resultsHash,\n            request.oscalCid,\n            request.profileId,\n            request.complianceScore,\n            request.submitter\n        );\n    }\n    \n    // =============================================================\n    //                         View Functions\n    // =============================================================\n\n    function getVersionCount(bytes32 artifactHash) external view returns (uint256) {\n        return _versions[artifactHash].length;\n    }\n\n    function getVersion(bytes32 artifactHash, uint256 versionIndex) external view returns (Version memory) {\n        return _versions[artifactHash][versionIndex];\n    }\n\n    function getAttestations(bytes32 artifactHash, uint256 versionIndex) external view returns (Attestation[] memory) {\n        return _attestations[artifactHash][versionIndex];\n    }\n\n    function getSubmitterReputation(address submitter) external view returns (SubmitterReputation memory) {\n        return submitterReputation[submitter];\n    }\n\n    function getAuditorReputation(address auditor) external view returns (uint256 attestationCount, uint256 approvalRatio) {\n        AuditorReputation storage rep = auditorReputation[auditor];\n        if (rep.attestationCount == 0) {\n            return (0, 0);\n        }\n        // Ratio is in basis points (10000 = 100%)\n        uint256 ratio = (rep.approvalSum * 10000) / rep.attestationCount;\n        return (rep.attestationCount, ratio);\n    }\n    \n    // =============================================================\n    //                      Staking Functions\n    // =============================================================\n\n    /**\n     * @notice Sets the staking token and required amount for auditors.\n     * @param tokenAddress The address of the ERC20 staking token.\n     * @param stakeAmount The amount of tokens required to be staked.\n     */\n    function setStakingConfig(address tokenAddress, uint256 stakeAmount) external onlyRole(DEFAULT_ADMIN_ROLE) {\n        stakingToken = IERC20(tokenAddress);\n        requiredStake = stakeAmount;\n        emit StakingConfigUpdated(tokenAddress, stakeAmount);\n    }\n\n    /**\n     * @notice Allows an auditor to stake tokens.\n     * @param amount The amount of tokens to stake.\n     */\n    function stake(uint256 amount) external whenNotPaused nonReentrant onlyRole(AUDITOR_ROLE) {\n        require(address(stakingToken) != address(0), \"Stake: Staking not configured\");\n        require(amount > 0, \"Stake: Amount must be positive\");\n        \n        auditorStakes[msg.sender] += amount;\n        require(stakingToken.transferFrom(msg.sender, address(this), amount), \"Stake: ERC20 transfer failed\");\n        \n        emit StakeAdded(msg.sender, amount);\n    }\n\n    /**\n     * @notice Allows an auditor to unstake their tokens.\n     * @param amount The amount of tokens to unstake.\n     */\n    function unstake(uint256 amount) external whenNotPaused nonReentrant {\n        require(address(stakingToken) != address(0), \"Unstake: Staking not configured\");\n        require(amount > 0, \"Unstake: Amount must be positive\");\n        require(auditorStakes[msg.sender] >= amount, \"Unstake: Insufficient staked amount\");\n\n        auditorStakes[msg.sender] -= amount;\n        require(stakingToken.transfer(msg.sender, amount), \"Unstake: ERC20 transfer failed\");\n\n        emit StakeRemoved(msg.sender, amount);\n    }\n\n    /**\n     * @notice Allows an admin to slash an auditor's stake.\n     * @param auditor The address of the auditor to slash.\n     * @param amount The amount of stake to slash.\n     * @param recipient The address to receive the slashed tokens.\n     */\n    function slash(address auditor, uint256 amount, address recipient) external whenNotPaused nonReentrant onlyRole(DEFAULT_ADMIN_ROLE) {\n        require(address(stakingToken) != address(0), \"Slash: Staking not configured\");\n        require(recipient != address(0), \"Slash: Invalid recipient\");\n        require(amount > 0, \"Slash: Amount must be positive\");\n        require(auditorStakes[auditor] >= amount, \"Slash: Insufficient staked amount\");\n\n        auditorStakes[auditor] -= amount;\n        require(stakingToken.transfer(recipient, amount), \"Slash: ERC20 transfer failed\");\n\n        emit StakeSlashed(auditor, msg.sender, recipient, amount);\n    }\n    \n    // =============================================================\n    //                       Internal Functions\n    // =============================================================\n\n    /**\n     * @dev Internal logic for submitting a verification, shared by direct and meta-transactions.\n     */\n    function _submitVerification(\n        bytes32 artifactHash,\n        bytes32 resultsHash,\n        string memory oscalCid,\n        string memory profileId,\n        uint256 complianceScore,\n        address submitter\n    ) internal {\n        uint256 gasStart = gasleft();\n        require(complianceScore <= 100, \"Submit: Score cannot exceed 100\");\n\n        uint256 versionCount = _versions[artifactHash].length;\n\n        // Supersede the last version if it was active\n        if (versionCount > 0) {\n            Version storage lastVersion = _versions[artifactHash][versionCount - 1];\n            if (lastVersion.status == Status.ACTIVE) {\n                lastVersion.status = Status.SUPERSEDED;\n            }\n        }\n        \n        Version memory newVersion = Version({\n            resultsHash: resultsHash,\n            oscalCid: oscalCid,\n            profileId: profileId,\n            complianceScore: complianceScore,\n            verifiedAt: block.timestamp,\n            submitter: submitter,\n            status: Status.ACTIVE,\n            gasUsed: 0 // Will be set after all operations\n        });\n        \n        _versions[artifactHash].push(newVersion);\n        \n        submitterReputation[submitter].validSubmissions++;\n\n        uint256 gasUsed = gasStart - gasleft();\n        _versions[artifactHash][versionCount].gasUsed = gasUsed;\n\n        emit VerificationSubmitted(artifactHash, versionCount, submitter, resultsHash, complianceScore);\n    }\n    \n    // =============================================================\n    //                      Pausability Control\n    // =============================================================\n\n    /**\n     * @notice Pauses all critical state-changing functions.\n     * @dev Can only be called by an address with the PAUSER_ROLE.\n     */\n    function pause() public onlyRole(PAUSER_ROLE) {\n        _pause();\n    }\n\n    /**\n     * @notice Unpauses the contract.\n     * @dev Can only be called by an address with the PAUSER_ROLE.\n     */\n    function unpause() public onlyRole(PAUSER_ROLE) {\n        _unpause();\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239_DecentralizedIdentity.sol/DecentralizedIdentity.json",
+      "name": "DecentralizedIdentity",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [],
+          "name": "InvalidShortString",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "str",
+              "type": "string"
+            }
+          ],
+          "name": "StringTooLong",
+          "type": "error"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "artifactHash",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "versionIndex",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "auditor",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "approved",
+              "type": "bool"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "confidenceLevel",
+              "type": "uint8"
+            }
+          ],
+          "name": "AttestationAdded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [],
+          "name": "EIP712DomainChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32"
+            }
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleGranted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleRevoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "auditor",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "StakeAdded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "auditor",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "StakeRemoved",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "auditor",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "admin",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "StakeSlashed",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "StakingConfigUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "artifactHash",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "versionIndex",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "revoker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "bytes32",
+              "name": "reasonHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "VerificationRevoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "artifactHash",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "versionIndex",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "submitter",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "bytes32",
+              "name": "resultsHash",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "complianceScore",
+              "type": "uint256"
+            }
+          ],
+          "name": "VerificationSubmitted",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "AUDITOR_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "PAUSER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "SUBMITTER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "artifactHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "versionIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "approved",
+              "type": "bool"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "noteHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint8",
+              "name": "confidenceLevel",
+              "type": "uint8"
+            }
+          ],
+          "name": "attest",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "auditorReputation",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "attestationCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "approvalSum",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "auditorStakes",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "eip712Domain",
+          "outputs": [
+            {
+              "internalType": "bytes1",
+              "name": "fields",
+              "type": "bytes1"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "version",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "chainId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "verifyingContract",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "salt",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "extensions",
+              "type": "uint256[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "components": [
+                {
+                  "internalType": "bytes32",
+                  "name": "artifactHash",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "resultsHash",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "string",
+                  "name": "oscalCid",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "profileId",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "complianceScore",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "address",
+                  "name": "submitter",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "nonce",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct DecentralizedIdentity.SubmitVerificationRequest",
+              "name": "request",
+              "type": "tuple"
+            },
+            {
+              "internalType": "bytes",
+              "name": "signature",
+              "type": "bytes"
+            }
+          ],
+          "name": "executeSubmitVerification",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "artifactHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "versionIndex",
+              "type": "uint256"
+            }
+          ],
+          "name": "getAttestations",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "auditor",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "approved",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "noteHash",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "attestedAt",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint8",
+                  "name": "confidenceLevel",
+                  "type": "uint8"
+                }
+              ],
+              "internalType": "struct DecentralizedIdentity.Attestation[]",
+              "name": "",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "auditor",
+              "type": "address"
+            }
+          ],
+          "name": "getAuditorReputation",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "attestationCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "approvalRatio",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getRoleAdmin",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "submitter",
+              "type": "address"
+            }
+          ],
+          "name": "getSubmitterReputation",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "validSubmissions",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "revokedCount",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct DecentralizedIdentity.SubmitterReputation",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "artifactHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "versionIndex",
+              "type": "uint256"
+            }
+          ],
+          "name": "getVersion",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "bytes32",
+                  "name": "resultsHash",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "string",
+                  "name": "oscalCid",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "profileId",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "complianceScore",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "verifiedAt",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "address",
+                  "name": "submitter",
+                  "type": "address"
+                },
+                {
+                  "internalType": "enum DecentralizedIdentity.Status",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "gasUsed",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct DecentralizedIdentity.Version",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "artifactHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getVersionCount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "grantRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "hasRole",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "nonces",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "renounceRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "requiredStake",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "artifactHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "reasonHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "revokeLatest",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "revokeRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "tokenAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "stakeAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "setStakingConfig",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "auditor",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            }
+          ],
+          "name": "slash",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "stake",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "stakingToken",
+          "outputs": [
+            {
+              "internalType": "contract IERC20",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "artifactHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "resultsHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "string",
+              "name": "oscalCid",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "profileId",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "complianceScore",
+              "type": "uint256"
+            }
+          ],
+          "name": "submitVerification",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "submitterReputation",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "validSubmissions",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "revokedCount",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "unstake",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x6101606040523480156200001257600080fd5b50604080518082018252601581527f446563656e7472616c697a65644964656e74697479000000000000000000000060208083019190915282518084019093526001808452603160f81b91840191909152805460ff19168155600255906200007c82600362000163565b610120526200008d81600462000163565b61014052815160208084019190912060e052815190820120610100524660a0526200011b60e05161010051604080517f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f60208201529081019290925260608201524660808201523060a082015260009060c00160405160208183030381529060405280519060200120905090565b60805250503060c052620001316000336200019c565b6200015d7f65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a336200019c565b6200046f565b600060208351101562000183576200017b836200023d565b905062000196565b816200019084826200032e565b5060ff90505b92915050565b6000828152602081815260408083206001600160a01b038516845290915290205460ff1662000239576000828152602081815260408083206001600160a01b03851684529091529020805460ff19166001179055620001f83390565b6001600160a01b0316816001600160a01b0316837f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d60405160405180910390a45b5050565b600080829050601f8151111562000274578260405163305a27a960e01b81526004016200026b9190620003fa565b60405180910390fd5b805162000281826200044a565b179392505050565b634e487b7160e01b600052604160045260246000fd5b600181811c90821680620002b457607f821691505b602082108103620002d557634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156200032957600081815260208120601f850160051c81016020861015620003045750805b601f850160051c820191505b81811015620003255782815560010162000310565b5050505b505050565b81516001600160401b038111156200034a576200034a62000289565b62000362816200035b84546200029f565b84620002db565b602080601f8311600181146200039a5760008415620003815750858301515b600019600386901b1c1916600185901b17855562000325565b600085815260208120601f198616915b82811015620003cb57888601518255948401946001909101908401620003aa565b5085821015620003ea5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b600060208083528351808285015260005b8181101562000429578581018301518582016040015282016200040b565b506000604082860101526040601f19601f8301168501019250505092915050565b80516020808301519190811015620002d55760001960209190910360031b1b16919050565b60805160a05160c05160e05161010051610120516101405161328e620004ca6000396000610cf701526000610ccc015260006125550152600061252d01526000612488015260006124b2015260006124dc015261328e6000f3fe608060405234801561001057600080fd5b50600436106101fb5760003560e01c80638456cb591161011a578063a694fc3a116100ad578063d547741f1161007c578063d547741f14610518578063de4920f41461052b578063e63ab1e91461054b578063f020495f14610572578063fc2a9fb11461058557600080fd5b8063a694fc3a146104ab578063aa23e498146104be578063af904a06146104e5578063bfac59901461050557600080fd5b806391712a0b116100e957806391712a0b1461045657806391d148541461047d57806393a55cd414610490578063a217fddf146104a357600080fd5b80638456cb591461040d57806384b0196e14610415578063851f9c46146104305780638677cebe1461044357600080fd5b80633f4ba83a1161019257806367e800ec1161016157806367e800ec1461037b5780636e1d616e1461039b57806372f702f3146103c25780637ecebe00146103ed57600080fd5b80633f4ba83a146102d0578063406e02ce146102d857806344d87e67146103005780635c975abb1461037057600080fd5b80632e17de78116101ce5780632e17de78146102825780632e375bf9146102975780632f2ff15d146102aa57806336568abe146102bd57600080fd5b806301ffc9a7146102005780631217564d1461022857806319cb355d14610256578063248a9ca31461025f575b600080fd5b61021361020e366004612a3d565b6105ac565b60405190151581526020015b60405180910390f35b610248610236366004612a83565b600c6020526000908152604090205481565b60405190815260200161021f565b610248600b5481565b61024861026d366004612a9e565b60009081526020819052604090206001015490565b610295610290366004612a9e565b6105e3565b005b6102956102a5366004612ab7565b610832565b6102956102b8366004612ad9565b610aa3565b6102956102cb366004612ad9565b610acd565b610295610b47565b6102eb6102e6366004612a83565b610b79565b6040805192835260208301919091520161021f565b61035561030e366004612a83565b6040805180820190915260008082526020820152506001600160a01b0316600090815260086020908152604091829020825180840190935280548352600101549082015290565b6040805182518152602092830151928101929092520161021f565b60015460ff16610213565b61038e610389366004612ab7565b610bd6565b60405161021f9190612b05565b6102487f59a1c48e5837ad7a7f3dcedcbe129bf3249ec4fbf651fd4f5e2600ead39fe2f581565b600a546103d5906001600160a01b031681565b6040516001600160a01b03909116815260200161021f565b6102486103fb366004612a83565b600d6020526000908152604090205481565b610295610c8c565b61041d610cbe565b60405161021f9796959493929190612bd1565b61029561043e366004612ca9565b610d47565b610295610451366004612d35565b610e0e565b6102487fe1a65d1a914580ff6931bc952f0fb26573e9282358a4458bceb9ccc6d923d04181565b61021361048b366004612ad9565b610e74565b61029561049e366004612d5f565b610e9d565b610248600081565b6102956104b9366004612a9e565b611231565b6102eb6104cc366004612a83565b6008602052600090815260409020805460019091015482565b6104f86104f3366004612ab7565b61143e565b60405161021f9190612e08565b610295610513366004612e9d565b61161d565b610295610526366004612ad9565b6118ec565b610248610539366004612a9e565b60009081526005602052604090205490565b6102487f65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a81565b610295610580366004612ee7565b611911565b6102eb610593366004612a83565b6009602052600090815260409020805460019091015482565b60006001600160e01b03198216637965db0b60e01b14806105dd57506301ffc9a760e01b6001600160e01b03198316145b92915050565b6105eb611db2565b6105f3611dfa565b600a546001600160a01b03166106505760405162461bcd60e51b815260206004820152601f60248201527f556e7374616b653a205374616b696e67206e6f7420636f6e666967757265640060448201526064015b60405180910390fd5b600081116106a05760405162461bcd60e51b815260206004820181905260248201527f556e7374616b653a20416d6f756e74206d75737420626520706f7369746976656044820152606401610647565b336000908152600c602052604090205481111561070b5760405162461bcd60e51b815260206004820152602360248201527f556e7374616b653a20496e73756666696369656e74207374616b656420616d6f6044820152621d5b9d60ea1b6064820152608401610647565b336000908152600c60205260408120805483929061072a908490612f59565b9091555050600a5460405163a9059cbb60e01b8152336004820152602481018390526001600160a01b039091169063a9059cbb906044016020604051808303816000875af1158015610780573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906107a49190612f6c565b6107f05760405162461bcd60e51b815260206004820152601e60248201527f556e7374616b653a204552433230207472616e73666572206661696c656400006044820152606401610647565b60405181815233907fa018dcbc822f59fb0d0c3e7a86c8e4259b9676cdea9e5fc26279b9c4c5d86eef9060200160405180910390a261082f6001600255565b50565b61083a611db2565b610842611dfa565b600082815260056020526040902054806108b15760405162461bcd60e51b815260206004820152602a60248201527f436f6d706c69616e63653a204e6f2076657273696f6e7320657869737420666f6044820152691c88185c9d1a599858dd60b21b6064820152608401610647565b60008381526005602052604081206108ca600184612f59565b815481106108da576108da612f89565b60009182526020822060079091020191506005820154600160a01b900460ff16600281111561090b5761090b612dd0565b146109695760405162461bcd60e51b815260206004820152602860248201527f436f6d706c69616e63653a204c61746573742076657273696f6e206973206e6f604482015267742061637469766560c01b6064820152608401610647565b610974600033610e74565b8061098b575060058101546001600160a01b031633145b6109ed5760405162461bcd60e51b815260206004820152602d60248201527f436f6d706c69616e63653a2043616c6c65722063616e6e6f74207265766f6b6560448201526c103a3434b9903b32b939b4b7b760991b6064820152608401610647565b600581018054600160a01b60ff60a01b198216179091556001600160a01b031660009081526008602052604081206001810180549192610a2c83612f9f565b9091555050805415610a4c578054816000610a4683612fb8565b91905055505b33610a58600185612f59565b867fb26f9e7c77a48945b7474d358e31fc9d7cbc93978749cf58d5d805a298eba3c287604051610a8a91815260200190565b60405180910390a4505050610a9f6001600255565b5050565b600082815260208190526040902060010154610abe81611e51565b610ac88383611e5b565b505050565b6001600160a01b0381163314610b3d5760405162461bcd60e51b815260206004820152602f60248201527f416363657373436f6e74726f6c3a2063616e206f6e6c792072656e6f756e636560448201526e103937b632b9903337b91039b2b63360891b6064820152608401610647565b610a9f8282611edf565b7f65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a610b7181611e51565b61082f611f44565b6001600160a01b038116600090815260096020526040812080548291908203610ba85750600093849350915050565b8054600182015460009190610bbf90612710612fcf565b610bc99190612fe6565b9154959194509092505050565b60008281526006602090815260408083208484528252808320805482518185028101850190935280835260609492939192909184015b82821015610c805760008481526020908190206040805160a0810182526004860290920180546001600160a01b038116845260ff600160a01b909104811615158486015260018083015493850193909352600282015460608501526003909101541660808301529083529092019101610c0c565b50505050905092915050565b7f65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a610cb681611e51565b61082f611f96565b600060608082808083610cf27f00000000000000000000000000000000000000000000000000000000000000006003611fd1565b610d1d7f00000000000000000000000000000000000000000000000000000000000000006004611fd1565b60408051600080825260208201909252600f60f81b9b939a50919850469750309650945092509050565b610d4f611db2565b610d57611dfa565b7fe1a65d1a914580ff6931bc952f0fb26573e9282358a4458bceb9ccc6d923d041610d8181611e51565b610dfa888888888080601f01602080910402602001604051908101604052809392919081815260200183838082843760009201919091525050604080516020601f8c018190048102820181019092528a815292508a915089908190840183828082843760009201919091525089925033915061207c9050565b50610e056001600255565b50505050505050565b6000610e1981611e51565b600a80546001600160a01b0319166001600160a01b038516908117909155600b8390556040518381527fcad3f6658bea8a033a3ba34ded6ba9310f1feccfcac36c7a2b1da42b6bb81d849060200160405180910390a2505050565b6000918252602082815260408084206001600160a01b0393909316845291905290205460ff1690565b610ea5611db2565b610ead611dfa565b6000610ebf60c0850160a08601612a83565b6001600160a01b031603610f155760405162461bcd60e51b815260206004820152601960248201527f4d65746154783a20496e76616c6964207375626d6974746572000000000000006044820152606401610647565b60c08301803590600d90600090610f2f9060a08801612a83565b6001600160a01b03166001600160a01b031681526020019081526020016000205414610f955760405162461bcd60e51b81526020600482015260156024820152744d65746154783a20496e76616c6964206e6f6e636560581b6044820152606401610647565b60006110877f3c105fd4147d94fd12fbde0e902dc5afbac24a05b36a798e1ab52be6ee7f09e985356020870135610fcf604089018961301e565b604051610fdd929190613065565b604051908190039020610ff360608a018a61301e565b604051611001929190613065565b60405190819003902060808a013561101f60c08c0160a08d01612a83565b6040805160208101989098528701959095526060860193909352608085019190915260a084015260c0838101919091526001600160a01b0390911660e08301528601356101008201526101200160405160208183030381529060405280519060200120612349565b905060006110cb8285858080601f01602080910402602001604051908101604052809392919081815260200183838082843760009201919091525061237692505050565b90506110dd60c0860160a08701612a83565b6001600160a01b0316816001600160a01b03161461113d5760405162461bcd60e51b815260206004820152601960248201527f4d65746154783a20496e76616c6964207369676e6174757265000000000000006044820152606401610647565b600d600061115160c0880160a08901612a83565b6001600160a01b031681526020810191909152604001600090812080549161117883612f9f565b90915550611225905085356020870135611195604089018961301e565b8080601f0160208091040260200160405190810160405280939291908181526020018383808284376000920191909152506111d79250505060608a018a61301e565b8080601f01602080910402602001604051908101604052809392919081815260200183838082843760009201919091525050505060808a013561122060c08c0160a08d01612a83565b61207c565b5050610ac86001600255565b611239611db2565b611241611dfa565b7f59a1c48e5837ad7a7f3dcedcbe129bf3249ec4fbf651fd4f5e2600ead39fe2f561126b81611e51565b600a546001600160a01b03166112c35760405162461bcd60e51b815260206004820152601d60248201527f5374616b653a205374616b696e67206e6f7420636f6e666967757265640000006044820152606401610647565b600082116113135760405162461bcd60e51b815260206004820152601e60248201527f5374616b653a20416d6f756e74206d75737420626520706f73697469766500006044820152606401610647565b336000908152600c602052604081208054849290611332908490613075565b9091555050600a546040516323b872dd60e01b8152336004820152306024820152604481018490526001600160a01b03909116906323b872dd906064016020604051808303816000875af115801561138e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906113b29190612f6c565b6113fe5760405162461bcd60e51b815260206004820152601c60248201527f5374616b653a204552433230207472616e73666572206661696c6564000000006044820152606401610647565b60405182815233907f7c717985ac273e663b7f3050f5b15a4388ff6ed952338954f650e2093e13937f9060200160405180910390a25061082f6001600255565b6114466129db565b600083815260056020526040902080548390811061146657611466612f89565b9060005260206000209060070201604051806101000160405290816000820154815260200160018201805461149a90613088565b80601f01602080910402602001604051908101604052809291908181526020018280546114c690613088565b80156115135780601f106114e857610100808354040283529160200191611513565b820191906000526020600020905b8154815290600101906020018083116114f657829003601f168201915b5050505050815260200160028201805461152c90613088565b80601f016020809104026020016040519081016040528092919081815260200182805461155890613088565b80156115a55780601f1061157a576101008083540402835291602001916115a5565b820191906000526020600020905b81548152906001019060200180831161158857829003601f168201915b5050509183525050600382015460208201526004820154604082015260058201546001600160a01b0381166060830152608090910190600160a01b900460ff1660028111156115f6576115f6612dd0565b600281111561160757611607612dd0565b8152602001600682015481525050905092915050565b611625611db2565b61162d611dfa565b600061163881611e51565b600a546001600160a01b03166116905760405162461bcd60e51b815260206004820152601d60248201527f536c6173683a205374616b696e67206e6f7420636f6e666967757265640000006044820152606401610647565b6001600160a01b0382166116e65760405162461bcd60e51b815260206004820152601860248201527f536c6173683a20496e76616c696420726563697069656e7400000000000000006044820152606401610647565b600083116117365760405162461bcd60e51b815260206004820152601e60248201527f536c6173683a20416d6f756e74206d75737420626520706f73697469766500006044820152606401610647565b6001600160a01b0384166000908152600c60205260409020548311156117a85760405162461bcd60e51b815260206004820152602160248201527f536c6173683a20496e73756666696369656e74207374616b656420616d6f756e6044820152601d60fa1b6064820152608401610647565b6001600160a01b0384166000908152600c6020526040812080548592906117d0908490612f59565b9091555050600a5460405163a9059cbb60e01b81526001600160a01b038481166004830152602482018690529091169063a9059cbb906044016020604051808303816000875af1158015611828573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061184c9190612f6c565b6118985760405162461bcd60e51b815260206004820152601c60248201527f536c6173683a204552433230207472616e73666572206661696c6564000000006044820152606401610647565b604080516001600160a01b038481168252602082018690523392908716917f61f9c8c63663d971eed46e59255242f715dcc6893548d43ce637d58b4505d030910160405180910390a350610ac86001600255565b60008281526020819052604090206001015461190781611e51565b610ac88383611edf565b611919611db2565b611921611dfa565b7f59a1c48e5837ad7a7f3dcedcbe129bf3249ec4fbf651fd4f5e2600ead39fe2f561194b81611e51565b600b54156119b457600b54336000908152600c602052604090205410156119b45760405162461bcd60e51b815260206004820152601a60248201527f4174746573743a20496e73756666696369656e74207374616b650000000000006044820152606401610647565b60018260ff16101580156119cc575060058260ff1611155b611a275760405162461bcd60e51b815260206004820152602660248201527f4174746573743a20436f6e666964656e6365206c6576656c206f7574206f6620604482015265626f756e647360d01b6064820152608401610647565b6000868152600560205260409020548510611a905760405162461bcd60e51b815260206004820152602360248201527f4174746573743a2056657273696f6e20696e646578206f7574206f6620626f756044820152626e647360e81b6064820152608401610647565b6000868152600560205260408120805487908110611ab057611ab0612f89565b60009182526020822060079091020191506005820154600160a01b900460ff166002811115611ae157611ae1612dd0565b14611b415760405162461bcd60e51b815260206004820152602a60248201527f4174746573743a2043616e206f6e6c792061747465737420746f206163746976604482015269652076657273696f6e7360b01b6064820152608401610647565b6000878152600760209081526040808320898452825280832033845282528083205460099092529091208115611c5b5760008981526006602090815260408083208b84529091528120611b95600185612f59565b81548110611ba557611ba5612f89565b600091825260209091206004909102018054909150600160a01b900460ff168015611bce575087155b15611bef57600182018054906000611be583612fb8565b9190505550611c22565b8054600160a01b900460ff16158015611c055750875b15611c2257600182018054906000611c1c83612f9f565b91905055505b805460ff60a01b1916600160a01b891515021781556001810187905560038101805460ff191660ff881617905542600290910155611d5a565b60008981526006602090815260408083208b84528252808320815160a081018352338082528c15158286019081528285018d8152426060850190815260ff8e811660808701908152875460018082018a55898d528b8d2098516004909202909801805496516001600160a01b039092166001600160a81b031990971696909617600160a01b91151591909102178555925195840195909555516002830155516003909101805460ff1916919093161790915590548d8552600784528285208d8652845282852091855292528220558154908290611d3783612f9f565b91905055508615611d5a57600181018054906000611d5483612f9f565b91905055505b60408051881515815260ff8716602082015233918a918c917f46dd387baf5c770c349df9da7ee1c1b8f6592587176977c3975f23b55f1ffa90910160405180910390a450505050611dab6001600255565b5050505050565b60015460ff1615611df85760405162461bcd60e51b815260206004820152601060248201526f14185d5cd8589b194e881c185d5cd95960821b6044820152606401610647565b565b6002805403611e4b5760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606401610647565b60028055565b61082f813361239a565b611e658282610e74565b610a9f576000828152602081815260408083206001600160a01b03851684529091529020805460ff19166001179055611e9b3390565b6001600160a01b0316816001600160a01b0316837f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d60405160405180910390a45050565b611ee98282610e74565b15610a9f576000828152602081815260408083206001600160a01b0385168085529252808320805460ff1916905551339285917ff6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b9190a45050565b611f4c6123f3565b6001805460ff191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b611f9e611db2565b6001805460ff1916811790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a25833611f79565b606060ff8314611feb57611fe48361243c565b90506105dd565b818054611ff790613088565b80601f016020809104026020016040519081016040528092919081815260200182805461202390613088565b80156120705780601f1061204557610100808354040283529160200191612070565b820191906000526020600020905b81548152906001019060200180831161205357829003601f168201915b505050505090506105dd565b60005a905060648311156120d25760405162461bcd60e51b815260206004820152601f60248201527f5375626d69743a2053636f72652063616e6e6f742065786365656420313030006044820152606401610647565b600087815260056020526040902054801561215e576000888152600560205260408120612100600184612f59565b8154811061211057612110612f89565b60009182526020822060079091020191506005820154600160a01b900460ff16600281111561214157612141612dd0565b0361215c5760058101805460ff60a01b1916600160a11b1790555b505b6000604051806101000160405280898152602001888152602001878152602001868152602001428152602001856001600160a01b03168152602001600060028111156121ac576121ac612dd0565b8152600060209182018190528b8152600582526040812080546001818101835591835291839020845160079093020191825591830151929350839290918201906121f69082613110565b506040820151600282019061220b9082613110565b50606082015160038201556080820151600482015560a08201516005820180546001600160a01b039092166001600160a01b031983168117825560c0850151926001600160a81b03191617600160a01b83600281111561226d5761226d612dd0565b021790555060e091909101516006909101556001600160a01b03841660009081526008602052604081208054916122a383612f9f565b919050555060005a6122b59085612f59565b60008b815260056020526040902080549192508291859081106122da576122da612f89565b906000526020600020906007020160060181905550846001600160a01b0316838b7f8aafb3ad81c8fd93faadb38513618b91872b3a176dc4474cd0fd42c7bad7e8518c8a604051612335929190918252602082015260400190565b60405180910390a450505050505050505050565b60006105dd61235661247b565b8360405161190160f01b8152600281019290925260228201526042902090565b600080600061238585856125ab565b91509150612392816125f0565b509392505050565b6123a48282610e74565b610a9f576123b18161273a565b6123bc83602061274c565b6040516020016123cd9291906131d0565b60408051601f198184030181529082905262461bcd60e51b825261064791600401613245565b60015460ff16611df85760405162461bcd60e51b815260206004820152601460248201527314185d5cd8589b194e881b9bdd081c185d5cd95960621b6044820152606401610647565b60606000612449836128ef565b604080516020808252818301909252919250600091906020820181803683375050509182525060208101929092525090565b6000306001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000161480156124d457507f000000000000000000000000000000000000000000000000000000000000000046145b156124fe57507f000000000000000000000000000000000000000000000000000000000000000090565b6125a6604080517f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f60208201527f0000000000000000000000000000000000000000000000000000000000000000918101919091527f000000000000000000000000000000000000000000000000000000000000000060608201524660808201523060a082015260009060c00160405160208183030381529060405280519060200120905090565b905090565b60008082516041036125e15760208301516040840151606085015160001a6125d587828585612917565b945094505050506125e9565b506000905060025b9250929050565b600081600481111561260457612604612dd0565b0361260c5750565b600181600481111561262057612620612dd0565b0361266d5760405162461bcd60e51b815260206004820152601860248201527f45434453413a20696e76616c6964207369676e617475726500000000000000006044820152606401610647565b600281600481111561268157612681612dd0565b036126ce5760405162461bcd60e51b815260206004820152601f60248201527f45434453413a20696e76616c6964207369676e6174757265206c656e677468006044820152606401610647565b60038160048111156126e2576126e2612dd0565b0361082f5760405162461bcd60e51b815260206004820152602260248201527f45434453413a20696e76616c6964207369676e6174757265202773272076616c604482015261756560f01b6064820152608401610647565b60606105dd6001600160a01b03831660145b6060600061275b836002612fcf565b612766906002613075565b67ffffffffffffffff81111561277e5761277e613008565b6040519080825280601f01601f1916602001820160405280156127a8576020820181803683370190505b509050600360fc1b816000815181106127c3576127c3612f89565b60200101906001600160f81b031916908160001a905350600f60fb1b816001815181106127f2576127f2612f89565b60200101906001600160f81b031916908160001a9053506000612816846002612fcf565b612821906001613075565b90505b6001811115612899576f181899199a1a9b1b9c1cb0b131b232b360811b85600f166010811061285557612855612f89565b1a60f81b82828151811061286b5761286b612f89565b60200101906001600160f81b031916908160001a90535060049490941c9361289281612fb8565b9050612824565b5083156128e85760405162461bcd60e51b815260206004820181905260248201527f537472696e67733a20686578206c656e67746820696e73756666696369656e746044820152606401610647565b9392505050565b600060ff8216601f8111156105dd57604051632cd44ac360e21b815260040160405180910390fd5b6000807f7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a083111561294e57506000905060036129d2565b6040805160008082526020820180845289905260ff881692820192909252606081018690526080810185905260019060a0016020604051602081039080840390855afa1580156129a2573d6000803e3d6000fd5b5050604051601f1901519150506001600160a01b0381166129cb576000600192509250506129d2565b9150600090505b94509492505050565b604051806101000160405280600080191681526020016060815260200160608152602001600081526020016000815260200160006001600160a01b0316815260200160006002811115612a3057612a30612dd0565b8152602001600081525090565b600060208284031215612a4f57600080fd5b81356001600160e01b0319811681146128e857600080fd5b80356001600160a01b0381168114612a7e57600080fd5b919050565b600060208284031215612a9557600080fd5b6128e882612a67565b600060208284031215612ab057600080fd5b5035919050565b60008060408385031215612aca57600080fd5b50508035926020909101359150565b60008060408385031215612aec57600080fd5b82359150612afc60208401612a67565b90509250929050565b602080825282518282018190526000919060409081850190868401855b82811015612b7457815180516001600160a01b031685528681015115158786015285810151868601526060808201519086015260809081015160ff169085015260a09093019290850190600101612b22565b5091979650505050505050565b60005b83811015612b9c578181015183820152602001612b84565b50506000910152565b60008151808452612bbd816020860160208601612b81565b601f01601f19169290920160200192915050565b60ff60f81b881681526000602060e081840152612bf160e084018a612ba5565b8381036040850152612c03818a612ba5565b606085018990526001600160a01b038816608086015260a0850187905284810360c0860152855180825283870192509083019060005b81811015612c5557835183529284019291840191600101612c39565b50909c9b505050505050505050505050565b60008083601f840112612c7957600080fd5b50813567ffffffffffffffff811115612c9157600080fd5b6020830191508360208285010111156125e957600080fd5b600080600080600080600060a0888a031215612cc457600080fd5b8735965060208801359550604088013567ffffffffffffffff80821115612cea57600080fd5b612cf68b838c01612c67565b909750955060608a0135915080821115612d0f57600080fd5b50612d1c8a828b01612c67565b989b979a50959894979596608090950135949350505050565b60008060408385031215612d4857600080fd5b612d5183612a67565b946020939093013593505050565b600080600060408486031215612d7457600080fd5b833567ffffffffffffffff80821115612d8c57600080fd5b9085019060e08288031215612da057600080fd5b90935060208501359080821115612db657600080fd5b50612dc386828701612c67565b9497909650939450505050565b634e487b7160e01b600052602160045260246000fd5b60038110612e0457634e487b7160e01b600052602160045260246000fd5b9052565b602081528151602082015260006020830151610100806040850152612e31610120850183612ba5565b91506040850151601f19858403016060860152612e4e8382612ba5565b92505060608501516080850152608085015160a085015260018060a01b0360a08601511660c085015260c0850151612e8960e0860182612de6565b5060e0949094015192909301919091525090565b600080600060608486031215612eb257600080fd5b612ebb84612a67565b925060208401359150612ed060408501612a67565b90509250925092565b801515811461082f57600080fd5b600080600080600060a08688031215612eff57600080fd5b85359450602086013593506040860135612f1881612ed9565b925060608601359150608086013560ff81168114612f3557600080fd5b809150509295509295909350565b634e487b7160e01b600052601160045260246000fd5b818103818111156105dd576105dd612f43565b600060208284031215612f7e57600080fd5b81516128e881612ed9565b634e487b7160e01b600052603260045260246000fd5b600060018201612fb157612fb1612f43565b5060010190565b600081612fc757612fc7612f43565b506000190190565b80820281158282048414176105dd576105dd612f43565b60008261300357634e487b7160e01b600052601260045260246000fd5b500490565b634e487b7160e01b600052604160045260246000fd5b6000808335601e1984360301811261303557600080fd5b83018035915067ffffffffffffffff82111561305057600080fd5b6020019150368190038213156125e957600080fd5b8183823760009101908152919050565b808201808211156105dd576105dd612f43565b600181811c9082168061309c57607f821691505b6020821081036130bc57634e487b7160e01b600052602260045260246000fd5b50919050565b601f821115610ac857600081815260208120601f850160051c810160208610156130e95750805b601f850160051c820191505b81811015613108578281556001016130f5565b505050505050565b815167ffffffffffffffff81111561312a5761312a613008565b61313e816131388454613088565b846130c2565b602080601f831160018114613173576000841561315b5750858301515b600019600386901b1c1916600185901b178555613108565b600085815260208120601f198616915b828110156131a257888601518255948401946001909101908401613183565b50858210156131c05787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b7f416363657373436f6e74726f6c3a206163636f756e7420000000000000000000815260008351613208816017850160208801612b81565b7001034b99036b4b9b9b4b733903937b6329607d1b6017918401918201528351613239816028840160208801612b81565b01602801949350505050565b6020815260006128e86020830184612ba556fea2646970667358221220d573ef27c577f44b196d4bdaf5a080b29ab236f43d9b3d4130d398d520569cd464736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239.js",
+      "content": "// Auto-generated by AI fix job ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239_DecentralizedIdentity.sol:DecentralizedIdentity\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"DecentralizedIdentity\", fqName: \"contracts/AI_ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239_DecentralizedIdentity.sol:DecentralizedIdentity\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/Users/satyamsinghal/Desktop/Anadi_Submission/tmp/jobs/ai_pipeline_9f0d10b4-c7b7-4742-8f4e-b3dd0a0ea239"
+  }
+}

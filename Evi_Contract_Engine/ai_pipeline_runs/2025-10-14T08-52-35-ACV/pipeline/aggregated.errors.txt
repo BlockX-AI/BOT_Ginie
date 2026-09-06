@@ -1,0 +1,99 @@
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> contracts/AI_ai_pipeline_e6b6d3d9-9152-47de-88ff-983a48798d72_Web3BouncingBalls.sol
+
+
+
+TypeError: Types in storage containing (nested) mappings cannot be assigned to.
+   --> contracts/AI_ai_pipeline_e6b6d3d9-9152-47de-88ff-983a48798d72_Web3BouncingBalls.sol:309:9:
+    |
+309 |         _arenas[arenaId] = Arena({
+    |         ^^^^^^^^^^^^^^^^
+
+
+TypeError: Struct containing a (nested) mapping cannot be constructed.
+   --> contracts/AI_ai_pipeline_e6b6d3d9-9152-47de-88ff-983a48798d72_Web3BouncingBalls.sol:309:28:
+    |
+309 |         _arenas[arenaId] = Arena({
+    |                            ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+Error HH600: Compilation failed
+
+HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+Compile failed (iter 0). Running AI fix. Error length=2053
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> contracts/AI_ai_pipeline_e6b6d3d9-9152-47de-88ff-983a48798d72_Web3BouncingBalls.sol
+
+
+
+TypeError: Type uint256 is not implicitly convertible to expected type uint64.
+   --> contracts/AI_ai_pipeline_e6b6d3d9-9152-47de-88ff-983a48798d72_Web3BouncingBalls.sol:438:37:
+    |
+438 |         parentA.lastBredTimestamp = block.timestamp;
+    |                                     ^^^^^^^^^^^^^^^
+
+
+TypeError: Type uint256 is not implicitly convertible to expected type uint64.
+   --> contracts/AI_ai_pipeline_e6b6d3d9-9152-47de-88ff-983a48798d72_Web3BouncingBalls.sol:439:37:
+    |
+439 |         parentB.lastBredTimestamp = block.timestamp;
+    |                                     ^^^^^^^^^^^^^^^
+
+
+
+Error HH600: Compilation failed
+
+HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+Compile failed (iter 1). Running AI fix. Error length=2079
+CompilerError: Stack too deep. Try compiling with `--via-ir` (cli) or the equivalent `viaIR: true` (standard JSON) while enabling the optimizer. Otherwise, try removing local variables.
+   --> contracts/AI_ai_pipeline_e6b6d3d9-9152-47de-88ff-983a48798d72_Web3BouncingBalls.sol:364:50:
+    |
+364 |             uint256 ballId = _arenaPlayerBallIds[arenaId][player];
+    |                                                  ^^^^^^^
+
+
+
+Error HH600: Compilation failed
+
+HardhatError: HH600: Compilation failed
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:504:15)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at OverriddenTaskDefinition._action (/app/node_modules/@typechain/hardhat/src/index.ts:28:30)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1433:63)
+    at Environment._runTaskDefinition (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:351:14)
+    at Environment.run (/app/node_modules/hardhat/src/internal/core/runtime-environment.ts:184:14)
+    at SimpleTaskDefinition.action (/app/node_modules/hardhat/src/builtin-tasks/compile.ts:1513:7)
+
+Compile failed (iter 2). Running AI fix. Error length=1513
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> contracts/AI_ai_pipeline_e6b6d3d9-9152-47de-88ff-983a48798d72_Web3BouncingBalls.sol
+
+
+
+Constructor args required for Web3BouncingBalls. Expected 0, provided 1.

@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_a982ae71-7c4a-441a-8e05-930e86d5484e",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "step": "deploy",
+    "result": {
+      "network": "avalanche-fuji",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "TicTacToe",
+      "fqName": "contracts/AI_ai_pipeline_a982ae71-7c4a-441a-8e05-930e86d5484e_TicTacToe.sol:TicTacToe",
+      "address": "0x545a285557437c837A5F1647Ccb4F7e6a6Be28aB",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "updatedAt": 1769362992027,
+    "createdAt": 1769362906006
+  }
+}

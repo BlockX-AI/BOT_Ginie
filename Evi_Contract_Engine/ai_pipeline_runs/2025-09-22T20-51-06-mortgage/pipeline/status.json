@@ -1,0 +1,265 @@
+{
+  "ok": true,
+  "data": {
+    "id": "ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea",
+    "type": "ai_pipeline",
+    "state": "completed",
+    "progress": 100,
+    "createdAt": 1758574266874,
+    "updatedAt": 1758574349940,
+    "payload": {
+      "prompt": "Build a cross-chain DeFi aggregator that combines Uniswap V3 concentrated\nliquidity, Aave flash loans, Compound lending, MakerDAO CDP management,\nand Curve stable swaps. Include MEV protection via commit-reveal schemes,\nimplement Dutch auction liquidations, support 15+ different tokens with\ncustom pricing oracles, and add a governance token with quadratic voting,\ndelegation, and time-locked proposals. The contract should also handle\nyield farming across multiple protocols, auto-compound rewards, and\nprovide insurance against smart contract risks through a decentralized\ninsurance pool.",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "DeFiAggregator",
+      "filename": "DeFiAggregator.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "deploy",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758574266874
+      },
+      {
+        "step": "generate",
+        "t": 1758574266875
+      },
+      {
+        "step": "write",
+        "t": 1758574340690
+      },
+      {
+        "step": "compile",
+        "t": 1758574340694
+      },
+      {
+        "step": "deploy_script",
+        "t": 1758574343575
+      },
+      {
+        "step": "deploy",
+        "t": 1758574343575
+      }
+    ],
+    "timings": {
+      "startedAt": 1758574266874,
+      "endedAt": 1758574349940,
+      "phases": {
+        "init": {
+          "startedAt": 1758574266874,
+          "endedAt": 1758574266875
+        },
+        "generate": {
+          "startedAt": 1758574266875,
+          "endedAt": 1758574340690
+        },
+        "write": {
+          "startedAt": 1758574340690,
+          "endedAt": 1758574340694
+        },
+        "compile": {
+          "startedAt": 1758574340694,
+          "endedAt": 1758574343575
+        },
+        "deploy_script": {
+          "startedAt": 1758574343575,
+          "endedAt": 1758574343575
+        },
+        "deploy": {
+          "startedAt": 1758574343575,
+          "endedAt": 1758574349940
+        }
+      }
+    },
+    "result": {
+      "network": "basecamp-testnet",
+      "deployer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+      "contract": "DeFiAggregator",
+      "fqName": "contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:DeFiAggregator",
+      "address": "0x9Eedf5C0a7942d77DffE9B31e0706e7ceE2395F0",
+      "params": {
+        "args": []
+      }
+    },
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758574266874,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=DeFiAggregator.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758574266874,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      },
+      {
+        "i": 3,
+        "t": 1758574266875,
+        "level": "info",
+        "msg": "Stage: generate -> prompt preparation"
+      },
+      {
+        "i": 4,
+        "t": 1758574266875,
+        "level": "debug",
+        "msg": "Enhanced prompt length=1769"
+      },
+      {
+        "i": 5,
+        "t": 1758574340690,
+        "level": "debug",
+        "msg": "generate_ai_response_len=12357 ai_ms=73815"
+      },
+      {
+        "i": 6,
+        "t": 1758574340690,
+        "level": "info",
+        "msg": "Generation done in 73815ms. Code size=10996"
+      },
+      {
+        "i": 7,
+        "t": 1758574340690,
+        "level": "info",
+        "msg": "Stage: write -> preparing sandbox and files"
+      },
+      {
+        "i": 8,
+        "t": 1758574340694,
+        "level": "info",
+        "msg": "Stage: compile -> starting compile/fix loop"
+      },
+      {
+        "i": 9,
+        "t": 1758574343524,
+        "level": "error",
+        "msg": "Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information.\n--> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol\n\n\n"
+      },
+      {
+        "i": 10,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Unreachable code.\n  --> @openzeppelin/contracts/security/ReentrancyGuard.sol:53:9:\n   |\n53 |         _nonReentrantAfter();\n   |         ^^^^^^^^^^^^^^^^^^^^\n\n\nWarning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:213:19:\n    |\n213 |     function swap(address tokenIn, address tokenOut, uint256 amountIn)\n    |                   ^^^^^^^^^^^^^^^\n\n\nWarning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:213:36:\n    |\n213 |     function swap(address tokenIn, address tokenOut, uint256 amountIn)\n    |                                    ^^^^^^^^^^^^^^^^\n\n\nWarning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:213:54:\n    |\n213 |     function swap(address tokenIn, address tokenOut, uint256 amountIn)\n    |                                                      ^^^^^^^^^^^^^^^^\n\n\nWarning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:224:36:\n    |\n224 |     function addLiquidityUniswapV3(address tokenA, address tokenB, uint256 amountA, int24 tickLower, int24 tickUpper) \n    |                                    ^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 11,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:224:52:\n    |\n224 |     function addLiquidityUniswapV3(address tokenA, address tokenB, uint256 amountA, int24 tickLower, int24 tickUpper) \n    |                                                    ^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 12,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:224:68:\n    |\n224 |     function addLiquidityUniswapV3(address tokenA, address tokenB, uint256 amountA, int24 tickLower, int24 tickUpper) \n    |                                                                    ^^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 13,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:224:85:\n    |\n224 |     function addLiquidityUniswapV3(address tokenA, address tokenB, uint256 amountA, int24 tickLower, int24 tickUpper) \n    |                                                                                     ^^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 14,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:224:102:\n    |\n224 |     function addLiquidityUniswapV3(address tokenA, address tokenB, uint256 amountA, int24 tickLower, int24 tickUpper) \n    |                                                                                                      ^^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 15,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:235:30:\n    |\n235 |     function depositForYield(address asset, uint256 amount) external whenNotPaused {\n    |                              ^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 16,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:235:45:\n    |\n235 |     function depositForYield(address asset, uint256 amount) external whenNotPaused {\n    |                                             ^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 17,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:242:31:\n    |\n242 |     function manageMakerVault(uint256 vaultId, int256 collateralDelta, int256 daiDelta) external whenNotPaused {\n    |                               ^^^^^^^^^^^^^^^\n\n\nWarning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:242:48:\n    |\n242 |     function manageMakerVault(uint256 vaultId, int256 collateralDelta, int256 daiDelta) external whenNotPaused {\n    |                                                ^^^^^^^^^^^^^^^^^^^^^^\n\n\nWarning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:242:72:\n    |\n242 |     function manageMakerVault(uint256 vaultId, int256 collateralDelta, int256 daiDelta) external whenNotPaused {\n    |                                                                        ^^^^^^^^^^^^^^^\n\n\nWarning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:286:9:\n    |\n286 |         address initiator,\n    |         ^^^^^^^^^^^^^^^^^\n\n\n"
+      },
+      {
+        "i": 18,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:287:9:\n    |\n287 |         bytes calldata params\n    |         ^^^^^^^^^^^^^^^^^^^^^\n\n\nWarning: Function state mutability can be restricted to view\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:235:5:\n    |\n235 |     function depositForYield(address asset, uint256 amount) external whenNotPaused {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 19,
+        "t": 1758574343525,
+        "level": "error",
+        "msg": "Warning: Function state mutability can be restricted to view\n   --> contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:242:5:\n    |\n242 |     function manageMakerVault(uint256 vaultId, int256 collateralDelta, int256 daiDelta) external whenNotPaused {\n    |     ^ (Relevant source part starts here and spans across multiple lines).\n\n\n"
+      },
+      {
+        "i": 20,
+        "t": 1758574343558,
+        "level": "info",
+        "msg": "Compiled 25 Solidity files successfully (evm target: paris).\n"
+      },
+      {
+        "i": 21,
+        "t": 1758574343574,
+        "level": "debug",
+        "msg": "iter 1/11: compile ok in 2880ms"
+      },
+      {
+        "i": 22,
+        "t": 1758574343574,
+        "level": "info",
+        "msg": "Compile success after 0 fix iterations."
+      },
+      {
+        "i": 23,
+        "t": 1758574343575,
+        "level": "debug",
+        "msg": "Artifact chosen for deploy: DeFiAggregator"
+      },
+      {
+        "i": 24,
+        "t": 1758574343575,
+        "level": "info",
+        "msg": "Stage: deploy_script -> contract DeFiAggregator"
+      },
+      {
+        "i": 25,
+        "t": 1758574343575,
+        "level": "info",
+        "msg": "Contract chosen for deploy: DeFiAggregator"
+      },
+      {
+        "i": 26,
+        "t": 1758574343575,
+        "level": "info",
+        "msg": "Stage: deploy -> network basecamp-testnet"
+      },
+      {
+        "i": 27,
+        "t": 1758574349922,
+        "level": "info",
+        "msg": "DEPLOY_RESULT {\"network\":\"basecamp-testnet\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"DeFiAggregator\",\"fqName\":\"contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:DeFiAggregator\",\"address\":\"0x9Eedf5C0a7942d77DffE9B31e0706e7ceE2395F0\",\"params\":{\"args\":[]}}\n"
+      },
+      {
+        "i": 28,
+        "t": 1758574349940,
+        "level": "info",
+        "msg": "Deploy success. Address=0x9Eedf5C0a7942d77DffE9B31e0706e7ceE2395F0"
+      }
+    ],
+    "_logIndex": 28,
+    "logsCount": 28,
+    "lastLogTs": 1758574349940,
+    "contractName": "DeFiAggregator",
+    "stdout": "DEPLOY_RESULT {\"network\":\"basecamp-testnet\",\"deployer\":\"0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E\",\"contract\":\"DeFiAggregator\",\"fqName\":\"contracts/AI_ai_pipeline_13841e11-fb62-4d01-9405-a80762a04bea_DeFiAggregator.sol:DeFiAggregator\",\"address\":\"0x9Eedf5C0a7942d77DffE9B31e0706e7ceE2395F0\",\"params\":{\"args\":[]}}\n",
+    "stderr": ""
+  }
+}

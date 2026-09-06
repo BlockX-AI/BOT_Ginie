@@ -1,0 +1,277 @@
+{
+  "timestamp": "2025-08-12T22:14:24.430Z",
+  "duration": 70.691,
+  "totalTests": 22,
+  "passed": 22,
+  "failed": 0,
+  "results": [
+    {
+      "name": "API Health Check",
+      "status": "PASS",
+      "result": {
+        "message": "Welcome to AcademicChain API",
+        "documentation": "/api-docs",
+        "status": "online",
+        "contractAddresses": {
+          "ResearchPaper": "0x0D3afa3339Cad61d7a4f4390D651d933B5Dc913d",
+          "CitationRegistry": "0xF09B40Dfc07A584970312D1f62Ed84A4EDd575c9",
+          "RoyaltyDistributor": "0x41D13507f38b4acd2ED99BFbBc785D96Ce420386",
+          "MockOriginProtocol": "0x83A3AFEb5D6AEbcc01eaF42AA6bb9f08b58031A1"
+        }
+      }
+    },
+    {
+      "name": "Register Paper 1",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "paperId": "31",
+        "txHash": "0x68dee899e92a09a9490b3ac4f3516eada540e6987236730e3d1525064d5a7629"
+      }
+    },
+    {
+      "name": "Register Paper 2",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "paperId": "32",
+        "txHash": "0x252c523657f1e80f5b25d1327be6078f206187e401a7d0136361eb82ce312e59"
+      }
+    },
+    {
+      "name": "Get Paper Details",
+      "status": "PASS",
+      "result": {
+        "ipfsHash": "QmTestPaper1-1755036794019",
+        "researcher": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "publishDate": "1755036796",
+        "title": "Comprehensive Test Paper 1",
+        "citationCount": "0",
+        "isVerified": false,
+        "keywords": [
+          "test",
+          "comprehensive",
+          "paper1"
+        ],
+        "coAuthors": []
+      }
+    },
+    {
+      "name": "Get Papers by Keyword",
+      "status": "PASS",
+      "result": {
+        "papers": [
+          "3",
+          "5",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "21",
+          "22",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31",
+          "32"
+        ]
+      }
+    },
+    {
+      "name": "Get Papers by Researcher",
+      "status": "PASS",
+      "result": {
+        "papers": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31",
+          "32"
+        ]
+      }
+    },
+    {
+      "name": "Verify Paper",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "paperId": "31",
+        "txHash": "0x5ada4d2f669711d54000d39b1bf490846e24b871043c4ffc80249e0c73608c64"
+      }
+    },
+    {
+      "name": "Cite Paper",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "citationId": null,
+        "txHash": "0xc709cd699fc8cf495b07268ba577991adb408969dfad93a5e524cce2c2f359af"
+      }
+    },
+    {
+      "name": "Get Citations for Paper",
+      "status": "PASS",
+      "result": {
+        "citations": [
+          "12"
+        ]
+      }
+    },
+    {
+      "name": "Get Papers Cited By",
+      "status": "PASS",
+      "result": {
+        "citations": [
+          "12"
+        ]
+      }
+    },
+    {
+      "name": "Get Citation Count",
+      "status": "PASS",
+      "result": {
+        "count": "1"
+      }
+    },
+    {
+      "name": "Get Citation Details",
+      "status": "PASS",
+      "result": {
+        "citingPaperId": "32",
+        "citedPaperId": "31",
+        "citer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "timestamp": "1755036823",
+        "isVerified": false
+      }
+    },
+    {
+      "name": "Verify Citation",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "citationId": "12",
+        "txHash": "0x37bf30a52d2c283d27ca6c3121cb1b6f1d30b0c420607ec123d6cf839b166dfe"
+      }
+    },
+    {
+      "name": "Pay Royalty",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "paymentId": "19",
+        "txHash": "0x55c65613a93199681f8d307d0153c18c4adfdf737a2600f6fa1834e0b9d6eb6f",
+        "amount": "0.001"
+      }
+    },
+    {
+      "name": "Get Researcher Balance",
+      "status": "PASS",
+      "result": {
+        "balance": "0.0209095",
+        "address": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+      }
+    },
+    {
+      "name": "Get Paper Payments",
+      "status": "PASS",
+      "result": {
+        "payments": [
+          "19"
+        ]
+      }
+    },
+    {
+      "name": "Get Payment Details",
+      "status": "PASS",
+      "result": {
+        "paperId": "31",
+        "researcher": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "amount": "0.00095",
+        "timestamp": "1755036848",
+        "payer": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "reason": "test payment"
+      }
+    },
+    {
+      "name": "Get Total Royalties for Paper",
+      "status": "PASS",
+      "result": {
+        "total": "0.00095",
+        "paperId": "31"
+      }
+    },
+    {
+      "name": "Register Asset",
+      "status": "PASS",
+      "result": {
+        "success": true,
+        "assetId": "1",
+        "txHash": "0x1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    },
+    {
+      "name": "Verify Ownership",
+      "status": "PASS",
+      "result": {
+        "assetId": "1",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "isOwner": true
+      }
+    },
+    {
+      "name": "Get Asset Details",
+      "status": "PASS",
+      "result": {
+        "assetId": "1",
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "metadata": "https://example.com/asset-metadata",
+        "timestamp": "1755036863"
+      }
+    },
+    {
+      "name": "Get Assets by Owner",
+      "status": "PASS",
+      "result": {
+        "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E",
+        "assets": [
+          "1",
+          "2"
+        ]
+      }
+    }
+  ]
+}

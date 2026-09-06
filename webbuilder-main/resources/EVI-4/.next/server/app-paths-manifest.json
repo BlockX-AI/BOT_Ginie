@@ -1,0 +1,6 @@
+{
+  "/not-found": "app/not-found.js",
+  "/page": "app/page.js",
+  "/smart-contract/page": "app/smart-contract/page.js",
+  "/api/ai/enhance-prompt/route": "app/api/ai/enhance-prompt/route.js"
+}

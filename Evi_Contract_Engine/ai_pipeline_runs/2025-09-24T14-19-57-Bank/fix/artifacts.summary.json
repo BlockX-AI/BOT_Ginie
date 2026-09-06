@@ -1,0 +1,350 @@
+{
+  "ok": true,
+  "jobId": "ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee",
+  "scope": "job:ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee",
+  "sources": [
+    {
+      "path": "contracts/AI_ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee_Bus.sol",
+      "content": "pragma solidity ^0.8.20;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";\n\n/**\n * @title Bus\n * @dev A smart contract to simulate a bus service.\n * The owner of the contract can set the fare and capacity, start and end trips,\n * and withdraw the collected funds. Passengers can buy tickets for the current\n * trip before it starts.\n */\ncontract Bus is Ownable, ReentrancyGuard {\n    /**\n     * @dev Represents the current operational state of the bus.\n     * A bus is either `Stopped` (boarding passengers) or `InProgress` (en route).\n     */\n    enum TripStatus {\n        Stopped,\n        InProgress\n    }\n\n    /// @dev The price of a single ticket in wei.\n    uint256 public fare;\n\n    /// @dev The maximum number of passengers the bus can hold.\n    uint256 public capacity;\n\n    /// @dev A unique identifier for each trip, incremented after a trip ends.\n    uint256 public currentTripId;\n\n    /// @dev The current status of the trip (Stopped or InProgress).\n    TripStatus public currentTripStatus;\n\n    /// @dev Mapping from trip ID to the number of passengers for that trip.\n    mapping(uint256 => uint256) public passengerCountPerTrip;\n\n    /// @dev Mapping from trip ID to passenger address to boolean, indicating if a ticket was purchased.\n    mapping(uint256 => mapping(address => bool)) public hasTicketForTrip;\n\n    /// @dev Emitted when the owner updates the ticket fare.\n    event FareUpdated(uint256 newFare);\n\n    /// @dev Emitted when the owner updates the bus capacity.\n    event CapacityUpdated(uint256 newCapacity);\n\n    /// @dev Emitted when a passenger successfully buys a ticket.\n    event TicketPurchased(uint256 indexed tripId, address indexed passenger);\n\n    /// @dev Emitted when the owner starts a trip.\n    event TripStarted(uint256 indexed tripId);\n\n    /// @dev Emitted when the owner ends a trip.\n    event TripEnded(uint256 indexed tripId, uint256 passengerCount);\n\n    /// @dev Emitted when the owner withdraws funds from the contract.\n    event FundsWithdrawn(address indexed owner, uint256 amount);\n\n    /**\n     * @dev Initializes the contract, setting the deployer as the owner.\n     * The first trip ID is set to 1 and the bus is initially stopped.\n     */\n    constructor() {\n        currentTripId = 1;\n        currentTripStatus = TripStatus.Stopped;\n    }\n\n    /**\n     * @dev Allows the owner to set the fare for a ticket.\n     * @param _newFare The new price of a ticket in wei. Must be greater than 0.\n     */\n    function setFare(uint256 _newFare) external onlyOwner {\n        require(_newFare > 0, \"Bus: Fare must be greater than zero\");\n        fare = _newFare;\n        emit FareUpdated(_newFare);\n    }\n\n    /**\n     * @dev Allows the owner to set the maximum capacity of the bus.\n     * @param _newCapacity The new maximum number of passengers. Must be greater than 0.\n     */\n    function setCapacity(uint256 _newCapacity) external onlyOwner {\n        require(_newCapacity > 0, \"Bus: Capacity must be greater than zero\");\n        capacity = _newCapacity;\n        emit CapacityUpdated(_newCapacity);\n    }\n\n    /**\n     * @dev Allows a passenger to buy a ticket for the current trip.\n     * Reverts if the trip is in progress, fare is not set, payment is incorrect,\n     * the bus is full, or the passenger has already bought a ticket for this trip.\n     */\n    function buyTicket() external payable nonReentrant {\n        require(currentTripStatus == TripStatus.Stopped, \"Bus: Trip is in progress\");\n        require(fare > 0, \"Bus: Fare has not been set\");\n        require(capacity > 0, \"Bus: Capacity has not been set\");\n        require(msg.value == fare, \"Bus: Incorrect fare paid\");\n        require(passengerCountPerTrip[currentTripId] < capacity, \"Bus: Bus is full\");\n        require(!hasTicketForTrip[currentTripId][msg.sender], \"Bus: Ticket already purchased for this trip\");\n\n        passengerCountPerTrip[currentTripId]++;\n        hasTicketForTrip[currentTripId][msg.sender] = true;\n\n        emit TicketPurchased(currentTripId, msg.sender);\n    }\n\n    /**\n     * @dev Allows the owner to start the current trip.\n     * Reverts if the trip is already in progress.\n     */\n    function startTrip() external onlyOwner {\n        require(currentTripStatus == TripStatus.Stopped, \"Bus: Trip is already in progress\");\n        currentTripStatus = TripStatus.InProgress;\n        emit TripStarted(currentTripId);\n    }\n\n    /**\n     * @dev Allows the owner to end the current trip.\n     * This resets the bus to a 'Stopped' state and prepares for the next trip\n     * by incrementing the trip ID, effectively clearing the passenger list for the new trip.\n     * Reverts if a trip is not currently in progress.\n     */\n    function endTrip() external onlyOwner {\n        require(currentTripStatus == TripStatus.InProgress, \"Bus: Trip is not in progress\");\n        \n        uint256 completedTripId = currentTripId;\n        uint256 finalPassengerCount = passengerCountPerTrip[completedTripId];\n        \n        currentTripStatus = TripStatus.Stopped;\n        currentTripId++;\n\n        emit TripEnded(completedTripId, finalPassengerCount);\n    }\n\n    /**\n     * @dev Allows the owner to withdraw the entire Ether balance of the contract.\n     * Reverts if there are no funds to withdraw.\n     */\n    function withdraw() external onlyOwner nonReentrant {\n        uint256 amount = address(this).balance;\n        require(amount > 0, \"Bus: No funds to withdraw\");\n        \n        (bool success, ) = owner().call{value: amount}(\"\");\n        require(success, \"Bus: Failed to send Ether\");\n\n        emit FundsWithdrawn(owner(), amount);\n    }\n\n    /**\n     * @dev A view function to check if a specific address has a ticket for the current trip.\n     * @param _passenger The address to check.\n     * @return A boolean indicating if the address holds a valid ticket for the current trip.\n     */\n    function isCurrentPassenger(address _passenger) external view returns (bool) {\n        return hasTicketForTrip[currentTripId][_passenger];\n    }\n}\n"
+    }
+  ],
+  "abis": [
+    {
+      "path": "artifacts/contracts/AI_ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee_Bus.sol/Bus.json",
+      "name": "Bus",
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newCapacity",
+              "type": "uint256"
+            }
+          ],
+          "name": "CapacityUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newFare",
+              "type": "uint256"
+            }
+          ],
+          "name": "FareUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "FundsWithdrawn",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tripId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "passenger",
+              "type": "address"
+            }
+          ],
+          "name": "TicketPurchased",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tripId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "passengerCount",
+              "type": "uint256"
+            }
+          ],
+          "name": "TripEnded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tripId",
+              "type": "uint256"
+            }
+          ],
+          "name": "TripStarted",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "buyTicket",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "capacity",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "currentTripId",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "currentTripStatus",
+          "outputs": [
+            {
+              "internalType": "enum Bus.TripStatus",
+              "name": "",
+              "type": "uint8"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "endTrip",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "fare",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "name": "hasTicketForTrip",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_passenger",
+              "type": "address"
+            }
+          ],
+          "name": "isCurrentPassenger",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "passengerCountPerTrip",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_newCapacity",
+              "type": "uint256"
+            }
+          ],
+          "name": "setCapacity",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_newFare",
+              "type": "uint256"
+            }
+          ],
+          "name": "setFare",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "startTrip",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "withdraw",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ],
+      "bytecode": "0x608060405234801561001057600080fd5b5061001a33610031565b60018080556004556005805460ff19169055610081565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b610c9e806100906000396000f3fe6080604052600436106100f35760003560e01c806391915ef81161008a578063e81ceb3511610059578063e81ceb35146102aa578063edca914c146102d1578063f2fde38b146102d9578063f6e0da03146102f957600080fd5b806391915ef8146102185780639cf0d46614610238578063adeb03821461024d578063b3a46d1e1461026357600080fd5b806367f348f0116100c657806367f348f01461017b578063715018a6146101c65780638da5cb5b146101db57806390c1021b1461020357600080fd5b806301c263c9146100f857806328fc17cf146101385780633ccfd60b1461014e5780635cfc1a5114610165575b600080fd5b34801561010457600080fd5b50610125610113366004610b80565b60066020526000908152604090205481565b6040519081526020015b60405180910390f35b34801561014457600080fd5b5061012560045481565b34801561015a57600080fd5b50610163610319565b005b34801561017157600080fd5b5061012560035481565b34801561018757600080fd5b506101b6610196366004610bb5565b600760209081526000928352604080842090915290825290205460ff1681565b604051901515815260200161012f565b3480156101d257600080fd5b5061016361047a565b3480156101e757600080fd5b506000546040516001600160a01b03909116815260200161012f565b34801561020f57600080fd5b5061016361048c565b34801561022457600080fd5b50610163610233366004610b80565b610567565b34801561024457600080fd5b5061016361060b565b34801561025957600080fd5b5061012560025481565b34801561026f57600080fd5b506101b661027e366004610be1565b60045460009081526007602090815260408083206001600160a01b039094168352929052205460ff1690565b3480156102b657600080fd5b506005546102c49060ff1681565b60405161012f9190610c19565b6101636106b4565b3480156102e557600080fd5b506101636102f4366004610be1565b61096b565b34801561030557600080fd5b50610163610314366004610b80565b6109e4565b610321610a7d565b610329610ad7565b478061037c5760405162461bcd60e51b815260206004820152601960248201527f4275733a204e6f2066756e647320746f2077697468647261770000000000000060448201526064015b60405180910390fd5b600080546040516001600160a01b039091169083908381818185875af1925050503d80600081146103c9576040519150601f19603f3d011682016040523d82523d6000602084013e6103ce565b606091505b505090508061041f5760405162461bcd60e51b815260206004820152601960248201527f4275733a204661696c656420746f2073656e64204574686572000000000000006044820152606401610373565b6000546001600160a01b03166001600160a01b03167feaff4b37086828766ad3268786972c0cd24259d4c87a80f9d3963a3c3d999b0d8360405161046591815260200190565b60405180910390a2505061047860018055565b565b610482610a7d565b6104786000610b30565b610494610a7d565b600160055460ff1660018111156104ad576104ad610c03565b146104fa5760405162461bcd60e51b815260206004820152601c60248201527f4275733a2054726970206973206e6f7420696e2070726f6772657373000000006044820152606401610373565b600480546000818152600660205260408120546005805460ff191690559192839161052483610c41565b9190505550817f8e5d9390e14927c64c3d5ac803b20f001b9dfae0291030d2a1c19a93c527f1c08260405161055b91815260200190565b60405180910390a25050565b61056f610a7d565b600081116105cf5760405162461bcd60e51b815260206004820152602760248201527f4275733a204361706163697479206d7573742062652067726561746572207468604482015266616e207a65726f60c81b6064820152608401610373565b60038190556040518181527f161ab4db855064d603dd1cc5517b1938db43fb85b56aab98c326b307dd1f9356906020015b60405180910390a150565b610613610a7d565b600060055460ff16600181111561062c5761062c610c03565b146106795760405162461bcd60e51b815260206004820181905260248201527f4275733a205472697020697320616c726561647920696e2070726f67726573736044820152606401610373565b6005805460ff191660011790556004546040517f133a4e7d2aba020e555f7901bea48e6e65820d1a54f64cb39bc167d5f38a7ead90600090a2565b6106bc610ad7565b600060055460ff1660018111156106d5576106d5610c03565b146107225760405162461bcd60e51b815260206004820152601860248201527f4275733a205472697020697320696e2070726f677265737300000000000000006044820152606401610373565b6000600254116107745760405162461bcd60e51b815260206004820152601a60248201527f4275733a204661726520686173206e6f74206265656e207365740000000000006044820152606401610373565b6000600354116107c65760405162461bcd60e51b815260206004820152601e60248201527f4275733a20436170616369747920686173206e6f74206265656e2073657400006044820152606401610373565b60025434146108175760405162461bcd60e51b815260206004820152601860248201527f4275733a20496e636f72726563742066617265207061696400000000000000006044820152606401610373565b6003546004546000908152600660205260409020541061086c5760405162461bcd60e51b815260206004820152601060248201526f109d5cce88109d5cc81a5cc8199d5b1b60821b6044820152606401610373565b600454600090815260076020908152604080832033845290915290205460ff16156108ed5760405162461bcd60e51b815260206004820152602b60248201527f4275733a205469636b657420616c72656164792070757263686173656420666f60448201526a072207468697320747269760ac1b6064820152608401610373565b600454600090815260066020526040812080549161090a83610c41565b9091555050600480546000908152600760209081526040808320338085529252808320805460ff19166001179055925492519092917f785f2865353ae960010300f584fc6c577b757a853af69a99c769df3c8232d3de91a361047860018055565b610973610a7d565b6001600160a01b0381166109d85760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610373565b6109e181610b30565b50565b6109ec610a7d565b60008111610a485760405162461bcd60e51b815260206004820152602360248201527f4275733a2046617265206d7573742062652067726561746572207468616e207a60448201526265726f60e81b6064820152608401610373565b60028190556040518181527f3f0aee874642534bd8ee96516d696989f752ebcdfae7ba0e2e493f1529e090a490602001610600565b6000546001600160a01b031633146104785760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610373565b600260015403610b295760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c006044820152606401610373565b6002600155565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b600060208284031215610b9257600080fd5b5035919050565b80356001600160a01b0381168114610bb057600080fd5b919050565b60008060408385031215610bc857600080fd5b82359150610bd860208401610b99565b90509250929050565b600060208284031215610bf357600080fd5b610bfc82610b99565b9392505050565b634e487b7160e01b600052602160045260246000fd5b6020810160028310610c3b57634e487b7160e01b600052602160045260246000fd5b91905290565b600060018201610c6157634e487b7160e01b600052601160045260246000fd5b506001019056fea264697066735822122003ce6a3754369fb3b24060502a27a58ae1dfd2edabd9058d6b99abbc4020b22764736f6c63430008140033"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/deploy-ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee.js",
+      "content": "// Auto-generated by AI fix job ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee\nconst hre = require('hardhat');\n\nasync function main() {\n  const [deployer] = await hre.ethers.getSigners();\n  const Factory = await hre.ethers.getContractFactory(\"contracts/AI_ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee_Bus.sol:Bus\");\n  const args = [];\n  const c = await Factory.connect(deployer).deploy(...args);\n  await c.waitForDeployment();\n  const address = await c.getAddress();\n  const result = { network: hre.network.name, deployer: deployer.address, contract: \"Bus\", fqName: \"contracts/AI_ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee_Bus.sol:Bus\", address, params: { args } };\n  console.log('DEPLOY_RESULT ' + JSON.stringify(result));\n}\n\nmain().catch((e) => { console.error(e); process.exit(1); });\n"
+    }
+  ],
+  "meta": {
+    "baseDir": "/app/tmp/jobs/ai_pipeline_2a353734-6675-428c-af92-de7b7ec457ee"
+  }
+}

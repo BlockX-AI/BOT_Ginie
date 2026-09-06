@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:46:45.978Z",
+  "contracts": {
+    "BusinessToken": "0xDe9b0315DD8Dd5c367FeecbAaDBa2248CC85d710"
+  },
+  "params": {
+    "name": "Solar Camp Token 24",
+    "symbol": "SLR24",
+    "initialSupplyTokens": "420000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

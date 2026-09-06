@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "job": {
+    "id": "ai_pipeline_2383622c-a3a9-4966-b1a8-c1f40a54e86e",
+    "type": "ai_pipeline",
+    "state": "running",
+    "progress": 5,
+    "createdAt": 1758614990853,
+    "updatedAt": 1758614990854,
+    "payload": {
+      "prompt": "Ai Agents marketplace with NFT \n",
+      "network": "basecamp-testnet",
+      "maxIters": 11,
+      "providedName": "AINFT",
+      "filename": "AINFT.sol",
+      "constructorArgs": [],
+      "strictArgs": true,
+      "jobKind": "pipeline"
+    },
+    "step": "init",
+    "stepHistory": [
+      {
+        "step": "init",
+        "t": 1758614990854
+      }
+    ],
+    "timings": {
+      "startedAt": 1758614990854,
+      "endedAt": null,
+      "phases": {
+        "init": {
+          "startedAt": 1758614990854
+        }
+      }
+    },
+    "result": null,
+    "error": null,
+    "logs": [
+      {
+        "i": 1,
+        "t": 1758614990854,
+        "level": "info",
+        "msg": "Pipeline started. Network=basecamp-testnet, maxIters=11, file=AINFT.sol, strictArgs=true"
+      },
+      {
+        "i": 2,
+        "t": 1758614990854,
+        "level": "debug",
+        "msg": "config: maxIters=11 (hardCap=12)"
+      }
+    ],
+    "_logIndex": 2,
+    "logsCount": 2,
+    "lastLogTs": 1758614990854
+  }
+}

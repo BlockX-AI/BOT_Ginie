@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:42:38.145Z",
+  "contracts": {
+    "BusinessToken": "0x7e9Dd254c28F40a1E55557ecb920F0A03c141024"
+  },
+  "params": {
+    "name": "Nova Camp Token 02",
+    "symbol": "NVX02",
+    "initialSupplyTokens": "21000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

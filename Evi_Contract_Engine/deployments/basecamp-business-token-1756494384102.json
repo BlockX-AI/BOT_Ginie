@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:06:24.102Z",
+  "contracts": {
+    "BusinessToken": "0x60d3Ef1e4A126935BedB0B5b620e03Eb88da2F20"
+  },
+  "params": {
+    "name": "Vega My Token 14",
+    "symbol": "VGX14",
+    "initialSupplyTokens": "690000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

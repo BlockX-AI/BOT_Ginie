@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-26T19:13:19.588Z",
+  "contracts": {
+    "BusinessToken": "0xdE5680986216184Aa5d9944efd68c071025B41b0"
+  },
+  "params": {
+    "name": "MyToken",
+    "symbol": "MYT",
+    "initialSupplyTokens": "21000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

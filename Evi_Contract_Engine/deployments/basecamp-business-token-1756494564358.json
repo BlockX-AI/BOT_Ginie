@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T19:09:24.358Z",
+  "contracts": {
+    "BusinessToken": "0xfbf2a1985CC549BfCfc7D5514705Dd3e6C22BC4C"
+  },
+  "params": {
+    "name": "Prism My Token 29",
+    "symbol": "PRSM29",
+    "initialSupplyTokens": "123456789",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}

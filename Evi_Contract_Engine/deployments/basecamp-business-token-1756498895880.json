@@ -1,0 +1,13 @@
+{
+  "network": "basecamp",
+  "timestamp": "2025-08-29T20:21:35.880Z",
+  "contracts": {
+    "BusinessToken": "0x765c13E05B94349ED1b5bbAc93C0968f69661049"
+  },
+  "params": {
+    "name": "Nimbus Camp Token 10",
+    "symbol": "NMBS10",
+    "initialSupplyTokens": "888000000",
+    "owner": "0xa58DCCb0F17279abD1d0D9069Aa8711Df4a4c58E"
+  }
+}
