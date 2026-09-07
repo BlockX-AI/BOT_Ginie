@@ -7,6 +7,7 @@ from .formatters import create_formatted_message, format_plan_as_markdown
 import json
 import asyncio
 import os
+import re
 from langgraph.prebuilt import create_react_agent
 from .prompts import INITPROMPT, PROMPT_ENHANCER_SYSTEM
 from utils.store import load_json_store, save_json_store
@@ -1366,25 +1367,34 @@ async def application_checker_node(state: GraphState) -> GraphState:
                             "message": "Building production-optimized bundle..."
                         })
                     
-                    # Run production build (no file watchers, faster, no timeout issues)
+                    # Run production build. Wrap in a subshell that ALWAYS exits 0 and
+                    # appends an exit-code marker. Otherwise E2B's SDK raises a
+                    # CommandExitException with an EMPTY error (stderr was merged into
+                    # stdout via 2>&1), which hid the real Vite build failure.
                     build_result = await sandbox.commands.run(
-                        "cd /home/user/react-app && npm run build 2>&1",
+                        "cd /home/user/react-app && (npm run build 2>&1; echo \"__BUILD_EXIT__:$?\")",
                         timeout=120  # 2 minutes should be enough for build
                     )
-                    
-                    if build_result.exit_code != 0:
-                        # Capture all output (stdout contains both stdout and stderr due to 2>&1)
-                        error_output = build_result.stdout or build_result.stderr or "No error output available"
-                        error_msg = f"Production build failed with exit code {build_result.exit_code}:\n{error_output}"
+
+                    build_output = build_result.stdout or ""
+                    exit_match = re.search(r"__BUILD_EXIT__:(\d+)", build_output)
+                    real_exit_code = int(exit_match.group(1)) if exit_match else build_result.exit_code
+                    # Strip the marker from the visible output
+                    build_output = re.sub(r"__BUILD_EXIT__:\d+\s*$", "", build_output).strip()
+
+                    if real_exit_code != 0:
+                        # Now we have the FULL Vite error output instead of an empty message
+                        error_output = build_output or "No error output available"
+                        error_msg = f"Production build failed with exit code {real_exit_code}:\n{error_output}"
                         print(error_msg)
-                        
+
                         # Send detailed error to frontend
                         if socket:
                             await safe_send_socket(socket, {
                                 "e": "error",
-                                "message": f"❌ Build failed: {error_output[:200]}"
+                                "message": f"❌ Build failed: {error_output[:300]}"
                             })
-                        
+
                         raise Exception(error_msg)
                     
                     print("✅ Build completed successfully")
