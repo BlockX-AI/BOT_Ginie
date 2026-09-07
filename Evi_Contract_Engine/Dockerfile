@@ -8,9 +8,11 @@ WORKDIR /app
 # Install curl for healthcheck
 RUN apk add --no-cache curl
 
-# Install only production deps for runtime
+# Install only production deps for runtime.
+# Use `npm install` (not `npm ci`) because package-lock.json is gitignored in
+# this repo and therefore not present in the build context.
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm install --omit=dev --no-audit --no-fund
 
 # Copy application source
 COPY api/ ./api/
