@@ -20,6 +20,7 @@ PROTECTED_SHELL_PATHS = [
     "src/App.jsx",
     "src/config/wagmi.js",
     "src/config/appMeta.js",
+    "src/config/contract.js",
     "src/index.css",
     "package.json",
     "vite.config.js",
@@ -159,6 +160,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #6d28d9;
 }'''
+
+CONTRACT_JS = '''// Placeholder contract config — overwritten by the orchestrator with the
+// real deployed address + ABI (via context.json["protected_files"]).
+// This placeholder guarantees the Vite build never fails on a missing
+// "./config/contract" import when no contract has been deployed yet.
+export const CONTRACT_ADDRESS = ''
+export const CONTRACT_ABI = []
+'''
 
 APP_META_JS = '''// Default app metadata — overwritten by the orchestrator with real values
 export const APP_NAME = 'BotChain DApp'
@@ -542,6 +551,7 @@ def get_shell_files():
         "index.html": INDEX_HTML,
         "src/config/wagmi.js": WAGMI_JS,
         "src/config/appMeta.js": APP_META_JS,
+        "src/config/contract.js": CONTRACT_JS,
         "src/main.jsx": MAIN_JSX,
         "src/index.css": INDEX_CSS,
         "src/App.jsx": APP_JSX,
