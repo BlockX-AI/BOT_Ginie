@@ -1,8 +1,11 @@
 # Railway configuration for AcademicChain API
 
 [build]
-# Let Railway auto-detect Node via Nixpacks
-builder = "NIXPACKS"
+# Use the vendored Dockerfile (node:20-alpine). Nixpacks was failing to
+# provide a node runtime at container start ("node: command not found"),
+# so we build from the known-good Dockerfile instead.
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
 
 [env]
 # Expose 3000 inside the service (Railway will map externally)
