@@ -67,22 +67,44 @@ For Web3 DApp requests, you MUST enhance the prompt to include DETAILED UI speci
 5. **Example Enhanced Prompt Structure**:
 "Build a professional Web3 frontend for a [CONTRACT_TYPE] smart contract with the following features:
 
-**Contract Functions UI:**
+**CRITICAL: TWO-PAGE STRUCTURE (MANDATORY):**
+Create TWO separate pages with React Router:
+
+1. **LandingPage.jsx** (route: "/"):
+   - Full-screen hero section with animated gradient title
+   - App description and tagline
+   - "What It Does" section with 3-4 feature cards
+   - "How It Works" section with step-by-step guide (numbered 1-2-3-4)
+   - "How to Use" section with clear instructions
+   - Prominent "Open App" button that navigates to "/app"
+   - Footer with explorer link, network badge, verification status
+   - NO contract interaction on this page - purely informational/marketing
+
+2. **AppPage.jsx** (route: "/app"):
+   - Header with wallet connect button, network indicator, back to home link
+   - Contract stats dashboard (proposal count, etc.)
+   - Contract interaction sections organized by function type
+   - All contract function forms and displays here
+
+**Contract Functions UI (on AppPage only):**
 - [FUNCTION_NAME_1]: [Input form with fields X, Y, Z] → [Display result/transaction status]
 - [FUNCTION_NAME_2]: [Display current value in card with refresh button]
 - [FUNCTION_NAME_3]: [Form with validation, gas estimation, submit button]
 
-**Hero Section:**
-- App title: [CONTRACT_NAME]
-- Tagline: [DESCRIPTION]
-- Contract address with copy button and explorer link
-- Network badge (e.g., 'BotChain Mainnet')
-- Verification checkmark if verified
+**Routing Setup (REQUIRED):**
+- Install react-router-dom
+- In App.jsx: Set up BrowserRouter with Routes
+- Route "/" → LandingPage component
+- Route "/app" → AppPage component
+- LandingPage has button/link to navigate to "/app"
+- AppPage has link to navigate back to "/"
 
-**Layout:**
-- Header: Logo, wallet connect button, network indicator
-- Main: Function sections in responsive grid
-- Footer: Links to docs, explorer, GitHub
+**Styling (Premium DApp UI):**
+- Dark theme with blockchain gradients (purple/blue/cyan)
+- Glassmorphism cards (`backdrop-blur-xl bg-white/10`)
+- Animated backgrounds on landing page
+- Framer Motion scroll animations
+- Responsive mobile-first design
 
 **UX Details:**
 - Toast notifications for all transactions
