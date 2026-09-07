@@ -759,12 +759,10 @@ body {
                 event_type=None
             )
 
-            await socket.send_json(
-                {
-                    "e": "started",
-                    "message": f"Starting LangGraph workflow with {model}...",
-                }
-            )
+            await self._send_ws_message(socket, {
+                "e": "started",
+                "message": f"Starting LangGraph workflow with {model}...",
+            })
 
             sandbox = await self.get_e2b_sandbox(id=id)
 
@@ -834,11 +832,11 @@ body {
                 await db.commit()
                 break
 
-            await socket.send_json({
+            await self._send_ws_message(socket, {
                 "e": "completed", 
                 "url": url,
                 "success": final_state.get('success'),
-                "files_created": final_state.get('files_created', [])
+                "message": "Workflow completed successfully!"
             })
 
         except Exception as e:
@@ -849,13 +847,10 @@ body {
 
             traceback.print_exc()
             
-            try:
-                await socket.send_json({
-                    "e": "error",
-                    "message": f"Workflow failed: {str(e)}"
-                })
-            except Exception as ws_err:
-                print(f"Failed to send error to WebSocket: {ws_err}")
+            await self._send_ws_message(socket, {
+                "e": "error",
+                "message": f"Workflow failed: {str(e)}"
+            })
 
 
 agent_service = Service()
