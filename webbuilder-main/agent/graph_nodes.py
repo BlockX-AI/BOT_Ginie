@@ -21,9 +21,13 @@ async def safe_send_socket(socket: WebSocket, data):
     """Helper to safely send WebSocket messages"""
     if socket:
         try:
-            await socket.send_json(data)
+            # Check if the WebSocket is still connected
+            if socket.client_state.name == "CONNECTED":
+                await socket.send_json(data)
         except Exception as e:
-            print(f"WebSocket send failed: {e}")
+            # Silently ignore send errors when WebSocket is disconnected
+            # This is expected when frontend closes connection
+            pass
 
 
 async def store_message(chat_id: str, role: str, content: str, event_type: str = None, tool_calls: list = None):
