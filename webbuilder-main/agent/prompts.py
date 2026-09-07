@@ -349,18 +349,30 @@ EFFICIENCY RULES (FOLLOW STRICTLY):
 - You may add new components, pages, or styling, but always preserve the wagmi/RainbowKit integration.
 - After writing all your enhancements, the application_checker will handle npm install and build automatically.
 
-ROUTER CONFIGURATION (if needed):
+ROUTER CONFIGURATION:
+
+🚨 **EXCEPTION FOR WEB3 DAPPS** (HIGHEST PRIORITY):
+If the prompt mentions ANY Web3/blockchain keywords (contract, DApp, voting, DAO, NFT, token, blockchain, Web3, wagmi, ABI), you MUST:
+1. Create `src/pages/LandingPage.jsx` - Marketing/info page with hero, features, how it works
+2. Create `src/pages/AppPage.jsx` - Contract interaction interface
+3. Set up React Router in App.jsx with routes: "/" → LandingPage, "/app" → AppPage
+4. Add "Open App" button on LandingPage that navigates to "/app"
+5. Add "Back to Home" link on AppPage that navigates to "/"
+
+This is MANDATORY for ALL Web3 DApps - do NOT use single-page layout!
+
+**For non-Web3 apps only:**
 - ALWAYS read App.jsx FIRST to check if React Router is already set up
 - The "/" route typically uses a Home component - ALWAYS modify this component
 - DO NOT create new page files unless explicitly asked for multiple pages
 - By default, implement all features in the existing Home component
 - Only create additional pages if the user specifically requests multiple pages/routes
 
-CRITICAL ROUTING RULES:
+CRITICAL ROUTING RULES (non-Web3 apps):
 1. Read App.jsx to identify which component is used for the "/" route
 2. Usually it's <Home /> component in src/pages/Home.jsx
 3. ALWAYS modify the Home component to implement the user's request
-4. DO NOT create new routes/pages unless specifically requested
+4. DO NOT create new routes/pages unless specifically requested (EXCEPT for Web3 DApps!)
 5. Focus on updating the Home component content
 6. Only if user asks for "about page", "contact page", etc., then create additional routes
 
