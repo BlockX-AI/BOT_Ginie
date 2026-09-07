@@ -34,7 +34,7 @@ if _is_sqlite:
 else:
     engine = create_async_engine(
         DATABASE_URL,
-        echo=True,
+        echo=os.getenv("SQL_ECHO", "false").lower() == "true",
         future=True,
         pool_pre_ping=True,
         pool_size=5,
