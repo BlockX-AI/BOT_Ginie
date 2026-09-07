@@ -15,9 +15,12 @@ REACT_APP_BASE = "/home/user/react-app"
 
 # Files that must never be left in a broken/boilerplate state.
 # Paths are relative to the react-app root.
+# NOTE: src/App.jsx is NOT protected so the builder can create custom routing
+# (e.g., LandingPage + AppPage for DApps). The builder is responsible for
+# creating a valid App.jsx with proper imports and routing.
 PROTECTED_SHELL_PATHS = [
     "src/main.jsx",
-    "src/App.jsx",
+    # "src/App.jsx",  # REMOVED - allow builder to create custom routing
     "src/config/wagmi.js",
     "src/config/appMeta.js",
     "src/config/contract.js",
