@@ -1,0 +1,62 @@
+Create a comprehensive recurring subscription payment smart contract system with the following detailed specifications:
+
+CORE FUNCTIONALITY:
+- Allow service providers to create subscription plans with customizable pricing (in wei/tokens) and billing intervals (daily, weekly, monthly, yearly)
+- Enable users to subscribe to plans by authorizing recurring payments from their wallet
+- Implement automatic billing that charges subscribers on their billing cycle date (e.g., 1st of each month for monthly plans)
+- Support multiple concurrent subscriptions per user across different service providers
+- Include a grace period of 3 days after failed payment before subscription cancellation
+
+SUBSCRIPTION MANAGEMENT:
+- Users can pause their subscription (stops billing but maintains subscription data)
+- Users can resume paused subscriptions from where they left off
+- Users can cancel subscriptions permanently (with immediate effect or at end of current billing period)
+- Service providers can update plan pricing with 7-day notice period to existing subscribers
+- Implement subscription upgrade/downgrade functionality with pro-rated refunds/charges
+
+PAYMENT FEATURES:
+- Support both native token (ETH/BOT) and ERC20 token payments
+- Automatic retry mechanism for failed payments (retry up to 3 times over 72 hours)
+- Emit events for successful payments, failed payments, and subscription status changes
+- Allow users to update their payment method (wallet address for token approvals)
+- Include optional trial period support (7, 14, or 30 days free trial before first charge)
+
+SECURITY & ACCESS CONTROL:
+- Role-based access: Contract Owner, Service Provider, Subscriber
+- Service providers can only manage their own plans and subscriber data
+- Implement emergency pause functionality (owner only) to halt all billing in case of issues
+- Include withdrawal function for service providers to claim their earned subscription fees
+- Add reentrancy guards on all payment-related functions
+- Implement rate limiting to prevent spam subscription creation
+
+ADMINISTRATIVE FEATURES:
+- Platform fee mechanism (2.5% of each subscription payment goes to contract owner)
+- Service provider registration system with KYC flag
+- Minimum and maximum subscription price limits (min: 0.001 ETH, max: 100 ETH)
+- Subscription analytics: total active subscribers, total revenue, churn rate tracking
+- Blacklist functionality to ban malicious service providers or subscribers
+
+ADDITIONAL REQUIREMENTS:
+- Include comprehensive events for all state changes (SubscriptionCreated, PaymentProcessed, SubscriptionPaused, SubscriptionCancelled, PlanUpdated, etc.)
+- Implement view functions to query: active subscriptions by user, subscription details, next billing date, payment history
+- Add support for subscription referral system (5% discount for referrer and referee)
+- Include automatic refund mechanism for overpayments
+- Implement subscription transfer functionality (allow users to gift/transfer subscriptions)
+- Add support for bulk operations (batch subscribe, batch cancel for service providers)
+
+TECHNICAL SPECIFICATIONS:
+- Use OpenZeppelin contracts for security (Ownable, ReentrancyGuard, Pausable)
+- Implement Chainlink Keepers/Automation for automatic billing execution
+- Use SafeMath for all arithmetic operations
+- Include NatSpec documentation for all functions
+- Optimize for gas efficiency (use mappings over arrays where possible)
+- Implement proper error handling with custom error messages
+- Add comprehensive unit tests coverage (minimum 90%)
+
+FRONTEND REQUIREMENTS:
+- Dashboard for service providers showing subscriber count, revenue, and analytics
+- User interface for subscribers to view active subscriptions, payment history, and manage subscriptions
+- Admin panel for contract owner to monitor platform metrics and manage fees
+- Real-time notifications for payment success/failure
+- Calendar view showing upcoming billing dates
+- Export functionality for payment receipts and subscription history

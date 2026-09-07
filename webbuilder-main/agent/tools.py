@@ -298,8 +298,6 @@ def create_tools_with_context(
         Note:
             This is useful for validating that all files are correct before deployment
         """
-
-        return "build success"
         try:
             path = "/home/user/react-app"
 

@@ -1369,13 +1369,16 @@ async def application_checker_node(state: GraphState) -> GraphState:
                     )
                     
                     if build_result.exit_code != 0:
-                        error_msg = f"Production build failed:\n{build_result.stdout}\n{build_result.stderr}"
+                        # Capture all output (stdout contains both stdout and stderr due to 2>&1)
+                        error_output = build_result.stdout or build_result.stderr or "No error output available"
+                        error_msg = f"Production build failed with exit code {build_result.exit_code}:\n{error_output}"
                         print(error_msg)
                         
+                        # Send detailed error to frontend
                         if socket:
                             await safe_send_socket(socket, {
                                 "e": "error",
-                                "message": "❌ Build failed - check for errors in your code"
+                                "message": f"❌ Build failed: {error_output[:200]}"
                             })
                         
                         raise Exception(error_msg)
