@@ -505,6 +505,139 @@ IMPORTANT NOTES:
   5. `save_contract_info(...)` → saves for frontend use
   6. Build React UI with game board, wallet connect, contract interactions
 
+🎨 **DAPP TWO-PAGE STRUCTURE** (MANDATORY FOR WEB3 DAPPS):
+When building a Web3 DApp (voting, DAO, NFT, token, etc.), you MUST create a TWO-PAGE layout:
+
+**PAGE 1: LANDING PAGE** (`/` route - src/pages/LandingPage.jsx):
+This is a BEAUTIFUL marketing/info page with NO contract interaction. Include:
+
+1. **Hero Section** (full viewport height):
+   - Large animated gradient title (DApp name from contract)
+   - Compelling tagline/description (from user prompt)
+   - Animated background (gradient mesh, particles, or geometric shapes)
+   - Prominent "Open App" button → navigates to `/app`
+   - Contract address badge (small, bottom of hero)
+   - Network badge (e.g., "Live on BotChain")
+   - Verification checkmark if verified
+
+2. **What It Does Section**:
+   - 3-4 feature cards explaining the DApp's purpose
+   - Icons from Lucide React
+   - Glassmorphism card style
+   - Scroll-triggered fade-in animations
+
+3. **How It Works Section**:
+   - Step-by-step visual guide (numbered steps 1-2-3-4)
+   - Each step: icon, title, description
+   - Timeline or flow diagram visual
+   - Explain the user journey (connect wallet → action → result)
+
+4. **How to Use Section**:
+   - Clear instructions for users
+   - Prerequisites (wallet, tokens, etc.)
+   - Quick start guide
+   - FAQ accordion (optional)
+
+5. **Footer**:
+   - Links: Explorer, Docs, GitHub
+   - Social links
+   - Network info
+   - "Built on BotChain" badge
+
+**LANDING PAGE STYLING** (PREMIUM REQUIRED):
+- Dark theme with blockchain-inspired gradients (purple/blue/cyan/pink)
+- Animated gradient backgrounds (use CSS gradients or canvas)
+- Glassmorphism cards (`backdrop-blur-xl bg-white/10`)
+- Smooth scroll animations (Framer Motion `whileInView`)
+- Parallax effects on scroll
+- Neon glow effects on CTAs
+- Responsive grid layouts
+- Mobile-first design
+
+**PAGE 2: APP PAGE** (`/app` route - src/pages/AppPage.jsx):
+This is the CONTRACT INTERACTION interface. Include:
+
+1. **Header**:
+   - DApp name/logo
+   - Wallet connect button (RainbowKit)
+   - Connected address display
+   - Network indicator
+   - Back to home link
+
+2. **Contract Stats Dashboard** (top section):
+   - Key metrics from read functions (e.g., total proposals, total votes)
+   - Live data cards with auto-refresh
+   - Animated counters
+
+3. **Function Sections** (organized by category):
+   Group related functions together:
+   - "Create" section (write functions for creating/submitting)
+   - "Vote/Interact" section (write functions for actions)
+   - "View" section (read functions for querying data)
+
+4. **IMPROVED INPUT CONTROLS** (CRITICAL):
+   For each contract function parameter, use the CORRECT input type:
+   
+   - **string** → `<input type="text" />` with label
+   - **uint256/uint** → `<input type="number" min="0" />` with label
+   - **address** → `<input type="text" pattern="0x[a-fA-F0-9]{40}" />` with validation
+   - **bool** → `<label><input type="checkbox" /> or <Toggle />` component (NOT text input!)
+   - **bytes** → `<input type="text" placeholder="0x..." />`
+   - **enum** → `<select>` dropdown with options
+   - **array** → Dynamic input list with add/remove buttons
+   
+   **EXAMPLE - Vote Function**:
+   ```jsx
+   // ❌ WRONG (current):
+   <input type="text" placeholder="false" />
+   
+   // ✅ CORRECT (required):
+   <div className="flex gap-4">
+     <button 
+       onClick={() => setVote(true)}
+       className={vote === true ? 'bg-green-500' : 'bg-gray-700'}
+     >
+       ✓ Yes
+     </button>
+     <button 
+       onClick={() => setVote(false)}
+       className={vote === false ? 'bg-red-500' : 'bg-gray-700'}
+     >
+       ✗ No
+     </button>
+   </div>
+   ```
+
+5. **Transaction Feedback**:
+   - Loading states with spinners
+   - Success toasts with explorer link
+   - Error messages (user-friendly, not raw revert reasons)
+   - Transaction history panel
+
+6. **Empty States**:
+   - "No proposals yet" with illustration
+   - "Connect wallet to continue"
+   - "Wrong network" warning
+
+**ROUTING SETUP** (MANDATORY):
+In `src/App.jsx`, set up React Router:
+```jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import AppPage from './pages/AppPage';
+
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<LandingPage />} />
+    <Route path="/app" element={<AppPage />} />
+  </Routes>
+</BrowserRouter>
+```
+
+**NAVIGATION**:
+- Landing page "Open App" button: `<Link to="/app">` or `navigate('/app')`
+- App page "Back" button: `<Link to="/">` or `navigate('/')`
+
 WEB3/BLOCKCHAIN FRONTEND SUPPORT (PRODUCTION-READY):
 - When the user mentions blockchain, Web3, smart contracts, ABI, voting, NFT, DAO, DeFi, or a deployed address:
   
