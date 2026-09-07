@@ -12,6 +12,8 @@ eggs/
 .eggs/
 lib/
 lib64/
+# Exception: contract engine needs api/lib/ for logger and utilities
+!Evi_Contract_Engine/api/lib/
 parts/
 sdist/
 var/
