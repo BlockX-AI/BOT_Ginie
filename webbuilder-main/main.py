@@ -13,6 +13,7 @@ from datetime import datetime, timezone
 
 from sqlalchemy import select
 from agent.service import agent_service
+from integrations.dapp_orchestrator import dapp_orchestrator
 from auth.router import router
 from routes.download import router as download_router
 from db.models import User, Chat, Message
@@ -66,14 +67,18 @@ async def create_tables_on_startup():
         print("🔧 Ensuring database tables exist...")
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
-        print("✅ Database tables are ready!")
+        print(" Database tables are ready!")
     except Exception as e:
-        print(f"⚠️  Could not create tables on startup: {e}")
+        print(f" Could not create tables on startup: {e}")
 
 active_sockets: dict[str, WebSocket] = {}
 active_runs: dict[str, asyncio.Task] = {}
 agent_tasks: dict[str, dict] = {}  # Store agent task state independently of WebSocket
 
+# Share the single Service instance (and its sandbox registry) with the DApp
+# orchestrator so the /projects/{id}/files endpoints can see sandboxes created
+# during the full contract+frontend pipeline.
+dapp_orchestrator.webbuilder = agent_service
 
 class ChatPayload(BaseModel):
     prompt: str
@@ -285,7 +290,42 @@ async def create_demo_project(
             while chat_id not in active_sockets:
                 await asyncio.sleep(0.2)
             socket = active_sockets[chat_id]
-            await agent_service.run_agent_stream(prompt=prompt, id=chat_id, socket=socket, model=model)
+
+            # Full DApp pipeline: deploy + verify smart contract via the
+            # Evi_Contract_Engine, then build the frontend wired to the REAL
+            # contract address/ABI, then deploy to Vercel.
+            network = os.getenv("DEFAULT_NETWORK", "botchain")
+            contract_ok = False
+            try:
+                async for task_db in get_db():
+                    result = await dapp_orchestrator.create_full_dapp(
+                        db=task_db,
+                        chat_id=chat_id,
+                        prompt=prompt,
+                        network=network,
+                        socket=socket,
+                    )
+                    contract_ok = bool(result and result.get("success"))
+                    if not contract_ok:
+                        print(f"Contract pipeline did not succeed for {chat_id}: {result.get('error') if result else 'no result'}")
+                    break
+            except Exception as dapp_err:
+                print(f"DApp orchestrator failed for {chat_id}: {dapp_err}")
+                import traceback
+                traceback.print_exc()
+
+            # Fallback: if the contract phase could not run (e.g. contract engine
+            # unreachable), still build a frontend so the demo produces output.
+            if not contract_ok:
+                print(f"Falling back to frontend-only build for {chat_id}")
+                try:
+                    await socket.send_json({
+                        "e": "contract_skipped",
+                        "message": "⚠️ Contract deployment unavailable — building frontend only.",
+                    })
+                except Exception:
+                    pass
+                await agent_service.run_agent_stream(prompt=prompt, id=chat_id, socket=socket, model=model)
         except Exception as e:
             print(f"Error in agent task for project {chat_id}: {e}")
             print(f"Error type: {type(e)}")
