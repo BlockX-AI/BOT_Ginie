@@ -845,16 +845,18 @@ export function useContractWrite({ address, abi, functionName, args = [], valueE
                     missing_packages.append(package)
 
             if missing_packages:
-                install_commands = []
-                for package in missing_packages:
-                    install_commands.append(f"npm install {package}")
+                # IMPORTANT: install ALL packages in a SINGLE command. Running
+                # multiple `npm install` processes concurrently in the same
+                # directory corrupts node_modules (ENOTEMPTY / rmdir errors on
+                # shared transitive deps) and hangs the build.
+                combined_command = "npm install " + " ".join(missing_packages)
+                install_commands = [combined_command]
 
                 result = f"MISSING DEPENDENCIES FOUND:\n\n"
                 result += f"Missing packages: {', '.join(missing_packages)}\n\n"
-                result += f"Installation commands:\n"
-                for cmd in install_commands:
-                    result += f"  {cmd}\n"
-                result += f"\nRun these commands to install missing dependencies."
+                result += f"Installation command (run this EXACT single command, do NOT split it into multiple installs):\n"
+                result += f"  {combined_command}\n"
+                result += f"\nRun this ONE command to install all missing dependencies at once."
 
                 await safe_send_json(
                     socket,

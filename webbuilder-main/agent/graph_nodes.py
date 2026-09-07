@@ -904,8 +904,11 @@ async def code_validator_node(state: GraphState) -> GraphState:
         
         STEP 2: CHECK DEPENDENCIES
         - Use check_missing_packages() tool to automatically scan all files and find missing packages
-        - This tool will tell you exactly which packages are missing and give you install commands
-        - Run the install commands it provides using execute_command()
+        - This tool will tell you exactly which packages are missing and give you a single install command
+        - Run that ONE combined command using execute_command() (e.g. "npm install pkg1 pkg2 pkg3")
+        - NEVER run multiple `npm install` commands in parallel or back-to-back — concurrent npm
+          processes corrupt node_modules (ENOTEMPTY/rmdir errors) and hang the build. Always install
+          all missing packages in a SINGLE `npm install` command.
         
         STEP 3: LIST ALL FILES
         - Use execute_command("find src -name '*.jsx' -o -name '*.js'") to list all files
