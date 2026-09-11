@@ -75,6 +75,63 @@ active_sockets: dict[str, WebSocket] = {}
 active_runs: dict[str, asyncio.Task] = {}
 agent_tasks: dict[str, dict] = {}  # Store agent task state independently of WebSocket
 
+
+class SocketProxy:
+    """Proxy that always sends to the *current* WebSocket for a chat ID.
+
+    Background tasks (dapp_creation_task, agent_task, etc.) capture a socket
+    reference once, but the WebSocket may disconnect and reconnect (e.g. proxy
+    idle timeout).  This proxy looks up the live socket from ``active_sockets``
+    on every call so messages always reach the user's current connection.
+    """
+
+    def __init__(self, sockets: dict, chat_id: str):
+        self._sockets = sockets
+        self._chat_id = chat_id
+
+    def _sock(self):
+        return self._sockets.get(self._chat_id)
+
+    @property
+    def application_state(self):
+        s = self._sock()
+        if s:
+            return s.application_state
+        class _Closed:
+            value = 0
+        return _Closed()
+
+    @property
+    def client_state(self):
+        s = self._sock()
+        if s:
+            return s.client_state
+        class _Closed:
+            value = 0
+        return _Closed()
+
+    async def send_json(self, data):
+        s = self._sock()
+        if s:
+            try:
+                await s.send_json(data)
+            except Exception as e:
+                print(f"SocketProxy send_json failed for {self._chat_id}: {e}")
+
+    async def send_text(self, text):
+        s = self._sock()
+        if s:
+            try:
+                await s.send_text(text)
+            except Exception as e:
+                print(f"SocketProxy send_text failed for {self._chat_id}: {e}")
+
+    def __getattr__(self, name):
+        s = self._sock()
+        if s:
+            return getattr(s, name)
+        raise AttributeError(f"No active socket for {self._chat_id}")
+
 # Share the single Service instance (and its sandbox registry) with the DApp
 # orchestrator so the /projects/{id}/files endpoints can see sandboxes created
 # during the full contract+frontend pipeline.
@@ -229,7 +286,7 @@ async def create_project(
         try:
             while chat_id not in active_sockets:
                 await asyncio.sleep(0.2)
-            socket = active_sockets[chat_id]
+            socket = SocketProxy(active_sockets, chat_id)
             await agent_service.run_agent_stream(prompt=prompt, id=chat_id, socket=socket, model=model)
         except Exception as e:
             print(f"Error in agent task for project {chat_id}: {e}")
@@ -289,7 +346,7 @@ async def create_demo_project(
         try:
             while chat_id not in active_sockets:
                 await asyncio.sleep(0.2)
-            socket = active_sockets[chat_id]
+            socket = SocketProxy(active_sockets, chat_id)
 
             # Full DApp pipeline: deploy + verify smart contract via the
             # Evi_Contract_Engine, then build the frontend wired to the REAL
@@ -720,9 +777,11 @@ async def create_dapp(
         try:
             while chat_id not in active_sockets:
                 await asyncio.sleep(0.2)
-            
-            socket = active_sockets[chat_id]
-            
+
+            # Use SocketProxy so messages always go to the *current* WebSocket,
+            # even if the client disconnects and reconnects during the pipeline.
+            socket = SocketProxy(active_sockets, chat_id)
+
             result = await dapp_orchestrator.create_full_dapp(
                 db=db,
                 chat_id=chat_id,
@@ -732,7 +791,7 @@ async def create_dapp(
                 user_id=current_user.id,
                 contract_only=payload.contract_only
             )
-            
+
             if not result["success"]:
                 await socket.send_json({
                     "e": "error",
@@ -958,9 +1017,9 @@ async def create_frontend_for_existing_contract(
         try:
             while chat_id not in active_sockets:
                 await asyncio.sleep(0.2)
-            
-            socket = active_sockets[chat_id]
-            
+
+            socket = SocketProxy(active_sockets, chat_id)
+
             result = await dapp_orchestrator.create_frontend_for_existing_contract(
                 db=db,
                 chat_id=chat_id,
@@ -1154,15 +1213,20 @@ async def ws_listener(websocket: WebSocket, id: str, token: str = None):
         """Send periodic pings to prevent idle timeout during audit/deployment"""
         try:
             while True:
-                await asyncio.sleep(30)  # Ping every 30 seconds
-                if id in active_sockets:
-                    await websocket.send_json({
-                        "e": "heartbeat",
-                        "timestamp": datetime.now(timezone.utc).isoformat()
-                    })
+                await asyncio.sleep(5)  # Ping every 5 seconds (keep Railway proxy alive)
+                if active_sockets.get(id) is not websocket:
+                    break
+                if hasattr(websocket, 'application_state') and websocket.application_state.value != 1:
+                    break
+                if hasattr(websocket, 'client_state') and websocket.client_state.value != 1:
+                    break
+                await websocket.send_json({
+                    "e": "heartbeat",
+                    "timestamp": datetime.now(timezone.utc).isoformat()
+                })
         except Exception as e:
-            # Connection closed or error - stop heartbeat
-            print(f"Heartbeat stopped for {id}: {e}")
+            if "close" not in str(e).lower():
+                print(f"Heartbeat stopped for {id}: {e}")
     
     # Start heartbeat in background
     heartbeat = asyncio.create_task(heartbeat_task())
@@ -1401,9 +1465,10 @@ async def ws_listener(websocket: WebSocket, id: str, token: str = None):
     except WebSocketDisconnect:
         print(f"WebSocket disconnected for project {id}")
     finally:
-        # Clean up WebSocket connection
-        active_sockets.pop(id, None)
-        
+        # Clean up — only remove our socket if it's still ours (race-safe)
+        if active_sockets.get(id) is websocket:
+            active_sockets.pop(id, None)
+
         # Cancel heartbeat task
         if 'heartbeat' in locals():
             heartbeat.cancel()
@@ -1411,7 +1476,7 @@ async def ws_listener(websocket: WebSocket, id: str, token: str = None):
                 await heartbeat
             except asyncio.CancelledError:
                 pass
-        
+
         # DON'T cancel agent task - let it complete independently
         # Task will continue running and update database state
         # Client can reconnect and poll for status
@@ -1438,49 +1503,64 @@ async def ws_status_listener(websocket: WebSocket, id: str):
         try:
             while True:
                 await asyncio.sleep(5)
+                # Bail out if the socket has been closed/replaced
+                if active_sockets.get(id) is not websocket:
+                    break
+                if hasattr(websocket, 'application_state') and websocket.application_state.value != 1:
+                    break
+                if hasattr(websocket, 'client_state') and websocket.client_state.value != 1:
+                    break
                 await websocket.send_json({
                     "e": "heartbeat",
                     "timestamp": datetime.now(timezone.utc).isoformat()
                 })
         except Exception as e:
-            print(f"Status heartbeat stopped for {id}: {e}")
-    
+            if "close" not in str(e).lower():
+                print(f"Status heartbeat stopped for {id}: {e}")
+
     heartbeat = asyncio.create_task(heartbeat_task())
-    
+
     # Send message history on connect
     try:
-        async for db in get_db():
-            chat_result = await db.execute(select(Chat).where(Chat.id == id))
-            chat = chat_result.scalar_one_or_none()
-            
-            if not chat:
-                await websocket.send_json({"e": "error", "message": "Chat not found"})
-                await websocket.close()
-                return
-            
-            result = await db.execute(
-                select(Message)
-                .where(Message.chat_id == id)
-                .order_by(Message.created_at)
-            )
-            messages = result.scalars().all()
-            
-            await websocket.send_json({
-                "type": "history",
-                "messages": [
-                    {
-                        "id": msg.id,
-                        "role": msg.role,
-                        "content": msg.content,
-                        "event_type": msg.event_type,
-                        "created_at": msg.created_at.isoformat(),
-                        "tool_calls": msg.tool_calls if hasattr(msg, 'tool_calls') else None
-                    }
-                    for msg in messages
-                ],
-                "app_url": chat.app_url if chat else None
-            })
-            break
+        # Bail out early if the socket is already closed (e.g. client connected
+        # and immediately disconnected during the reconnect storm).
+        if hasattr(websocket, 'application_state') and websocket.application_state.value != 1:
+            print(f"WebSocket already closed for {id}, skipping history")
+        elif hasattr(websocket, 'client_state') and websocket.client_state.value != 1:
+            print(f"WebSocket client disconnected for {id}, skipping history")
+        else:
+            async for db in get_db():
+                chat_result = await db.execute(select(Chat).where(Chat.id == id))
+                chat = chat_result.scalar_one_or_none()
+
+                if not chat:
+                    await websocket.send_json({"e": "error", "message": "Chat not found"})
+                    await websocket.close()
+                    return
+
+                result = await db.execute(
+                    select(Message)
+                    .where(Message.chat_id == id)
+                    .order_by(Message.created_at)
+                )
+                messages = result.scalars().all()
+
+                await websocket.send_json({
+                    "type": "history",
+                    "messages": [
+                        {
+                            "id": msg.id,
+                            "role": msg.role,
+                            "content": msg.content,
+                            "event_type": msg.event_type,
+                            "created_at": msg.created_at.isoformat(),
+                            "tool_calls": msg.tool_calls if hasattr(msg, 'tool_calls') else None
+                        }
+                        for msg in messages
+                    ],
+                    "app_url": chat.app_url if chat else None
+                })
+                break
     except Exception as e:
         print(f"Error sending status history: {e}")
     
