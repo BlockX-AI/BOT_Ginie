@@ -415,6 +415,63 @@ async def create_demo_project(
     }
 
 
+@app.get("/demo/projects/{id}/meta")
+async def get_demo_project_meta(id: str, db: AsyncSession = Depends(get_db)):
+    """Unauthenticated endpoint returning chat metadata, contracts, and file list.
+
+    Used by the demo frontend to display contract info, Vercel URL, and
+    generated files after the pipeline completes.
+    """
+    chat_result = await db.execute(select(Chat).where(Chat.id == id))
+    chat = chat_result.scalar_one_or_none()
+    if not chat:
+        raise HTTPException(status_code=404, detail="Project not found")
+
+    # Contracts
+    from db.models import Contract
+    contract_result = await db.execute(select(Contract).where(Contract.chat_id == id))
+    contracts = contract_result.scalars().all()
+
+    contract_list = []
+    for c in contracts:
+        contract_list.append({
+            "id": c.id,
+            "name": c.contract_name,
+            "address": c.contract_address,
+            "network": c.network,
+            "chain_id": c.chain_id,
+            "abi": c.abi,
+            "source_code": c.source_code,
+            "verified": c.verified,
+            "explorer_url": c.explorer_url,
+            "deployment_status": c.deployment_status,
+            "created_at": c.created_at.isoformat() if c.created_at else None,
+        })
+
+    # Files from database
+    files_list = []
+    try:
+        from utils.file_manager import get_project_files_list
+        files_list = await get_project_files_list(db=db, project_id=id) or []
+    except Exception as e:
+        print(f"Failed to get files list for demo meta: {e}")
+
+    return {
+        "project_id": id,
+        "chat": {
+            "id": chat.id,
+            "title": chat.title,
+            "app_url": chat.app_url,
+            "vercel_url": getattr(chat, "vercel_url", None),
+            "deployment_status": getattr(chat, "deployment_status", None),
+            "github_repo_url": getattr(chat, "github_repo_url", None),
+            "created_at": chat.created_at.isoformat() if chat.created_at else None,
+        },
+        "contracts": contract_list,
+        "files": files_list,
+    }
+
+
 @app.get("/projects/{id}/files")
 async def get_project_files(id: str, db: AsyncSession = Depends(get_db)):
     sandbox = agent_service.sandboxes.get(id)

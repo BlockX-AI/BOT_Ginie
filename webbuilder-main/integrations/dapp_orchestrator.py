@@ -205,7 +205,13 @@ class DAppOrchestrator:
                 await self._send_status(
                     socket,
                     "contract_deployed",
-                    f"✅ Contract deployed at {contract_address}"
+                    f"✅ Contract deployed at {contract_address}",
+                    extra={
+                        "contract_address": contract_address,
+                        "contract_name": contract_name,
+                        "network": network,
+                        "explorer_url": explorer_url,
+                    }
                 )
             
             # Save contract to database
@@ -255,9 +261,11 @@ class DAppOrchestrator:
 
                 if socket:
                     if verified:
-                        await self._send_status(socket, "contract_verified", f"✅ Contract verified on explorer: {explorer_url}#code")
+                        await self._send_status(socket, "contract_verified", f"✅ Contract verified on explorer: {explorer_url}#code",
+                            extra={"contract_address": contract_address, "explorer_url": explorer_url, "verified": True})
                     else:
-                        await self._send_status(socket, "contract_verify_failed", f"⚠️ Contract verification pending/failed. Check explorer: {explorer_url}")
+                        await self._send_status(socket, "contract_verify_failed", f"⚠️ Contract verification pending/failed. Check explorer: {explorer_url}",
+                            extra={"contract_address": contract_address, "explorer_url": explorer_url})
 
                 print(f"📋 Contract verification: verified={verified}, result={verify_result}")
             except Exception as verify_err:
@@ -416,12 +424,22 @@ export const VERIFIED = {(_json.dumps(bool(getattr(contract, 'verified', False))
             result = await db.execute(select(Chat).where(Chat.id == chat_id))
             chat = result.scalar_one_or_none()
             frontend_url = chat.app_url if chat else f"https://{chat_id}.e2b.dev"
-            
+            vercel_url = getattr(chat, "vercel_url", None) if chat else None
+
             if socket:
                 await self._send_status(
                     socket,
                     "completed",
-                    f"🎉 DApp created successfully!\n\nFrontend: {frontend_url}\nContract: {contract_address}"
+                    f"🎉 DApp created successfully!\n\nFrontend: {frontend_url}\nContract: {contract_address}",
+                    extra={
+                        "contract_address": contract_address,
+                        "contract_name": contract_name,
+                        "network": network,
+                        "explorer_url": explorer_url,
+                        "frontend_url": frontend_url,
+                        "vercel_url": vercel_url,
+                        "contract_verified": True,
+                    }
                 )
             
             return {
@@ -664,13 +682,13 @@ REQUIREMENTS:
 Make the UI intuitive and user-friendly for Web3 interactions.
 """
     
-    async def _send_status(self, socket: WebSocket, event: str, message: str):
+    async def _send_status(self, socket: WebSocket, event: str, message: str, extra: dict = None):
         """Send status update via WebSocket"""
         try:
-            await socket.send_json({
-                "e": event,
-                "message": message
-            })
+            payload = {"e": event, "message": message}
+            if extra:
+                payload.update(extra)
+            await socket.send_json(payload)
         except Exception as e:
             print(f"Failed to send WebSocket message: {e}")
     
