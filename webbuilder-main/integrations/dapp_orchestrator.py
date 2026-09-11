@@ -94,11 +94,44 @@ class DAppOrchestrator:
                     f"Contract pipeline started (Job: {job_id}). Compiling and deploying..."
                 )
             
+            # Stream live progress during the (potentially long) deploy wait so the
+            # frontend does not appear frozen. Throttled + deduped to avoid spam.
+            import time as _time
+            _progress_state = {"last_sent": 0.0, "last_msg": ""}
+
+            async def _on_deploy_status(status: Dict[str, Any]):
+                if not socket:
+                    return
+                data = status.get("data", {}) if isinstance(status, dict) else {}
+                state = str(data.get("state") or "")
+                step = str(data.get("step") or data.get("phase") or "")
+                # Prefer the most recent log line if available
+                last_log = ""
+                logs = data.get("logs") or []
+                if isinstance(logs, list) and logs:
+                    last = logs[-1]
+                    if isinstance(last, dict):
+                        last_log = str(last.get("msg") or last.get("message") or "")
+                msg = last_log or step or state or "Compiling and deploying..."
+                now = _time.time()
+                # Throttle to at most once every 3s, and skip duplicate messages
+                if msg == _progress_state["last_msg"] and (now - _progress_state["last_sent"]) < 8:
+                    return
+                if (now - _progress_state["last_sent"]) < 3:
+                    return
+                _progress_state["last_sent"] = now
+                _progress_state["last_msg"] = msg
+                try:
+                    await self._send_status(socket, "contract_progress", f"⛓️ {msg}")
+                except Exception:
+                    pass
+
             # Wait for deployment to complete with retry
             final_status = await self.evi_client.wait_for_job_completion(
                 job_id=job_id,
                 poll_interval=3.0,
-                timeout=300.0
+                timeout=300.0,
+                on_status=_on_deploy_status
             )
             
             # Check state from data.state (not top-level status)
@@ -122,12 +155,35 @@ class DAppOrchestrator:
                     await self._send_status(socket, "contract_failed", error_msg)
                 return {"success": False, "error": error_msg, "job_id": job_id}
             
-            # Get ABI from artifacts
-            abis = artifacts.get("abis", [])
+            # Get ABI from artifacts (handle multiple response shapes)
+            abis = artifacts.get("abis") or artifacts.get("data", {}).get("abis") or []
             contract_abi = abis[0].get("abi") if abis else []
-            
+
+            # Fallback 1: dedicated ABI endpoint if artifacts didn't include one
+            if not contract_abi:
+                try:
+                    print(f"⚠️ No ABI in artifacts for {job_id}; trying /artifacts/abis fallback")
+                    abi_resp = await self.evi_client.get_contract_abi(job_id)
+                    abis_fb = abi_resp.get("abis") or abi_resp.get("data", {}).get("abis") or []
+                    if abis_fb:
+                        abis = abis_fb
+                        contract_abi = abis_fb[0].get("abi") or []
+                except Exception as abi_err:
+                    print(f"⚠️ ABI fallback (/artifacts/abis) failed: {abi_err}")
+
+            # Fallback 2: ABI embedded in the deployment result
+            if not contract_abi:
+                dd_abi = deployment_data.get("abi") or deployment_data.get("contractAbi")
+                if isinstance(dd_abi, list) and dd_abi:
+                    contract_abi = dd_abi
+
+            if not contract_abi:
+                print(f"❌ Could not resolve a non-empty ABI for job {job_id}. The DApp will render without contract functions.")
+                if socket:
+                    await self._send_status(socket, "contract_abi_missing", "⚠️ Deployed, but ABI could not be resolved — retrying artifact fetch.")
+
             # Get source code from artifacts
-            sources = artifacts.get("sources", [])
+            sources = artifacts.get("sources") or artifacts.get("data", {}).get("sources") or []
             source_code = sources[0].get("content", "") if sources else ""
             
             # Determine contract name from artifacts (ABI name or source filename)

@@ -296,23 +296,38 @@ async def create_demo_project(
             # contract address/ABI, then deploy to Vercel.
             network = os.getenv("DEFAULT_NETWORK", "botchain")
             contract_ok = False
-            try:
-                async for task_db in get_db():
-                    result = await dapp_orchestrator.create_full_dapp(
-                        db=task_db,
-                        chat_id=chat_id,
-                        prompt=prompt,
-                        network=network,
-                        socket=socket,
-                    )
-                    contract_ok = bool(result and result.get("success"))
-                    if not contract_ok:
-                        print(f"Contract pipeline did not succeed for {chat_id}: {result.get('error') if result else 'no result'}")
+            # Retry the full contract pipeline once before falling back. The EVI
+            # contract engine can fail intermittently; a single retry dramatically
+            # reduces the chance of shipping a contract-less (empty) DApp.
+            max_attempts = 2
+            for attempt in range(1, max_attempts + 1):
+                try:
+                    if attempt > 1 and socket:
+                        try:
+                            await socket.send_json({
+                                "e": "contract_retry",
+                                "message": f"🔁 Contract pipeline failed — retrying (attempt {attempt}/{max_attempts})...",
+                            })
+                        except Exception:
+                            pass
+                    async for task_db in get_db():
+                        result = await dapp_orchestrator.create_full_dapp(
+                            db=task_db,
+                            chat_id=chat_id,
+                            prompt=prompt,
+                            network=network,
+                            socket=socket,
+                        )
+                        contract_ok = bool(result and result.get("success"))
+                        if not contract_ok:
+                            print(f"Contract pipeline did not succeed for {chat_id} (attempt {attempt}/{max_attempts}): {result.get('error') if result else 'no result'}")
+                        break
+                except Exception as dapp_err:
+                    print(f"DApp orchestrator failed for {chat_id} (attempt {attempt}/{max_attempts}): {dapp_err}")
+                    import traceback
+                    traceback.print_exc()
+                if contract_ok:
                     break
-            except Exception as dapp_err:
-                print(f"DApp orchestrator failed for {chat_id}: {dapp_err}")
-                import traceback
-                traceback.print_exc()
 
             # Fallback: if the contract phase could not run (e.g. contract engine
             # unreachable), still build a frontend so the demo produces output.
@@ -1418,11 +1433,11 @@ async def ws_status_listener(websocket: WebSocket, id: str):
     # Register in active_sockets so agent can send messages
     active_sockets[id] = websocket
     
-    # Heartbeat task
+    # Heartbeat task — frequent enough to keep Railway proxy alive
     async def heartbeat_task():
         try:
             while True:
-                await asyncio.sleep(30)
+                await asyncio.sleep(5)
                 await websocket.send_json({
                     "e": "heartbeat",
                     "timestamp": datetime.now(timezone.utc).isoformat()
@@ -1500,8 +1515,9 @@ async def ws_status_listener(websocket: WebSocket, id: str):
     except WebSocketDisconnect:
         print(f"Status WebSocket disconnected for {id}")
     finally:
-        # Clean up
-        active_sockets.pop(id, None)
+        # Clean up — only remove our socket if it's still ours (race-safe)
+        if active_sockets.get(id) is websocket:
+            active_sockets.pop(id, None)
         heartbeat.cancel()
         try:
             await heartbeat

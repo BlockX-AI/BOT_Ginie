@@ -638,7 +638,9 @@ class EVIClient:
                 continue
             
             if on_status:
-                on_status(status)
+                result = on_status(status)
+                if asyncio.iscoroutine(result):
+                    await result
             
             # Check state from data.state (not top-level status)
             state = status.get("data", {}).get("state", "pending")
