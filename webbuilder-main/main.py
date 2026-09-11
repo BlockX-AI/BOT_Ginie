@@ -392,18 +392,53 @@ async def create_demo_project(
                 if contract_ok:
                     break
 
-            # Fallback: if the contract phase could not run (e.g. contract engine
-            # unreachable), still build a frontend so the demo produces output.
+            # If the contract phase failed, stop the pipeline and inform the user.
             if not contract_ok:
-                print(f"Falling back to frontend-only build for {chat_id}")
+                error_code = result.get('error') if result else 'UNKNOWN'
+                error_details = result.get('details') if result else {}
+                print(f"Contract pipeline failed for {chat_id}: {error_code}")
+
+                # Build a user-friendly error message
+                if error_code == 'CONSTRUCTOR_ARGS_REQUIRED':
+                    expected_args = error_details.get('expectedConstructor', []) if error_details else []
+                    arg_desc = ", ".join(
+                        f"{a.get('name', '?')} ({a.get('type', '?')})"
+                        for a in expected_args
+                    ) if expected_args else "unknown arguments"
+                    user_msg = (
+                        f"❌ Contract deployment failed: Your contract requires constructor arguments "
+                        f"that were not provided. Expected: {arg_desc}. "
+                        f"Please rephrase your prompt to include these values or simplify the contract. "
+                        f"Try again with a different prompt."
+                    )
+                else:
+                    user_msg = (
+                        f"❌ Contract pipeline failed: {error_code}. "
+                        f"Please try again with a different prompt."
+                    )
+
                 try:
                     await socket.send_json({
-                        "e": "contract_skipped",
-                        "message": "⚠️ Contract deployment unavailable — building frontend only.",
+                        "e": "pipeline_failed",
+                        "error": error_code,
+                        "details": error_details,
+                        "message": user_msg,
                     })
                 except Exception:
                     pass
-                await agent_service.run_agent_stream(prompt=prompt, id=chat_id, socket=socket, model=model)
+
+                # Update chat status to failed
+                try:
+                    async for task_db in get_db():
+                        chat_result = await task_db.execute(select(Chat).where(Chat.id == chat_id))
+                        chat_row = chat_result.scalar_one_or_none()
+                        if chat_row:
+                            chat_row.status = "failed"
+                        await task_db.commit()
+                        break
+                except Exception:
+                    pass
+                return
         except Exception as e:
             print(f"Error in agent task for project {chat_id}: {e}")
             print(f"Error type: {type(e)}")

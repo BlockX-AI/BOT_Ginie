@@ -138,9 +138,10 @@ class DAppOrchestrator:
             state = final_status.get("data", {}).get("state")
             if state != "completed":
                 error_msg = final_status.get("data", {}).get("error", "Contract deployment failed")
+                error_details = final_status.get("data", {}).get("details", {})
                 if socket:
                     await self._send_status(socket, "contract_failed", error_msg)
-                return {"success": False, "error": error_msg, "job_id": job_id}
+                return {"success": False, "error": error_msg, "details": error_details, "job_id": job_id}
             
             # Get deployment artifacts using query params (not headers)
             artifacts = await self.evi_client.download_artifacts(job_id)
