@@ -228,14 +228,14 @@ export function WalletDeployModal({
                 state: "completed",
                 verified: true,
                 address: contractAddress,
-                explorer_url: res?.explorerUrl,
+                explorer_url: (res as any)?.explorerUrl,
               });
             } catch {}
           }
         } else {
           setVerificationState("pending");
         }
-        setVerificationUrl(res?.explorerUrl || null);
+        setVerificationUrl((res as any)?.explorerUrl || null);
       } catch (e) {
         if (cancelled) return;
         setVerificationState("failed");

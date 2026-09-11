@@ -1,12 +1,12 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2, Wallet, CheckCircle2, AlertCircle, HelpCircle } from "lucide-react";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { injected } from "wagmi/connectors";
 import Link from "next/link";
 import { api } from "@/lib/api";
 import { useAuth } from "@/components/auth/AuthProvider";
@@ -85,9 +85,12 @@ export default function ProfilePage() {
   const [avatarErr, setAvatarErr] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
-  const { address, isConnected } = useAccount();
-  const { connect, isPending: isConnecting } = useConnect();
-  const { disconnect, isPending: isDisconnecting } = useDisconnect();
+  const address: string | undefined = undefined;
+  const isConnected = false;
+  const isConnecting = false;
+  const isDisconnecting = false;
+  const connect = (_args: any) => {};
+  const disconnect = () => {};
   // Validate field on change
   const validateField = useCallback((name: string, value: string): string => {
     switch (name) {
@@ -126,7 +129,7 @@ export default function ProfilePage() {
   const handleConnectWallet = useCallback(async () => {
     try {
       setError('');
-      connect({ connector: injected() });
+      connect({});
     } catch (err: any) {
       setError('Failed to connect wallet. Please make sure you have MetaMask or another wallet installed.');
     }

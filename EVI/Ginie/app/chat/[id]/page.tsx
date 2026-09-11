@@ -914,9 +914,9 @@ export default function ChatIdPage() {
               if (typeof raw === "string" && raw) {
                 const st = stageFromText(raw);
                 if (st) {
-                  setUnifiedStatus(st);
-                  bumpProgress(st);
-                  await maybeLoadArtifacts(chatId, st, { signal: pageSignal });
+                  setUnifiedStatus(st!);
+                  bumpProgress(st!);
+                  await maybeLoadArtifacts(chatId, st!, { signal: pageSignal });
                   if (st === "deployed") sawDeployed = true;
                 }
                 appendLine(`[${level}] ${raw}`);
@@ -962,7 +962,7 @@ export default function ChatIdPage() {
             const vs = await api.verifyStatus(addr, network, { signal: pageSignal });
             if (vs?.verified) {
               setContractVerified(true);
-              if (vs?.explorerUrl) setContractExplorerUrl(vs.explorerUrl);
+              if ((vs as any)?.explorerUrl) setContractExplorerUrl((vs as any).explorerUrl);
             }
           } catch {}
         }
@@ -1338,7 +1338,7 @@ export default function ChatIdPage() {
       }
       if (!res.ok || !res.body) throw new Error(`Stream failed (${res.status})`);
 
-      const reader = res.body.getReader();
+      const reader = res.body!.getReader();
       const decoder = new TextDecoder();
       let buf = "";
       let eventType = "message";
@@ -1405,9 +1405,9 @@ export default function ChatIdPage() {
               const msg: string = String(json.msg);
               const st = stageFromMsg(msg);
               if (st) {
-                setUnifiedStatus(st);
-                bumpProgressForStage(st);
-                try { await maybeLoadArtifacts(jid, st, { signal: pageSignal }); } catch {}
+                setUnifiedStatus(st!);
+                bumpProgressForStage(st!);
+                try { await maybeLoadArtifacts(jid, st!, { signal: pageSignal }); } catch {}
                 const stageLine = `─── ▶ Stage: ${st}${json.level ? ` [${json.level}]` : ""}`;
                 if (!seenMsgRef.current.has(stageLine)) {
                   append(stageLine);
@@ -1423,7 +1423,7 @@ export default function ChatIdPage() {
               }
 
               if (st) {
-                try { await maybeLoadArtifacts(jid, st, { signal: pageSignal }); } catch {}
+                try { await maybeLoadArtifacts(jid, st!, { signal: pageSignal }); } catch {}
               }
             } else if (eventType === "magic" && json?.msg) {
               const m = String(json.msg);
@@ -1434,9 +1434,9 @@ export default function ChatIdPage() {
               magicQueueRef.current.push(m);
               const st = stageFromMsg(m);
               if (st) {
-                setUnifiedStatus(st);
-                bumpProgressForStage(st);
-                try { await maybeLoadArtifacts(jid, st, { signal: pageSignal }); } catch {}
+                setUnifiedStatus(st!);
+                bumpProgressForStage(st!);
+                try { await maybeLoadArtifacts(jid, st!, { signal: pageSignal }); } catch {}
                 const stageLine = `─── ▶ Stage: ${st}`;
                 if (!seenMsgRef.current.has(stageLine)) {
                   append(stageLine);
@@ -1533,21 +1533,27 @@ export default function ChatIdPage() {
                 // Look for DEPLOY_RESULT JSON
                 const deployMatch = allLogs.match(/DEPLOY_RESULT\s*({[^}]+})/);
                 if (deployMatch) {
-                  try {
-                    const deployData = JSON.parse(deployMatch[1]);
-                    contractName = deployData.contract || deployData.fqName?.split(":").pop();
-                  } catch {}
+                  const dm: string = deployMatch![1];
+                  if (dm) {
+                    try {
+                      const deployData = JSON.parse(dm);
+                      contractName = deployData.contract || deployData.fqName?.split(":").pop();
+                    } catch {}
+                  }
                 }
                 // Fallback: look for "Artifact chosen for deploy: ContractName"
                 if (!contractName) {
                   const artifactMatch = allLogs.match(/Artifact chosen for deploy:\s*(\w+)/i);
-                  if (artifactMatch) contractName = artifactMatch[1];
+                  if (artifactMatch) {
+                    const am = artifactMatch![1];
+                    if (am) contractName = am;
+                  }
                 }
               }
               // Auto-update job title with contract name
               if (contractName) {
                 try {
-                  await api.updateJobMeta(jid, { title: contractName });
+                  await api.updateJobMeta(jid, { title: contractName ?? undefined });
                   console.log(`[Chat] Updated job title to: ${contractName}`);
                 } catch (e) {
                   console.warn("[Chat] Failed to update job title:", e);
@@ -1560,11 +1566,14 @@ export default function ChatIdPage() {
                 let fqName: string | undefined;
                 const deployMatch = allLogs.match(/DEPLOY_RESULT\s*({[^}]+})/);
                 if (deployMatch) {
-                  try {
-                    const deployData = JSON.parse(deployMatch[1]);
-                    network = deployData.network || network;
-                    fqName = deployData.fqName;
-                  } catch {}
+                  const dm: string = deployMatch![1];
+                  if (dm) {
+                    try {
+                      const deployData = JSON.parse(dm);
+                      network = deployData.network || network;
+                      fqName = deployData.fqName;
+                    } catch {}
+                  }
                 }
                 const explorerUrls: Record<string, string> = {
                   "avalanche-fuji": "https://testnet.snowtrace.io",
@@ -1601,11 +1610,11 @@ export default function ChatIdPage() {
       // bound dedupe caches to last 500 lines
       while (msgQueueRef.current.length > 500) {
         const v = msgQueueRef.current.shift();
-        if (v) seenMsgRef.current.delete(v);
+        if (v) seenMsgRef.current.delete(v!);
       }
       while (magicQueueRef.current.length > 500) {
         const v = magicQueueRef.current.shift();
-        if (v) seenMagicRef.current.delete(v);
+        if (v) seenMagicRef.current.delete(v!);
       }
     } catch (e: any) {
       if (e?.name === "AbortError") return;
