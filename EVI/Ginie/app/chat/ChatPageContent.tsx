@@ -27,7 +27,7 @@ export default function ChatPageContent() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [deploymentMode, setDeploymentMode] = useState<DeploymentMode>("dapp");
+  const [deploymentMode, setDeploymentMode] = useState<DeploymentMode>("normal");
   const [gameMode, setGameMode] = useState(false);
   const [walletDeployModalOpen, setWalletDeployModalOpen] = useState(false);
   const [walletDeployJobId, setWalletDeployJobId] = useState<string | null>(null);
