@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { AnimatedAIChat } from "@/components/ui/animated-ai-chat"
@@ -74,6 +76,15 @@ export default function JourneyPage() {
           <div ref={promptRef} className="w-full max-w-5xl pointer-events-auto">
             <AnimatedAIChat />
           </div>
+
+          {/* Redirect button to chat page */}
+          <Link
+            href="/chat"
+            className="pointer-events-auto inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 text-white border border-white/20 ring-1 ring-white/20 backdrop-blur-sm hover:scale-105 transition-all text-sm font-medium"
+          >
+            Start Building
+            <ArrowRight size={16} />
+          </Link>
         </div>
       </section>
     </main>
