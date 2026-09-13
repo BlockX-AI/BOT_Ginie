@@ -1787,17 +1787,15 @@ async def application_checker_node(state: GraphState) -> GraphState:
                             "message": "✅ Build completed, starting server..."
                         })
                     
-                    # Now serve the built dist folder with a simple HTTP server
+                    # Now serve the built dist folder with a simple HTTP server.
+                    # background=True detaches the process via the E2B SDK —
+                    # "nohup ... &" inside a foreground run keeps the command
+                    # session alive until the timeout fires.
                     print("Starting HTTP server for built files...")
-                    start_result = await sandbox.commands.run(
-                        "cd /home/user/react-app/dist && nohup python3 -m http.server 5173 > ../server.log 2>&1 & echo $!",
-                        timeout=30
+                    await sandbox.commands.run(
+                        "cd /home/user/react-app/dist && python3 -m http.server 5173 > ../server.log 2>&1",
+                        background=True,
                     )
-                    
-                    if start_result.exit_code != 0:
-                        error_msg = f"Failed to start HTTP server: {start_result.stderr}"
-                        print(error_msg)
-                        raise Exception(error_msg)
                     
                     print("HTTP server process spawned, verifying...")
                     
