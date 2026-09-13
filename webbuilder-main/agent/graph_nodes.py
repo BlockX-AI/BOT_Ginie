@@ -128,20 +128,22 @@ async def prompt_enhancer_node(state: GraphState) -> GraphState:
         # Use GPT-4o if available, else Gemini Flash
         llm = get_llm_by_name('gpt-4o') if get_llm_by_name('gpt-4o') else llm_gemini_flash
 
-        # Extract contract details block before enhancement so it survives the LLM rewrite
+        # Extract ALL "*_DO_NOT_ALTER" blocks before enhancement so they survive the
+        # LLM rewrite verbatim (contract details, strict design system, 2-page spec, etc.)
         import re
-        contract_block = ""
-        contract_match = re.search(
-            r'<<<CONTRACT_DETAILS_DO_NOT_ALTER>>>.*?<<<END_CONTRACT_DETAILS>>>',
+        preserved_blocks = re.findall(
+            r'<<<[A-Z_]+_DO_NOT_ALTER>>>.*?<<<END_[A-Z_]+>>>',
             user_prompt, re.DOTALL
         )
-        if contract_match:
-            contract_block = contract_match.group(0)
-            # Remove it from the prompt sent to LLM to avoid confusion
-            llm_input_prompt = user_prompt.replace(contract_block, "").strip()
-            print(f"📋 Extracted contract details block ({len(contract_block)} chars) — will re-append after enhancement")
-        else:
-            llm_input_prompt = user_prompt
+        contract_block = ""  # kept for backwards-compat logging
+        llm_input_prompt = user_prompt
+        for block in preserved_blocks:
+            llm_input_prompt = llm_input_prompt.replace(block, "")
+            if "CONTRACT_DETAILS" in block:
+                contract_block = block
+        llm_input_prompt = llm_input_prompt.strip()
+        if preserved_blocks:
+            print(f"📋 Extracted {len(preserved_blocks)} protected block(s) — will re-append verbatim after enhancement")
 
         # Create the enhancement prompt
         enhancement_messages = [
@@ -154,10 +156,20 @@ async def prompt_enhancer_node(state: GraphState) -> GraphState:
         response = await llm.ainvoke(enhancement_messages)
         enhanced_prompt = response.content.strip()
 
-        # Re-append the contract details block verbatim so the builder gets real address + ABI
-        if contract_block:
-            enhanced_prompt = f"{enhanced_prompt}\n\n{contract_block}\n\nIMPORTANT: You MUST call save_contract_info() with the EXACT contract name, address, chain_id, network, and abi_json shown above. Wire all read/write functions to this address using wagmi useReadContract/useWriteContract."
-            print(f"📋 Re-appended contract details block to enhanced prompt")
+        # Re-append ALL protected blocks verbatim so the builder gets the real
+        # address/ABI, the strict design system, and the 2-page spec unaltered.
+        if preserved_blocks:
+            blocks_text = "\n\n".join(preserved_blocks)
+            enhanced_prompt = (
+                f"{enhanced_prompt}\n\n{blocks_text}\n\n"
+                "IMPORTANT: You MUST follow the protected blocks above EXACTLY. "
+                "Call save_contract_info() with the EXACT contract name, address, chain_id, "
+                "network, and abi_json shown. Wire all read/write functions to this address "
+                "using wagmi useReadContract/useWriteContract. Implement the MANDATORY "
+                "two-page architecture and the strict design system verbatim — do not "
+                "substitute a single-page layout or a different visual theme."
+            )
+            print(f"📋 Re-appended {len(preserved_blocks)} protected block(s) to enhanced prompt")
         
         print(f"✅ PROMPT ENHANCED: {len(enhanced_prompt)} characters")
         print(f"📊 Original: {len(user_prompt)} chars → Enhanced: {len(enhanced_prompt)} chars")
@@ -574,12 +586,36 @@ async def builder_node(state: GraphState) -> GraphState:
             DO NOT STOP until you have created ALL files mentioned in the implementation plan!
             """
 
+        # Inject protected spec blocks (contract details, strict design system,
+        # mandatory two-page architecture, exact index.css) VERBATIM into the
+        # builder prompt. The planner produces a summarized plan, so these exact
+        # instructions must be re-attached here or they get lost.
+        try:
+            _enh = state.get("enhanced_prompt", "") or ""
+            _protected = re.findall(
+                r'<<<[A-Z_]+_DO_NOT_ALTER>>>.*?<<<END_[A-Z_]+>>>',
+                _enh, re.DOTALL
+            )
+            if _protected:
+                builder_prompt = (
+                    builder_prompt
+                    + "\n\n=== NON-NEGOTIABLE SPEC (follow EXACTLY, verbatim) ===\n"
+                    + "\n\n".join(_protected)
+                    + "\n\nYou MUST implement the mandatory two-page architecture "
+                      "(LandingPage '/' + AppPage '/app') and write src/index.css "
+                      "EXACTLY as specified above. Do NOT produce a single-page app "
+                      "and do NOT substitute a different visual theme."
+                )
+                print(f"🛡️ Builder: injected {len(_protected)} protected spec block(s)")
+        except Exception as _spec_err:
+            print(f"⚠️ Builder: failed to inject protected spec: {_spec_err}")
+
         messages = [
             SystemMessage(content=INITPROMPT),
             HumanMessage(content=builder_prompt),
         ]
 
-        agent_executor = create_react_agent(get_llm_by_name('gpt-4o') if get_llm_by_name('gpt-4o') else llm_gemini_pro, tools=base_tools)
+        agent_executor = create_react_agent(get_llm_by_name('gpt-5') if get_llm_by_name('gpt-5') else llm_gemini_pro, tools=base_tools)
         config = {"recursion_limit": 40}
 
         try:

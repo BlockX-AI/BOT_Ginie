@@ -12,6 +12,7 @@ from sqlalchemy import select
 
 from .evi_client import EVIClient, get_explorer_url, get_network_info, GAME_TEMPLATES
 from agent.service import Service as WebBuilderService
+from agent.design_system import get_strict_design_system, get_index_css_template
 from db.models import Chat, Contract, Message
 
 
@@ -650,10 +651,17 @@ export const VERIFIED = false
         chain_id: int
     ) -> str:
         """
-        Create enhanced prompt for frontend generation with contract details
+        Create enhanced prompt for frontend generation with contract details.
+
+        Enforces:
+          - A MANDATORY two-page architecture (LandingPage "/" + AppPage "/app")
+          - The strict "Ginie neo-brutalist" design system on every frontend
         """
+        design_system = get_strict_design_system()
+        index_css = get_index_css_template()
+
         return f"""
-Build a Web3 React frontend for the following smart contract:
+Build a premium Web3 React frontend for the following smart contract.
 
 <<<CONTRACT_DETAILS_DO_NOT_ALTER>>>
 - Name: {contract_name}
@@ -665,22 +673,73 @@ Build a Web3 React frontend for the following smart contract:
 ORIGINAL REQUEST:
 {original_prompt}
 
-REQUIREMENTS:
-1. Use the create_web3_boilerplate() tool to set up wagmi and RainbowKit
-2. Use the save_contract_info() tool to save the contract details with the EXACT address, chain_id, network, and abi_json shown above
-3. Wire all read functions using wagmi useReadContract with the contract address above
-4. Wire all write functions using wagmi useWriteContract with the contract address above
-5. Build a modern, responsive UI with:
-   - Wallet connection button (prominent in header)
-   - Read functions displayed in cards/sections
-   - Write functions with input forms and transaction feedback
-   - Loading states and error handling
-   - Transaction history/status
-6. Use Tailwind CSS for styling
-7. Add proper error messages for wallet connection, wrong network, etc.
-8. For payable functions, clearly show the ETH amount required
+<<<FRONTEND_SPEC_DO_NOT_ALTER>>>
+================================================================================
+🚨 MANDATORY TWO-PAGE ARCHITECTURE (NON-NEGOTIABLE)
+================================================================================
+You MUST create TWO separate pages wired with react-router-dom. A single-page
+layout is NOT acceptable and will be rejected.
 
-Make the UI intuitive and user-friendly for Web3 interactions.
+1. src/pages/LandingPage.jsx  → route "/"  (marketing / info ONLY, NO contract calls)
+   - Full-width HERO: big Archivo Black headline (use nb-hl yellow highlight on a
+     key word), tagline from APP_TAGLINE, short description from APP_DESCRIPTION.
+   - Prominent primary button "Open App" that navigates to "/app"
+     (use react-router <Link to="/app"> or useNavigate).
+   - "What It Does" section: 3-4 nb-card feature cards with lucide-react icons.
+   - "How It Works" section: numbered steps 1-2-3-4 (connect wallet → action → result).
+   - "How To Use" section: short bullet instructions + prerequisites.
+   - Footer: explorer link (EXPLORER_URL), network badge, verification status.
+   - NO wallet connect and NO contract reads/writes on this page.
+
+2. src/pages/AppPage.jsx  → route "/app"  (ALL contract interaction lives here)
+   - Header: app name, wallet connect button (RainbowKit), connected address,
+     network indicator, and a "← Home" <Link to="/">.
+   - Stats dashboard: key read-function values in nb-card-sm cards (mono numbers).
+   - Grouped function sections:
+       * READ functions  → auto-fetch + refresh button, results in cards.
+       * WRITE functions → input forms with the CORRECT control per Solidity type
+         (string→text, uint→number min=0, address→text w/ 0x validation,
+          bool→Yes/No toggle buttons NOT text, enum→select, array→dynamic list).
+   - Transaction feedback: pending spinner, success toast with explorer tx link,
+     friendly error messages. Handle wallet-not-connected & wrong-network states.
+
+3. src/App.jsx MUST set up routing:
+   import {{ BrowserRouter, Routes, Route }} from 'react-router-dom'
+   <BrowserRouter>
+     <Routes>
+       <Route path="/" element={{<LandingPage />}} />
+       <Route path="/app" element={{<AppPage />}} />
+     </Routes>
+   </BrowserRouter>
+   Ensure react-router-dom is installed/added to package.json.
+
+Both pages MUST import shared metadata from src/config/appMeta.js
+(APP_NAME, APP_TAGLINE, APP_DESCRIPTION, EXPLORER_URL, VERIFIED) and contract
+config from src/config/contract.js — these files are PRE-WRITTEN, do not overwrite.
+
+================================================================================
+WEB3 WIRING REQUIREMENTS
+================================================================================
+1. Use create_web3_boilerplate() to set up wagmi + RainbowKit + viem.
+2. Use save_contract_info() with the EXACT address, chain_id, network, abi above.
+3. Wire ALL read functions via wagmi useReadContract (address from contract.js).
+4. Wire ALL write functions via wagmi useWriteContract + useWaitForTransactionReceipt.
+5. For payable functions, clearly show the required native-token amount.
+
+{design_system}
+
+================================================================================
+📄 src/index.css — WRITE THIS FILE EXACTLY AS BELOW (design system tokens+classes)
+================================================================================
+{index_css}
+
+FINAL CHECK before you finish:
+  ✓ LandingPage.jsx and AppPage.jsx BOTH exist and are routed in App.jsx.
+  ✓ index.css contains the neo-brutalist tokens/classes above.
+  ✓ nb-* classes (nb-card, nb-btn, nb-field, nb-ticker, nb-display, nb-hl) are used.
+  ✓ Landing page has an "Open App" button → "/app"; App page has "← Home" → "/".
+  ✓ All contract read/write functions are wired on AppPage only.
+<<<END_FRONTEND_SPEC>>>
 """
     
     async def _send_status(self, socket: WebSocket, event: str, message: str, extra: dict = None):
