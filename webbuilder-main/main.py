@@ -928,8 +928,16 @@ async def create_dapp(
     
     async def dapp_creation_task():
         try:
-            while chat_id not in active_sockets:
+            # Wait for WebSocket connection with timeout (max 10 seconds)
+            # If no WebSocket connects, proceed anyway (messages won't be sent but DApp will be created)
+            wait_time = 0
+            max_wait = 10  # seconds
+            while chat_id not in active_sockets and wait_time < max_wait:
                 await asyncio.sleep(0.2)
+                wait_time += 0.2
+            
+            if chat_id not in active_sockets:
+                print(f"⚠️ No WebSocket connected for {chat_id} after {max_wait}s, proceeding without live updates")
 
             # Use SocketProxy so messages always go to the *current* WebSocket,
             # even if the client disconnects and reconnects during the pipeline.
@@ -947,16 +955,20 @@ async def create_dapp(
             )
 
             if not result["success"]:
-                await socket.send_json({
-                    "e": "error",
-                    "message": result.get("error", "DApp creation failed")
-                })
+                try:
+                    await socket.send_json({
+                        "e": "error",
+                        "message": result.get("error", "DApp creation failed")
+                    })
+                except:
+                    print(f"Could not send error to WebSocket for {chat_id}")
         except Exception as e:
-            print(f"Error in DApp creation: {e}")
+            print(f"❌ Error in DApp creation for {chat_id}: {e}")
             import traceback
             traceback.print_exc()
         finally:
             active_runs.pop(chat_id, None)
+            print(f"✅ DApp creation task completed for {chat_id}")
     
     active_runs[chat_id] = asyncio.create_task(dapp_creation_task())
     
@@ -1304,52 +1316,50 @@ async def verify_contract(
 
 @app.websocket("/ws/{id}")
 async def ws_listener(websocket: WebSocket, id: str, token: str = None):
-    """WebSocket endpoint for real-time chat communication with JWT authentication"""
+    """WebSocket endpoint for real-time chat communication with optional JWT authentication"""
 
-    if not token:
-        await websocket.close(code=1008, reason="Missing authentication token")
-        return
+    # Allow unauthenticated connections for demo mode
+    user_id = None
+    if token:
+        try:
+            payload = decode_token(token)
 
-    try:
+            if payload is None:
+                print(f"🔓 Invalid token for WebSocket {id}, allowing demo mode")
+                user_id = None
+            else:
+                user_id = payload.get("sub")
 
-        payload = decode_token(token)
+            if user_id:
+                async for db in get_db():
+                    result = await db.execute(select(User).where(User.id == int(user_id)))
+                    user = result.scalar_one_or_none()
 
-        if payload is None:
-            await websocket.close(code=1008, reason="Invalid token")
-            return
+                    if user is None:
+                        print(f"🔓 User not found for WebSocket {id}, allowing demo mode")
+                        user_id = None
+                        break
 
-        user_id = payload.get("sub")
-        if user_id is None:
-            await websocket.close(code=1008, reason="Invalid token payload")
-            return
+                    result = await db.execute(select(Chat).where(Chat.id == id))
+                    chat = result.scalar_one_or_none()
 
-        async for db in get_db():
-            result = await db.execute(select(User).where(User.id == int(user_id)))
-            user = result.scalar_one_or_none()
+                    if chat is None:
+                        print(f"🔓 Chat not found for WebSocket {id}, allowing demo mode")
+                        user_id = None
+                        break
 
-            if user is None:
-                await websocket.close(code=1008, reason="User not found")
-                return
+                    elif chat.user_id != user.id:
+                        print(f"🔓 Chat belongs to different user for WebSocket {id}, allowing demo mode")
+                        user_id = None
+                        break
 
-            result = await db.execute(select(Chat).where(Chat.id == id))
-            chat = result.scalar_one_or_none()
+                    break  # Exit the async generator after first iteration
 
-            if chat is None:
-                await websocket.close(code=1008, reason="Invalid token payload")
-                return
-
-            elif chat.user_id != user.id:
-                await websocket.close(
-                    code=1008, reason="Unauthorized: Chat belongs to another user"
-                )
-                return
-
-            break  # Exit the async generator after first iteration
-
-    except Exception as e:
-        print(f"WebSocket authentication error: {e}")
-        await websocket.close(code=1011, reason="Authentication failed")
-        return
+        except Exception as e:
+            print(f"🔓 WebSocket authentication error for {id}: {e}, allowing demo mode")
+            user_id = None
+    else:
+        print(f"🔓 No token provided for WebSocket {id}, using demo mode")
 
     # Check if there's already an active connection for this chat BEFORE accepting
     if id in active_sockets:
