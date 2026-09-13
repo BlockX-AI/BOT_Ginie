@@ -33,6 +33,7 @@ PROTECTED_SHELL_PATHS = [
     "src/config/wagmi.js",
     "src/config/appMeta.js",
     "src/config/contract.js",
+    "src/hooks/useContractField.js",  # Typed Web3 hooks
     "src/index.css",
     "package.json",
     "vite.config.js",
@@ -669,6 +670,216 @@ export default function AppPage() {
   )
 }'''
 
+# Typed Web3 hooks — deterministic type handling for contract interactions
+# Ported from wizard's useContractField.ts.template, adapted for Vite + wagmi v2
+USE_CONTRACT_FIELD_JS = '''/**
+ * Typed Web3 hooks for contract interactions.
+ * 
+ * This file provides deterministic type handling for ABI parameters:
+ * - BigInt parsing for uint*/int* (no Number() overflow)
+ * - Address validation via viem's isAddress
+ * - Hex validation for bytes types
+ * - JSON parsing for tuples/arrays
+ * 
+ * The LLM should import these hooks instead of re-implementing type logic.
+ */
+
+import { parseUnits, formatUnits, isAddress } from 'viem'
+
+/**
+ * Parse a user input string to a BigInt for uint*/int* types.
+ * Handles decimals if needed (e.g., for token amounts with 18 decimals).
+ * 
+ * @param {string} value - User input
+ * @param {number} decimals - Decimal places (default 0 for raw integers)
+ * @returns {bigint} Parsed BigInt
+ */
+export function parseBigInt(value, decimals = 0) {
+  if (!value || value.trim() === '') return 0n
+  try {
+    return parseUnits(value.trim(), decimals)
+  } catch (err) {
+    console.error('Failed to parse BigInt:', err)
+    return 0n
+  }
+}
+
+/**
+ * Format a BigInt to a human-readable string.
+ * 
+ * @param {bigint} value - BigInt value
+ * @param {number} decimals - Decimal places
+ * @returns {string} Formatted string
+ */
+export function formatBigInt(value, decimals = 0) {
+  if (value === undefined || value === null) return '0'
+  try {
+    return formatUnits(value, decimals)
+  } catch (err) {
+    console.error('Failed to format BigInt:', err)
+    return '0'
+  }
+}
+
+/**
+ * Validate an Ethereum address.
+ * 
+ * @param {string} value - Address string
+ * @returns {boolean} True if valid
+ */
+export function validateAddress(value) {
+  if (!value || value.trim() === '') return false
+  return isAddress(value.trim())
+}
+
+/**
+ * Validate a hex string (for bytes types).
+ * 
+ * @param {string} value - Hex string
+ * @param {number|null} exactBytes - Exact byte length (null for dynamic)
+ * @returns {boolean} True if valid
+ */
+export function validateHex(value, exactBytes = null) {
+  if (!value || value.trim() === '') return false
+  const cleaned = value.trim()
+  
+  // Must start with 0x
+  if (!cleaned.startsWith('0x')) return false
+  
+  // Check hex characters
+  const hexPart = cleaned.slice(2)
+  if (!/^[0-9a-fA-F]*$/.test(hexPart)) return false
+  
+  // Check exact length if specified
+  if (exactBytes !== null) {
+    return hexPart.length === exactBytes * 2
+  }
+  
+  // Must be even length (full bytes)
+  return hexPart.length % 2 === 0
+}
+
+/**
+ * Parse a JSON string for tuple/array types.
+ * 
+ * @param {string} value - JSON string
+ * @returns {any} Parsed value or null on error
+ */
+export function parseJsonParam(value) {
+  if (!value || value.trim() === '') return null
+  try {
+    return JSON.parse(value.trim())
+  } catch (err) {
+    console.error('Failed to parse JSON param:', err)
+    return null
+  }
+}
+
+/**
+ * Get validation error message for a field based on uiSchema.
+ * 
+ * @param {object} field - Field from uiSchema
+ * @param {string} value - User input
+ * @returns {string|null} Error message or null if valid
+ */
+export function getFieldError(field, value) {
+  const { control, validation, solidityType } = field
+  
+  if (validation.required && (!value || value.trim() === '')) {
+    return `${field.name} is required`
+  }
+  
+  if (!value || value.trim() === '') return null
+  
+  switch (control) {
+    case 'address':
+      if (!validateAddress(value)) {
+        return 'Invalid Ethereum address'
+      }
+      break
+    
+    case 'number-bigint':
+      try {
+        const bn = parseBigInt(value, 0)
+        if (validation.min !== undefined && bn < BigInt(validation.min)) {
+          return `Must be >= ${validation.min}`
+        }
+      } catch (err) {
+        return 'Invalid number'
+      }
+      break
+    
+    case 'bytes':
+      const exactBytes = solidityType !== 'bytes' && solidityType.startsWith('bytes')
+        ? parseInt(solidityType.replace('bytes', ''))
+        : null
+      
+      if (!validateHex(value, exactBytes)) {
+        return exactBytes
+          ? `Must be exactly ${exactBytes} bytes (0x + ${exactBytes * 2} hex chars)`
+          : 'Invalid hex string (must start with 0x)'
+      }
+      break
+    
+    case 'textarea':
+      if (validation.isJson) {
+        if (parseJsonParam(value) === null) {
+          return 'Invalid JSON'
+        }
+      }
+      break
+  }
+  
+  return null
+}
+
+/**
+ * Convert a user input to the correct type for contract call args.
+ * Uses the uiSchema field definition to determine the conversion.
+ * 
+ * @param {object} field - Field from uiSchema
+ * @param {string} value - User input
+ * @returns {any} Converted value ready for contract call
+ */
+export function convertFieldValue(field, value) {
+  if (!value || value.trim() === '') {
+    // Return sensible defaults for empty values
+    switch (field.control) {
+      case 'number-bigint': return 0n
+      case 'bool': return false
+      case 'address': return '0x0000000000000000000000000000000000000000'
+      default: return ''
+    }
+  }
+  
+  const trimmed = value.trim()
+  
+  switch (field.control) {
+    case 'number-bigint':
+      return parseBigInt(trimmed, 0)
+    
+    case 'address':
+      return trimmed
+    
+    case 'bool':
+      return trimmed.toLowerCase() === 'true' || trimmed === '1'
+    
+    case 'bytes':
+      return trimmed
+    
+    case 'textarea':
+      if (field.validation.isJson) {
+        return parseJsonParam(trimmed)
+      }
+      return trimmed
+    
+    case 'text':
+    default:
+      return trimmed
+  }
+}
+'''
+
 
 def get_shell_files(theme_id: str = None):
     """
@@ -691,6 +902,7 @@ def get_shell_files(theme_id: str = None):
         "src/config/wagmi.js": WAGMI_JS,
         "src/config/appMeta.js": APP_META_JS,
         "src/config/contract.js": CONTRACT_JS,
+        "src/hooks/useContractField.js": USE_CONTRACT_FIELD_JS,  # Typed Web3 hooks
         "src/main.jsx": MAIN_JSX,
         "src/index.css": themed_css,  # Use themed CSS instead of hardcoded INDEX_CSS
         "src/App.jsx": APP_JSX,

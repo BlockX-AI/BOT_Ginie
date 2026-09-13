@@ -702,7 +702,7 @@ export default Navbar;
         "description": "Multi-column footer with social links and newsletter",
         "dependencies": ["lucide-react"],
         "code": '''
-import { Github, Twitter, Linkedin, Instagram, Mail } from 'lucide-react';
+import { GitBranch, Share2, Briefcase, Camera, Mail } from 'lucide-react';
 
 const footerLinks = {
   Product: ['Features', 'Pricing', 'Integrations', 'Changelog'],
@@ -712,10 +712,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Twitter, href: '#' },
-  { icon: Github, href: '#' },
-  { icon: Linkedin, href: '#' },
-  { icon: Instagram, href: '#' },
+  { icon: Share2, href: '#' },
+  { icon: GitBranch, href: '#' },
+  { icon: Briefcase, href: '#' },
+  { icon: Camera, href: '#' },
 ];
 
 const Footer = () => {

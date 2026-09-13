@@ -833,6 +833,15 @@ Both pages MUST import shared metadata from src/config/appMeta.js
 (APP_NAME, APP_TAGLINE, APP_DESCRIPTION, EXPLORER_URL, VERIFIED) and contract
 config from src/config/contract.js — these files are PRE-WRITTEN, do not overwrite.
 
+⚠️ LUCIDE-REACT ICON RULES (build will FAIL otherwise):
+- The installed lucide-react version REMOVED all brand icons. NEVER import:
+  Github, Gitlab, Twitter, Facebook, Linkedin, Instagram, Youtube, Chrome,
+  Slack, Twitch, Dribbble, Figma, Codepen, Codesandbox, Bitcoin.
+- For social/footer links use generic icons instead: GitBranch, Share2,
+  Briefcase, Camera, Globe, Link, ExternalLink, Mail.
+- Only import icon names that actually exist (e.g. Zap, Shield, Wallet,
+  ArrowRight, ArrowLeft, CheckCircle2, ExternalLink, Copy, RefreshCw).
+
 ================================================================================
 WEB3 WIRING REQUIREMENTS (WIZARD-ENHANCED)
 ================================================================================

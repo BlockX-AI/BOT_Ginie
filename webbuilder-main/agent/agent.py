@@ -34,7 +34,7 @@ if openai_key:
 api_key = os.getenv("GOOGLE_API_KEY")
 
 if not api_key:
-    print("⚠️  GOOGLE_API_KEY not set - falling back to OpenAI if available.")
+    print("[WARNING] GOOGLE_API_KEY not set - falling back to OpenAI if available.")
     api_key = "placeholder-key"
 
 # Configure LLMs with retry settings for rate limiting

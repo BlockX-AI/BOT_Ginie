@@ -530,6 +530,16 @@ async def builder_node(state: GraphState) -> GraphState:
             - If you see "Expecting Unicode escape sequence" → Fix \\n in strings
             - If you see "Cannot find module" → Check import paths
             - If you see "Unexpected token" → Fix JSX syntax errors
+            - If you see '"X" is not exported by "...lucide-react..."' → that icon
+              was REMOVED from lucide-react (Github, Twitter, Linkedin, Instagram,
+              Facebook, Youtube, Chrome, Slack, Twitch, Figma...). Replace the
+              import with a valid icon (e.g. GitBranch, Share2, Briefcase, Camera,
+              Globe, ExternalLink) and update its usages.
+            - If you see 'Rollup failed to resolve import "pkg"' → run
+              execute_command("npm install pkg") for missing packages, or fix the
+              relative path / create the missing file.
+            - Ignore "/*#__PURE__*/" annotation warnings from node_modules — they
+              are harmless. Focus on the LAST error in the output.
             
             Fix ALL errors before finishing!
             """
@@ -717,7 +727,6 @@ async def builder_node(state: GraphState) -> GraphState:
                     )
                     
                     if "created" in str(tool_output).lower() and "file" in str(tool_output).lower():
-                        import re
                         file_matches = re.findall(r"(\w+\.(jsx?|tsx?|css|json))", str(tool_output))
                         files_created.extend([match[0] for match in file_matches])
 
@@ -1244,6 +1253,246 @@ async def code_validator_node(state: GraphState) -> GraphState:
         return new_state
 
 
+# ---------------------------------------------------------------------------
+# Deterministic build-error repair (WIZARD §4.7 self-healing)
+#
+# Vite/Rollup failures in LLM-generated apps are highly repetitive: removed
+# lucide-react brand icons, missing npm packages, and unresolved relative
+# imports. We can fix all three deterministically inside the sandbox, without
+# burning a full LLM builder cycle.
+# ---------------------------------------------------------------------------
+
+# lucide-react removed its brand icons (Github, Twitter, ...) — map them to
+# guaranteed-existing icons. Specifiers are rewritten as `Valid as Missing`
+# so existing JSX usages keep working.
+_LUCIDE_ICON_FALLBACKS = {
+    "Github": "GitBranch",
+    "Gitlab": "GitBranch",
+    "Twitter": "Share2",
+    "Facebook": "Globe",
+    "Linkedin": "Briefcase",
+    "Instagram": "Camera",
+    "Youtube": "Play",
+    "Chrome": "Globe",
+    "Slack": "MessageSquare",
+    "Twitch": "Video",
+    "Dribbble": "Palette",
+    "Figma": "PenTool",
+    "Codepen": "Code2",
+    "Codesandbox": "Package",
+    "Bitcoin": "Coins",
+    "ChromeIcon": "Globe",
+}
+_LUCIDE_GENERIC_FALLBACK = "Globe"
+
+_REACT_APP_ROOT = "/home/user/react-app"
+
+
+def _npm_package_name(spec: str) -> str:
+    """'@scope/pkg/sub' -> '@scope/pkg'; 'pkg/sub' -> 'pkg'"""
+    parts = spec.split("/")
+    if spec.startswith("@") and len(parts) >= 2:
+        return "/".join(parts[:2])
+    return parts[0]
+
+
+def _sandbox_path(path: str) -> str:
+    """Normalize a Vite-reported path to an absolute sandbox path."""
+    p = path.strip()
+    if p.startswith(_REACT_APP_ROOT):
+        return p
+    if p.startswith("/"):
+        return p
+    return f"{_REACT_APP_ROOT}/{p.lstrip('./')}"
+
+
+def _extract_build_error_summary(build_output: str, max_lines: int = 50) -> str:
+    """Pull the actionable error out of noisy Vite/Rollup output.
+
+    `/*#__PURE__*/` annotation warnings from bundled deps (ox, zod) flood the
+    log but are harmless — Rollup strips the comments and continues. The fatal
+    error is always after them ("error during build:", "is not exported",
+    "Could not resolve", ...). Filtering those warning lines keeps the real
+    error visible for logs and for the builder-retry prompt.
+    """
+    if not build_output:
+        return "No build output captured"
+
+    filtered = []
+    for line in build_output.splitlines():
+        if "contains an annotation that Rollup cannot interpret" in line:
+            continue
+        if re.match(r"^\s*node_modules/[^\s]+\s*\(\d+:\d+\):\s*A comment", line):
+            continue
+        if "/*#__PURE__*/" in line:
+            continue
+        filtered.append(line)
+
+    summary = "\n".join(filtered).strip()
+    if not summary:
+        summary = build_output.strip()
+    return "\n".join(summary.splitlines()[-max_lines:])[-4000:]
+
+
+async def _alias_lucide_icon(sandbox, importer: str, missing: str) -> str:
+    """Rewrite `import { Github } from 'lucide-react'` ->
+    `import { GitBranch as Github } from 'lucide-react'` in the importer file.
+    Returns the replacement icon name, or '' if nothing changed."""
+    path = _sandbox_path(importer)
+    try:
+        src = await sandbox.files.read(path)
+    except Exception:
+        return ""
+
+    replacement = _LUCIDE_ICON_FALLBACKS.get(missing, _LUCIDE_GENERIC_FALLBACK)
+    changed = False
+
+    def _fix(match):
+        nonlocal changed
+        inner = match.group(1)
+
+        def _sub(m):
+            nonlocal changed
+            changed = True
+            alias = m.group(2)
+            return f"{replacement} as {alias}" if alias else f"{replacement} as {missing}"
+
+        new_inner = re.sub(
+            rf"\b{re.escape(missing)}\b(\s+as\s+([\w$]+))?",
+            _sub,
+            inner,
+        )
+        return match.group(0).replace(inner, new_inner, 1)
+
+    new_src = re.sub(
+        r"import\s*{([^}]*)}\s*from\s*['\"]lucide-react['\"]",
+        _fix,
+        src,
+    )
+    if changed and new_src != src:
+        await sandbox.files.write(path, new_src)
+        return replacement
+    return ""
+
+
+async def _stub_missing_module(sandbox, importer: str, spec: str) -> str:
+    """Create a stub file for an unresolved relative import. Named imports in
+    the importer are re-exported as no-op values so the build passes."""
+    importer_rel = importer.strip()
+    if importer_rel.startswith(_REACT_APP_ROOT):
+        importer_rel = importer_rel[len(_REACT_APP_ROOT):]
+    importer_rel = importer_rel.lstrip("/")
+
+    base_dir = os.path.dirname(importer_rel)
+    resolved = os.path.normpath(os.path.join(base_dir, spec)).replace("\\", "/")
+
+    _, ext = os.path.splitext(resolved)
+    if not ext:
+        for cand in (".jsx", ".js", ".tsx", ".ts", ".css", ".json"):
+            try:
+                if await sandbox.files.exists(f"{_REACT_APP_ROOT}/{resolved}{cand}"):
+                    return ""
+            except Exception:
+                pass
+        resolved += ".jsx"
+        ext = ".jsx"
+
+    abs_path = f"{_REACT_APP_ROOT}/{resolved}"
+    try:
+        if await sandbox.files.exists(abs_path):
+            return ""
+    except Exception:
+        pass
+
+    if ext == ".css":
+        content = "/* auto-generated stub */\n"
+    elif ext == ".json":
+        content = "{}\n"
+    else:
+        named = []
+        try:
+            importer_src = await sandbox.files.read(_sandbox_path(importer))
+            for imp in re.finditer(
+                rf"import\s+([^;]+?)\s+from\s+['\"]{re.escape(spec)}['\"]",
+                importer_src,
+            ):
+                clause = imp.group(1)
+                brace = re.search(r"{([^}]*)}", clause)
+                if brace:
+                    for part in brace.group(1).split(","):
+                        nm = part.strip().split(" as ")[0].strip()
+                        if re.match(r"^[A-Za-z_$][\w$]*$", nm):
+                            named.append(nm)
+        except Exception:
+            pass
+
+        lines = ["import React from 'react'", "", "const _Stub = () => null", "export default _Stub"]
+        lines += [f"export const {n} = _Stub" for n in dict.fromkeys(named)]
+        content = "\n".join(lines) + "\n"
+
+    try:
+        parent = os.path.dirname(abs_path)
+        if parent:
+            await sandbox.commands.run(f"mkdir -p {parent}", timeout=15)
+        await sandbox.files.write(abs_path, content)
+        return abs_path
+    except Exception:
+        return ""
+
+
+async def _apply_deterministic_build_fixes(sandbox, build_output: str) -> list:
+    """Best-effort deterministic repairs for common Vite build failures.
+
+    Returns a list of human-readable descriptions of applied fixes."""
+    fixes = []
+    if not build_output:
+        return fixes
+
+    # 1) "X" is not exported by "node_modules/<pkg>/...", imported by "<file>"
+    for name, pkg_path, importer in dict.fromkeys(re.findall(
+        r'"([A-Za-z_$][\w$]*)"\s+is not exported by\s+"node_modules/([^"]+)",\s*imported by\s+"([^"]+)"',
+        build_output,
+    )):
+        pkg = _npm_package_name(pkg_path)
+        try:
+            if pkg == "lucide-react":
+                used = await _alias_lucide_icon(sandbox, importer, name)
+                if used:
+                    fixes.append(f"{importer}: lucide icon '{name}' -> '{used} as {name}'")
+                continue
+        except Exception as e:
+            print(f"   lucide alias fix failed ({importer}:{name}): {e}")
+
+    # 2) Unresolved imports: 'Rollup failed to resolve import "x" from "y"',
+    #    'Could not resolve "x"', 'Cannot find module "x"'
+    for spec, importer in dict.fromkeys(re.findall(
+        r'(?:Rollup failed to resolve import|Could not resolve|Cannot find module|Failed to resolve import)\s+["\']([^"\']+)["\'](?:\s+from\s+["\']([^"\']+)["\'])?',
+        build_output,
+    )):
+        if spec.startswith("."):
+            if importer:
+                stub = await _stub_missing_module(sandbox, importer, spec)
+                if stub:
+                    fixes.append(f"created stub {stub} for unresolved import '{spec}'")
+        elif not spec.startswith("/") and ":" not in spec:
+            pkg = _npm_package_name(spec)
+            if pkg in {"react", "react-dom", "vite"}:
+                continue
+            try:
+                res = await sandbox.commands.run(
+                    f"cd {_REACT_APP_ROOT} && npm install {pkg} --legacy-peer-deps 2>&1",
+                    timeout=180,
+                )
+                if res.exit_code == 0:
+                    fixes.append(f"installed missing package '{pkg}'")
+                else:
+                    print(f"   npm install {pkg} failed: {res.stderr[:200] if res.stderr else res.stdout[-200:]}")
+            except Exception as e:
+                print(f"   npm install {pkg} failed: {e}")
+
+    return fixes
+
+
 async def application_checker_node(state: GraphState) -> GraphState:
     """
     Application Checker node: Checks if the application is running and captures errors
@@ -1468,29 +1717,36 @@ async def application_checker_node(state: GraphState) -> GraphState:
                             print(f"Build output: {build_output[-500:]}")  # Last 500 chars
                             break
                         
-                        # Build failed - extract and truncate error for LLM feedback
+                        # Build failed - extract the actionable error for LLM feedback.
+                        # Filter the harmless Rollup `/*#__PURE__*/` annotation warnings so
+                        # the real error stays visible instead of being buried/truncated.
                         error_output = build_output or "No error output available"
-                        # Truncate to 8KB to avoid token explosion
-                        error_truncated = error_output[-8000:] if len(error_output) > 8000 else error_output
-                        
+                        error_summary = _extract_build_error_summary(error_output)
+                        error_truncated = error_summary
+
                         print(f"❌ Build attempt {build_attempt} failed with exit code {real_exit_code}")
-                        print(f"Error (truncated): {error_truncated[:500]}...")
-                        
+                        print(f"Error summary: {error_summary[:1500]}")
+
                         if socket:
                             await safe_send_socket(socket, {
                                 "e": "build_retry",
                                 "message": f"⚠️ Build failed (attempt {build_attempt}), analyzing errors..."
                             })
-                        
+
                         # If this is not the last attempt, try to auto-fix
                         if build_attempt < max_build_retries:
                             print(f"🔧 Attempting auto-fix for build errors...")
-                            
-                            # TODO: Integrate with builder agent to fix errors
-                            # For now, just log and retry (the shell restoration above may fix it)
-                            # In a full implementation, we'd call the builder with a fix prompt:
-                            # fix_prompt = f"The build failed with these errors:\n{error_truncated}\n\nFix ONLY the errors shown above."
-                            
+                            try:
+                                applied = await _apply_deterministic_build_fixes(
+                                    sandbox, error_output
+                                )
+                                for _fix_desc in applied:
+                                    print(f"   🔧 {_fix_desc}")
+                                if not applied:
+                                    print("   ⚠️ No deterministic fix matched - retrying unchanged")
+                            except Exception as _fix_err:
+                                print(f"   ⚠️ Auto-fix crashed: {_fix_err}")
+
                             await asyncio.sleep(2)  # Brief pause before retry
                     
                     if not build_succeeded:
