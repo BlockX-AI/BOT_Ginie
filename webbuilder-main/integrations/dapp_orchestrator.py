@@ -10,10 +10,55 @@ from fastapi import WebSocket
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from .evi_client import EVIClient, get_explorer_url, get_network_info, GAME_TEMPLATES
+from integrations.evi_client import EVIClient, get_network_info, get_explorer_url
 from agent.service import Service as WebBuilderService
-from agent.design_system import get_strict_design_system, get_index_css_template
-from db.models import Chat, Contract, Message
+from db.models import Contract, Message, Chat
+from db.base import get_db
+from agent.ui_schema import build_ui_schema  # Deterministic ABI→UI schema
+
+
+# =============================================================================
+# Deploy Error Classification (Wizard §4.4)
+# =============================================================================
+def classify_deploy_error(error_msg: str) -> tuple[str, str]:
+    """
+    Classify deployment errors into actionable categories.
+    Ported from wizard's classifyDeployError.
+    
+    Returns:
+        (error_kind, user_friendly_message)
+    """
+    error_lower = error_msg.lower()
+    
+    # Constructor args mismatch
+    if "constructor" in error_lower and ("args" in error_lower or "arguments" in error_lower or "expected" in error_lower):
+        return ("CONSTRUCTOR_ARGS", "Contract requires constructor arguments. Please provide them or use a no-arg constructor.")
+    
+    # Nonce issues
+    if "nonce too low" in error_lower or "replacement transaction underpriced" in error_lower:
+        return ("NONCE_MISMATCH", "Transaction nonce conflict. Please retry the deployment.")
+    
+    # Insufficient funds
+    if "insufficient funds" in error_lower or "insufficient balance" in error_lower:
+        return ("INSUFFICIENT_FUNDS", "Insufficient funds in deployer wallet. Please add funds and retry.")
+    
+    # Gas issues
+    if "out of gas" in error_lower or "gas required exceeds" in error_lower:
+        return ("OUT_OF_GAS", "Transaction ran out of gas. Try increasing gas limit.")
+    
+    # RPC issues
+    if "econnrefused" in error_lower or "etimedout" in error_lower or "network error" in error_lower:
+        return ("RPC_UNREACHABLE", "Cannot reach RPC endpoint. Check network connection and RPC URL.")
+    
+    if "429" in error_msg or "rate limit" in error_lower:
+        return ("RPC_RATE_LIMITED", "RPC rate limit exceeded. Please wait and retry.")
+    
+    # Compilation errors (shouldn't reach deploy, but handle anyway)
+    if "compilation" in error_lower or "solidity" in error_lower:
+        return ("COMPILATION_FAILED", "Contract compilation failed. Check Solidity code for errors.")
+    
+    # Generic
+    return ("UNKNOWN", f"Deployment failed: {error_msg[:200]}")
 
 
 class DAppOrchestrator:
@@ -75,11 +120,18 @@ class DAppOrchestrator:
             if socket:
                 await self._send_status(socket, "contract_generating", "Generating smart contract with AI...")
             
+            # ========== WIZARD §4.3: Constructor Args Resolver ==========
+            # Strategy: Instruct EVI to prefer no-arg constructors via prompt enhancement
+            # If constructor args are needed, they can be passed via constructor_args param
+            enhanced_prompt = self._enhance_contract_prompt_for_no_args(prompt)
+            
             # Start contract pipeline
             pipeline_result = await self.evi_client.start_pipeline(
-                prompt=prompt,
+                prompt=enhanced_prompt,
                 network=network,
-                max_iters=5
+                max_iters=5,
+                constructor_args=[],  # Empty args - prefer no-arg constructors
+                strict_args=False  # Allow deployment even if constructor exists (will use defaults)
             )
             
             job_id = pipeline_result.get("job", {}).get("id")
@@ -141,9 +193,21 @@ class DAppOrchestrator:
             if state != "completed":
                 error_msg = final_status.get("data", {}).get("error", "Contract deployment failed")
                 error_details = final_status.get("data", {}).get("details", {})
+                
+                # Wizard §4.4: Classify error for better user feedback
+                error_kind, friendly_msg = classify_deploy_error(error_msg)
+                print(f"❌ Deploy failed: {error_kind} — {friendly_msg}")
+                
                 if socket:
-                    await self._send_status(socket, "contract_failed", error_msg)
-                return {"success": False, "error": error_msg, "details": error_details, "job_id": job_id}
+                    await self._send_status(socket, "contract_failed", f"❌ {friendly_msg}")
+                return {
+                    "success": False, 
+                    "error": error_msg, 
+                    "error_kind": error_kind,
+                    "friendly_error": friendly_msg,
+                    "details": error_details, 
+                    "job_id": job_id
+                }
             
             # Get deployment artifacts using query params (not headers)
             artifacts = await self.evi_client.download_artifacts(job_id)
@@ -297,7 +361,7 @@ class DAppOrchestrator:
                 )
             
             # Create enhanced prompt for frontend with contract details
-            frontend_prompt = self._create_frontend_prompt(
+            frontend_prompt, has_custom_theme = self._create_frontend_prompt(
                 original_prompt=prompt,
                 contract_address=contract_address,
                 contract_name=contract_name,
@@ -323,7 +387,7 @@ class DAppOrchestrator:
             # so the frontend always has the real address+ABI regardless of LLM behavior
             try:
                 import json as _json
-                await sandbox.commands.run("mkdir -p src/contracts src/config", cwd="/home/user/react-app")
+                await sandbox.commands.run("mkdir -p src/contracts src/config src/hooks", cwd="/home/user/react-app")
 
                 contract_bundle = {
                     "name": contract_name,
@@ -358,6 +422,15 @@ export const contractConfig = {{
                     contract_js,
                 )
                 print(f"✅ Pre-wrote contract config: {contract_name} at {contract_address} on {network}")
+
+                # ========== WIZARD INTEGRATION: Deterministic UI Schema ==========
+                # Generate typed UI schema from ABI (§4.1 from WIZARD_INTEGRATION_PLAN)
+                ui_schema = build_ui_schema(contract_abi)
+                await sandbox.files.write(
+                    "/home/user/react-app/src/config/uiSchema.json",
+                    _json.dumps(ui_schema, indent=2),
+                )
+                print(f"✅ Generated UI schema: {len(ui_schema)} functions with typed controls")
 
                 # Generate AI-powered app metadata (name/tagline/description) based on
                 # contract name and ABI, not raw user prompt
@@ -404,12 +477,14 @@ export const VERIFIED = {(_json.dumps(bool(getattr(contract, 'verified', False))
                         f"src/contracts/{contract_name}.json": _json.dumps(contract_bundle, indent=2),
                         "src/config/contract.js": contract_js,
                         "src/config/appMeta.js": app_meta_js,
+                        "src/config/uiSchema.json": _json.dumps(ui_schema, indent=2),  # Wizard: UI schema
                         ".env.production": env_prod,
                         ".env": env_prod,
                     }
                     ctx["theme_id"] = theme_id  # Store selected theme for shell restoration
+                    ctx["has_custom_theme"] = has_custom_theme  # Store custom theme flag
                     save_json_store(chat_id, "context.json", ctx)
-                    print(f"🛡️ Stored {len(ctx['protected_files'])} protected files + theme ({theme_id}) in context.json")
+                    print(f"🛡️ Stored {len(ctx['protected_files'])} protected files + theme ({theme_id}, custom={has_custom_theme}) in context.json")
                 except Exception as store_err:
                     print(f"⚠️ Failed to persist protected files: {store_err}")
             except Exception as prewrite_err:
@@ -501,7 +576,7 @@ export const VERIFIED = {(_json.dumps(bool(getattr(contract, 'verified', False))
             chain_id = network_info.get("chain_id", 0)
             
             # Create frontend prompt with contract details
-            frontend_prompt = self._create_frontend_prompt(
+            frontend_prompt, has_custom_theme = self._create_frontend_prompt(
                 original_prompt=prompt,
                 contract_address=contract_address,
                 contract_name="Contract",
@@ -643,6 +718,25 @@ export const VERIFIED = false
                 "error": str(e)
             }
     
+    def _enhance_contract_prompt_for_no_args(self, prompt: str) -> str:
+        """
+        Wizard §4.3: Enhance contract generation prompt to prefer no-arg constructors.
+        This is the safest mitigation for constructor-args deployment failures.
+        """
+        return f"""{prompt}
+
+IMPORTANT DEPLOYMENT CONSTRAINT:
+- Use a constructor with NO parameters (empty constructor or no constructor at all)
+- Initialize state variables with sensible defaults directly in their declarations
+- If configuration is needed, provide setter functions instead of constructor params
+- This ensures the contract can be deployed without constructor arguments
+
+Example:
+  ✓ GOOD: contract MyToken {{ uint256 public totalSupply = 1000000; }}
+  ✓ GOOD: constructor() {{ owner = msg.sender; }}
+  ✗ BAD:  constructor(uint256 _supply) {{ totalSupply = _supply; }}
+"""
+    
     def _create_frontend_prompt(
         self,
         original_prompt: str,
@@ -651,16 +745,36 @@ export const VERIFIED = false
         abi: list,
         network: str,
         chain_id: int
-    ) -> str:
+    ) -> tuple[str, bool]:
         """
         Create enhanced prompt for frontend generation with contract details.
 
         Enforces:
           - A MANDATORY two-page architecture (LandingPage "/" + AppPage "/app")
-          - The strict "Ginie neo-brutalist" design system on every frontend
+          - The strict "Ginie neo-brutalist" design system on every frontend (unless custom theme requested)
+        
+        Returns:
+            (prompt_text, has_custom_theme)
         """
-        design_system = get_strict_design_system()
-        index_css = get_index_css_template()
+        # Detect if user requested custom theme/styling
+        custom_theme_keywords = [
+            'purple', 'matrix', 'green', 'cyberpunk', 'neon', 'glow', 'glassmorphism',
+            'dark theme', 'background:', 'color:', '#', 'gradient', 'futuristic',
+            'terminal', 'hacker', 'sci-fi', 'blue theme', 'red theme', 'custom theme',
+            'styling:', 'design:', 'aesthetic:', 'look:', 'visual:'
+        ]
+        
+        prompt_lower = original_prompt.lower()
+        has_custom_theme = any(keyword in prompt_lower for keyword in custom_theme_keywords)
+        
+        if has_custom_theme:
+            print("🎨 Custom theme detected in prompt - using flexible design system")
+            design_system = self._get_flexible_design_system()
+            index_css = self._get_flexible_css_template()
+        else:
+            print("🎨 No custom theme detected - using default neo-brutalist design")
+            design_system = get_strict_design_system()
+            index_css = get_index_css_template()
 
         return f"""
 Build a premium Web3 React frontend for the following smart contract.
@@ -720,13 +834,32 @@ Both pages MUST import shared metadata from src/config/appMeta.js
 config from src/config/contract.js — these files are PRE-WRITTEN, do not overwrite.
 
 ================================================================================
-WEB3 WIRING REQUIREMENTS
+WEB3 WIRING REQUIREMENTS (WIZARD-ENHANCED)
 ================================================================================
 1. Use create_web3_boilerplate() to set up wagmi + RainbowKit + viem.
 2. Use save_contract_info() with the EXACT address, chain_id, network, abi above.
 3. Wire ALL read functions via wagmi useReadContract (address from contract.js).
 4. Wire ALL write functions via wagmi useWriteContract + useWaitForTransactionReceipt.
 5. For payable functions, clearly show the required native-token amount.
+
+🎯 DETERMINISTIC TYPE HANDLING (DO NOT RE-IMPLEMENT):
+   - A typed UI schema is pre-written at src/config/uiSchema.json
+   - Typed Web3 hooks are pre-written at src/hooks/useContractField.js
+   - IMPORT these instead of writing your own type logic:
+     
+     import uiSchema from '../config/uiSchema.json'
+     import {{ convertFieldValue, getFieldError, parseBigInt, validateAddress }} from '../hooks/useContractField'
+     
+   - For each function input, use the uiSchema field.control to pick the right UI:
+     * "address" → text input with validateAddress()
+     * "number-bigint" → number input, convert with parseBigInt()
+     * "bool" → Yes/No toggle buttons (NOT text input)
+     * "bytes" → text input with hex validation
+     * "text" → text input
+     * "textarea" → textarea (for arrays/tuples, parse JSON)
+   
+   - Before calling a write function, convert args with convertFieldValue(field, userInput)
+   - Show validation errors with getFieldError(field, userInput)
 
 {design_system}
 
@@ -742,6 +875,132 @@ FINAL CHECK before you finish:
   ✓ Landing page has an "Open App" button → "/app"; App page has "← Home" → "/".
   ✓ All contract read/write functions are wired on AppPage only.
 <<<END_FRONTEND_SPEC>>>
+""", has_custom_theme
+    
+    def _get_flexible_design_system(self) -> str:
+        """
+        Return a flexible design system that allows AI to derive theme from the user's concept.
+        Based on wizard's frontend.system.md approach.
+        """
+        return r"""
+================================================================================
+🎨 FLEXIBLE DESIGN SYSTEM — AI-DRIVEN THEME CUSTOMIZATION
+================================================================================
+You are a Staff Frontend & Web3 Design Engineer. The user has requested specific
+visual styling in their prompt. You MUST honor their requested theme/colors/aesthetic.
+
+STEP 1 — READ THE CONCEPT, THEN DESIGN
+---------------------------------------
+Before writing any code, read the DApp concept and styling requirements provided.
+Extract the requested:
+- Background colors
+- Text colors
+- Accent colors
+- Button colors
+- Visual aesthetic (cyberpunk, minimalist, glassmorphism, etc.)
+- Typography preferences
+- Animation preferences
+
+Use these requirements to create a custom design system that matches the user's vision.
+
+STEP 2 — IMPLEMENT THE REQUESTED THEME
+---------------------------------------
+1. **Colors**: Use the EXACT colors specified in the prompt (e.g., #1a0033 for purple, #00ff41 for matrix green)
+2. **Background**: Apply the requested background color/gradient/image
+3. **Typography**: Use requested fonts or choose fonts that match the aesthetic
+4. **Components**: Style buttons, cards, inputs to match the requested theme
+5. **Effects**: Add requested effects (neon glow, glassmorphism, shadows, etc.)
+6. **Animations**: Use framer-motion if animations are requested
+
+STEP 3 — WRITE CUSTOM CSS
+--------------------------
+Write src/index.css with:
+- @import "tailwindcss" at the top
+- Custom CSS variables for the requested color palette
+- Custom component classes that implement the requested styling
+- Any requested effects (glows, gradients, animations)
+
+Example for a cyberpunk purple/matrix-green theme:
+```css
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #1a0033;
+  --text-primary: #00ff41;
+  --text-secondary: #00ffff;
+  --accent: #00ffff;
+  --card-bg: rgba(26, 0, 51, 0.6);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+.custom-card {
+  background: var(--card-bg);
+  border: 1px solid #00ff41;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+.custom-btn {
+  background: var(--accent);
+  color: #1a0033;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.custom-btn:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+```
+
+CRITICAL RULES:
+- DO NOT ignore the user's color/theme requirements
+- DO NOT fall back to a default theme if custom styling is requested
+- DO use the exact hex colors specified in the prompt
+- DO implement the requested visual effects (neon, glow, glassmorphism, etc.)
+- DO use framer-motion for animations if requested
+- DO make the design match the requested aesthetic (cyberpunk, minimalist, etc.)
+
+================================================================================
+"""
+    
+    def _get_flexible_css_template(self) -> str:
+        """
+        Return a minimal CSS template that allows full customization.
+        The AI will replace this with custom CSS based on the user's requirements.
+        """
+        return r"""@import "tailwindcss";
+
+/* 
+ * CUSTOM THEME CSS
+ * This file should be completely rewritten by the AI based on the user's
+ * requested theme, colors, and styling requirements from the prompt.
+ * 
+ * The AI MUST:
+ * 1. Define CSS variables for the requested color palette
+ * 2. Style the body with the requested background
+ * 3. Create custom component classes that match the requested aesthetic
+ * 4. Add any requested visual effects (glows, shadows, gradients, etc.)
+ */
+
+:root {
+  /* Define your custom color palette here based on user requirements */
+}
+
+body {
+  /* Apply requested background, typography, and base styles */
+}
+
+/* Add custom component classes here */
 """
     
     async def _generate_app_metadata(
