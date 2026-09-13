@@ -1576,6 +1576,26 @@ async def _apply_deterministic_build_fixes(sandbox, build_output: str) -> list:
             except Exception as e:
                 print(f"   npm install {pkg} failed: {e}")
 
+    # 3) "Failed to parse source for import analysis" — usually a stray */
+    #    inside a JSDoc block comment (e.g. "uint*/int*") that prematurely
+    #    closes the comment. Re-seed the protected scaffold files to undo
+    #    any corruption.
+    _parse_err = re.search(
+        r'Failed to parse source for import analysis.*?\nfile:\s*([^\s]+)',
+        build_output, re.DOTALL,
+    )
+    if _parse_err:
+        bad_file = _parse_err.group(1).strip()
+        _rel = bad_file.replace("/home/user/react-app/", "")
+        try:
+            from agent.dapp_shell import write_scaffold_files
+            await write_scaffold_files(sandbox)
+            fixes.append(
+                f"re-seeded protected scaffold (parse error in {_rel})"
+            )
+        except Exception as _reseed_err:
+            print(f"   scaffold re-seed failed: {_reseed_err}")
+
     return fixes
 
 

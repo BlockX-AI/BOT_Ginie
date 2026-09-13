@@ -307,20 +307,20 @@ export default function AppHeader() {
 
 USE_CONTRACT_FIELD_JS = '''/**
  * Typed Web3 hooks for contract interactions.
- * 
+ *
  * This file provides deterministic type handling for ABI parameters:
- * - BigInt parsing for uint*/int* (no Number() overflow)
- * - Address validation via viem's isAddress
+ * - BigInt parsing for uint and int types (no Number() overflow)
+ * - Address validation via viem isAddress
  * - Hex validation for bytes types
- * - JSON parsing for tuples/arrays
- * 
+ * - JSON parsing for tuples and arrays
+ *
  * The LLM should import these hooks instead of re-implementing type logic.
  */
 
 import { parseUnits, formatUnits, isAddress } from 'viem'
 
 /**
- * Parse a user input string to a BigInt for uint*/int* types.
+ * Parse a user input string to a BigInt for uint and int types.
  * Handles decimals if needed (e.g., for token amounts with 18 decimals).
  * 
  * @param {string} value - User input
