@@ -61,6 +61,19 @@ async def get_current_user_optional(
         # Return a demo user for testing
         result = await db.execute(select(User).limit(1))
         demo_user = result.scalar_one_or_none()
+        
+        # If no user exists, create a demo user
+        if demo_user is None:
+            demo_user = User(
+                email="demo@ginie.ai",
+                username="demo_user",
+                hashed_password="$2b$12$dummy_hash_for_testing",
+            )
+            db.add(demo_user)
+            await db.commit()
+            await db.refresh(demo_user)
+            print(f"✅ Created demo user: {demo_user.email} (ID: {demo_user.id})")
+        
         return demo_user
     
     try:
