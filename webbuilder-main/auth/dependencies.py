@@ -8,6 +8,7 @@ from .utils import decode_token
 
 
 security = HTTPBearer()
+security_optional = HTTPBearer(auto_error=False)
 
 
 async def get_current_user(
@@ -51,7 +52,7 @@ async def get_current_user(
 
 
 async def get_current_user_optional(
-    credentials: HTTPAuthorizationCredentials | None = Depends(HTTPBearer(auto_error=False)),
+    credentials: HTTPAuthorizationCredentials | None = Depends(security_optional),
     db: AsyncSession = Depends(get_db),
 ) -> User | None:
     """Get the current user if authenticated, otherwise return None (for testing)"""
