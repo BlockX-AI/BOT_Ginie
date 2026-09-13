@@ -501,16 +501,30 @@ async def builder_node(state: GraphState) -> GraphState:
 
         if current_errors:
             error_details = []
+            missing_file_list = []
             for error_type, errors in current_errors.items():
                 if isinstance(errors, list):
                     for err in errors:
                         if isinstance(err, dict):
                             error_msg = err.get("error", str(err))
                             error_details.append(f"ERROR: {error_msg}")
+                            if err.get("type") == "missing_files" and err.get("files"):
+                                missing_file_list.extend(err["files"])
                         else:
                             error_details.append(f"ERROR: {str(err)}")
                 else:
                     error_details.append(f"{error_type}: {str(errors)}")
+
+            missing_directive = ""
+            if missing_file_list:
+                missing_directive = f"""
+            ⚠️ MISSING FILES — THESE DO NOT EXIST AND MUST BE CREATED:
+            {chr(10).join(f"- {f}" for f in dict.fromkeys(missing_file_list))}
+
+            You MUST create each missing file with write_file/create_file before
+            finishing. Do NOT just read files and stop — the build will fail
+            again if the files still don't exist.
+            """
 
             builder_prompt = f"""            
             CRITICAL: BUILD FAILED - YOU MUST FIX THESE ERRORS
@@ -518,13 +532,16 @@ async def builder_node(state: GraphState) -> GraphState:
             The previous build attempt failed with these errors:
             
             {chr(10).join(error_details)}
-            
+            {missing_directive}
             YOUR TASK:
             1. Read the error messages carefully
-            2. Identify which files have syntax errors
-            3. Read those files using read_file
-            4. Fix the syntax errors (escape sequences, missing imports, etc.)
-            5. Use write_file to save the corrected files
+            2. If the error lists MISSING files → CREATE each one with
+               write_file/create_file, fully implemented per the spec
+            3. If files exist but have errors → read them with read_file,
+               fix the problem, and save with write_file
+            4. NEVER finish having only read files — you must write at least
+               one corrected or new file, or the build fails again
+            5. Verify every required file exists before finishing
             
             COMMON FIXES:
             - If you see "Expecting Unicode escape sequence" → Fix \\n in strings
@@ -626,7 +643,7 @@ async def builder_node(state: GraphState) -> GraphState:
         ]
 
         agent_executor = create_react_agent(get_llm_by_name('gpt-5') if get_llm_by_name('gpt-5') else llm_gemini_pro, tools=base_tools)
-        config = {"recursion_limit": 40}
+        config = {"recursion_limit": 60}
 
         try:
             print(
@@ -1580,10 +1597,12 @@ async def application_checker_node(state: GraphState) -> GraphState:
                     missing_files.append(file_path)
 
             if missing_files:
+                print(f"⚠️ Missing essential files: {missing_files}")
                 runtime_errors.append(
                     {
                         "type": "missing_files",
                         "error": f"Missing essential files: {', '.join(missing_files)}",
+                        "files": missing_files,
                     }
                 )
             elif placeholder_files:
