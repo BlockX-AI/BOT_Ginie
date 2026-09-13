@@ -477,9 +477,6 @@ import { APP_NAME, APP_TAGLINE, APP_DESCRIPTION, EXPLORER_URL, VERIFIED } from '
 const networkName = import.meta.env.VITE_NETWORK || 'BOT Chain'
 
 export default function LandingPage() {
-  const words = (APP_NAME || 'DApp').split(' ')
-  const last = words.length > 1 ? words.pop() : (APP_NAME || 'DApp')
-  const first = words.length ? words.join(' ') : ''
   const gridCols = (min) => ({ display: 'grid', gap: '1.25rem', gridTemplateColumns: 'repeat(auto-fit,minmax(' + min + 'px,1fr))' })
 
   const features = [
@@ -503,10 +500,10 @@ export default function LandingPage() {
         <Link to="/app" className="nb-btn nb-btn-primary">Open App <ArrowRight size={16} /></Link>
       </header>
 
-      <section className="nb-wrap" style={{ paddingTop: '2rem', paddingBottom: '3.5rem' }}>
+      <section className="nb-wrap" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingTop: '2rem', paddingBottom: '3.5rem' }}>
         <span className="nb-badge">{networkName}{VERIFIED ? ' · ✓ Verified' : ''}</span>
         <h1 className="nb-display" style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', marginTop: '1.2rem' }}>
-          {first} <span className="nb-hl">{last}</span>
+          <span className="nb-hl">{APP_NAME || 'DApp'}</span>
         </h1>
         <p style={{ maxWidth: '640px', marginTop: '1.2rem', fontSize: '1.15rem' }}>{APP_TAGLINE}</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.85rem', marginTop: '1.8rem' }}>

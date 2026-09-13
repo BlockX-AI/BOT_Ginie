@@ -380,6 +380,12 @@ If the prompt mentions ANY Web3/blockchain keywords (contract, DApp, voting, DAO
 3. Set up React Router in App.jsx with routes: "/" → LandingPage, "/app" → AppPage
 4. Add "Open App" button on LandingPage that navigates to "/app"
 5. Add "Back to Home" link on AppPage that navigates to "/"
+6. **UPDATE `src/config/appMeta.js`** with AI-generated metadata:
+   - `APP_NAME`: Extract from contract name or generate a professional name (e.g., "VotingDApp" → "Voting DApp")
+   - `APP_TAGLINE`: Write a catchy one-liner about what the app does (e.g., "Decentralized voting powered by smart contracts")
+   - `APP_DESCRIPTION`: Write 1-2 sentences explaining the app's functionality based on the contract ABI (e.g., "Create proposals, cast votes, and view results on-chain. All voting data is transparent and immutable on the blockchain.")
+   - DO NOT use the user's raw prompt (e.g., "Generate a voting dapp") - analyze the contract and write proper marketing copy
+   - Keep EXPLORER_URL and VERIFIED as-is (they are auto-populated)
 
 This is MANDATORY for ALL Web3 DApps - do NOT use single-page layout!
 
