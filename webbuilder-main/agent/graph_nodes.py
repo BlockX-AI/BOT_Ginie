@@ -1536,17 +1536,22 @@ async def application_checker_node(state: GraphState) -> GraphState:
                         files_count = len(files_map)
                         app_jsx_content = files_map.get("src/App.jsx", "")
                         main_jsx_content = files_map.get("src/main.jsx", "")
+                        # Two-page shell: contract wiring lives in AppPage.jsx (+ shared cards)
+                        app_page_content = files_map.get("src/pages/AppPage.jsx", "")
+                        cards_content = files_map.get("src/components/ContractCards.jsx", "")
+                        # Combined content so markers are found whether the app is single- or two-page
+                        wiring_content = app_jsx_content + app_page_content + cards_content
 
                         # The new deterministic shell has these markers — old boilerplate doesn't
-                        has_connect_button = "ConnectButton" in app_jsx_content
-                        has_contract_import = "CONTRACT_ADDRESS" in app_jsx_content or "contractConfig" in app_jsx_content
+                        has_connect_button = "ConnectButton" in wiring_content
+                        has_contract_import = "CONTRACT_ADDRESS" in wiring_content or "contractConfig" in wiring_content
                         has_wagmi_provider = "WagmiProvider" in main_jsx_content
                         has_rainbowkit = "RainbowKitProvider" in main_jsx_content
 
                         # Old boilerplate markers that should NOT be present
                         is_old_boilerplate = (
-                            "Loading contract functions" in app_jsx_content or
-                            "wallet-connect-placeholder" in app_jsx_content
+                            "Loading contract functions" in wiring_content or
+                            "wallet-connect-placeholder" in wiring_content
                         )
 
                         is_healthy = (

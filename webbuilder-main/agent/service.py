@@ -501,7 +501,18 @@ body {
   background: #6d28d9;
 }'''
                 await sandbox.files.write("/home/user/react-app/src/index.css", index_css)
-                
+
+                # Overwrite the above scaffold with the canonical deterministic
+                # neo-brutalist two-page shell so initial seeding == build-time
+                # restore (single source of truth in agent/dapp_shell.py). This
+                # also creates src/pages/* and src/components/* used by the shell.
+                try:
+                    from agent.dapp_shell import write_shell_files
+                    seeded = await write_shell_files(sandbox)
+                    print(f"🎨 Seeded neo-brutalist shell ({len(seeded)} files): {seeded}")
+                except Exception as shell_err:
+                    print(f"⚠️ Failed to seed deterministic shell (using scaffold): {shell_err}")
+
                 print("React app directory structure initialized successfully")
             else:
                 print("React app directory already exists")
