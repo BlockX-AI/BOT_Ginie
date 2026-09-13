@@ -381,7 +381,7 @@ class DAppOrchestrator:
                 await self._send_status(socket, "frontend_building", "Building UI components...")
             
             # Get sandbox and run agent
-            sandbox = await self.webbuilder.get_e2b_sandbox(chat_id)
+            sandbox = await self.webbuilder.get_e2b_sandbox(chat_id, custom_theme=has_custom_theme)
 
             # Deterministic contract wiring: pre-write contract config into sandbox
             # so the frontend always has the real address+ABI regardless of LLM behavior
@@ -605,7 +605,7 @@ export const VERIFIED = {(_json.dumps(bool(getattr(contract, 'verified', False))
             await db.commit()
             
             # Run WebBuilder
-            sandbox = await self.webbuilder.get_e2b_sandbox(chat_id)
+            sandbox = await self.webbuilder.get_e2b_sandbox(chat_id, custom_theme=has_custom_theme)
 
             # Deterministic contract wiring: pre-write contract config into sandbox
             try:
@@ -771,10 +771,35 @@ Example:
             print("🎨 Custom theme detected in prompt - using flexible design system")
             design_system = self._get_flexible_design_system()
             index_css = self._get_flexible_css_template()
+            hero_spec = (
+                "big, bold headline in a font that matches the requested "
+                "aesthetic (highlight one key word with your theme's accent — "
+                "e.g. neon glow or accent color — do NOT use the nb-hl yellow style)"
+            )
+            feature_cards_spec = "3-4 feature cards styled with YOUR custom theme classes + lucide-react icons"
+            stat_cards_spec = "key read-function values in stat cards styled per YOUR custom theme"
+            theme_consistency = """
+⚠️ THEME CONSISTENCY (NON-NEGOTIABLE):
+- You are generating a CUSTOM theme. Do NOT use nb-* classes, Archivo Black,
+  the yellow highlight, or any neo-brutalist styling — those belong to the
+  default theme and will clash with the requested look.
+- EVERY element must be styled with your custom design system: headings,
+  buttons, cards, inputs, badges, footer. No default-looking elements.
+- Apply the requested effects consistently (e.g. neon text-shadow glow,
+  glowing borders, matching hover states) — not just on one component."""
+            final_check = """  ✓ index.css implements the CUSTOM theme with the exact requested colors.
+  ✓ Custom theme classes are used consistently on every page/component
+    (NO nb-* classes, NO yellow highlight, NO leftover default styling)."""
         else:
             print("🎨 No custom theme detected - using default neo-brutalist design")
             design_system = get_strict_design_system()
             index_css = get_index_css_template()
+            hero_spec = "big Archivo Black headline (use nb-hl yellow highlight on a key word)"
+            feature_cards_spec = "3-4 nb-card feature cards with lucide-react icons"
+            stat_cards_spec = "key read-function values in nb-card-sm cards (mono numbers)"
+            theme_consistency = ""
+            final_check = """  ✓ index.css contains the neo-brutalist tokens/classes above.
+  ✓ nb-* classes (nb-card, nb-btn, nb-field, nb-ticker, nb-display, nb-hl) are used."""
 
         return f"""
 Build a premium Web3 React frontend for the following smart contract.
@@ -797,11 +822,11 @@ You MUST create TWO separate pages wired with react-router-dom. A single-page
 layout is NOT acceptable and will be rejected.
 
 1. src/pages/LandingPage.jsx  → route "/"  (marketing / info ONLY, NO contract calls)
-   - Full-width HERO: big Archivo Black headline (use nb-hl yellow highlight on a
-     key word), tagline from APP_TAGLINE, short description from APP_DESCRIPTION.
+   - Full-width HERO: {hero_spec}, tagline from APP_TAGLINE,
+     short description from APP_DESCRIPTION.
    - Prominent primary button "Open App" that navigates to "/app"
      (use react-router <Link to="/app"> or useNavigate).
-   - "What It Does" section: 3-4 nb-card feature cards with lucide-react icons.
+   - "What It Does" section: {feature_cards_spec}.
    - "How It Works" section: numbered steps 1-2-3-4 (connect wallet → action → result).
    - "How To Use" section: short bullet instructions + prerequisites.
    - Footer: explorer link (EXPLORER_URL), network badge, verification status.
@@ -810,7 +835,7 @@ layout is NOT acceptable and will be rejected.
 2. src/pages/AppPage.jsx  → route "/app"  (ALL contract interaction lives here)
    - Header: app name, wallet connect button (RainbowKit), connected address,
      network indicator, and a "← Home" <Link to="/">.
-   - Stats dashboard: key read-function values in nb-card-sm cards (mono numbers).
+   - Stats dashboard: {stat_cards_spec}.
    - Grouped function sections:
        * READ functions  → auto-fetch + refresh button, results in cards.
        * WRITE functions → input forms with the CORRECT control per Solidity type
@@ -841,7 +866,7 @@ config from src/config/contract.js — these files are PRE-WRITTEN, do not overw
   Briefcase, Camera, Globe, Link, ExternalLink, Mail.
 - Only import icon names that actually exist (e.g. Zap, Shield, Wallet,
   ArrowRight, ArrowLeft, CheckCircle2, ExternalLink, Copy, RefreshCw).
-
+{theme_consistency}
 ================================================================================
 WEB3 WIRING REQUIREMENTS (WIZARD-ENHANCED)
 ================================================================================
@@ -879,8 +904,7 @@ WEB3 WIRING REQUIREMENTS (WIZARD-ENHANCED)
 
 FINAL CHECK before you finish:
   ✓ LandingPage.jsx and AppPage.jsx BOTH exist and are routed in App.jsx.
-  ✓ index.css contains the neo-brutalist tokens/classes above.
-  ✓ nb-* classes (nb-card, nb-btn, nb-field, nb-ticker, nb-display, nb-hl) are used.
+{final_check}
   ✓ Landing page has an "Open App" button → "/app"; App page has "← Home" → "/".
   ✓ All contract read/write functions are wired on AppPage only.
 <<<END_FRONTEND_SPEC>>>

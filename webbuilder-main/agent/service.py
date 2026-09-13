@@ -36,7 +36,7 @@ class Service:
         )
         os.makedirs(self.storage_base_path, exist_ok=True)
 
-    async def get_e2b_sandbox(self, id: str) -> AsyncSandbox:
+    async def get_e2b_sandbox(self, id: str, custom_theme: bool = False) -> AsyncSandbox:
         """Get or create E2B sandbox for project"""
         
         current_time = time.time()
@@ -73,7 +73,9 @@ class Service:
         print("Sandbox created successfully")
 
         # Initialize React app directory structure
-        await self._initialize_react_app_directory(self.sandboxes[id])
+        await self._initialize_react_app_directory(
+            self.sandboxes[id], project_id=id, custom_theme=custom_theme
+        )
 
         # Restore files from database first (primary source of truth)
         await self._restore_files_from_database(id, self.sandboxes[id])
@@ -83,7 +85,7 @@ class Service:
 
         return self.sandboxes[id]
     
-    async def _initialize_react_app_directory(self, sandbox: AsyncSandbox):
+    async def _initialize_react_app_directory(self, sandbox: AsyncSandbox, project_id: str = "", custom_theme: bool = False):
         """Initialize the React app directory structure if it doesn't exist"""
         try:
             # Check if directory exists
@@ -510,12 +512,17 @@ body {
                     from agent.dapp_shell import write_shell_files
                     from utils.store import load_json_store
                     
-                    # Load theme from context if available
+                    # Load theme from context if available (covers sandbox
+                    # recreations where the flag is already persisted)
                     ctx = load_json_store(project_id, "context.json") or {}
                     theme_id = ctx.get("theme_id", "neo-brutalist")
-                    
-                    seeded = await write_shell_files(sandbox, theme_id=theme_id)
-                    print(f"🎨 Seeded {theme_id} shell ({len(seeded)} files): {seeded}")
+                    infra_only = custom_theme or ctx.get("has_custom_theme", False)
+
+                    seeded = await write_shell_files(
+                        sandbox, theme_id=theme_id, infra_only=infra_only
+                    )
+                    mode = "infra-only (custom theme)" if infra_only else theme_id
+                    print(f"🎨 Seeded {mode} shell ({len(seeded)} files): {seeded}")
                 except Exception as shell_err:
                     print(f"⚠️ Failed to seed deterministic shell (using scaffold): {shell_err}")
 
