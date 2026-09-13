@@ -9,7 +9,7 @@ import asyncio
 import os
 import re
 from langgraph.prebuilt import create_react_agent
-from .prompts import INITPROMPT, PROMPT_ENHANCER_SYSTEM
+from .prompts import INITPROMPT, PROMPT_ENHANCER_SYSTEM, DAPP_BUILDER_SYSTEM
 from utils.store import load_json_store, save_json_store
 from agent.file_storage_hook import snapshot_and_store_files, snapshot_project_to_context_and_db
 import traceback
@@ -499,6 +499,9 @@ async def builder_node(state: GraphState) -> GraphState:
 
         base_tools = create_tools_with_context(sandbox, socket, project_id)
 
+        # DApp flow marker: the orchestrator embeds this protected spec block
+        is_dapp = "<<<FRONTEND_SPEC_DO_NOT_ALTER>>>" in (state.get("enhanced_prompt") or "")
+
         if current_errors:
             error_details = []
             missing_file_list = []
@@ -559,6 +562,31 @@ async def builder_node(state: GraphState) -> GraphState:
               are harmless. Focus on the LAST error in the output.
             
             Fix ALL errors before finishing!
+            """
+        elif is_dapp:
+            builder_prompt = f"""
+            The scaffold is PRE-BUILT and protected — routing, pages, providers,
+            contract config and typed hooks already exist. Your ONLY job is to
+            write the 10 design files listed in your system instructions.
+
+            IMPLEMENTATION PLAN FROM PLANNER:
+
+            {json.dumps(plan, indent=2)}
+
+            CRITICAL STEPS — DO ALL OF THESE:
+
+            1. Call get_context() for previous work on this project (if any).
+            2. Read 1-2 stub files to confirm import paths/exports
+               (e.g. read_file("src/components/app/ContractActions.jsx"),
+               read_file("src/theme.css")).
+            3. Write src/theme.css FIRST — it defines the palette and effects
+               every component consumes.
+            4. Write all 9 component files with write_multiple_files
+               (2-3 batches is fine).
+            5. VERIFY with list_directory("src/components") — every file from
+               the list must contain YOUR implementation, not the stub.
+
+            DO NOT STOP until all 10 files have YOUR implementation!
             """
         else:
             builder_prompt = f"""
@@ -628,17 +656,17 @@ async def builder_node(state: GraphState) -> GraphState:
                     builder_prompt
                     + "\n\n=== NON-NEGOTIABLE SPEC (follow EXACTLY, verbatim) ===\n"
                     + "\n\n".join(_protected)
-                    + "\n\nYou MUST implement the mandatory two-page architecture "
-                      "(LandingPage '/' + AppPage '/app') and write src/index.css "
-                      "EXACTLY as specified above. Do NOT produce a single-page app "
-                      "and do NOT substitute a different visual theme."
+                    + "\n\nYou MUST write every file listed in the spec — the "
+                      "pre-built pages already stitch them together. Write only "
+                      "your assigned component/theme files; protected scaffold "
+                      "files are blocked."
                 )
                 print(f"🛡️ Builder: injected {len(_protected)} protected spec block(s)")
         except Exception as _spec_err:
             print(f"⚠️ Builder: failed to inject protected spec: {_spec_err}")
 
         messages = [
-            SystemMessage(content=INITPROMPT),
+            SystemMessage(content=DAPP_BUILDER_SYSTEM if is_dapp else INITPROMPT),
             HumanMessage(content=builder_prompt),
         ]
 
@@ -749,6 +777,47 @@ async def builder_node(state: GraphState) -> GraphState:
 
             print(f"Builder node: Agent execution completed")
             print(f"Builder node: Final files_created: {files_created}")
+
+            # ── expectedFiles verification (wizard-style) ──
+            # Every AI-owned file ships as a functional stub, so a file that is
+            # missing OR still equals the stub means the agent skipped it.
+            # Give it a bounded follow-up pass to finish the design set.
+            if is_dapp:
+                try:
+                    from agent.dapp_shell import EXPECTED_COMPONENT_FILES, AI_STUB_FILES
+                    for _ef_pass in range(2):
+                        pending = []
+                        for _rel in EXPECTED_COMPONENT_FILES:
+                            try:
+                                _c = await sandbox.files.read(f"/home/user/react-app/{_rel}")
+                            except Exception:
+                                _c = ""
+                            if not _c or _c.strip() == AI_STUB_FILES.get(_rel, "").strip():
+                                pending.append(_rel)
+                        if not pending:
+                            break
+                        print(f"⚠️ Builder: {len(pending)} file(s) still stubs after pass {_ef_pass + 1}: {pending}")
+                        _follow = [
+                            SystemMessage(content=DAPP_BUILDER_SYSTEM),
+                            HumanMessage(content=(
+                                "You finished but did NOT implement these files — they are "
+                                f"still the default stubs: {pending}\n\n"
+                                "Write EACH one now with create_file/write_multiple_files, "
+                                "fully implemented per your spec (same default export and "
+                                "filename). Do not just read files — WRITE them."
+                            )),
+                        ]
+                        _gen = agent_executor.astream_events(
+                            {"messages": _follow}, version="v2", config=config
+                        )
+                        while True:
+                            try:
+                                await _gen.__anext__()
+                            except StopAsyncIteration:
+                                break
+                        print(f"Builder node: expected-files follow-up pass {_ef_pass + 1} done")
+                except Exception as _ef_err:
+                    print(f"⚠️ Builder: expected-files check failed (non-fatal): {_ef_err}")
 
             # Snapshot project files for deployment (exclude node_modules, dist)
             try:
@@ -1548,21 +1617,20 @@ async def application_checker_node(state: GraphState) -> GraphState:
             # the production build is ALWAYS correct and wired to the contract.
             # SKIP restoration if user requested custom theme via prompt.
             try:
-                from agent.dapp_shell import write_shell_files
-                
-                # Load theme from context
+                from agent.dapp_shell import write_scaffold_files, write_missing_stubs
+
                 project_id_restore = state.get("project_id", "")
                 ctx_restore = load_json_store(project_id_restore, "context.json") or {}
-                theme_id = ctx_restore.get("theme_id", "neo-brutalist")
-                has_custom_theme = ctx_restore.get("has_custom_theme", False)
-                
-                if has_custom_theme:
-                    print(f"🎨 Custom theme detected - SKIPPING shell restoration to preserve AI-generated theme")
-                    # Only restore critical contract files, not theme/CSS files
-                    restored = []
-                else:
-                    restored = await write_shell_files(sandbox, theme_id=theme_id)
-                    print(f"🛡️ Restored {len(restored)} shell files ({theme_id} theme) before build: {restored}")
+
+                # Always restore the protected scaffold (theme-neutral — the
+                # design lives in AI-owned component files, never touched here)
+                restored = await write_scaffold_files(sandbox)
+                # Fill in AI-owned stubs ONLY where the file is missing/empty —
+                # never overwrite AI-generated components.
+                stubbed = await write_missing_stubs(sandbox)
+                print(f"🛡️ Restored {len(restored)} scaffold files before build")
+                if stubbed:
+                    print(f"🧩 Filled missing component stubs: {stubbed}")
 
                 # Restore protected contract config from context.json
                 protected = ctx_restore.get("protected_files", {})
@@ -1579,7 +1647,7 @@ async def application_checker_node(state: GraphState) -> GraphState:
                 "src/App.jsx": ["import", "export", "function", "return"],
                 "src/main.jsx": ["ReactDOM", "render", "import"],
                 "src/pages/LandingPage.jsx": ["export", "function", "return"],
-                "src/pages/AppPage.jsx": ["export", "function", "return", "useAccount"],
+                "src/pages/AppPage.jsx": ["export", "function", "return", "ContractActions"],
                 "package.json": ["dependencies", "react", "vite"],
             }
             missing_files = []
@@ -1877,11 +1945,21 @@ async def application_checker_node(state: GraphState) -> GraphState:
                         files_count = len(files_map)
                         app_jsx_content = files_map.get("src/App.jsx", "")
                         main_jsx_content = files_map.get("src/main.jsx", "")
-                        # Two-page shell: contract wiring lives in AppPage.jsx (+ shared cards)
-                        app_page_content = files_map.get("src/pages/AppPage.jsx", "")
-                        cards_content = files_map.get("src/components/ContractCards.jsx", "")
-                        # Combined content so markers are found whether the app is single- or two-page
-                        wiring_content = app_jsx_content + app_page_content + cards_content
+                        # Two-page shell: contract wiring lives in the app/*
+                        # components (AppHeader owns ConnectButton; ContractInfo/
+                        # StatCards/ContractActions own the contract imports)
+                        wiring_content = "".join(
+                            files_map.get(p, "")
+                            for p in (
+                                "src/App.jsx",
+                                "src/pages/AppPage.jsx",
+                                "src/components/ContractCards.jsx",
+                                "src/components/app/AppHeader.jsx",
+                                "src/components/app/ContractInfo.jsx",
+                                "src/components/app/StatCards.jsx",
+                                "src/components/app/ContractActions.jsx",
+                            )
+                        )
 
                         # The new deterministic shell has these markers — old boilerplate doesn't
                         has_connect_button = "ConnectButton" in wiring_content

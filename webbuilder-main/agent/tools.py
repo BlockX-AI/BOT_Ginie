@@ -15,6 +15,28 @@ def create_tools_with_context(
     sandbox: AsyncSandbox, socket: WebSocket, project_id: str = None
 ):
     """Create tools with sandbox and socket context"""
+
+    def _check_write_allowed(file_path: str):
+        """
+        Return an error string if file_path is a pipeline-protected path.
+        Protection is driven by context.json["protected_paths"] — only set for
+        DApp flows, so generic webbuilder projects are unaffected.
+        """
+        try:
+            ctx = load_json_store(project_id, "context.json") or {}
+            protected = ctx.get("protected_paths") or []
+        except Exception:
+            protected = []
+        rel = (file_path or "").lstrip("/").replace("\\", "/")
+        for p in protected:
+            p = p.lstrip("/").replace("\\", "/")
+            if rel == p or rel.startswith(p.rstrip("/") + "/"):
+                return (
+                    f"BLOCKED: '{rel}' is a protected pipeline file — do NOT create, "
+                    "modify or delete it. Write only your assigned component/theme files."
+                )
+        return None
+
     async def safe_send_json(sock: WebSocket, data: dict) -> bool:
         """Safely send JSON over WebSocket; return False if send fails or socket closed."""
         try:
@@ -49,6 +71,9 @@ def create_tools_with_context(
             create_file("src/App.jsx", "import React from 'react';\\nexport default function App() { return <div>Hello</div>; }")
         """
         try:
+            denied = _check_write_allowed(file_path)
+            if denied:
+                return denied
             # The React app is in /home/user/react-app
             full_path = os.path.join("/home/user/react-app", file_path)
 
@@ -131,6 +156,9 @@ def create_tools_with_context(
             delete_file("src/old-component.jsx") - removes an unused component
         """
         try:
+            denied = _check_write_allowed(file_path)
+            if denied:
+                return denied
             # The React app is in /home/user/react-app
             full_path = os.path.join("/home/user/react-app", file_path)
             await sandbox.files.remove(full_path)
@@ -379,8 +407,12 @@ def create_tools_with_context(
             # Convert to the format expected by E2B
             file_objects = []
             files_to_store = []  # Track files for DB storage
-            
+            skipped_protected = []
+
             for file_info in files_data:
+                if _check_write_allowed(file_info.get("path", "")):
+                    skipped_protected.append(file_info.get("path", ""))
+                    continue
                 # Fix escape sequences in the data (same as create_file)
                 content = file_info["data"]
                 try:
@@ -430,7 +462,7 @@ def create_tools_with_context(
                 except Exception as db_error:
                     logger.warning(f"Failed to store files in DB: {db_error}")
 
-            file_names = [f["path"] for f in files_data]
+            file_names = [f["path"] for f in files_to_store]
             await safe_send_json(
                 socket,
                 {
@@ -439,9 +471,13 @@ def create_tools_with_context(
                 },
             )
 
-            return (
-                f"Successfully created {len(file_names)} files: {', '.join(file_names)}"
-            )
+            result_msg = f"Successfully created {len(file_names)} files: {', '.join(file_names)}"
+            if skipped_protected:
+                result_msg += (
+                    f" | BLOCKED {len(skipped_protected)} protected file(s) "
+                    f"(not written): {', '.join(skipped_protected)}"
+                )
+            return result_msg
 
         except Exception as e:
             await safe_send_json(

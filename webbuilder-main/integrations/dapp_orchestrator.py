@@ -381,7 +381,7 @@ class DAppOrchestrator:
                 await self._send_status(socket, "frontend_building", "Building UI components...")
             
             # Get sandbox and run agent
-            sandbox = await self.webbuilder.get_e2b_sandbox(chat_id, custom_theme=has_custom_theme)
+            sandbox = await self.webbuilder.get_e2b_sandbox(chat_id)
 
             # Deterministic contract wiring: pre-write contract config into sandbox
             # so the frontend always has the real address+ABI regardless of LLM behavior
@@ -472,6 +472,7 @@ export const VERIFIED = {(_json.dumps(bool(getattr(contract, 'verified', False))
                 # before the build if the LLM blanks/overwrites them.
                 try:
                     from utils.store import load_json_store, save_json_store
+                    from agent.dapp_shell import PROTECTED_PATH_PREFIXES, PROTECTED_EXACT_PATHS
                     ctx = load_json_store(chat_id, "context.json") or {}
                     ctx["protected_files"] = {
                         f"src/contracts/{contract_name}.json": _json.dumps(contract_bundle, indent=2),
@@ -481,10 +482,12 @@ export const VERIFIED = {(_json.dumps(bool(getattr(contract, 'verified', False))
                         ".env.production": env_prod,
                         ".env": env_prod,
                     }
-                    ctx["theme_id"] = theme_id  # Store selected theme for shell restoration
-                    ctx["has_custom_theme"] = has_custom_theme  # Store custom theme flag
+                    # Paths the builder/fix agents may NOT write (tool-enforced)
+                    ctx["protected_paths"] = (
+                        PROTECTED_PATH_PREFIXES + sorted(PROTECTED_EXACT_PATHS)
+                    )
                     save_json_store(chat_id, "context.json", ctx)
-                    print(f"🛡️ Stored {len(ctx['protected_files'])} protected files + theme ({theme_id}, custom={has_custom_theme}) in context.json")
+                    print(f"🛡️ Stored {len(ctx['protected_files'])} protected files + {len(ctx['protected_paths'])} protected paths in context.json")
                 except Exception as store_err:
                     print(f"⚠️ Failed to persist protected files: {store_err}")
             except Exception as prewrite_err:
@@ -605,7 +608,7 @@ export const VERIFIED = {(_json.dumps(bool(getattr(contract, 'verified', False))
             await db.commit()
             
             # Run WebBuilder
-            sandbox = await self.webbuilder.get_e2b_sandbox(chat_id, custom_theme=has_custom_theme)
+            sandbox = await self.webbuilder.get_e2b_sandbox(chat_id)
 
             # Deterministic contract wiring: pre-write contract config into sandbox
             try:
@@ -679,6 +682,7 @@ export const VERIFIED = false
                 # Persist protected files so application_checker can restore them
                 try:
                     from utils.store import load_json_store, save_json_store
+                    from agent.dapp_shell import PROTECTED_PATH_PREFIXES, PROTECTED_EXACT_PATHS
                     ctx = load_json_store(chat_id, "context.json") or {}
                     ctx["protected_files"] = {
                         "src/contracts/Contract.json": _json.dumps(contract_bundle, indent=2),
@@ -687,8 +691,11 @@ export const VERIFIED = false
                         ".env.production": env_prod,
                         ".env": env_prod,
                     }
+                    ctx["protected_paths"] = (
+                        PROTECTED_PATH_PREFIXES + sorted(PROTECTED_EXACT_PATHS)
+                    )
                     save_json_store(chat_id, "context.json", ctx)
-                    print(f"🛡️ Stored {len(ctx['protected_files'])} protected files in context.json")
+                    print(f"🛡️ Stored {len(ctx['protected_files'])} protected files + {len(ctx['protected_paths'])} protected paths in context.json")
                 except Exception as store_err:
                     print(f"⚠️ Failed to persist protected files: {store_err}")
             except Exception as prewrite_err:
@@ -756,50 +763,18 @@ Example:
         Returns:
             (prompt_text, has_custom_theme)
         """
-        # Detect if user requested custom theme/styling
+        # Detect if user requested custom theme/styling (kept for logging/context)
         custom_theme_keywords = [
             'purple', 'matrix', 'green', 'cyberpunk', 'neon', 'glow', 'glassmorphism',
             'dark theme', 'background:', 'color:', '#', 'gradient', 'futuristic',
             'terminal', 'hacker', 'sci-fi', 'blue theme', 'red theme', 'custom theme',
             'styling:', 'design:', 'aesthetic:', 'look:', 'visual:'
         ]
-        
+
         prompt_lower = original_prompt.lower()
         has_custom_theme = any(keyword in prompt_lower for keyword in custom_theme_keywords)
-        
         if has_custom_theme:
-            print("🎨 Custom theme detected in prompt - using flexible design system")
-            design_system = self._get_flexible_design_system()
-            index_css = self._get_flexible_css_template()
-            hero_spec = (
-                "big, bold headline in a font that matches the requested "
-                "aesthetic (highlight one key word with your theme's accent — "
-                "e.g. neon glow or accent color — do NOT use the nb-hl yellow style)"
-            )
-            feature_cards_spec = "3-4 feature cards styled with YOUR custom theme classes + lucide-react icons"
-            stat_cards_spec = "key read-function values in stat cards styled per YOUR custom theme"
-            theme_consistency = """
-⚠️ THEME CONSISTENCY (NON-NEGOTIABLE):
-- You are generating a CUSTOM theme. Do NOT use nb-* classes, Archivo Black,
-  the yellow highlight, or any neo-brutalist styling — those belong to the
-  default theme and will clash with the requested look.
-- EVERY element must be styled with your custom design system: headings,
-  buttons, cards, inputs, badges, footer. No default-looking elements.
-- Apply the requested effects consistently (e.g. neon text-shadow glow,
-  glowing borders, matching hover states) — not just on one component."""
-            final_check = """  ✓ index.css implements the CUSTOM theme with the exact requested colors.
-  ✓ Custom theme classes are used consistently on every page/component
-    (NO nb-* classes, NO yellow highlight, NO leftover default styling)."""
-        else:
-            print("🎨 No custom theme detected - using default neo-brutalist design")
-            design_system = get_strict_design_system()
-            index_css = get_index_css_template()
-            hero_spec = "big Archivo Black headline (use nb-hl yellow highlight on a key word)"
-            feature_cards_spec = "3-4 nb-card feature cards with lucide-react icons"
-            stat_cards_spec = "key read-function values in nb-card-sm cards (mono numbers)"
-            theme_consistency = ""
-            final_check = """  ✓ index.css contains the neo-brutalist tokens/classes above.
-  ✓ nb-* classes (nb-card, nb-btn, nb-field, nb-ticker, nb-display, nb-hl) are used."""
+            print("🎨 Custom theme detected in prompt - AI designs theme.css + components")
 
         return f"""
 Build a premium Web3 React frontend for the following smart contract.
@@ -816,97 +791,64 @@ ORIGINAL REQUEST:
 
 <<<FRONTEND_SPEC_DO_NOT_ALTER>>>
 ================================================================================
-🚨 MANDATORY TWO-PAGE ARCHITECTURE (NON-NEGOTIABLE)
+COMPONENT-GENERATION CONTRACT (NON-NEGOTIABLE)
 ================================================================================
-You MUST create TWO separate pages wired with react-router-dom. A single-page
-layout is NOT acceptable and will be rejected.
+The app scaffold is PRE-BUILT and PROTECTED — routing ("/" landing + "/app"
+dashboard), pages, providers, contract config and typed hooks already exist.
+Writes to protected files are BLOCKED. You write ONLY these 10 files:
 
-1. src/pages/LandingPage.jsx  → route "/"  (marketing / info ONLY, NO contract calls)
-   - Full-width HERO: {hero_spec}, tagline from APP_TAGLINE,
-     short description from APP_DESCRIPTION.
-   - Prominent primary button "Open App" that navigates to "/app"
-     (use react-router <Link to="/app"> or useNavigate).
-   - "What It Does" section: {feature_cards_spec}.
-   - "How It Works" section: numbered steps 1-2-3-4 (connect wallet → action → result).
-   - "How To Use" section: short bullet instructions + prerequisites.
-   - Footer: explorer link (EXPLORER_URL), network badge, verification status.
-   - NO wallet connect and NO contract reads/writes on this page.
+ 1. src/theme.css                             (design tokens — write FIRST)
+ 2. src/components/layout/Navbar.jsx
+ 3. src/components/layout/Footer.jsx
+ 4. src/components/landing/HeroSection.jsx
+ 5. src/components/landing/FeaturesSection.jsx
+ 6. src/components/landing/HowItWorks.jsx
+ 7. src/components/landing/HowToUse.jsx
+ 8. src/components/app/ContractInfo.jsx
+ 9. src/components/app/StatCards.jsx
+10. src/components/app/ContractActions.jsx
 
-2. src/pages/AppPage.jsx  → route "/app"  (ALL contract interaction lives here)
-   - Header: app name, wallet connect button (RainbowKit), connected address,
-     network indicator, and a "← Home" <Link to="/">.
-   - Stats dashboard: {stat_cards_spec}.
-   - Grouped function sections:
-       * READ functions  → auto-fetch + refresh button, results in cards.
-       * WRITE functions → input forms with the CORRECT control per Solidity type
-         (string→text, uint→number min=0, address→text w/ 0x validation,
-          bool→Yes/No toggle buttons NOT text, enum→select, array→dynamic list).
-   - Transaction feedback: pending spinner, success toast with explorer tx link,
-     friendly error messages. Handle wallet-not-connected & wrong-network states.
+Each exists as a functional stub — overwrite with your designed version,
+SAME default export + filename.
 
-3. src/App.jsx MUST set up routing:
-   import {{ BrowserRouter, Routes, Route }} from 'react-router-dom'
-   <BrowserRouter>
-     <Routes>
-       <Route path="/" element={{<LandingPage />}} />
-       <Route path="/app" element={{<AppPage />}} />
-     </Routes>
-   </BrowserRouter>
-   Ensure react-router-dom is installed/added to package.json.
+PAGE CONTRACT (already wired — do not change):
+- Landing "/" = marketing/info ONLY. NO wallet connect, NO contract calls.
+- App "/app" = ALL contract interaction (AppHeader owns the wallet button).
 
-Both pages MUST import shared metadata from src/config/appMeta.js
-(APP_NAME, APP_TAGLINE, APP_DESCRIPTION, EXPLORER_URL, VERIFIED) and contract
-config from src/config/contract.js — these files are PRE-WRITTEN, do not overwrite.
+THEME:
+- Rewrite src/theme.css with the palette/fonts/effects for THIS request.
+- If the user specified EXACT colors/fonts, use them VERBATIM.
+- EVERY element must be consistently styled — no default-looking elements.
+
+PRE-WRITTEN imports (import, never overwrite the files):
+    import {{ APP_NAME, APP_TAGLINE, APP_DESCRIPTION, EXPLORER_URL, VERIFIED }} from '../../config/appMeta'
+    import {{ CONTRACT_ADDRESS, CONTRACT_ABI, CHAIN_ID, NETWORK }} from '../../config/contract'
+    import uiSchema from '../../config/uiSchema.json'
+    import {{ convertFieldValue, getFieldError, parseBigInt, formatBigInt, validateAddress }} from '../../hooks/useContractField'
+
+WEB3 WIRING:
+- StatCards: uiSchema kind=="read" with EMPTY fields[] → live stat via
+  useReadContract (address+abi from contract.js).
+- ContractActions: reads WITH fields → read forms; writes → typed forms per
+  field.control (address→validateAddress, number-bigint→parseBigInt,
+  bool→Yes/No toggle NOT text, bytes→hex, textarea→JSON). Convert args with
+  convertFieldValue(); validate with getFieldError(). Wire writes via
+  useWriteContract + useWaitForTransactionReceipt with pending/success
+  (explorer tx link)/error states. Cover EVERY uiSchema function.
 
 ⚠️ LUCIDE-REACT ICON RULES (build will FAIL otherwise):
 - The installed lucide-react version REMOVED all brand icons. NEVER import:
   Github, Gitlab, Twitter, Facebook, Linkedin, Instagram, Youtube, Chrome,
   Slack, Twitch, Dribbble, Figma, Codepen, Codesandbox, Bitcoin.
-- For social/footer links use generic icons instead: GitBranch, Share2,
-  Briefcase, Camera, Globe, Link, ExternalLink, Mail.
-- Only import icon names that actually exist (e.g. Zap, Shield, Wallet,
-  ArrowRight, ArrowLeft, CheckCircle2, ExternalLink, Copy, RefreshCw).
-{theme_consistency}
-================================================================================
-WEB3 WIRING REQUIREMENTS (WIZARD-ENHANCED)
-================================================================================
-1. Use create_web3_boilerplate() to set up wagmi + RainbowKit + viem.
-2. Use save_contract_info() with the EXACT address, chain_id, network, abi above.
-3. Wire ALL read functions via wagmi useReadContract (address from contract.js).
-4. Wire ALL write functions via wagmi useWriteContract + useWaitForTransactionReceipt.
-5. For payable functions, clearly show the required native-token amount.
-
-🎯 DETERMINISTIC TYPE HANDLING (DO NOT RE-IMPLEMENT):
-   - A typed UI schema is pre-written at src/config/uiSchema.json
-   - Typed Web3 hooks are pre-written at src/hooks/useContractField.js
-   - IMPORT these instead of writing your own type logic:
-     
-     import uiSchema from '../config/uiSchema.json'
-     import {{ convertFieldValue, getFieldError, parseBigInt, validateAddress }} from '../hooks/useContractField'
-     
-   - For each function input, use the uiSchema field.control to pick the right UI:
-     * "address" → text input with validateAddress()
-     * "number-bigint" → number input, convert with parseBigInt()
-     * "bool" → Yes/No toggle buttons (NOT text input)
-     * "bytes" → text input with hex validation
-     * "text" → text input
-     * "textarea" → textarea (for arrays/tuples, parse JSON)
-   
-   - Before calling a write function, convert args with convertFieldValue(field, userInput)
-   - Show validation errors with getFieldError(field, userInput)
-
-{design_system}
-
-================================================================================
-📄 src/index.css — WRITE THIS FILE EXACTLY AS BELOW (design system tokens+classes)
-================================================================================
-{index_css}
+- Use instead: GitBranch, Share2, Briefcase, Camera, Globe, Link,
+  ExternalLink, Mail, Zap, Shield, Wallet, ArrowRight, ArrowLeft,
+  CheckCircle2, Copy, RefreshCw, Sparkles, TrendingUp, Activity, Lock.
 
 FINAL CHECK before you finish:
-  ✓ LandingPage.jsx and AppPage.jsx BOTH exist and are routed in App.jsx.
-{final_check}
-  ✓ Landing page has an "Open App" button → "/app"; App page has "← Home" → "/".
-  ✓ All contract read/write functions are wired on AppPage only.
+  ✓ All 10 files written with YOUR implementation (not the stubs)?
+  ✓ theme.css uses the user's EXACT requested colors (if any)?
+  ✓ Every uiSchema function covered in StatCards/ContractActions?
+  ✓ No protected file touched? No forbidden lucide icons?
 <<<END_FRONTEND_SPEC>>>
 """, has_custom_theme
     
