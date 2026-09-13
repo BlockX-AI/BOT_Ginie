@@ -57,24 +57,34 @@ async def get_current_user_optional(
 ) -> User | None:
     """Get the current user if authenticated, otherwise return None (for testing)"""
     
-    if credentials is None:
-        # Return a demo user for testing
-        result = await db.execute(select(User).limit(1))
-        demo_user = result.scalar_one_or_none()
-        
-        # If no user exists, create a demo user
-        if demo_user is None:
-            demo_user = User(
-                email="demo@ginie.ai",
-                username="demo_user",
-                hashed_password="$2b$12$dummy_hash_for_testing",
-            )
-            db.add(demo_user)
-            await db.commit()
-            await db.refresh(demo_user)
-            print(f"✅ Created demo user: {demo_user.email} (ID: {demo_user.id})")
-        
-        return demo_user
+    try:
+        if credentials is None:
+            print("🔓 No credentials provided, using demo user mode")
+            # Return a demo user for testing
+            result = await db.execute(select(User).limit(1))
+            demo_user = result.scalar_one_or_none()
+            
+            # If no user exists, create a demo user
+            if demo_user is None:
+                print("👤 Creating demo user...")
+                demo_user = User(
+                    email="demo@ginie.ai",
+                    username="demo_user",
+                    hashed_password="$2b$12$dummy_hash_for_testing",
+                )
+                db.add(demo_user)
+                await db.commit()
+                await db.refresh(demo_user)
+                print(f"✅ Created demo user: {demo_user.email} (ID: {demo_user.id})")
+            else:
+                print(f"✅ Using existing user: {demo_user.email} (ID: {demo_user.id})")
+            
+            return demo_user
+    except Exception as e:
+        print(f"❌ Error in get_current_user_optional: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
     
     try:
         token = credentials.credentials

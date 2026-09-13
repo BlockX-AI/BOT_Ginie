@@ -843,10 +843,24 @@ async def create_dapp(
     
     This endpoint orchestrates both AcademicChain (contract) and WebBuilder (frontend)
     """
-    # Skip authentication checks for testing
-    if current_user is None:
+    try:
+        print(f"📥 DApp creation request: {payload.dict()}")
+        
+        # Skip authentication checks for testing
+        if current_user is None:
+            print("❌ No user found in database")
+            return JSONResponse(
+                {"error": "No user found in database. Please create a user first."},
+                status_code=500
+            )
+        
+        print(f"✅ User found: {current_user.email} (ID: {current_user.id})")
+    except Exception as e:
+        print(f"❌ Error in DApp creation setup: {e}")
+        import traceback
+        traceback.print_exc()
         return JSONResponse(
-            {"error": "No user found in database. Please create a user first."},
+            {"error": f"Setup error: {str(e)}"},
             status_code=500
         )
     
