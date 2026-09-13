@@ -68,13 +68,35 @@ app.include_router(router=download_router)
 async def create_tables_on_startup():
     """Create all database tables on startup if they don't exist.
 
-    This runs regardless of the deployment start command, so tables are
-    always initialized even if migrations/scripts are skipped by the platform.
+    This ensures the database schema is ready before handling requests.
     """
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    print("✅ Database tables created/verified")
+    
+    # Create demo user if database is empty
     try:
-        print("🔧 Ensuring database tables exist...")
-        async with engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)
+        from sqlalchemy.ext.asyncio import AsyncSession
+        from sqlalchemy.orm import sessionmaker
+        from sqlalchemy import select
+        
+        async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+        async with async_session() as session:
+            result = await session.execute(select(User).limit(1))
+            existing_user = result.scalar_one_or_none()
+            
+            if not existing_user:
+                print("� No users found, creating demo user...")
+                demo_user = User(
+                    email="demo@ginie.ai",
+                    username="demo_user",
+                    hashed_password="$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYIxIvJ5wHG",
+                )
+                session.add(demo_user)
+                await session.commit()
+                print(f"✅ Created demo user: {demo_user.email}")
+            else:
+                print(f"✅ Found existing user: {existing_user.email}")
         print(" Database tables are ready!")
     except Exception as e:
         print(f" Could not create tables on startup: {e}")
