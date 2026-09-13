@@ -358,16 +358,16 @@ export const contractConfig = {{
                 )
                 print(f"✅ Pre-wrote contract config: {contract_name} at {contract_address} on {network}")
 
-                # Deterministic app metadata (name/tagline/description) so the frontend
-                # can render a proper hero + "what it does" + how-to, derived from the
-                # contract name and the user's original prompt (no LLM required).
-                _clean_prompt = " ".join((prompt or "").strip().split())
-                _app_name = contract_name or "BotChain DApp"
-                # Tagline = first sentence of the prompt (trimmed), else a generic line
-                _first_sentence = _clean_prompt.split(". ")[0] if _clean_prompt else ""
-                _app_tagline = (_first_sentence[:120].rstrip(" .") or "A decentralized app on BOT Chain")
-                _app_description = (_clean_prompt[:320].rstrip() + ("…" if len(_clean_prompt) > 320 else "")) if _clean_prompt else \
-                    "Interact with this smart contract directly on-chain. Every write is permanent and verifiable."
+                # Generate AI-powered app metadata (name/tagline/description) based on
+                # contract name and ABI, not raw user prompt
+                metadata = await self._generate_app_metadata(
+                    contract_name=contract_name,
+                    contract_abi=contract_abi,
+                    user_prompt=prompt
+                )
+                _app_name = metadata["name"]
+                _app_tagline = metadata["tagline"]
+                _app_description = metadata["description"]
                 app_meta_js = f"""// Auto-generated app metadata — do not delete
 export const APP_NAME = {_json.dumps(_app_name)}
 export const APP_TAGLINE = {_json.dumps(_app_tagline)}
@@ -741,6 +741,82 @@ FINAL CHECK before you finish:
   ✓ All contract read/write functions are wired on AppPage only.
 <<<END_FRONTEND_SPEC>>>
 """
+    
+    async def _generate_app_metadata(
+        self,
+        contract_name: str,
+        contract_abi: list,
+        user_prompt: str
+    ) -> Dict[str, str]:
+        """
+        Generate professional app metadata (name, tagline, description) using AI
+        based on contract name and ABI analysis, not raw user prompt.
+        
+        Returns:
+            {
+                "name": "Token Swap",
+                "tagline": "Decentralized token exchange on BOT Chain",
+                "description": "Swap tokens instantly with automated market making. Connect your wallet to trade ERC-20 tokens with low fees and instant settlement."
+            }
+        """
+        try:
+            from agent.agent import llm_gemini_flash
+            from langchain_core.messages import SystemMessage, HumanMessage
+            import json as _json
+            
+            # Extract function names from ABI for context
+            function_names = [
+                item.get("name", "")
+                for item in contract_abi
+                if item.get("type") == "function" and item.get("name")
+            ]
+            
+            system_prompt = """You are a marketing copywriter for Web3 DApps. Generate professional metadata for a DApp landing page.
+
+Output ONLY valid JSON with this exact structure:
+{
+  "name": "Short App Name (2-4 words, title case)",
+  "tagline": "One catchy sentence about what it does (max 80 chars)",
+  "description": "2-3 sentences explaining functionality and benefits (max 200 chars)"
+}
+
+Rules:
+- Name: Professional, not code-like (e.g., "Token Swap" not "TokenSwap" or "Effotel")
+- Tagline: Marketing-focused, mention blockchain/decentralization
+- Description: Explain what users can DO, not what the contract IS
+- NO raw prompts, NO technical jargon, YES user benefits
+"""
+            
+            user_message = f"""Contract Name: {contract_name}
+User Request: {user_prompt[:200]}
+Contract Functions: {", ".join(function_names[:10])}
+
+Generate professional DApp metadata (name, tagline, description) for the landing page."""
+            
+            response = await llm_gemini_flash.ainvoke([
+                SystemMessage(content=system_prompt),
+                HumanMessage(content=user_message)
+            ])
+            
+            # Parse JSON response
+            metadata = _json.loads(response.content.strip())
+            
+            # Validate and provide fallbacks
+            return {
+                "name": metadata.get("name", contract_name or "BotChain DApp")[:50],
+                "tagline": metadata.get("tagline", "A decentralized app on BOT Chain")[:120],
+                "description": metadata.get("description", "Interact with this smart contract directly on-chain.")[:250]
+            }
+            
+        except Exception as e:
+            print(f"⚠️ Metadata generation failed: {e}, using fallbacks")
+            # Fallback to simple formatting
+            clean_name = contract_name.replace("_", " ").replace("-", " ").title() if contract_name else "BotChain DApp"
+            return {
+                "name": clean_name,
+                "tagline": f"Decentralized {clean_name.lower()} on BOT Chain",
+                "description": "Interact with this smart contract directly on-chain. Every transaction is transparent and verifiable on the blockchain."
+            }
     
     async def _send_status(self, socket: WebSocket, event: str, message: str, extra: dict = None):
         """Send status update via WebSocket"""

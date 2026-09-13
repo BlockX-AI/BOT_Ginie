@@ -495,20 +495,22 @@ export default function LandingPage() {
     <div>
       <Ticker items={[(APP_NAME || 'DAPP').toUpperCase(), 'ON ' + networkName.toUpperCase(), 'IMMUTABLE', 'ON-CHAIN', VERIFIED ? 'VERIFIED CONTRACT' : 'LIVE']} />
 
-      <header className="nb-wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '1.25rem', paddingBottom: '1.25rem' }}>
+      <header className="nb-wrap" style={{ position: 'sticky', top: 0, background: 'var(--paper)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '1.25rem', paddingBottom: '1.25rem', borderBottom: '3px solid var(--ink)' }}>
         <span className="nb-display" style={{ fontSize: '1.3rem' }}>{APP_NAME}</span>
         <Link to="/app" className="nb-btn nb-btn-primary">Open App <ArrowRight size={16} /></Link>
       </header>
 
-      <section className="nb-wrap" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingTop: '2rem', paddingBottom: '3.5rem' }}>
-        <span className="nb-badge">{networkName}{VERIFIED ? ' · ✓ Verified' : ''}</span>
-        <h1 className="nb-display" style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', marginTop: '1.2rem' }}>
-          <span className="nb-hl">{APP_NAME || 'DApp'}</span>
-        </h1>
-        <p style={{ maxWidth: '640px', marginTop: '1.2rem', fontSize: '1.15rem' }}>{APP_TAGLINE}</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.85rem', marginTop: '1.8rem' }}>
-          <Link to="/app" className="nb-btn nb-btn-primary nb-btn-lg">Open App <ArrowRight size={18} /></Link>
-          <a href={EXPLORER_URL} target="_blank" rel="noreferrer" className="nb-btn nb-btn-lg">View on Explorer</a>
+      <section className="nb-wrap" style={{ minHeight: 'calc(100vh - 80px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingTop: '3rem', paddingBottom: '3rem' }}>
+        <div style={{ maxWidth: '900px' }}>
+          <span className="nb-badge">{networkName}{VERIFIED ? ' · ✓ Verified' : ''}</span>
+          <h1 className="nb-display" style={{ fontSize: 'clamp(2.6rem,7vw,5rem)', marginTop: '1.2rem', lineHeight: 1.1 }}>
+            <span className="nb-hl">{APP_NAME || 'DApp'}</span>
+          </h1>
+          <p style={{ maxWidth: '640px', marginTop: '1.5rem', fontSize: '1.15rem', lineHeight: 1.6 }}>{APP_TAGLINE}</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.85rem', marginTop: '2rem' }}>
+            <Link to="/app" className="nb-btn nb-btn-primary nb-btn-lg">Open App <ArrowRight size={18} /></Link>
+            <a href={EXPLORER_URL} target="_blank" rel="noreferrer" className="nb-btn nb-btn-lg">View on Explorer</a>
+          </div>
         </div>
       </section>
 
