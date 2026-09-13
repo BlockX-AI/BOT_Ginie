@@ -1282,12 +1282,16 @@ async def application_checker_node(state: GraphState) -> GraphState:
             # the production build is ALWAYS correct and wired to the contract.
             try:
                 from agent.dapp_shell import write_shell_files
-                restored = await write_shell_files(sandbox)
-                print(f"🛡️ Restored {len(restored)} shell files before build: {restored}")
-
-                # Restore protected contract config from context.json
+                
+                # Load theme from context
                 project_id_restore = state.get("project_id", "")
                 ctx_restore = load_json_store(project_id_restore, "context.json") or {}
+                theme_id = ctx_restore.get("theme_id", "neo-brutalist")
+                
+                restored = await write_shell_files(sandbox, theme_id=theme_id)
+                print(f"🛡️ Restored {len(restored)} shell files ({theme_id} theme) before build: {restored}")
+
+                # Restore protected contract config from context.json
                 protected = ctx_restore.get("protected_files", {})
                 for rel_path, content in protected.items():
                     await sandbox.files.write(f"/home/user/react-app/{rel_path}", content)

@@ -503,13 +503,19 @@ body {
                 await sandbox.files.write("/home/user/react-app/src/index.css", index_css)
 
                 # Overwrite the above scaffold with the canonical deterministic
-                # neo-brutalist two-page shell so initial seeding == build-time
-                # restore (single source of truth in agent/dapp_shell.py). This
-                # also creates src/pages/* and src/components/* used by the shell.
+                # two-page shell so initial seeding == build-time restore
+                # (single source of truth in agent/dapp_shell.py). This also creates
+                # src/pages/* and src/components/* used by the shell.
                 try:
                     from agent.dapp_shell import write_shell_files
-                    seeded = await write_shell_files(sandbox)
-                    print(f"🎨 Seeded neo-brutalist shell ({len(seeded)} files): {seeded}")
+                    from utils.store import load_json_store
+                    
+                    # Load theme from context if available
+                    ctx = load_json_store(project_id, "context.json") or {}
+                    theme_id = ctx.get("theme_id", "neo-brutalist")
+                    
+                    seeded = await write_shell_files(sandbox, theme_id=theme_id)
+                    print(f"🎨 Seeded {theme_id} shell ({len(seeded)} files): {seeded}")
                 except Exception as shell_err:
                     print(f"⚠️ Failed to seed deterministic shell (using scaffold): {shell_err}")
 

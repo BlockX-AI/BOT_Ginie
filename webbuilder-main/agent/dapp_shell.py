@@ -9,7 +9,11 @@ These are the "golden" copies of the ABI-driven Web3 frontend. They are:
 The contract config (src/config/contract.js, src/contracts/*.json, .env*) is
 written separately by the orchestrator with the real address/ABI, and is
 protected via context.json["protected_files"].
+
+Supports multiple visual themes via the themes.py module.
 """
+
+from agent.themes import get_theme_css, get_default_theme
 
 REACT_APP_BASE = "/home/user/react-app"
 
@@ -666,8 +670,20 @@ export default function AppPage() {
 }'''
 
 
-def get_shell_files():
-    """Return a dict of {relative_path: content} for all deterministic shell files."""
+def get_shell_files(theme_id: str = None):
+    """
+    Return a dict of {relative_path: content} for all deterministic shell files.
+    
+    Args:
+        theme_id: Theme identifier (neo-brutalist, orbit-dark, porcelain-light, noir-minimal)
+                  Defaults to neo-brutalist if not specified
+    """
+    if theme_id is None:
+        theme_id = get_default_theme()
+    
+    # Generate themed CSS
+    themed_css = get_theme_css(theme_id)
+    
     return {
         "package.json": PACKAGE_JSON,
         "vite.config.js": VITE_CONFIG,
@@ -676,7 +692,7 @@ def get_shell_files():
         "src/config/appMeta.js": APP_META_JS,
         "src/config/contract.js": CONTRACT_JS,
         "src/main.jsx": MAIN_JSX,
-        "src/index.css": INDEX_CSS,
+        "src/index.css": themed_css,  # Use themed CSS instead of hardcoded INDEX_CSS
         "src/App.jsx": APP_JSX,
         "src/components/Ticker.jsx": TICKER_JSX,
         "src/components/ContractCards.jsx": CONTRACT_CARDS_JSX,
@@ -685,9 +701,16 @@ def get_shell_files():
     }
 
 
-async def write_shell_files(sandbox, base_path: str = REACT_APP_BASE):
-    """Write all deterministic shell files into the sandbox, overwriting existing ones."""
-    files = get_shell_files()
+async def write_shell_files(sandbox, base_path: str = REACT_APP_BASE, theme_id: str = None):
+    """
+    Write all deterministic shell files into the sandbox, overwriting existing ones.
+    
+    Args:
+        sandbox: E2B sandbox instance
+        base_path: Base path for the react app
+        theme_id: Theme identifier for CSS generation
+    """
+    files = get_shell_files(theme_id=theme_id)
     for rel_path, content in files.items():
         await sandbox.files.write(f"{base_path}/{rel_path}", content)
     return list(files.keys())

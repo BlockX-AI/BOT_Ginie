@@ -805,10 +805,18 @@ async def list_user_projects(
 
 # ==================== DApp Creation Endpoints ====================
 
+@app.get("/dapp/themes")
+async def get_themes():
+    """Get list of available visual themes for DApp generation"""
+    from agent.themes import get_theme_list
+    return {"themes": get_theme_list()}
+
+
 class DAppPayload(BaseModel):
     prompt: str
     network: str = "botchain"  # Default to BOT Chain mainnet
     contract_only: bool = False  # If True, only deploy contract
+    theme_id: str = "neo-brutalist"  # Visual theme for the frontend
 
 
 class FrontendForContractPayload(BaseModel):
@@ -887,7 +895,8 @@ async def create_dapp(
                 network=payload.network,
                 socket=socket,
                 user_id=current_user.id,
-                contract_only=payload.contract_only
+                contract_only=payload.contract_only,
+                theme_id=payload.theme_id
             )
 
             if not result["success"]:

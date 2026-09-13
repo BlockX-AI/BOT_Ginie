@@ -39,7 +39,8 @@ class DAppOrchestrator:
         network: str = "botchain",
         socket: Optional[WebSocket] = None,
         user_id: Optional[int] = None,
-        contract_only: bool = False
+        contract_only: bool = False,
+        theme_id: str = "neo-brutalist"
     ) -> Dict[str, Any]:
         """
         End-to-end DApp creation from a single prompt
@@ -406,8 +407,9 @@ export const VERIFIED = {(_json.dumps(bool(getattr(contract, 'verified', False))
                         ".env.production": env_prod,
                         ".env": env_prod,
                     }
+                    ctx["theme_id"] = theme_id  # Store selected theme for shell restoration
                     save_json_store(chat_id, "context.json", ctx)
-                    print(f"🛡️ Stored {len(ctx['protected_files'])} protected files in context.json")
+                    print(f"🛡️ Stored {len(ctx['protected_files'])} protected files + theme ({theme_id}) in context.json")
                 except Exception as store_err:
                     print(f"⚠️ Failed to persist protected files: {store_err}")
             except Exception as prewrite_err:
