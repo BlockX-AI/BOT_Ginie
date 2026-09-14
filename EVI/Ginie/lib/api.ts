@@ -682,13 +682,8 @@ export type BuilderProject = {
 
 // Get WebSocket URL for DApp mode
 export function getDappWebSocketUrl(chatId: string): string {
-  // In browser, use relative WebSocket path (will use same origin)
-  // In SSR, use WEBBUILDER_BASE
-  if (typeof window !== "undefined") {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    return `${protocol}//${window.location.host}/api/proxy/ws/status/${chatId}`;
-  }
-  // Convert https:// to wss:// for WebSocket (SSR fallback)
+  // WebSockets can't be proxied through Next.js API routes
+  // Always connect directly to the Railway backend
   const wsBase = WEBBUILDER_BASE.replace('https://', 'wss://').replace('http://', 'ws://');
   return `${wsBase}/ws/status/${chatId}`;
 }
