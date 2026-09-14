@@ -670,7 +670,8 @@ async def builder_node(state: GraphState) -> GraphState:
             HumanMessage(content=builder_prompt),
         ]
 
-        agent_executor = create_react_agent(get_llm_by_name('gpt-5') if get_llm_by_name('gpt-5') else llm_gemini_pro, tools=base_tools)
+        # Use GPT-4o for builder - more reliable than Gemini for multi-step tool use
+        agent_executor = create_react_agent(get_llm_by_name('gpt-4o'), tools=base_tools)
         config = {"recursion_limit": 60}
 
         try:
