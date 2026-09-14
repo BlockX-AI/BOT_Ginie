@@ -27,7 +27,7 @@ export default function ChatPageContent() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [deploymentMode, setDeploymentMode] = useState<DeploymentMode>("normal");
+  const [deploymentMode, setDeploymentMode] = useState<DeploymentMode>("dapp"); // Default to Full DApp mode
   const [gameMode, setGameMode] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState("neo-brutalist");
   const [walletDeployModalOpen, setWalletDeployModalOpen] = useState(false);
