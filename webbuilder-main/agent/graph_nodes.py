@@ -1718,29 +1718,36 @@ async def application_checker_node(state: GraphState) -> GraphState:
                 try:
                     print("Installing npm dependencies (this may take up to 5 minutes for large projects)...")
                     
-                    # Run npm install in FOREGROUND with proper timeout and error checking
+                    # Run npm install wrapped in subshell that always exits 0 and appends exit code marker
+                    # This prevents E2B CommandExitException from hiding the real error output
                     install_result = await sandbox.commands.run(
-                        "cd /home/user/react-app && npm install --legacy-peer-deps 2>&1",
+                        "cd /home/user/react-app && (npm install --legacy-peer-deps 2>&1; echo \"__INSTALL_EXIT__:$?\")",
                         timeout=300  # 5 minutes - enough for large projects
                     )
                     
+                    # Extract real exit code from marker
+                    install_output = install_result.stdout or ""
+                    exit_match = re.search(r"__INSTALL_EXIT__:(\d+)", install_output)
+                    real_exit_code = int(exit_match.group(1)) if exit_match else install_result.exit_code
+                    # Strip the marker from visible output
+                    install_output = re.sub(r"__INSTALL_EXIT__:\d+\s*$", "", install_output).strip()
+                    
                     # Check if npm install succeeded
-                    if install_result.exit_code != 0:
-                        error_msg = f"npm install failed with exit code {install_result.exit_code}"
+                    if real_exit_code != 0:
+                        error_msg = f"npm install failed with exit code {real_exit_code}"
                         print(error_msg)
-                        print(f"npm install stderr: {install_result.stderr}")
-                        print(f"npm install stdout: {install_result.stdout}")
+                        print(f"npm install output:\n{install_output[-2000:]}")  # Last 2000 chars
                         
                         if socket:
                             await safe_send_socket(socket, {
                                 "e": "error",
-                                "message": f"❌ Dependency installation failed: {install_result.stderr[:200]}"
+                                "message": f"❌ Dependency installation failed: {install_output[-200:]}"
                             })
                         
                         runtime_errors.append({
                             "type": "npm_install_failure",
                             "message": error_msg,
-                            "details": install_result.stderr
+                            "details": install_output
                         })
                         
                         # Mark as failed and return early
