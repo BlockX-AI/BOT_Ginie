@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_API_BASE_URL": "https://web-production-fe77c.up.railway.app",
+    "NEXT_PUBLIC_WEBBUILDER_API_URL": "https://web-production-fe77c.up.railway.app",
+    "NEXT_PUBLIC_SITE_URL": "https://ginie-seven.vercel.app",
+    "NEXT_PUBLIC_BASE_URL": "https://ginie-seven.vercel.app",
+    "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID": "9979a4e84b56845b6b74af340f96769a"
+  }
+}
