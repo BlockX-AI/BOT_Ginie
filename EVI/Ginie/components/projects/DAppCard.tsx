@@ -22,6 +22,7 @@ type DAppProject = {
 
 const EXPLORER_URLS: Record<string, string> = {
   "avalanche-fuji": "https://testnet.snowtrace.io",
+  "botchain-testnet": "https://scan.bohr.life",
   "avalanche-mainnet": "https://snowtrace.io",
   "ethereum-sepolia": "https://sepolia.etherscan.io",
   "ethereum-mainnet": "https://etherscan.io",

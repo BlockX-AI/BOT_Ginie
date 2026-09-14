@@ -10,6 +10,7 @@ import DAppCard from "@/components/projects/DAppCard";
 // Network explorer URLs
 const EXPLORER_URLS: Record<string, string> = {
   "avalanche-fuji": "https://testnet.snowtrace.io",
+  "botchain-testnet": "https://scan.bohr.life",
   "avalanche-mainnet": "https://snowtrace.io",
   "ethereum-sepolia": "https://sepolia.etherscan.io",
   "ethereum-mainnet": "https://etherscan.io",
@@ -145,7 +146,7 @@ export default function ProjectsPage() {
     if (!prompt) return;
     setDappLoading(true);
     try {
-      const res = await api.builderCreateDapp({ prompt, network: "avalanche-fuji" });
+      const res = await api.builderCreateDapp({ prompt, network: "botchain-testnet" });
       const proj = (res as any)?.project;
       if (proj?.id) {
         setDappPrompt("");
@@ -540,7 +541,8 @@ export default function ProjectsPage() {
               className="flex-1 bg-white/5 rounded-md p-2 text-white placeholder:text-white/50"
               onKeyDown={(e) => e.key === "Enter" && createDapp()}
             />
-            <select className="bg-white/5 text-white/60 rounded-md px-2 text-sm" defaultValue="avalanche-fuji" disabled>
+            <select className="bg-white/5 text-white/60 rounded-md px-2 text-sm" defaultValue="botchain-testnet">
+              <option value="botchain-testnet">BOTChain Testnet</option>
               <option value="avalanche-fuji">Avalanche Fuji</option>
             </select>
             <button
@@ -587,6 +589,7 @@ export default function ProjectsPage() {
           </select>
           <select value={filterNetwork} onChange={(e) => setFilterNetwork(e.target.value)} className="bg-white/5 text-white rounded-md p-2">
             <option value="">All networks</option>
+            <option value="botchain-testnet">BOTChain Testnet</option>
             <option value="avalanche-fuji">avalanche-fuji</option>
           </select>
           <button onClick={() => loadJobs(true)} className="px-4 py-2 rounded-md bg-white/6 hover:bg-white/10">Filter</button>

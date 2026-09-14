@@ -63,7 +63,7 @@ export default function ChatIdPage() {
   const [complianceMd, setComplianceMd] = useState<string>("");
   // DApp-specific state
   const [contractAddress, setContractAddress] = useState<string | null>(null);
-  const [contractNetwork, setContractNetwork] = useState<string>("avalanche-fuji");
+  const [contractNetwork, setContractNetwork] = useState<string>("botchain-testnet");
   const [contractExplorerUrl, setContractExplorerUrl] = useState<string | null>(null);
   const [contractVerified, setContractVerified] = useState(false);
   const [contractName, setContractName] = useState<string | null>(null);
@@ -99,7 +99,7 @@ export default function ChatIdPage() {
   const autoPreviewShownRef = useRef<boolean>(false);
   const API_BASE = typeof window !== "undefined"
     ? "/api/proxy"
-    : String((process.env.NEXT_PUBLIC_API_BASE_URL as string) || "https://usermanagementapis-production.up.railway.app").replace(/\/+$/, "");
+    : String((process.env.NEXT_PUBLIC_API_BASE_URL as string) || "https://web-production-fe77c.up.railway.app").replace(/\/+$/, "");
   const [currentStage, setCurrentStage] = useState<string>("");
   const [processStatus, setProcessStatus] = useState<string>("");
 
@@ -535,8 +535,10 @@ export default function ChatIdPage() {
                         "avalanche-mainnet": "https://snowtrace.io",
                         "ethereum-sepolia": "https://sepolia.etherscan.io",
                         "ethereum-mainnet": "https://etherscan.io",
+                        "botchain-testnet": "https://scan.bohr.life",
+                        "botchain": "https://scan.botchain.ai",
                       };
-                      const explorerBase = explorerUrls[net] || explorerUrls["avalanche-fuji"];
+                      const explorerBase = explorerUrls[net] || explorerUrls["botchain-testnet"];
                       setContractExplorerUrl(`${explorerBase}/address/${addr}`);
                     }
                   }
@@ -1144,7 +1146,7 @@ export default function ChatIdPage() {
       if (wsReconnectTimerRef.current) { clearTimeout(wsReconnectTimerRef.current); wsReconnectTimerRef.current = null; }
       wsIntentionalCloseRef.current = false;
 
-      const rawBase = String(process.env.NEXT_PUBLIC_API_BASE_URL || "https://web-production-7fc87.up.railway.app").replace(/\/+$/, "");
+      const rawBase = String(process.env.NEXT_PUBLIC_API_BASE_URL || "https://web-production-fe77c.up.railway.app").replace(/\/+$/, "");
       const wsBase = rawBase.replace(/^http/i, "ws");
       const wsUrl = `${wsBase}/ws/status/${encodeURIComponent(jid)}`;
       try { console.log(JSON.stringify({ level: "debug", msg: "ws.status.connect", wsUrl })); } catch {}
@@ -1580,9 +1582,11 @@ export default function ChatIdPage() {
                   "avalanche-mainnet": "https://snowtrace.io",
                   "ethereum-sepolia": "https://sepolia.etherscan.io",
                   "ethereum-mainnet": "https://etherscan.io",
+                  "botchain-testnet": "https://scan.bohr.life",
+                  "botchain": "https://scan.botchain.ai",
                 };
                 const explorerUrl = deployedAddress
-                  ? `${explorerUrls[network] || explorerUrls["avalanche-fuji"]}/address/${deployedAddress}`
+                  ? `${explorerUrls[network] || explorerUrls["botchain-testnet"]}/address/${deployedAddress}`
                   : undefined;
                 await api.updateJobCache({
                   jobId: jid,

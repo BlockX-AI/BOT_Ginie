@@ -29,6 +29,7 @@ export default function ChatPageContent() {
   const [error, setError] = useState("");
   const [deploymentMode, setDeploymentMode] = useState<DeploymentMode>("normal");
   const [gameMode, setGameMode] = useState(false);
+  const [selectedTheme, setSelectedTheme] = useState("neo-brutalist");
   const [walletDeployModalOpen, setWalletDeployModalOpen] = useState(false);
   const [walletDeployJobId, setWalletDeployJobId] = useState<string | null>(null);
   const router = useRouter();
@@ -110,16 +111,19 @@ export default function ChatPageContent() {
           }
         } else if (modeToUse === "dapp") {
           // Full DApp creation flow: contract + React frontend
-          if (!hasDappEntitlement) {
-            setError("DApp creation requires Pro subscription. Please upgrade your plan.");
-            return;
-          }
+          // Temporarily disabled Pro check for testing
+          // if (!hasDappEntitlement) {
+          //   setError("DApp creation requires Pro subscription. Please upgrade your plan.");
+          //   return;
+          // }
           const result = await api.builderCreateDapp({
             prompt: trimmed,
-            network: "avalanche-fuji",
+            network: "botchain-testnet",
             game_mode: gameMode,
+            theme_id: selectedTheme,
           });
           const dappId =
+            (result as any)?.chat_id ||
             (result as any)?.project?.id ||
             (result as any)?.dapp?.id ||
             (result as any)?.id ||
@@ -128,6 +132,7 @@ export default function ChatPageContent() {
             setInput("");
             router.push(`/chat/${encodeURIComponent(dappId)}?mode=dapp`);
           } else {
+            console.error("No DApp ID found in response:", result);
             throw new Error("Failed to start DApp creation");
           }
         } else {
@@ -272,6 +277,8 @@ export default function ChatPageContent() {
             showWalletConnect={true}
             gameMode={gameMode}
             onGameModeChange={setGameMode}
+            selectedTheme={selectedTheme}
+            onThemeChange={setSelectedTheme}
           />
 
           {error && (

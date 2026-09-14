@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const DEFAULT_API_BASE = "https://usermanagementapis-production.up.railway.app";
+const DEFAULT_API_BASE = "https://web-production-fe77c.up.railway.app";
 const API_BASE = String(process.env.NEXT_PUBLIC_API_BASE_URL || DEFAULT_API_BASE).replace(/\/+$/, "");
 
 function buildUpstreamUrl(path: string, search: string) {
