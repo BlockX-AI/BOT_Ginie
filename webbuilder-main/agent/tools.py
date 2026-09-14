@@ -3,12 +3,47 @@ from fastapi import WebSocket
 from langchain_core.tools import tool
 import os
 import json
+import re
 from utils.store import save_json_store, load_json_store
 from db.base import get_db
 from utils.file_manager import store_project_file
 import logging
 
 logger = logging.getLogger(__name__)
+
+
+def sanitize_code_content(content: str) -> str:
+    """
+    Remove problematic Unicode characters that break esbuild/Vite builds.
+    
+    Common issues:
+    - ✓ (U+2713) checkmark → ✓ or [OK]
+    - … (U+2026) ellipsis → ...
+    - " " (U+201C/U+201D) smart quotes → " "
+    - ' ' (U+2018/U+2019) smart quotes → ' '
+    - — (U+2014) em dash → --
+    """
+    if not content:
+        return content
+    
+    # Replace common Unicode characters with ASCII equivalents
+    replacements = {
+        '\u2713': '✓',        # ✓ checkmark
+        '\u2714': '✓',        # ✔ heavy checkmark
+        '\u2026': '...',      # … ellipsis
+        '\u201c': '"',        # " left double quote
+        '\u201d': '"',        # " right double quote
+        '\u2018': "'",        # ' left single quote
+        '\u2019': "'",        # ' right single quote
+        '\u2014': '--',       # — em dash
+        '\u2013': '-',        # – en dash
+        '\u00a0': ' ',        # non-breaking space
+    }
+    
+    for unicode_char, ascii_char in replacements.items():
+        content = content.replace(unicode_char, ascii_char)
+    
+    return content
 
 
 def create_tools_with_context(
@@ -87,6 +122,9 @@ def create_tools_with_context(
             except (UnicodeDecodeError, AttributeError):
                 # If decode fails, content is likely already correct, use as-is
                 fixed_content = content
+            
+            # Sanitize Unicode characters that break esbuild (✓, …, smart quotes, etc.)
+            fixed_content = sanitize_code_content(fixed_content)
 
             # Write file to sandbox
             await sandbox.files.write(full_path, fixed_content)
@@ -422,6 +460,9 @@ def create_tools_with_context(
                 except (UnicodeDecodeError, AttributeError):
                     # If decode fails, content is likely already correct, use as-is
                     fixed_content = content
+                
+                # Sanitize Unicode characters that break esbuild (✓, …, smart quotes, etc.)
+                fixed_content = sanitize_code_content(fixed_content)
 
                 file_objects.append(
                     {
