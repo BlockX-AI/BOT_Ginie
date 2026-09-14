@@ -97,8 +97,9 @@ def _map_param_to_field(param: Dict[str, Any]) -> Dict[str, Any]:
             }
         }
     
-    # Integer types (uint*, int*)
-    if param_type.startswith("uint") or param_type.startswith("int"):
+    # Integer types (uint*, int*) — scalar only; arrays fall through to JSON
+    is_array = param_type.endswith("[]")
+    if (param_type.startswith("uint") or param_type.startswith("int")) and not is_array:
         validation: Dict[str, Any] = {"required": True}
         if param_type.startswith("uint"):
             validation["min"] = "0"
@@ -110,8 +111,8 @@ def _map_param_to_field(param: Dict[str, Any]) -> Dict[str, Any]:
             "validation": validation
         }
     
-    # Bytes types
-    if param_type.startswith("bytes"):
+    # Bytes types — scalar only; arrays fall through to JSON
+    if param_type.startswith("bytes") and not is_array:
         # Fixed-size bytes (bytes1, bytes32, etc.)
         if param_type != "bytes" and len(param_type) > 5:
             try:
