@@ -101,6 +101,16 @@ INDEX_HTML = '''<!DOCTYPE html>
   </body>
 </html>'''
 
+VERCEL_JSON = '''{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+'''
+
 WAGMI_JS = '''import { defineChain, http } from 'viem'
 import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 
@@ -916,6 +926,7 @@ SCAFFOLD_FILES = {
     "package.json": PACKAGE_JSON,
     "vite.config.js": VITE_CONFIG,
     "index.html": INDEX_HTML,
+    "vercel.json": VERCEL_JSON,
     "src/main.jsx": MAIN_JSX,
     "src/index.css": INDEX_CSS,
     "src/App.jsx": APP_JSX,
@@ -956,6 +967,7 @@ PROTECTED_EXACT_PATHS = {
     "package-lock.json",
     "vite.config.js",
     "index.html",
+    "vercel.json",
     ".env",
     ".env.production",
     "src/main.jsx",
