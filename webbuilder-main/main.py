@@ -37,6 +37,7 @@ origins = [
     "http://127.0.0.1:3100",
     "https://webbuilder.elevenai.xyz",
     "https://evi-web-lovat.vercel.app",
+    "https://ginie-seven.vercel.app",  # Ginie production deployment
 ]
 
 def is_allowed_origin(origin: str) -> bool:
